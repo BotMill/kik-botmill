@@ -1,4 +1,4 @@
-package co.aurasphere.botmill.kik.model;
+package co.aurasphere.botmill.kik.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,11 +14,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
 import java.util.ArrayList;
 import java.util.Formatter;
-
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-
 import com.google.gson.JsonArray;
+import co.aurasphere.botmill.kik.model.KikApi;
+import co.aurasphere.botmill.kik.model.User;
 
 /**
  * The Class Utils.

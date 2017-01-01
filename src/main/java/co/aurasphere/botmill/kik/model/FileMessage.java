@@ -2,6 +2,8 @@ package co.aurasphere.botmill.kik.model;
 
 import java.io.File;
 
+import co.aurasphere.botmill.kik.util.Utils;
+
 /**
  * The Class FileMessage.
  */

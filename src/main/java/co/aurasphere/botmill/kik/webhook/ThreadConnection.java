@@ -11,7 +11,7 @@ import java.nio.file.Files;
 import com.google.gson.JsonParser;
 
 import co.aurasphere.botmill.kik.model.KikApi;
-import co.aurasphere.botmill.kik.model.Utils;
+import co.aurasphere.botmill.kik.util.Utils;
 
 /**
  * The Class ThreadNewConnection.
@@ -45,7 +45,6 @@ public class ThreadConnection extends Thread {
 	@Override
 	public void run() {
 		try {
-			System.out.println("New connection from " + socket.getInetAddress());
 			BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String line = ".";
 			StringBuilder builder = new StringBuilder();

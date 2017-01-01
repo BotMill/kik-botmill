@@ -3,9 +3,101 @@
 	<modelVersion>4.0.0</modelVersion>
 	<version>1.0-SNAPSHOT</version>
 	<name>kik-botmill</name>
+	<artifactId>kik-botmill</artifactId>
+	<groupId>co.aurasphere.botmill</groupId>
+	<description>Event-driven framework for Kik Messenger's bots</description>
+	<url>http://www.botmill.io</url>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>https://raw.githubusercontent.com/BotMill/kik-botmill/master/LICENSE</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<organization>
+		<name>BotMill</name>
+		<url>http://www.botmill.io</url>
+	</organization>
+	<developers>
+		<developer>
+			<name>Donato Rimenti</name>
+			<roles>
+				<role>Software Developer</role>
+			</roles>
+			<email>donato.rimenti@botmill.io</email>
+		</developer>
+		<developer>
+			<name>Alvin Reyes</name>
+			<roles>
+				<role>Software Developer</role>
+			</roles>
+			<email>alvin.reyes@botmill.io</email>
+		</developer>
+	</developers>
+	<scm>
+		<url>https://github.com/BotMill/kik-botmill</url>
+		<connection>scm:git:git://github.com/BotMill/kik-botmill.git</connection>
+		<developerConnection>scm:git:git@github.com:BotMill/kik-botmill.git</developerConnection>
+	</scm>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
 	<build>
-		<sourceDirectory>src</sourceDirectory>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.6</version>
+				<configuration>
+					<locales>en</locales>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>false</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.3</version>
@@ -24,12 +116,11 @@
 							<goal>shade</goal>
 						</goals>
 					</execution>
-				</executions>	
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
-	<artifactId>kik-botmill</artifactId>
-	<groupId>co.aurasphere.botmill</groupId>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -67,12 +158,6 @@
 			<version>2.2.4</version>
 		</dependency>
 		<dependency>
-			<groupId>com.sparkjava</groupId>
-			<artifactId>spark-core</artifactId>
-			<version>2.5</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>4.1.6.RELEASE</version>
@@ -93,20 +178,9 @@
 			<version>4.1.6.RELEASE</version>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpmime</artifactId>
 			<version>4.5.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.alicebot.ab</groupId>
-			<artifactId>ab</artifactId>
-			<version>4.0.4-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

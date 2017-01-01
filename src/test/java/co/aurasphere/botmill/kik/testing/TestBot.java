@@ -34,7 +34,7 @@ public class TestBot extends KikBot {
 	 *             the exception
 	 */
 	public static void main(String[] args) throws Exception {
-		bot = KikApi.buildBot("user", "key", (short) 8080, new TestBot());
+		bot = KikApi.buildBot("heyjayreyes", "0427ae1f-0d2c-490d-8053-4f397b612161", (short) 8080, new TestBot());
 		bot.setSettings(new Settings(false, false, false, false)); // manuallySendReadReceipts,
 																	// receiveReadReceipts,
 																	// receiveDeliveryReceipts,

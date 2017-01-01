@@ -10,7 +10,7 @@ import co.aurasphere.botmill.kik.model.KikApi;
  * The listener interface for receiving threadWebhook events. The class that is
  * interested in processing a threadWebhook event implements this interface, and
  * the object created with that class is registered with a component using the
- * component's <code>addThreadWebhookListener<code> method. When the
+ * component's <code>addThreadWebhookListener</code> method. When the
  * threadWebhook event occurs, that object's appropriate method is invoked.
  *
  * @see ThreadWebhookEvent

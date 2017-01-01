@@ -12,6 +12,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import co.aurasphere.botmill.kik.util.Utils;
 import co.aurasphere.botmill.kik.webhook.ThreadWebhookListener;
 
 /**
@@ -180,13 +182,15 @@ public class KikApi {
 				String chatId = message.get("chatId").getAsString();
 				String id = message.get("id").getAsString();
 				String body = "";
-				
-				if (message.has("body")) {body = message.get("body").getAsString();}
-				
+
+				if (message.has("body")) {
+					body = message.get("body").getAsString();
+				}
+
 				String type = message.get("type").getAsString();
 				String from = message.get("from").getAsString();
 				String picUrl = "", videoUrl = "";
-				
+
 				if (message.has("picUrl")) {
 					picUrl = message.get("picUrl").getAsString();
 					body = picUrl;
