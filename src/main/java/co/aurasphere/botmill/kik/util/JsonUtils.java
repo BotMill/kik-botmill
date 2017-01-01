@@ -1,9 +1,5 @@
 package co.aurasphere.botmill.kik.util;
 
-import java.util.Calendar;
-
-import co.aurasphere.botmill.fb.model.base.Attachment;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
