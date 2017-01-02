@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/BotMill/kik-botmill.svg?branch=master)](https://travis-ci.org/BotMill/kik-botmill)
+
 # Kik-BotMill - Tools to Mill Kik Bots
 
 Inspired by our first ever Bot Framework [FB-BotMill](https://github.com/BotMill/fb-botmill)
