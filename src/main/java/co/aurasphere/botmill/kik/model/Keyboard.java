@@ -8,6 +8,8 @@ import com.google.gson.JsonObject;
 
 /**
  * The Class Keyboard.
+ * 
+ * @author Alvin Reyes
  */
 public class Keyboard {
 

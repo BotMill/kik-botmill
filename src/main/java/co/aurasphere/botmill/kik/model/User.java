@@ -4,6 +4,8 @@ import com.google.gson.JsonObject;
 
 /**
  * The Class User.
+ * 
+ * @author Alvin Reyes
  */
 public class User {
 

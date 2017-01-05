@@ -2,6 +2,8 @@ package co.aurasphere.botmill.kik.model;
 
 /**
  * The Class KikBot.
+ * 
+ * @author Alvin Reyes
  */
 public class KikBot {
 

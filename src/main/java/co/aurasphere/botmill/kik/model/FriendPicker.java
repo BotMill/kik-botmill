@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 /**
  * The Class FriendPicker.
+ * 
+ * @author Alvin Reyes
  */
 public class FriendPicker {
 

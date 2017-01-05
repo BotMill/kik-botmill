@@ -8,6 +8,8 @@ import com.google.gson.JsonObject;
 
 /**
  * The Class Message.
+ * 
+ * @author Alvin Reyes
  */
 public class Message {
 

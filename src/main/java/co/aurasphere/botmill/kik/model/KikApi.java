@@ -18,6 +18,8 @@ import co.aurasphere.botmill.kik.webhook.ThreadWebhookListener;
 
 /**
  * The Class KikApi.
+ * 
+ * @author Alvin Reyes
  */
 public class KikApi {
 

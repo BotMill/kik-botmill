@@ -6,6 +6,9 @@ import com.google.gson.JsonObject;
 
 /**
  * The Class Chat.
+ * 
+ * @author Alvin Reyes
+ * 
  */
 public class Chat {
 

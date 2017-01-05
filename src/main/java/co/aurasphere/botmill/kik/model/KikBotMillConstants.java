@@ -2,6 +2,8 @@ package co.aurasphere.botmill.kik.model;
 
 /**
  * The Class KikBotMillConstants.
+ * 
+ * @author Alvin Reyes
  */
 public class KikBotMillConstants {
 

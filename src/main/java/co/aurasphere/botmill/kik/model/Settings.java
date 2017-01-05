@@ -2,6 +2,8 @@ package co.aurasphere.botmill.kik.model;
 
 /**
  * The Class Settings.
+ * 
+ * @author Alvin Reyes
  */
 public class Settings {
 

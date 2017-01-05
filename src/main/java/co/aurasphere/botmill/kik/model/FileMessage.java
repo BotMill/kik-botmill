@@ -6,6 +6,9 @@ import co.aurasphere.botmill.kik.util.Utils;
 
 /**
  * The Class FileMessage.
+ * 
+ * @author Alvin Reyes
+ * 
  */
 public class FileMessage extends Message {
 

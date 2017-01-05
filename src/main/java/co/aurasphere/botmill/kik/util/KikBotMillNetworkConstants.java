@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package co.aurasphere.botmill.kik.util;
 
 /**
