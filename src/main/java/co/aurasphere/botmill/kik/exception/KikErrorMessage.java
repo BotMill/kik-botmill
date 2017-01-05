@@ -3,7 +3,7 @@ package co.aurasphere.botmill.kik.exception;
 import java.io.Serializable;
 
 /**
- * Message which contains a {@link FacebookError}.
+ * Message which contains a {@link KikError}.
  * 
  * @author Alvin Reyes
  * 
