@@ -14,7 +14,7 @@ import co.aurasphere.botmill.kik.model.FriendPicker;
 import co.aurasphere.botmill.kik.model.Keyboard;
 import co.aurasphere.botmill.kik.model.KikApi;
 import co.aurasphere.botmill.kik.model.KikBot;
-import co.aurasphere.botmill.kik.model.Message;
+import co.aurasphere.botmill.kik.model.Message1;
 import co.aurasphere.botmill.kik.model.Settings;
 
 /**
@@ -49,7 +49,7 @@ public class TestBot extends KikBot {
 	 * Message)
 	 */
 	@Override
-	public void onTextReceived(Message msg) {
+	public void onTextReceived(Message1 msg) {
 		List<Object> objects = new ArrayList<Object>();
 		objects.add("hi");
 		objects.add("no");
@@ -57,7 +57,7 @@ public class TestBot extends KikBot {
 
 		Keyboard keyboard = new Keyboard(objects);
 
-		msg.getChat().sendMessage(new Message("Hi there!", Message.Type.TEXT).setKeyboard(keyboard));
+		msg.getChat().sendMessage(new Message1("Hi there!", Message1.Type.TEXT).setKeyboard(keyboard));
 
 		Iterator<Map.Entry<String, Chat>> it = bot.getLatestChats().entrySet().iterator(); // bot.getLatestChats()
 																							// //
@@ -67,7 +67,7 @@ public class TestBot extends KikBot {
 								// it received to everyone.
 		{
 			Map.Entry<String, Chat> pair = (Map.Entry<String, Chat>) it.next();
-			pair.getValue().sendMessage(new Message(msg.getBody(), Message.Type.TEXT));
+			pair.getValue().sendMessage(new Message1(msg.getBody(), Message1.Type.TEXT));
 		}
 	}
 
@@ -79,11 +79,11 @@ public class TestBot extends KikBot {
 	 * .Message)
 	 */
 	@Override
-	public void onFriendPickedReceived(Message msg) {
+	public void onFriendPickedReceived(Message1 msg) {
 		msg.getChat()
-				.sendMessage(new Message(
+				.sendMessage(new Message1(
 						"You chose these friends: " + Arrays.stream(msg.getPicked()).collect(Collectors.joining(" ")),
-						Message.Type.TEXT));
+						Message1.Type.TEXT));
 	}
 
 	/*
@@ -93,10 +93,10 @@ public class TestBot extends KikBot {
 	 * Message)
 	 */
 	@Override
-	public void onImageReceived(Message msg) {
-		msg.getChat().sendMessage(new Message("You sent this image", Message.Type.TEXT),
-				new Message(msg.getPictureUrl(), Message.Type.IMAGE));
-		msg.getChat().sendMessage(new FileMessage(new File("images/test.png"), bot, Message.Type.IMAGE, 4)); // can
+	public void onImageReceived(Message1 msg) {
+		msg.getChat().sendMessage(new Message1("You sent this image", Message1.Type.TEXT),
+				new Message1(msg.getPictureUrl(), Message1.Type.IMAGE));
+		msg.getChat().sendMessage(new FileMessage(new File("images/test.png"), bot, Message1.Type.IMAGE, 4)); // can
 																												// be
 																												// used
 																												// to
@@ -121,9 +121,9 @@ public class TestBot extends KikBot {
 	 * Message)
 	 */
 	@Override
-	public void onVideoReceived(Message msg) {
-		msg.getChat().sendMessage(new Message("You sent this video", Message.Type.TEXT),
-				new Message(msg.getVideoUrl(), Message.Type.VIDEO));
+	public void onVideoReceived(Message1 msg) {
+		msg.getChat().sendMessage(new Message1("You sent this video", Message1.Type.TEXT),
+				new Message1(msg.getVideoUrl(), Message1.Type.VIDEO));
 	}
 
 	/*
@@ -133,9 +133,9 @@ public class TestBot extends KikBot {
 	 * com.thub.kik.botstack.KikBot#onUrlReceived(com.thub.kik.botstack.Message)
 	 */
 	@Override
-	public void onUrlReceived(Message msg) {
-		msg.getChat().sendMessage(new Message("You sent this URL", Message.Type.TEXT),
-				new Message(msg.getBody(), Message.Type.URL));
+	public void onUrlReceived(Message1 msg) {
+		msg.getChat().sendMessage(new Message1("You sent this URL", Message1.Type.TEXT),
+				new Message1(msg.getBody(), Message1.Type.URL));
 	}
 
 	/*
@@ -145,8 +145,8 @@ public class TestBot extends KikBot {
 	 * botstack.Message)
 	 */
 	@Override
-	public void onStartChattingReceived(Message msg) {
-		msg.getChat().sendMessage(new Message("Welcome!", Message.Type.TEXT));
+	public void onStartChattingReceived(Message1 msg) {
+		msg.getChat().sendMessage(new Message1("Welcome!", Message1.Type.TEXT));
 	}
 
 	/*
@@ -157,7 +157,7 @@ public class TestBot extends KikBot {
 	 * Message)
 	 */
 	@Override
-	public void onUserTypingReceived(Message msg) {
+	public void onUserTypingReceived(Message1 msg) {
 		System.out.println(msg.getFrom().getUsername() + " started typing.");
 	}
 }

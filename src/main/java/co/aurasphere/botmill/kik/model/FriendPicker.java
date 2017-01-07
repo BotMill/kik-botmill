@@ -59,7 +59,7 @@ public class FriendPicker {
 	 * @return the type
 	 */
 	public String getType() {
-		return Message.Type.FRIEND_PICKER;
+		return Message1.Type.FRIEND_PICKER;
 	}
 
 	/**

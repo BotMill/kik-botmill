@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import co.aurasphere.botmill.kik.constants.KikBotMillConstants;
+
 /**
  * The Class Chat.
  * 
@@ -73,7 +75,7 @@ public class Chat {
 	 * @param msgs
 	 *            the msgs
 	 */
-	public void sendMessage(Message... msgs) {
+	public void sendMessage(Message1... msgs) {
 		JsonObject msgObject = new JsonObject();
 		JsonArray msgArray = new JsonArray();
 
@@ -89,15 +91,15 @@ public class Chat {
 			}
 
 			switch (msgs[i].getType()) {
-			case Message.Type.IMAGE:
+			case Message1.Type.IMAGE:
 				msg.addProperty("picUrl", msgs[i].getBody());
 				break;
 
-			case Message.Type.URL:
+			case Message1.Type.URL:
 				msg.addProperty("url", msgs[i].getBody());
 				break;
 
-			case Message.Type.VIDEO:
+			case Message1.Type.VIDEO:
 				msg.addProperty("videoUrl", msgs[i].getBody());
 				break;
 

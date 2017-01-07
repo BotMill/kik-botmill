@@ -10,7 +10,7 @@ import co.aurasphere.botmill.kik.util.Utils;
  * @author Alvin Reyes
  * 
  */
-public class FileMessage extends Message {
+public class FileMessage extends Message1 {
 
 	/**
 	 * Instantiates a new file message.

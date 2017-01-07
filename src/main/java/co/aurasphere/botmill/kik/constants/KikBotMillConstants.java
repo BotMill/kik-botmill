@@ -1,4 +1,4 @@
-package co.aurasphere.botmill.kik.model;
+package co.aurasphere.botmill.kik.constants;
 
 /**
  * The Class KikBotMillConstants.

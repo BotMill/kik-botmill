@@ -13,7 +13,7 @@ public class KikBot {
 	 * @param msg
 	 *            the msg
 	 */
-	public void onTextReceived(Message msg) {
+	public void onTextReceived(Message1 msg) {
 	}
 
 	/**
@@ -22,7 +22,7 @@ public class KikBot {
 	 * @param msg
 	 *            the msg
 	 */
-	public void onImageReceived(Message msg) {
+	public void onImageReceived(Message1 msg) {
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class KikBot {
 	 * @param msg
 	 *            the msg
 	 */
-	public void onVideoReceived(Message msg) {
+	public void onVideoReceived(Message1 msg) {
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class KikBot {
 	 * @param msg
 	 *            the msg
 	 */
-	public void onUrlReceived(Message msg) {
+	public void onUrlReceived(Message1 msg) {
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class KikBot {
 	 * @param msg
 	 *            the msg
 	 */
-	public void onStartChattingReceived(Message msg) {
+	public void onStartChattingReceived(Message1 msg) {
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class KikBot {
 	 * @param msg
 	 *            the msg
 	 */
-	public void onUserTypingReceived(Message msg) {
+	public void onUserTypingReceived(Message1 msg) {
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class KikBot {
 	 * @param msg
 	 *            the msg
 	 */
-	public void onFriendPickedReceived(Message msg) {
+	public void onFriendPickedReceived(Message1 msg) {
 	}
 
 	/**
@@ -76,31 +76,31 @@ public class KikBot {
 	 * @param message
 	 *            the message
 	 */
-	public void onMessage(Message message) {
+	public void onMessage(Message1 message) {
 		switch (message.getType()) {
-		case Message.Type.TEXT:
+		case Message1.Type.TEXT:
 			onTextReceived(message);
 			break;
 
-		case Message.Type.IMAGE:
+		case Message1.Type.IMAGE:
 			onImageReceived(message);
 			break;
 
-		case Message.Type.VIDEO:
+		case Message1.Type.VIDEO:
 			onVideoReceived(message);
 			break;
 
-		case Message.Type.URL:
+		case Message1.Type.URL:
 			onUrlReceived(message);
 			break;
 
-		case Message.Type.START_CHATTING:
+		case Message1.Type.START_CHATTING:
 			onStartChattingReceived(message);
 			break;
 
-		case Message.Type.IS_TYPING:
+		case Message1.Type.IS_TYPING:
 			onUserTypingReceived(message);
-		case Message.Type.FRIEND_PICKER:
+		case Message1.Type.FRIEND_PICKER:
 			onFriendPickedReceived(message);
 			break;
 

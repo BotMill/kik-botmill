@@ -13,6 +13,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import co.aurasphere.botmill.kik.constants.KikBotMillConstants;
 import co.aurasphere.botmill.kik.util.Utils;
 import co.aurasphere.botmill.kik.webhook.ThreadWebhookListener;
 
@@ -210,12 +211,12 @@ public class KikApi {
 						from, this);
 				latestChats.put(from, chat);
 
-				Message msg = new Message(chatId, id, type, from, body, timestamp, readReceiptRequested, chat, this);
+				Message1 msg = new Message1(chatId, id, type, from, body, timestamp, readReceiptRequested, chat, this);
 
-				if (type.equals(Message.Type.IMAGE))
+				if (type.equals(Message1.Type.IMAGE))
 					msg.setPictureUrl(picUrl);
 
-				if (type.equals(Message.Type.VIDEO))
+				if (type.equals(Message1.Type.VIDEO))
 					msg.setVideoUrl(videoUrl);
 
 				if (message.has("picked")) {
