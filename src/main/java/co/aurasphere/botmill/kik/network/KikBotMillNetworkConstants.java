@@ -1,6 +1,9 @@
-package co.aurasphere.botmill.kik.constants;
+/*
+ * 
+ */
+package co.aurasphere.botmill.kik.network;
 
-public class KikBotMillConstants {
+public class KikBotMillNetworkConstants {
 
 	/** The Constant SITE. */
 	public static final String SITE = "https://api.kik.com/v1/";
@@ -13,4 +16,5 @@ public class KikBotMillConstants {
 
 	/** The Constant USER_ENDPOINT. */
 	public static final String USER_ENDPOINT = SITE + "user/";
+	
 }

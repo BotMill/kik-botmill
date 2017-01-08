@@ -1,7 +1,7 @@
 /*
  * 
  */
-package co.aurasphere.botmill.kik.util;
+package co.aurasphere.botmill.kik.network;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import co.aurasphere.botmill.kik.exception.KikError;
 import co.aurasphere.botmill.kik.exception.KikErrorMessage;
+import co.aurasphere.botmill.kik.json.JsonUtils;
 
 /**
  * Class that contains methods that allows KikBotMill to communicate through the
@@ -214,6 +215,7 @@ public class NetworkUtils {
 		StringEntity input = null;
 		try {
 			String json = JsonUtils.toJson(object);
+			System.out.println(json);
 			input = new StringEntity(json);
 			input.setContentType("application/json");
 			logger.debug("Request: {}", inputStreamToString(input.getContent()));

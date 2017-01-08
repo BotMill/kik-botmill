@@ -11,7 +11,7 @@ import java.nio.file.Files;
 import com.google.gson.JsonParser;
 
 import co.aurasphere.botmill.kik.model.KikApi;
-import co.aurasphere.botmill.kik.util.Utils;
+import co.aurasphere.botmill.kik.network.Utils;
 
 /**
  * The Class ThreadNewConnection.

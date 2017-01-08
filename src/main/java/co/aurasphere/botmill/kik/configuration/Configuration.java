@@ -2,17 +2,20 @@ package co.aurasphere.botmill.kik.configuration;
 
 import java.io.Serializable;
 
+import co.aurasphere.botmill.kik.incoming.model.ScanDataMessage;
+import co.aurasphere.botmill.kik.model.Message;
+
 public class Configuration implements Serializable  {
 
 	private String webhook;
 	private Features features;
-	private Keyboard staticKeyBoard;
+	private Keyboard keyboard;
 	
-	public Keyboard getStaticKeyBoard() {
-		return staticKeyBoard;
+	public Keyboard getKeyBoard() {
+		return keyboard;
 	}
-	public void setStaticKeyBoard(Keyboard staticKeyBoard) {
-		this.staticKeyBoard = staticKeyBoard;
+	public void setKeyBoard(Keyboard keyboard) {
+		this.keyboard = keyboard;
 	}
 	public String getWebhook() {
 		return webhook;

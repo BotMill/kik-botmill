@@ -10,5 +10,21 @@ public class TextMessage extends OutgoingMessage {
 	
 	@SerializedName("keyboards")
 	private Keyboard keyboard;
+
+	public String getTypeTime() {
+		return typeTime;
+	}
+
+	public void setTypeTime(String typeTime) {
+		this.typeTime = typeTime;
+	}
+
+	public Keyboard getKeyboard() {
+		return keyboard;
+	}
+
+	public void setKeyboard(Keyboard keyboard) {
+		this.keyboard = keyboard;
+	}
 	
 }

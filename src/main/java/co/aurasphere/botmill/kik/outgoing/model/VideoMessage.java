@@ -11,6 +11,55 @@ public class VideoMessage extends OutgoingMessage {
 	private boolean muted;
 	private boolean autoplay;
 	private boolean noSave;
+	
 	@SerializedName("keyboards")
 	private Keyboard keyboard;
+
+	public String getVideoUrl() {
+		return videoUrl;
+	}
+
+	public void setVideoUrl(String videoUrl) {
+		this.videoUrl = videoUrl;
+	}
+
+	public boolean isLoop() {
+		return loop;
+	}
+
+	public void setLoop(boolean loop) {
+		this.loop = loop;
+	}
+
+	public boolean isMuted() {
+		return muted;
+	}
+
+	public void setMuted(boolean muted) {
+		this.muted = muted;
+	}
+
+	public boolean isAutoplay() {
+		return autoplay;
+	}
+
+	public void setAutoplay(boolean autoplay) {
+		this.autoplay = autoplay;
+	}
+
+	public boolean isNoSave() {
+		return noSave;
+	}
+
+	public void setNoSave(boolean noSave) {
+		this.noSave = noSave;
+	}
+
+	public Keyboard getKeyboard() {
+		return keyboard;
+	}
+
+	public void setKeyboard(Keyboard keyboard) {
+		this.keyboard = keyboard;
+	}
 }

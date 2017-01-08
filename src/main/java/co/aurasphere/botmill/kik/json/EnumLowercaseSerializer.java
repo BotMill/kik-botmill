@@ -1,7 +1,7 @@
 /*
  * 
  */
-package co.aurasphere.botmill.kik.util;
+package co.aurasphere.botmill.kik.json;
 
 import java.lang.reflect.Type;
 
@@ -18,6 +18,8 @@ public class EnumLowercaseSerializer implements JsonSerializer<Enum<?>> {
 	 * @see com.google.gson.JsonSerializer#serialize(java.lang.Object, java.lang.reflect.Type, com.google.gson.JsonSerializationContext)
 	 */
 	public JsonElement serialize(Enum<?> src, Type typeOfSrc, JsonSerializationContext context) {
-		return context.serialize(src.name().toLowerCase());
+		//lower case and convert "_" into '-';
+		String source = src.name().replace('_', '-');
+		return context.serialize(source.toLowerCase());
 	}
 }

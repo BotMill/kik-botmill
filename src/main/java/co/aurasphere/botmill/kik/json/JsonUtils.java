@@ -1,10 +1,13 @@
 /*
  * 
  */
-package co.aurasphere.botmill.kik.util;
+package co.aurasphere.botmill.kik.json;
+
+import java.util.Calendar;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 
 /**
  * Utility class for handling JSON serialization and deserialization.
@@ -34,6 +37,9 @@ public class JsonUtils {
 
 			// Serializes enums as lower-case.
 			builder.registerTypeHierarchyAdapter(Enum.class, new EnumLowercaseSerializer());
+			
+			//	
+			builder.registerTypeHierarchyAdapter(Calendar.class, new CalendarSerializer());
 
 			gson = builder.create();
 		}

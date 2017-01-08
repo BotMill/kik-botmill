@@ -16,6 +16,7 @@ import co.aurasphere.botmill.kik.model.KikApi;
 import co.aurasphere.botmill.kik.model.KikBot;
 import co.aurasphere.botmill.kik.model.Message1;
 import co.aurasphere.botmill.kik.model.Settings;
+import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 
 /**
  * The Class TestBot.

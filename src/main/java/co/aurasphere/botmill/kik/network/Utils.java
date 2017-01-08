@@ -1,7 +1,7 @@
 /*
  * 
  */
-package co.aurasphere.botmill.kik.util;
+package co.aurasphere.botmill.kik.network;
 
 import java.io.BufferedReader;
 import java.io.File;
