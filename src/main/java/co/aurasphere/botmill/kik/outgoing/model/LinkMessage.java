@@ -2,7 +2,7 @@ package co.aurasphere.botmill.kik.outgoing.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import co.aurasphere.botmill.kik.configuration.Keyboard;
+import co.aurasphere.botmill.kik.configuration.StaticKeyboard;
 import co.aurasphere.botmill.kik.model.Attribution;
 
 public class LinkMessage extends OutgoingMessage {
@@ -16,7 +16,7 @@ public class LinkMessage extends OutgoingMessage {
 	private String picUrl;
 	
 	@SerializedName("keyboards")
-	private Keyboard keyboard;
+	private StaticKeyboard keyboard;
 
 	public String getUrl() {
 		return url;
@@ -74,11 +74,11 @@ public class LinkMessage extends OutgoingMessage {
 		this.picUrl = picUrl;
 	}
 
-	public Keyboard getKeyboard() {
+	public StaticKeyboard getKeyboard() {
 		return keyboard;
 	}
 
-	public void setKeyboard(Keyboard keyboard) {
+	public void setKeyboard(StaticKeyboard keyboard) {
 		this.keyboard = keyboard;
 	}
 	

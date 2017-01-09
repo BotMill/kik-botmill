@@ -2,14 +2,14 @@ package co.aurasphere.botmill.kik.outgoing.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import co.aurasphere.botmill.kik.configuration.Keyboard;
+import co.aurasphere.botmill.kik.configuration.StaticKeyboard;
 
 public class TextMessage extends OutgoingMessage {
 	
 	private String typeTime;
 	
 	@SerializedName("keyboards")
-	private Keyboard keyboard;
+	private StaticKeyboard keyboard;
 
 	public String getTypeTime() {
 		return typeTime;
@@ -19,11 +19,11 @@ public class TextMessage extends OutgoingMessage {
 		this.typeTime = typeTime;
 	}
 
-	public Keyboard getKeyboard() {
+	public StaticKeyboard getKeyboard() {
 		return keyboard;
 	}
 
-	public void setKeyboard(Keyboard keyboard) {
+	public void setKeyboard(StaticKeyboard keyboard) {
 		this.keyboard = keyboard;
 	}
 	

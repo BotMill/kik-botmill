@@ -40,6 +40,18 @@ import co.aurasphere.botmill.kik.json.JsonUtils;
  * 
  */
 public class NetworkUtils {
+	
+	
+	
+	public static String postJsonConfig(Object input) {
+		StringEntity stringEntity = toStringEntity(input);
+		HttpPost post = new HttpPost(KikBotMillNetworkConstants.CONFIG_ENDPOINT);
+		post.setHeader("Content-Type", "application/x-www-form-urlencoded");
+		post.setEntity(stringEntity);
+		return send(post);
+	}
+	
+	
 
 	/**
 	 * The logger.
@@ -54,7 +66,8 @@ public class NetworkUtils {
 	 */
 	public static void postJsonMessage(Object input) {
 		StringEntity stringEntity = toStringEntity(input);
-		postJsonMessage(stringEntity);
+		
+		//postJsonMessage(stringEntity);
 	}
 
 	/**

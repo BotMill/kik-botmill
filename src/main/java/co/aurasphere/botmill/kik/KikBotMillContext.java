@@ -26,6 +26,5 @@ public class KikBotMillContext {
 		this.authentication = new Authentication();
 		this.authentication.setUser(username);
 		this.authentication.setApiKey(apiKey);
-		
 	}
 }

@@ -2,7 +2,7 @@ package co.aurasphere.botmill.kik.outgoing.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import co.aurasphere.botmill.kik.configuration.Keyboard;
+import co.aurasphere.botmill.kik.configuration.StaticKeyboard;
 
 public class VideoMessage extends OutgoingMessage {
 	
@@ -13,7 +13,7 @@ public class VideoMessage extends OutgoingMessage {
 	private boolean noSave;
 	
 	@SerializedName("keyboards")
-	private Keyboard keyboard;
+	private StaticKeyboard keyboard;
 
 	public String getVideoUrl() {
 		return videoUrl;
@@ -55,11 +55,11 @@ public class VideoMessage extends OutgoingMessage {
 		this.noSave = noSave;
 	}
 
-	public Keyboard getKeyboard() {
+	public StaticKeyboard getKeyboard() {
 		return keyboard;
 	}
 
-	public void setKeyboard(Keyboard keyboard) {
+	public void setKeyboard(StaticKeyboard keyboard) {
 		this.keyboard = keyboard;
 	}
 }
