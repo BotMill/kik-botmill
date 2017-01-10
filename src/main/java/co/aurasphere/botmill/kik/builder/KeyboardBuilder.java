@@ -23,52 +23,41 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.incoming.model;
+package co.aurasphere.botmill.kik.builder;
 
-import java.util.List;
+import co.aurasphere.botmill.kik.configuration.Keyboard;
+import co.aurasphere.botmill.kik.configuration.KeyboardType;
+import co.aurasphere.botmill.kik.configuration.Response;
+import co.aurasphere.botmill.kik.model.BaseBuilder;
 
-import co.aurasphere.botmill.kik.model.Message;
+public class KeyboardBuilder<T> extends BaseBuilder {
+	
+	private Keyboard keyboard;
+	private T parentBuilder;
+	
+	public KeyboardBuilder() {
+		 this.keyboard = new Keyboard();
+	}
+	
+	public KeyboardBuilder(T t) {
+		 this.keyboard = new Keyboard();
+		 this.parentBuilder = t;
+	}
+	
+	public KeyboardBuilder<T> setType(KeyboardType type) {
+		this.keyboard.setType(type);
+		return this;
+	}
+	public KeyboardBuilder<T> addResponse(Response e) {
+		this.keyboard.getResponses().add(e);
+		return this;
+	}
+	
+	public T endKeyboard() {
+		return this.parentBuilder;
+	}
 
-//	Received message
-public abstract class IncomingMessage extends Message {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private String from;
-	private List<String> participants;
-	private String body;
-	private String timestamp;
-	private String readReceiptRequested;
-	public String getFrom() {
-		return from;
+	public Keyboard buildKeyboard() {
+		return this.keyboard;
 	}
-	public void setFrom(String from) {
-		this.from = from;
-	}
-	public List<String> getParticipants() {
-		return participants;
-	}
-	public void setParticipants(List<String> participants) {
-		this.participants = participants;
-	}
-	public String getBody() {
-		return body;
-	}
-	public void setBody(String body) {
-		this.body = body;
-	}
-	public String getTimestamp() {
-		return timestamp;
-	}
-	public void setTimestamp(String timestamp) {
-		this.timestamp = timestamp;
-	}
-	public String getReadReceiptRequested() {
-		return readReceiptRequested;
-	}
-	public void setReadReceiptRequested(String readReceiptRequested) {
-		this.readReceiptRequested = readReceiptRequested;
-	}	
 }

@@ -23,52 +23,32 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.incoming.model;
+package co.aurasphere.botmill.kik.configuration;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-import co.aurasphere.botmill.kik.model.Message;
-
-//	Received message
-public abstract class IncomingMessage extends Message {
-
-	/**
-	 * 
-	 */
+public class Keyboard implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
-	private String from;
-	private List<String> participants;
-	private String body;
-	private String timestamp;
-	private String readReceiptRequested;
-	public String getFrom() {
-		return from;
+	
+	public Keyboard() {
+		this.responses = new ArrayList<Response>();
 	}
-	public void setFrom(String from) {
-		this.from = from;
+	
+	public KeyboardType getType() {
+		return type;
 	}
-	public List<String> getParticipants() {
-		return participants;
+	public void setType(KeyboardType type) {
+		this.type = type;
 	}
-	public void setParticipants(List<String> participants) {
-		this.participants = participants;
+	public List<Response> getResponses() {
+		return responses;
 	}
-	public String getBody() {
-		return body;
+	public void setResponses(List<Response> responses) {
+		this.responses = responses;
 	}
-	public void setBody(String body) {
-		this.body = body;
-	}
-	public String getTimestamp() {
-		return timestamp;
-	}
-	public void setTimestamp(String timestamp) {
-		this.timestamp = timestamp;
-	}
-	public String getReadReceiptRequested() {
-		return readReceiptRequested;
-	}
-	public void setReadReceiptRequested(String readReceiptRequested) {
-		this.readReceiptRequested = readReceiptRequested;
-	}	
+	private KeyboardType type;
+	private List<Response> responses;
 }

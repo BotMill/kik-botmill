@@ -23,52 +23,28 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.incoming.model;
+package co.aurasphere.botmill.kik.model;
 
-import java.util.List;
-
-import co.aurasphere.botmill.kik.model.Message;
-
-//	Received message
-public abstract class IncomingMessage extends Message {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private String from;
-	private List<String> participants;
-	private String body;
-	private String timestamp;
-	private String readReceiptRequested;
-	public String getFrom() {
-		return from;
+public class KeyValuePair {
+	private String key;
+	private String value;
+	public KeyValuePair() {}
+	public KeyValuePair(String key, String value) {
+		this.key = key;
+		this.value = value;
 	}
-	public void setFrom(String from) {
-		this.from = from;
+	public String getKey() {
+		return key;
 	}
-	public List<String> getParticipants() {
-		return participants;
+	public void setKey(String key) {
+		this.key = key;
 	}
-	public void setParticipants(List<String> participants) {
-		this.participants = participants;
+	public String getValue() {
+		return value;
 	}
-	public String getBody() {
-		return body;
+	public void setValue(String value) {
+		this.value = value;
 	}
-	public void setBody(String body) {
-		this.body = body;
-	}
-	public String getTimestamp() {
-		return timestamp;
-	}
-	public void setTimestamp(String timestamp) {
-		this.timestamp = timestamp;
-	}
-	public String getReadReceiptRequested() {
-		return readReceiptRequested;
-	}
-	public void setReadReceiptRequested(String readReceiptRequested) {
-		this.readReceiptRequested = readReceiptRequested;
-	}	
+	
+	
 }
