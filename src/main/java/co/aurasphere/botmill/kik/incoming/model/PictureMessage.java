@@ -27,18 +27,49 @@ package co.aurasphere.botmill.kik.incoming.model;
 
 import co.aurasphere.botmill.kik.model.Attribution;
 
+/**
+ * The Class PictureMessage.
+ */
 public class PictureMessage extends IncomingMessage {
+	
+	/** The pic url. */
 	private String picUrl;
+	
+	/** The attribution. */
 	private Attribution attribution;
+	
+	/**
+	 * Gets the pic url.
+	 *
+	 * @return the pic url
+	 */
 	public String getPicUrl() {
 		return picUrl;
 	}
+	
+	/**
+	 * Sets the pic url.
+	 *
+	 * @param picUrl the new pic url
+	 */
 	public void setPicUrl(String picUrl) {
 		this.picUrl = picUrl;
 	}
+	
+	/**
+	 * Gets the attribution.
+	 *
+	 * @return the attribution
+	 */
 	public Attribution getAttribution() {
 		return attribution;
 	}
+	
+	/**
+	 * Sets the attribution.
+	 *
+	 * @param attribution the new attribution
+	 */
 	public void setAttribution(Attribution attribution) {
 		this.attribution = attribution;
 	}

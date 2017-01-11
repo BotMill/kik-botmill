@@ -25,9 +25,19 @@
  */
 package co.aurasphere.botmill.kik.model;
 
+/**
+ * The Class BaseBuilder.
+ */
 public abstract class BaseBuilder {
 	
+	/** The base builder. */
 	protected BaseBuilder baseBuilder;
+	
+	/**
+	 * Gets the parent builder.
+	 *
+	 * @return the parent builder
+	 */
 	public BaseBuilder getParentBuilder() {
 		return this;
 	}

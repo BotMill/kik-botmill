@@ -25,13 +25,28 @@
  */
 package co.aurasphere.botmill.kik.model;
 
+/**
+ * The Class MediaMessage.
+ */
 public class MediaMessage  {
+	
+	/** The attribution. */
 	private Attribution attribution;
 
+	/**
+	 * Gets the attribution.
+	 *
+	 * @return the attribution
+	 */
 	public Attribution getAttribution() {
 		return attribution;
 	}
 
+	/**
+	 * Sets the attribution.
+	 *
+	 * @param attribution the new attribution
+	 */
 	public void setAttribution(Attribution attribution) {
 		this.attribution = attribution;
 	}

@@ -27,37 +27,94 @@ package co.aurasphere.botmill.kik.model;
 
 import java.io.Serializable;
 
+/**
+ * The Class Message.
+ */
 public abstract class Message implements Serializable {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The chat id. */
 	private String chatId;
+	
+	/** The id. */
 	private String id;
+	
+	/** The type. */
 	private MessageType type;
+	
+	/** The mention. */
 	private String mention;
+	
+	/**
+	 * Gets the chat id.
+	 *
+	 * @return the chat id
+	 */
 	public String getChatId() {
 		return chatId;
 	}
+	
+	/**
+	 * Sets the chat id.
+	 *
+	 * @param chatId the new chat id
+	 */
 	public void setChatId(String chatId) {
 		this.chatId = chatId;
 	}
+	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public String getId() {
 		return id;
 	}
+	
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	public MessageType getType() {
 		return type;
 	}
+	
+	/**
+	 * Sets the type.
+	 *
+	 * @param type the new type
+	 */
 	public void setType(MessageType type) {
 		this.type = type;
 	}
+	
+	/**
+	 * Gets the mention.
+	 *
+	 * @return the mention
+	 */
 	public String getMention() {
 		return mention;
 	}
+	
+	/**
+	 * Sets the mention.
+	 *
+	 * @param mention the new mention
+	 */
 	public void setMention(String mention) {
 		this.mention = mention;
 	}

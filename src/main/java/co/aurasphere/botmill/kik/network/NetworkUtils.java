@@ -36,6 +36,9 @@ import java.io.InputStreamReader;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -45,11 +48,13 @@ import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.exception.KikError;
 import co.aurasphere.botmill.kik.exception.KikErrorMessage;
 import co.aurasphere.botmill.kik.json.JsonUtils;
@@ -63,55 +68,39 @@ import co.aurasphere.botmill.kik.json.JsonUtils;
  */
 public class NetworkUtils {
 	
-	
-	
-	public static String postJsonConfig(Object input) {
-		StringEntity stringEntity = toStringEntity(input);
-		HttpPost post = new HttpPost(KikBotMillNetworkConstants.CONFIG_ENDPOINT);
-		post.setHeader("Content-Type", "application/x-www-form-urlencoded");
-		post.setEntity(stringEntity);
-		return send(post);
-	}
-	
-	
-
 	/**
 	 * The logger.
 	 */
 	private static final Logger logger = LoggerFactory.getLogger(NetworkUtils.class);
-
-	/**
-	 * POSTs a message as a JSON string to Facebook.
-	 * 
-	 * @param input
-	 *            the JSON data to send.
-	 */
-	public static void postJsonMessage(Object input) {
+	
+	public static String postJsonConfig(Object input) {
 		StringEntity stringEntity = toStringEntity(input);
-		
-		//postJsonMessage(stringEntity);
+		HttpPost post = new HttpPost(KikBotMillNetworkConstants.CONFIG_ENDPOINT);
+		post.setHeader("Content-Type", "application/json");
+		post.setEntity(stringEntity);
+		return send(post);
 	}
-
-	/**
-	 * POSTs a thread setting as a JSON string to Facebook.
-	 * 
-	 * @param input
-	 *            the JSON data to send.
-	 */
-	public static void postThreadSetting(Object input) {
+	
+	public static String postJsonMessage(Object input) {
 		StringEntity stringEntity = toStringEntity(input);
-		postThreadSetting(stringEntity);
+		HttpPost post = new HttpPost(KikBotMillNetworkConstants.MESSAGE_ENDPOINT);
+		post.setHeader("Content-Type", "application/json");
+		post.setEntity(stringEntity);
+		return send(post);
 	}
+	
 
-	/**
-	 * Sends a request.
-	 * 
-	 * @param request
-	 *            the request to send
-	 * @return response the response.
-	 */
 	private static String send(HttpRequestBase request) {
-		CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+		
+		CredentialsProvider provider = new BasicCredentialsProvider();
+		UsernamePasswordCredentials credentials = 
+				new UsernamePasswordCredentials(KikBotMillContext.getInstance().getUser(),
+						KikBotMillContext.getInstance().getApiKey());
+		provider.setCredentials(AuthScope.ANY, credentials);
+		CloseableHttpClient httpClient = HttpClientBuilder.create()
+				.setDefaultCredentialsProvider(provider)
+				.build();
+		
 		logger.debug(request.getRequestLine().toString());
 		HttpResponse httpResponse = null;
 		String response = null;
@@ -119,7 +108,7 @@ public class NetworkUtils {
 			httpResponse = httpClient.execute(request);
 			response = logResponse(httpResponse);
 		} catch (Exception e) {
-			logger.error("Error during HTTP connection to Facebook: ", e);
+			logger.error("Error during HTTP connection to Kik: ", e);
 		} finally {
 			try {
 				httpClient.close();
@@ -192,32 +181,7 @@ public class NetworkUtils {
 		delete(stringEntity);
 	}
 
-	/**
-	 * Validates a Facebook Page Token.
-	 * 
-	 * @param pageToken
-	 *            the token to validate.
-	 * @return true if the token is not null or empty, false otherwise.
-	 */
-	private static boolean validatePageToken(String pageToken) {
-		if (pageToken == null || pageToken.isEmpty()) {
-			logger.error(
-					"FbBotMill validation error: Page token can't be null or empty! Have you called the method FbBotMillContext.getInstance().setup(String, String)?");
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * Utility to send a POST request.
-	 * 
-	 * @param url
-	 *            the url we need to send the post request to.
-	 * @param entity
-	 *            the entity that containts the object we need to pass as part
-	 *            of the post request.
-	 * @return {@link String}
-	 */
+	
 	public static String post(String url, StringEntity entity) {
 		HttpPost post = new HttpPost(url);
 		post.setHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -237,15 +201,8 @@ public class NetworkUtils {
 		HttpGet get = new HttpGet(url);
 		return send(get);
 	}
-
-	/**
-	 * Utility method that converts an object to its StringEntity
-	 * representation.
-	 * 
-	 * @param object
-	 *            the object to convert to a StringEntity.
-	 * @return a {@link StringEntity} object containing the object JSON.
-	 */
+	
+	
 	private static StringEntity toStringEntity(Object object) {
 		StringEntity input = null;
 		try {

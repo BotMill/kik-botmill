@@ -25,12 +25,21 @@
  */
 package co.aurasphere.botmill.kik;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import co.aurasphere.botmill.kik.configuration.Authentication;
 
 public class KikBotMillContext {
 	
 	private static KikBotMillContext instance;
 	private Authentication authentication;
+	private String webhookUrl;
+	private List<KikBot> bots;
+	
+	public KikBotMillContext() {
+		this.bots = new ArrayList<KikBot>();
+	}
 
 	public static KikBotMillContext getInstance() {
 		if (instance == null) {
@@ -46,10 +55,22 @@ public class KikBotMillContext {
 	public String getApiKey() {
 		return this.authentication.getApiKey();
 	}
-
+	
 	public void setup(String username, String apiKey) {
 		this.authentication = new Authentication();
 		this.authentication.setUser(username);
 		this.authentication.setApiKey(apiKey);
+	}
+	
+	public void registerKikBot(KikBot kikbot) {
+		this.bots.add(kikbot);
+	}
+	
+	public void setWebHookUrl(String url) {
+		this.webhookUrl = url;
+	}
+	
+	public String getWebHookUrl() {
+		return this.webhookUrl;
 	}
 }

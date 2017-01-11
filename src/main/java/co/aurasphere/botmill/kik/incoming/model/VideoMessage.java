@@ -28,18 +28,49 @@ package co.aurasphere.botmill.kik.incoming.model;
 
 import co.aurasphere.botmill.kik.model.Attribution;
 
+/**
+ * The Class VideoMessage.
+ */
 public class VideoMessage extends IncomingMessage {
+	
+	/** The video url. */
 	private String videoUrl;
+	
+	/** The attribution. */
 	private Attribution attribution;
+	
+	/**
+	 * Gets the video url.
+	 *
+	 * @return the video url
+	 */
 	public String getVideoUrl() {
 		return videoUrl;
 	}
+	
+	/**
+	 * Sets the video url.
+	 *
+	 * @param videoUrl the new video url
+	 */
 	public void setVideoUrl(String videoUrl) {
 		this.videoUrl = videoUrl;
 	}
+	
+	/**
+	 * Gets the attribution.
+	 *
+	 * @return the attribution
+	 */
 	public Attribution getAttribution() {
 		return attribution;
 	}
+	
+	/**
+	 * Sets the attribution.
+	 *
+	 * @param attribution the new attribution
+	 */
 	public void setAttribution(Attribution attribution) {
 		this.attribution = attribution;
 	}

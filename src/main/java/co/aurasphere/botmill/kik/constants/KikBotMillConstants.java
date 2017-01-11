@@ -25,6 +25,9 @@
  */
 package co.aurasphere.botmill.kik.constants;
 
+/**
+ * The Class KikBotMillConstants.
+ */
 public class KikBotMillConstants {
 
 	/** The Constant SITE. */

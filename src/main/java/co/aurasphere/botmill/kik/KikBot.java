@@ -23,8 +23,31 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.factory;
+package co.aurasphere.botmill.kik;
 
-public class KeyBoardFactory {
+/**
+ * The Class KikBot.
+ */
+public abstract class KikBot {
 	
+	/**
+	 * Instantiates a new kik bot.
+	 */
+	public KikBot() {
+		KikBotMillContext.getInstance().registerKikBot(this);
+	}
+	
+	/**
+	 * Sets the web hook url.
+	 *
+	 * @param url the new web hook url
+	 */
+	protected void setWebHookUrl(String url) {
+		KikBotMillContext.getInstance().setWebHookUrl(url);
+	}
+	
+	/**
+	 * Define kik bot.
+	 */
+	protected abstract void defineKikBot();
 }

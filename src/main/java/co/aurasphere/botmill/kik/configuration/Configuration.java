@@ -27,14 +27,16 @@ package co.aurasphere.botmill.kik.configuration;
 
 import java.io.Serializable;
 
-import co.aurasphere.botmill.kik.incoming.model.ScanDataMessage;
-import co.aurasphere.botmill.kik.model.Message;
+import com.google.gson.annotations.SerializedName;
+
 
 public class Configuration implements Serializable  {
 	
 	private static final long serialVersionUID = 1L;
 	private String webhook;
 	private Features features;
+	
+	@SerializedName("staticKeyboard")
 	private Keyboard keyboard;
 	
 	public Configuration() {

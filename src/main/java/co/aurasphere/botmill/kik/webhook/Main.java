@@ -39,6 +39,8 @@ import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 public class Main {
 
 	public Main() {
+		
+		
 		KikBotMillContext.getInstance().setup("", "");
 		Configuration config = ConfigurationBuilder.getInstance()
 			.setWebhook("")

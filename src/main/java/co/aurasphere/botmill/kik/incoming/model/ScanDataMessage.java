@@ -25,6 +25,9 @@
  */
 package co.aurasphere.botmill.kik.incoming.model;
 
+/**
+ * The Class ScanDataMessage.
+ */
 public class ScanDataMessage extends IncomingMessage {
 
 }

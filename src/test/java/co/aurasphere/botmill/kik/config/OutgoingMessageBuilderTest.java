@@ -27,6 +27,7 @@ package co.aurasphere.botmill.kik.config;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import co.aurasphere.botmill.kik.KikBotMillContext;
@@ -43,6 +44,7 @@ import co.aurasphere.botmill.kik.factory.ConfigurationFactory;
 import co.aurasphere.botmill.kik.factory.MessageFactory;
 import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.MessageType;
+import co.aurasphere.botmill.kik.network.NetworkUtils;
 import co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage;
 import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 import co.aurasphere.botmill.kik.outgoing.model.PictureMessage;
@@ -52,18 +54,21 @@ import co.aurasphere.botmill.kik.outgoing.model.VideoMessage;
 
 public class OutgoingMessageBuilderTest {
 
+	@Before
+	public void setUp() {
+		KikBotMillContext.getInstance().setup(System.getProperty("USERNAME"), System.getProperty("APIKEY"));
+	}
+	
 	@Test
 	public void testConfigBuilderJson() {
-
-		String configStr = "{\"webhook\":\"\",\"features\":{\"manuallySendReadReceipts\":true,\"receiveReadReceipts\":true,\"receiveDeliveryReceipts\":true,\"receiveIsTyping\":true},\"keyboard\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"\",\"type\":\"text\"},{\"body\":\"\",\"type\":\"text\"}]}}";
-		Configuration config = ConfigurationBuilder.getInstance().setWebhook("").setManuallySendReadReceipts(true)
+		
+		String configStr = "{\"webhook\":\"https://example.com/incoming\",\"features\":{\"manuallySendReadReceipts\":true,\"receiveReadReceipts\":true,\"receiveDeliveryReceipts\":true,\"receiveIsTyping\":true},\"staticKeyboard\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"A\",\"type\":\"text\"},{\"body\":\"B\",\"type\":\"text\"}]}}";
+		Configuration config = ConfigurationBuilder.getInstance().setWebhook("https://example.com/incoming").setManuallySendReadReceipts(true)
 				.setReceiveDeliveryReceipts(true).setReceiveReadReceipts(true).setReceiveIsTyping(true).addKeyboard()
-				.setType(KeyboardType.SUGGESTED).addResponse(ConfigurationFactory.createResponse("", ResponseType.TEXT))
-				.addResponse(ConfigurationFactory.createResponse("", ResponseType.TEXT)).endKeyboard()
-				.buildConfiguration(); // builder everything. return
-										// Configuration Object.
+				.setType(KeyboardType.SUGGESTED).addResponse(ConfigurationFactory.createResponse("A", ResponseType.TEXT))
+				.addResponse(ConfigurationFactory.createResponse("B", ResponseType.TEXT)).endKeyboard()
+				.buildConfiguration(); 
 
-		System.out.println(JsonUtils.toJson(config));
 		assertEquals(configStr, JsonUtils.toJson(config));
 	}
 
