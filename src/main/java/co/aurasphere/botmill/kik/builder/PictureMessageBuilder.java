@@ -32,12 +32,26 @@ import co.aurasphere.botmill.kik.model.MediaAttribution;
 import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.outgoing.model.PictureMessage;
 
+/**
+ * The Class PictureMessageBuilder.
+ */
 public class PictureMessageBuilder extends BaseBuilder
 		implements Keyboardable<PictureMessageBuilder>, Buildable<PictureMessage> {
+	
+	/** The picture message. */
 	private PictureMessage pictureMessage;
+	
+	/** The instance. */
 	private static PictureMessageBuilder instance;
+	
+	/** The keyboard builder. */
 	private KeyboardBuilder<PictureMessageBuilder> keyboardBuilder;
 
+	/**
+	 * Gets the single instance of PictureMessageBuilder.
+	 *
+	 * @return single instance of PictureMessageBuilder
+	 */
 	public static PictureMessageBuilder getInstance() {
 		if (instance == null) {
 			instance = new PictureMessageBuilder();
@@ -45,32 +59,56 @@ public class PictureMessageBuilder extends BaseBuilder
 		return instance;
 	}
 
+	/**
+	 * Instantiates a new picture message builder.
+	 */
 	public PictureMessageBuilder() {
 		this.keyboardBuilder = new KeyboardBuilder<PictureMessageBuilder>(this);
 		this.pictureMessage = new PictureMessage();
 		this.pictureMessage.setType(MessageType.PICTURE);
 	}
 
+	/**
+	 * Sets the to.
+	 *
+	 * @param to the to
+	 * @return the picture message builder
+	 */
 	public PictureMessageBuilder setTo(String to) {
 		this.pictureMessage.setTo(to);
 		return this;
 	}
 
+	/**
+	 * Sets the pic url.
+	 *
+	 * @param picUrl the pic url
+	 * @return the picture message builder
+	 */
 	public PictureMessageBuilder setPicUrl(String picUrl) {
 		this.pictureMessage.setPicUrl(picUrl);
 		return this;
 	}
 
+	/* (non-Javadoc)
+	 * @see co.aurasphere.botmill.kik.intf.Keyboardable#addKeyboard()
+	 */
 	@Override
 	public KeyboardBuilder<PictureMessageBuilder> addKeyboard() {
 		return this.keyboardBuilder;
 	}
 
+	/* (non-Javadoc)
+	 * @see co.aurasphere.botmill.kik.intf.Keyboardable#endKeyboard()
+	 */
 	@Override
 	public PictureMessageBuilder endKeyboard() {
 		return (PictureMessageBuilder) this.keyboardBuilder.getParentBuilder();
 	}
 
+	/* (non-Javadoc)
+	 * @see co.aurasphere.botmill.kik.intf.Buildable#build()
+	 */
 	@Override
 	public PictureMessage build() {
 		this.pictureMessage.setAttribution(MediaAttribution.GALLERY);

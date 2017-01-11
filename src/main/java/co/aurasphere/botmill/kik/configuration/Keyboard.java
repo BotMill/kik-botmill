@@ -29,26 +29,60 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Class Keyboard.
+ */
 public class Keyboard implements Serializable {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Instantiates a new keyboard.
+	 */
 	public Keyboard() {
 		this.responses = new ArrayList<Response>();
 	}
 	
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	public KeyboardType getType() {
 		return type;
 	}
+	
+	/**
+	 * Sets the type.
+	 *
+	 * @param type the new type
+	 */
 	public void setType(KeyboardType type) {
 		this.type = type;
 	}
+	
+	/**
+	 * Gets the responses.
+	 *
+	 * @return the responses
+	 */
 	public List<Response> getResponses() {
 		return responses;
 	}
+	
+	/**
+	 * Sets the responses.
+	 *
+	 * @param responses the new responses
+	 */
 	public void setResponses(List<Response> responses) {
 		this.responses = responses;
 	}
+	
+	/** The type. */
 	private KeyboardType type;
+	
+	/** The responses. */
 	private List<Response> responses;
 }

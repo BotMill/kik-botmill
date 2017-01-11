@@ -27,30 +27,73 @@ package co.aurasphere.botmill.kik.outgoing.model;
 
 import co.aurasphere.botmill.kik.model.Message;
 
+/**
+ * The Class OutgoingMessage.
+ */
 public abstract class OutgoingMessage extends Message {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The body. */
 	private String body;
+	
+	/** The to. */
 	private String to;
+	
+	/** The delay. */
 	private String delay;
+	
+	/**
+	 * Gets the body.
+	 *
+	 * @return the body
+	 */
 	public String getBody() {
 		return body;
 	}
+	
+	/**
+	 * Sets the body.
+	 *
+	 * @param body the new body
+	 */
 	public void setBody(String body) {
 		this.body = body;
 	}
+	
+	/**
+	 * Gets the to.
+	 *
+	 * @return the to
+	 */
 	public String getTo() {
 		return to;
 	}
+	
+	/**
+	 * Sets the to.
+	 *
+	 * @param to the new to
+	 */
 	public void setTo(String to) {
 		this.to = to;
 	}
+	
+	/**
+	 * Gets the delay.
+	 *
+	 * @return the delay
+	 */
 	public String getDelay() {
 		return delay;
 	}
+	
+	/**
+	 * Sets the delay.
+	 *
+	 * @param delay the new delay
+	 */
 	public void setDelay(String delay) {
 		this.delay = delay;
 	}

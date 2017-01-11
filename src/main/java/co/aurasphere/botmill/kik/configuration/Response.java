@@ -27,25 +27,63 @@ package co.aurasphere.botmill.kik.configuration;
 
 import java.io.Serializable;
 
+/**
+ * The Class Response.
+ */
 public class Response implements Serializable {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The body. */
 	private String body;
+	
+	/** The type. */
 	private ResponseType type;
 	
+	/**
+	 * Instantiates a new response.
+	 *
+	 * @param body the body
+	 * @param type the type
+	 */
 	public Response(String body, ResponseType type) {
 		this.body = body;
 		this.type = type;
 	}
+	
+	/**
+	 * Gets the body.
+	 *
+	 * @return the body
+	 */
 	public String getBody() {
 		return body;
 	}
+	
+	/**
+	 * Sets the body.
+	 *
+	 * @param body the new body
+	 */
 	public void setBody(String body) {
 		this.body = body;
 	}
+	
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	public ResponseType getType() {
 		return type;
 	}
+	
+	/**
+	 * Sets the type.
+	 *
+	 * @param type the new type
+	 */
 	public void setType(ResponseType type) {
 		this.type = type;
 	}

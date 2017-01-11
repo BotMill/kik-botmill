@@ -28,33 +28,91 @@ package co.aurasphere.botmill.kik.incoming.model;
 
 import co.aurasphere.botmill.kik.model.Attribution;
 
+/**
+ * The Class LinkMessage.
+ */
 public class LinkMessage extends IncomingMessage {
 	
+	/** The url. */
 	private String url;
+	
+	/** The no forward. */
 	private String noForward;
+	
+	/** The kik js data. */
 	private String kikJsData;
+	
+	/** The attribution. */
 	private Attribution attribution;
+	
+	/**
+	 * Gets the url.
+	 *
+	 * @return the url
+	 */
 	public String getUrl() {
 		return url;
 	}
+	
+	/**
+	 * Sets the url.
+	 *
+	 * @param url the new url
+	 */
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	
+	/**
+	 * Gets the no forward.
+	 *
+	 * @return the no forward
+	 */
 	public String getNoForward() {
 		return noForward;
 	}
+	
+	/**
+	 * Sets the no forward.
+	 *
+	 * @param noForward the new no forward
+	 */
 	public void setNoForward(String noForward) {
 		this.noForward = noForward;
 	}
+	
+	/**
+	 * Gets the kik js data.
+	 *
+	 * @return the kik js data
+	 */
 	public String getKikJsData() {
 		return kikJsData;
 	}
+	
+	/**
+	 * Sets the kik js data.
+	 *
+	 * @param kikJsData the new kik js data
+	 */
 	public void setKikJsData(String kikJsData) {
 		this.kikJsData = kikJsData;
 	}
+	
+	/**
+	 * Gets the attribution.
+	 *
+	 * @return the attribution
+	 */
 	public Attribution getAttribution() {
 		return attribution;
 	}
+	
+	/**
+	 * Sets the attribution.
+	 *
+	 * @param attribution the new attribution
+	 */
 	public void setAttribution(Attribution attribution) {
 		this.attribution = attribution;
 	}

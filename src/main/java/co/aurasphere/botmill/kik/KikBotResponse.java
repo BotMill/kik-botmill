@@ -25,6 +25,9 @@
  */
 package co.aurasphere.botmill.kik;
 
+/**
+ * The Class KikBotResponse.
+ */
 public class KikBotResponse {
 	
 }

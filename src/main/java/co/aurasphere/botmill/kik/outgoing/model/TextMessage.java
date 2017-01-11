@@ -29,25 +29,50 @@ import com.google.gson.annotations.SerializedName;
 
 import co.aurasphere.botmill.kik.configuration.Keyboard;
 
+/**
+ * The Class TextMessage.
+ */
 public class TextMessage extends OutgoingMessage {
 	
+	/** The type time. */
 	private String typeTime;
 	
+	/** The keyboard. */
 	@SerializedName("keyboards")
 	private Keyboard keyboard;
 
+	/**
+	 * Gets the type time.
+	 *
+	 * @return the type time
+	 */
 	public String getTypeTime() {
 		return typeTime;
 	}
 
+	/**
+	 * Sets the type time.
+	 *
+	 * @param typeTime the new type time
+	 */
 	public void setTypeTime(String typeTime) {
 		this.typeTime = typeTime;
 	}
 
+	/**
+	 * Gets the keyboard.
+	 *
+	 * @return the keyboard
+	 */
 	public Keyboard getKeyboard() {
 		return keyboard;
 	}
 
+	/**
+	 * Sets the keyboard.
+	 *
+	 * @param keyboard the new keyboard
+	 */
 	public void setKeyboard(Keyboard keyboard) {
 		this.keyboard = keyboard;
 	}

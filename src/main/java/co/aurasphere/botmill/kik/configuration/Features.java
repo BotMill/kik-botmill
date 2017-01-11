@@ -27,35 +27,94 @@ package co.aurasphere.botmill.kik.configuration;
 
 import java.io.Serializable;
 
+/**
+ * The Class Features.
+ */
 public class Features implements Serializable {
    
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The manually send read receipts. */
 	private boolean manuallySendReadReceipts;
+	
+	/** The receive read receipts. */
 	private boolean receiveReadReceipts;
+	
+	/** The receive delivery receipts. */
 	private boolean receiveDeliveryReceipts;
+	
+	/** The receive is typing. */
 	private boolean receiveIsTyping;
 	
+	/**
+	 * Checks if is manually send read receipts.
+	 *
+	 * @return true, if is manually send read receipts
+	 */
 	public boolean isManuallySendReadReceipts() {
 		return manuallySendReadReceipts;
 	}
+	
+	/**
+	 * Sets the manually send read receipts.
+	 *
+	 * @param manuallySendReadReceipts the new manually send read receipts
+	 */
 	public void setManuallySendReadReceipts(boolean manuallySendReadReceipts) {
 		this.manuallySendReadReceipts = manuallySendReadReceipts;
 	}
+	
+	/**
+	 * Checks if is receive read receipts.
+	 *
+	 * @return true, if is receive read receipts
+	 */
 	public boolean isReceiveReadReceipts() {
 		return receiveReadReceipts;
 	}
+	
+	/**
+	 * Sets the receive read receipts.
+	 *
+	 * @param receiveReadReceipts the new receive read receipts
+	 */
 	public void setReceiveReadReceipts(boolean receiveReadReceipts) {
 		this.receiveReadReceipts = receiveReadReceipts;
 	}
+	
+	/**
+	 * Checks if is receive delivery receipts.
+	 *
+	 * @return true, if is receive delivery receipts
+	 */
 	public boolean isReceiveDeliveryReceipts() {
 		return receiveDeliveryReceipts;
 	}
+	
+	/**
+	 * Sets the receive delivery receipts.
+	 *
+	 * @param receiveDeliveryReceipts the new receive delivery receipts
+	 */
 	public void setReceiveDeliveryReceipts(boolean receiveDeliveryReceipts) {
 		this.receiveDeliveryReceipts = receiveDeliveryReceipts;
 	}
+	
+	/**
+	 * Checks if is receive is typing.
+	 *
+	 * @return true, if is receive is typing
+	 */
 	public boolean isReceiveIsTyping() {
 		return receiveIsTyping;
 	}
+	
+	/**
+	 * Sets the receive is typing.
+	 *
+	 * @param receiveIsTyping the new receive is typing
+	 */
 	public void setReceiveIsTyping(boolean receiveIsTyping) {
 		this.receiveIsTyping = receiveIsTyping;
 	}

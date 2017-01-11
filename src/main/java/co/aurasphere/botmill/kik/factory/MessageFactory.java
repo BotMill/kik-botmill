@@ -28,12 +28,29 @@ package co.aurasphere.botmill.kik.factory;
 import co.aurasphere.botmill.kik.model.Attribution;
 import co.aurasphere.botmill.kik.model.KeyValuePair;
 
+/**
+ * A factory for creating Message objects.
+ */
 public class MessageFactory {
 
+	/**
+	 * Creates a new Message object.
+	 *
+	 * @param name the name
+	 * @param iconUrl the icon url
+	 * @return the attribution
+	 */
 	public static Attribution createAttribution(String name,String iconUrl) {
 		return new Attribution(name,iconUrl);
 	}
 	
+	/**
+	 * Creates a new Message object.
+	 *
+	 * @param key the key
+	 * @param value the value
+	 * @return the key value pair
+	 */
 	public static KeyValuePair createKeyValuePair(String key, String value) {
 		return new KeyValuePair(key,value);
 	}

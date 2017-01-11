@@ -35,8 +35,14 @@ import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 
+/**
+ * The Class BasicOutgoingMessageTest.
+ */
 public class BasicOutgoingMessageTest {
 
+	/**
+	 * Test text message.
+	 */
 	// Basic Object Test Case.
 	@Test
 	public void testTextMessage() {
@@ -54,6 +60,9 @@ public class BasicOutgoingMessageTest {
 
 	}
 
+	/**
+	 * Test link message.
+	 */
 	@Test
 	public void testLinkMessage() {
 		String linkMessageStr = "{\"url\":\"http://ichef-1.bbci.co.uk\",\"noForward\":false,\"kikJsData\":{},\"body\":\"asdad\",\"to\":\"To\",\"chatId\":\"Chatid\",\"type\":\"link\"}";

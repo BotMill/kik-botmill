@@ -31,12 +31,28 @@ import co.aurasphere.botmill.kik.model.BaseBuilder;
 import co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage;
 import co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage;
 
+/**
+ * The Class ActionMessageBuilder.
+ */
 public class ActionMessageBuilder extends BaseBuilder {
 	
+	/**
+	 * Builds the is typing message.
+	 *
+	 * @param to the to
+	 * @return the checks if is typing message
+	 */
 	public static IsTypingMessage buildIsTypingMessage(String to) {
 		return new IsTypingMessage(to);
 	}
 	
+	/**
+	 * Builds the rece receipt message.
+	 *
+	 * @param to the to
+	 * @param messageIds the message ids
+	 * @return the read receipt message
+	 */
 	public static ReadReceiptMessage buildReceReceiptMessage(String to, List<String> messageIds) {
 		return new ReadReceiptMessage(to,messageIds);
 	}

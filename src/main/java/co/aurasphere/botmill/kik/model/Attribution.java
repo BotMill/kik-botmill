@@ -27,24 +27,60 @@ package co.aurasphere.botmill.kik.model;
 
 import java.io.Serializable;
 
+/**
+ * The Class Attribution.
+ */
 public class Attribution implements Serializable {
 	
+	/** The name. */
 	private String name;
+	
+	/** The icon url. */
 	private String iconUrl;
 	
+	/**
+	 * Instantiates a new attribution.
+	 *
+	 * @param name the name
+	 * @param iconUrl the icon url
+	 */
 	public Attribution(String name, String iconUrl) {
 		this.name = name;
 		this.iconUrl = iconUrl;
 	}
+	
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
+	
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * Gets the icon url.
+	 *
+	 * @return the icon url
+	 */
 	public String getIconUrl() {
 		return iconUrl;
 	}
+	
+	/**
+	 * Sets the icon url.
+	 *
+	 * @param iconUrl the new icon url
+	 */
 	public void setIconUrl(String iconUrl) {
 		this.iconUrl = iconUrl;
 	}

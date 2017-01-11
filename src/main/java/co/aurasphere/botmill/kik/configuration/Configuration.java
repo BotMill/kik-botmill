@@ -30,35 +30,82 @@ import java.io.Serializable;
 import com.google.gson.annotations.SerializedName;
 
 
+/**
+ * The Class Configuration.
+ */
 public class Configuration implements Serializable  {
 	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The webhook. */
 	private String webhook;
+	
+	/** The features. */
 	private Features features;
 	
+	/** The keyboard. */
 	@SerializedName("staticKeyboard")
 	private Keyboard keyboard;
 	
+	/**
+	 * Instantiates a new configuration.
+	 */
 	public Configuration() {
 		this.features = new Features();
 		this.keyboard = new Keyboard();
 	}
 	
+	/**
+	 * Gets the static key board.
+	 *
+	 * @return the static key board
+	 */
 	public Keyboard getStaticKeyBoard() {
 		return keyboard;
 	}
+	
+	/**
+	 * Sets the static key board.
+	 *
+	 * @param keyboard the new static key board
+	 */
 	public void setStaticKeyBoard(Keyboard keyboard) {
 		this.keyboard = keyboard;
 	}
+	
+	/**
+	 * Gets the webhook.
+	 *
+	 * @return the webhook
+	 */
 	public String getWebhook() {
 		return webhook;
 	}
+	
+	/**
+	 * Sets the webhook.
+	 *
+	 * @param webhook the new webhook
+	 */
 	public void setWebhook(String webhook) {
 		this.webhook = webhook;
 	}
+	
+	/**
+	 * Gets the features.
+	 *
+	 * @return the features
+	 */
 	public Features getFeatures() {
 		return features;
 	}
+	
+	/**
+	 * Sets the features.
+	 *
+	 * @param features the new features
+	 */
 	public void setFeatures(Features features) {
 		this.features = features;
 	}	

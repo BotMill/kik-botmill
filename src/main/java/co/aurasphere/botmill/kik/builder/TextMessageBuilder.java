@@ -31,13 +31,26 @@ import co.aurasphere.botmill.kik.model.BaseBuilder;
 import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 
+/**
+ * The Class TextMessageBuilder.
+ */
 public class TextMessageBuilder extends BaseBuilder
 		implements Keyboardable<TextMessageBuilder>, Buildable<TextMessage> {
 	
+	/** The text message. */
 	private TextMessage textMessage;
+	
+	/** The instance. */
 	private static TextMessageBuilder instance;
+	
+	/** The keyboard builder. */
 	private KeyboardBuilder<TextMessageBuilder> keyboardBuilder;
 	
+	/**
+	 * Gets the single instance of TextMessageBuilder.
+	 *
+	 * @return single instance of TextMessageBuilder
+	 */
 	public static TextMessageBuilder getInstance() {
 		if (instance == null) {
 			instance = new TextMessageBuilder();
@@ -45,32 +58,56 @@ public class TextMessageBuilder extends BaseBuilder
 		return instance;
 	}
 	
+	/**
+	 * Instantiates a new text message builder.
+	 */
 	public TextMessageBuilder() {
 		this.keyboardBuilder = new KeyboardBuilder<TextMessageBuilder>(this);
 		this.textMessage = new TextMessage();
 		this.textMessage.setType(MessageType.TEXT);
 	}
 	
+	/**
+	 * Sets the to.
+	 *
+	 * @param to the to
+	 * @return the text message builder
+	 */
 	public TextMessageBuilder setTo(String to) {
 		this.textMessage.setTo(to);
 		return this;
 	}
 	
+	/**
+	 * Sets the body.
+	 *
+	 * @param body the body
+	 * @return the text message builder
+	 */
 	public TextMessageBuilder setBody(String body) {
 		this.textMessage.setBody(body);
 		return this;
 	}
 	
+	/* (non-Javadoc)
+	 * @see co.aurasphere.botmill.kik.intf.Keyboardable#addKeyboard()
+	 */
 	@Override
 	public KeyboardBuilder<TextMessageBuilder> addKeyboard() {
 		return this.keyboardBuilder;
 	}
 	
+	/* (non-Javadoc)
+	 * @see co.aurasphere.botmill.kik.intf.Keyboardable#endKeyboard()
+	 */
 	@Override
 	public TextMessageBuilder endKeyboard() {
 		return (TextMessageBuilder)this.keyboardBuilder.getParentBuilder();
 	}
 	
+	/* (non-Javadoc)
+	 * @see co.aurasphere.botmill.kik.intf.Buildable#build()
+	 */
 	@Override
 	public TextMessage build() {
 		this.textMessage.setKeyboard(this.keyboardBuilder.buildKeyboard());

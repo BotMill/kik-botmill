@@ -25,6 +25,11 @@
  */
 package co.aurasphere.botmill.kik.configuration;
 
+/**
+ * The Enum KeyboardType.
+ */
 public enum KeyboardType {
+	
+	/** The suggested. */
 	SUGGESTED
 }

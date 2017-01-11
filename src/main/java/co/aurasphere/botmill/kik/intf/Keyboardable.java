@@ -27,7 +27,24 @@ package co.aurasphere.botmill.kik.intf;
 
 import co.aurasphere.botmill.kik.builder.KeyboardBuilder;
 
+/**
+ * The Interface Keyboardable.
+ *
+ * @param <T> the generic type
+ */
 public interface Keyboardable<T> {
+	
+	/**
+	 * Adds the keyboard.
+	 *
+	 * @return the keyboard builder
+	 */
 	public KeyboardBuilder<T> addKeyboard();
+	
+	/**
+	 * End keyboard.
+	 *
+	 * @return the t
+	 */
 	public T endKeyboard();
 }

@@ -52,13 +52,22 @@ import co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage;
 import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 import co.aurasphere.botmill.kik.outgoing.model.VideoMessage;
 
+/**
+ * The Class OutgoingMessageBuilderTest.
+ */
 public class OutgoingMessageBuilderTest {
 
+	/**
+	 * Sets the up.
+	 */
 	@Before
 	public void setUp() {
 		KikBotMillContext.getInstance().setup(System.getProperty("USERNAME"), System.getProperty("APIKEY"));
 	}
 	
+	/**
+	 * Test config builder json.
+	 */
 	@Test
 	public void testConfigBuilderJson() {
 		
@@ -72,6 +81,9 @@ public class OutgoingMessageBuilderTest {
 		assertEquals(configStr, JsonUtils.toJson(config));
 	}
 
+	/**
+	 * Test text message builder.
+	 */
 	@Test
 	public void testTextMessageBuilder() {
 		String txtMessageResp = "{\"keyboards\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"\",\"type\":\"text\"},{\"body\":\"\",\"type\":\"text\"}]},\"body\":\"11\",\"to\":\"11\",\"type\":\"text\"}";
@@ -83,6 +95,9 @@ public class OutgoingMessageBuilderTest {
 		assertEquals(txtMessageResp, JsonUtils.toJson(textMessage));
 	}
 
+	/**
+	 * Test link message builder.
+	 */
 	@Test
 	public void testLinkMessageBuilder() {
 		String linkMessageRespStr = "{\"url\":\"url\",\"title\":\"title\",\"text\":\"Text\",\"noForward\":false,\"kikJsData\":{\"key\":\"key\",\"value\":\"value\"},\"attribution\":{\"name\":\"name\",\"iconUrl\":\"iconurl\"},\"picUrl\":\"picure url\",\"keyboards\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"\",\"type\":\"text\"},{\"body\":\"\",\"type\":\"text\"}]},\"type\":\"link\"}";
@@ -97,6 +112,9 @@ public class OutgoingMessageBuilderTest {
 		assertEquals(linkMessageRespStr, JsonUtils.toJson(linkMessageResp));
 	}
 
+	/**
+	 * Test picure message builder.
+	 */
 	@Test
 	public void testPicureMessageBuilder() {
 		String pictureMessageStr = "{\"picUrl\":\"\",\"keyboards\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"\",\"type\":\"text\"},{\"body\":\"\",\"type\":\"text\"}]},\"attribution\":\"gallery\",\"to\":\"\",\"type\":\"picture\"}";
@@ -109,6 +127,9 @@ public class OutgoingMessageBuilderTest {
 		assertEquals(pictureMessageStr, JsonUtils.toJson(pictureMessageResp));
 	}
 
+	/**
+	 * Test video message builder.
+	 */
 	@Test
 	public void testVideoMessageBuilder() {
 		String videoMessageStr = "{\"videoUrl\":\"\",\"loop\":true,\"muted\":false,\"autoplay\":false,\"noSave\":false,\"attribution\":\"camera\",\"keyboards\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"\",\"type\":\"text\"},{\"body\":\"\",\"type\":\"text\"}]},\"type\":\"video\"}";
@@ -121,6 +142,9 @@ public class OutgoingMessageBuilderTest {
 		assertEquals(videoMessageStr, JsonUtils.toJson(videoMessageResp));
 	}
 	
+	/**
+	 * Test is typing message builder.
+	 */
 	@Test
 	public void testIsTypingMessageBuilder() {
 		String isTypingStr = "{\"isTyping\":true,\"to\":\"to\",\"type\":\"is-typing\"}";
@@ -130,6 +154,9 @@ public class OutgoingMessageBuilderTest {
 		assertEquals(isTypingStr, JsonUtils.toJson(isTyping));
 	}
 
+	/**
+	 * Test read receipt message builder.
+	 */
 	@Test
 	public void testReadReceiptMessageBuilder() {
 		String readReceiptStr = "{\"type\":\"read-receipt\"}";

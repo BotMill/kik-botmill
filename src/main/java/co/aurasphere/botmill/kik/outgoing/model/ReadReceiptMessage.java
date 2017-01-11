@@ -29,16 +29,39 @@ import java.util.List;
 
 import co.aurasphere.botmill.kik.model.MessageType;
 
+/**
+ * The Class ReadReceiptMessage.
+ */
 public class ReadReceiptMessage extends OutgoingMessage {
+	
+	/** The message ids. */
 	private List<String> messageIds;
+	
+	/**
+	 * Instantiates a new read receipt message.
+	 *
+	 * @param to the to
+	 * @param messageIds the message ids
+	 */
 	public ReadReceiptMessage(String to,List<String> messageIds) {
 		this.setType(MessageType.READ_RECEIPT);
 		this.messageIds = messageIds;
 	}
 	
+	/**
+	 * Gets the message ids.
+	 *
+	 * @return the message ids
+	 */
 	public List<String> getMessageIds() {
 		return messageIds;
 	}
+	
+	/**
+	 * Sets the message id.
+	 *
+	 * @param messageIds the new message id
+	 */
 	public void setMessageId(List<String> messageIds) {
 		this.messageIds = messageIds;
 	}

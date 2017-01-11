@@ -31,26 +31,71 @@ import co.aurasphere.botmill.kik.configuration.Keyboard;
 import co.aurasphere.botmill.kik.model.Attribution;
 import co.aurasphere.botmill.kik.model.MediaAttribution;
 
+/**
+ * The Class PictureMessage.
+ */
 public class PictureMessage extends OutgoingMessage {
+	
+	/** The pic url. */
 	private String picUrl;
+	
+	/** The keyboard. */
 	@SerializedName("keyboards")
 	private Keyboard keyboard;
+	
+	/** The attribution. */
 	private MediaAttribution attribution;
+	
+	/**
+	 * Gets the pic url.
+	 *
+	 * @return the pic url
+	 */
 	public String getPicUrl() {
 		return picUrl;
 	}
+	
+	/**
+	 * Sets the pic url.
+	 *
+	 * @param picUrl the new pic url
+	 */
 	public void setPicUrl(String picUrl) {
 		this.picUrl = picUrl;
 	}
+	
+	/**
+	 * Gets the keyboard.
+	 *
+	 * @return the keyboard
+	 */
 	public Keyboard getKeyboard() {
 		return keyboard;
 	}
+	
+	/**
+	 * Sets the keyboard.
+	 *
+	 * @param keyboard the new keyboard
+	 */
 	public void setKeyboard(Keyboard keyboard) {
 		this.keyboard = keyboard;
 	}
+	
+	/**
+	 * Gets the attribution.
+	 *
+	 * @return the attribution
+	 */
 	public MediaAttribution getAttribution() {
 		return attribution;
 	}
+	
+	/**
+	 * Sets the attribution.
+	 *
+	 * @param attribution the new attribution
+	 */
 	public void setAttribution(MediaAttribution attribution) {
 		this.attribution = attribution;
 	}

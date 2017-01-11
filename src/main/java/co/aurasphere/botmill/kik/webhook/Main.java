@@ -36,8 +36,14 @@ import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 
 
+/**
+ * The Class Main.
+ */
 public class Main {
 
+	/**
+	 * Instantiates a new main.
+	 */
 	public Main() {
 		
 		
@@ -72,6 +78,12 @@ public class Main {
 		
 		System.out.println(JsonUtils.toJson(textMessage));
 	}
+	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		new Main();
 	}

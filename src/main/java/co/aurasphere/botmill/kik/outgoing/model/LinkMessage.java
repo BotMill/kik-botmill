@@ -31,85 +31,181 @@ import co.aurasphere.botmill.kik.configuration.Keyboard;
 import co.aurasphere.botmill.kik.model.Attribution;
 import co.aurasphere.botmill.kik.model.KeyValuePair;
 
+/**
+ * The Class LinkMessage.
+ */
 public class LinkMessage extends OutgoingMessage {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The url. */
 	private String url;
+	
+	/** The title. */
 	private String title;
+	
+	/** The text. */
 	private String text;
+	
+	/** The no forward. */
 	private boolean noForward;
+	
+	/** The kik js data. */
 	@SerializedName("kikJsData")
 	private KeyValuePair kikJsData = new KeyValuePair();
+	
+	/** The attribution. */
 	private Attribution attribution;
+	
+	/** The pic url. */
 	private String picUrl;
 	
+	/** The keyboard. */
 	@SerializedName("keyboards")
 	private Keyboard keyboard;
 
+	/**
+	 * Gets the url.
+	 *
+	 * @return the url
+	 */
 	public String getUrl() {
 		return url;
 	}
 
+	/**
+	 * Sets the url.
+	 *
+	 * @param url the new url
+	 */
 	public void setUrl(String url) {
 		this.url = url;
 	}
 
+	/**
+	 * Gets the title.
+	 *
+	 * @return the title
+	 */
 	public String getTitle() {
 		return title;
 	}
 
+	/**
+	 * Sets the title.
+	 *
+	 * @param title the new title
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
+	/**
+	 * Gets the text.
+	 *
+	 * @return the text
+	 */
 	public String getText() {
 		return text;
 	}
 
+	/**
+	 * Sets the text.
+	 *
+	 * @param text the new text
+	 */
 	public void setText(String text) {
 		this.text = text;
 	}
 
+	/**
+	 * Gets the no forward.
+	 *
+	 * @return the no forward
+	 */
 	public boolean getNoForward() {
 		return noForward;
 	}
 
+	/**
+	 * Sets the no forward.
+	 *
+	 * @param noForward the new no forward
+	 */
 	public void setNoForward(boolean noForward) {
 		this.noForward = noForward;
 	}
 
+	/**
+	 * Gets the kik js data.
+	 *
+	 * @return the kik js data
+	 */
 	public KeyValuePair getKikJsData() {
 		return kikJsData;
 	}
 
+	/**
+	 * Sets the kik js data.
+	 *
+	 * @param keyValuePair the new kik js data
+	 */
 	public void setKikJsData(KeyValuePair keyValuePair) {
 		this.kikJsData.setKey(keyValuePair.getKey());
 		this.kikJsData.setValue(keyValuePair.getValue());
 	}
 
+	/**
+	 * Gets the attribution.
+	 *
+	 * @return the attribution
+	 */
 	public Attribution getAttribution() {
 		return attribution;
 	}
 
+	/**
+	 * Sets the attribution.
+	 *
+	 * @param attribution the new attribution
+	 */
 	public void setAttribution(Attribution attribution) {
 		this.attribution = attribution;
 	}
 
+	/**
+	 * Gets the pic url.
+	 *
+	 * @return the pic url
+	 */
 	public String getPicUrl() {
 		return picUrl;
 	}
 
+	/**
+	 * Sets the pic url.
+	 *
+	 * @param picUrl the new pic url
+	 */
 	public void setPicUrl(String picUrl) {
 		this.picUrl = picUrl;
 	}
 
+	/**
+	 * Gets the keyboard.
+	 *
+	 * @return the keyboard
+	 */
 	public Keyboard getKeyboard() {
 		return keyboard;
 	}
 
+	/**
+	 * Sets the keyboard.
+	 *
+	 * @param keyboard the new keyboard
+	 */
 	public void setKeyboard(Keyboard keyboard) {
 		this.keyboard = keyboard;
 	}

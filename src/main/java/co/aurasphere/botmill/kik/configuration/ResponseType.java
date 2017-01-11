@@ -25,6 +25,11 @@
  */
 package co.aurasphere.botmill.kik.configuration;
 
+/**
+ * The Enum ResponseType.
+ */
 public enum ResponseType {
+	
+	/** The text. */
 	TEXT
 }

@@ -25,6 +25,17 @@
  */
 package co.aurasphere.botmill.kik.intf;
 
+/**
+ * The Interface Buildable.
+ *
+ * @param <T> the generic type
+ */
 public interface Buildable<T> {
+	
+	/**
+	 * Builds the.
+	 *
+	 * @return the t
+	 */
 	public T build();
 }

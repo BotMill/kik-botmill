@@ -27,18 +27,39 @@ package co.aurasphere.botmill.kik.outgoing.model;
 
 import co.aurasphere.botmill.kik.model.MessageType;
 
+/**
+ * The Class IsTypingMessage.
+ */
 public class IsTypingMessage extends OutgoingMessage {
+	
+	/** The is typing. */
 	private boolean isTyping;
 	
+	/**
+	 * Instantiates a new checks if is typing message.
+	 *
+	 * @param to the to
+	 */
 	public IsTypingMessage(String to) {
 		this.setType(MessageType.IS_TYPING);
 		this.setTo(to);
 		this.isTyping = true;
 	}
+	
+	/**
+	 * Checks if is typing.
+	 *
+	 * @return true, if is typing
+	 */
 	public boolean isTyping() {
 		return isTyping;
 	}
 
+	/**
+	 * Sets the typing.
+	 *
+	 * @param isTyping the new typing
+	 */
 	public void setTyping(boolean isTyping) {
 		this.isTyping = isTyping;
 	}

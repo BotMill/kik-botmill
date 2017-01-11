@@ -25,18 +25,49 @@
  */
 package co.aurasphere.botmill.kik.configuration;
 
+/**
+ * The Class Authentication.
+ */
 public class Authentication {
+	
+	/** The user. */
 	private String user;
+	
+	/** The api key. */
 	private String apiKey;
+	
+	/**
+	 * Gets the user.
+	 *
+	 * @return the user
+	 */
 	public String getUser() {
 		return user;
 	}
+	
+	/**
+	 * Sets the user.
+	 *
+	 * @param user the new user
+	 */
 	public void setUser(String user) {
 		this.user = user;
 	}
+	
+	/**
+	 * Gets the api key.
+	 *
+	 * @return the api key
+	 */
 	public String getApiKey() {
 		return apiKey;
 	}
+	
+	/**
+	 * Sets the api key.
+	 *
+	 * @param apiKey the new api key
+	 */
 	public void setApiKey(String apiKey) {
 		this.apiKey = apiKey;
 	}

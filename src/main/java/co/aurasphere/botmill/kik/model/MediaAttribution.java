@@ -25,6 +25,13 @@
  */
 package co.aurasphere.botmill.kik.model;
 
+/**
+ * The Enum MediaAttribution.
+ */
 public enum MediaAttribution {
-	GALLERY, CAMERA
+	
+	/** The gallery. */
+	GALLERY, 
+ /** The camera. */
+ CAMERA
 }

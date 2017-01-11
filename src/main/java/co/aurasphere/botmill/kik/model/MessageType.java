@@ -25,6 +25,27 @@
  */
 package co.aurasphere.botmill.kik.model;
 
+/**
+ * The Enum MessageType.
+ */
 public enum MessageType {
-	TEXT,LINK,PICTURE,VIDEO,IS_TYPING,READ_RECEIPT,SCAN_DATA,STICKER,FRIEND_PICKER
+	
+	/** The text. */
+	TEXT,
+/** The link. */
+LINK,
+/** The picture. */
+PICTURE,
+/** The video. */
+VIDEO,
+/** The is typing. */
+IS_TYPING,
+/** The read receipt. */
+READ_RECEIPT,
+/** The scan data. */
+SCAN_DATA,
+/** The sticker. */
+STICKER,
+/** The friend picker. */
+FRIEND_PICKER
 }

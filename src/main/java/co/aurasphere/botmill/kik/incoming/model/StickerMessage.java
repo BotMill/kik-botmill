@@ -25,19 +25,49 @@
  */
 package co.aurasphere.botmill.kik.incoming.model;
 
+/**
+ * The Class StickerMessage.
+ */
 public class StickerMessage extends IncomingMessage {
 
+    /** The sticker pack id. */
     private String stickerPackId;
+	
+	/** The sticker url. */
 	private String stickerUrl;
+	
+	/**
+	 * Gets the sticker pack id.
+	 *
+	 * @return the sticker pack id
+	 */
 	public String getStickerPackId() {
 		return stickerPackId;
 	}
+	
+	/**
+	 * Sets the sticker pack id.
+	 *
+	 * @param stickerPackId the new sticker pack id
+	 */
 	public void setStickerPackId(String stickerPackId) {
 		this.stickerPackId = stickerPackId;
 	}
+	
+	/**
+	 * Gets the sticker url.
+	 *
+	 * @return the sticker url
+	 */
 	public String getStickerUrl() {
 		return stickerUrl;
 	}
+	
+	/**
+	 * Sets the sticker url.
+	 *
+	 * @param stickerUrl the new sticker url
+	 */
 	public void setStickerUrl(String stickerUrl) {
 		this.stickerUrl = stickerUrl;
 	}

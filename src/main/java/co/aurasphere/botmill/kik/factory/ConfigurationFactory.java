@@ -30,12 +30,29 @@ import co.aurasphere.botmill.kik.configuration.Response;
 import co.aurasphere.botmill.kik.configuration.ResponseType;
 import co.aurasphere.botmill.kik.configuration.Keyboard;
 
+/**
+ * A factory for creating Configuration objects.
+ */
 public class ConfigurationFactory {
 	
+	/**
+	 * Creates a new Configuration object.
+	 *
+	 * @param body the body
+	 * @param responseType the response type
+	 * @return the response
+	 */
 	public static Response createResponse(String body, ResponseType responseType) {
 		return new Response(body, responseType);
 	}
 	
+	/**
+	 * Creates a new Configuration object.
+	 *
+	 * @param keyboardType the keyboard type
+	 * @param response the response
+	 * @return the keyboard
+	 */
 	public static Keyboard createStaticKeyboard(KeyboardType keyboardType, Response response) {
 		return new Keyboard();
 	}

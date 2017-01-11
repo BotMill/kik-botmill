@@ -33,12 +33,25 @@ import co.aurasphere.botmill.kik.model.KeyValuePair;
 import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 
+/**
+ * The Class LinkMessageBuilder.
+ */
 public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<LinkMessageBuilder>,Buildable<LinkMessage> {
 	
+	/** The link message. */
 	private LinkMessage linkMessage;
+	
+	/** The instance. */
 	private static LinkMessageBuilder instance;
+	
+	/** The keyboard builder. */
 	private KeyboardBuilder<LinkMessageBuilder> keyboardBuilder;
 	
+	/**
+	 * Gets the single instance of LinkMessageBuilder.
+	 *
+	 * @return single instance of LinkMessageBuilder
+	 */
 	public static LinkMessageBuilder getInstance() {
 		if (instance == null) {
 			instance = new LinkMessageBuilder();
@@ -46,57 +59,111 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 		return instance;
 	}
 	
+	/**
+	 * Instantiates a new link message builder.
+	 */
 	public LinkMessageBuilder() {
 		this.keyboardBuilder = new KeyboardBuilder<LinkMessageBuilder>(this);
 		this.linkMessage = new LinkMessage();
 		this.linkMessage.setType(MessageType.LINK);
 	}
 	
+	/**
+	 * Sets the url.
+	 *
+	 * @param url the url
+	 * @return the link message builder
+	 */
 	public LinkMessageBuilder setUrl(String url) {
 		this.linkMessage.setUrl(url);
 		return this;
 	}
 	
+	/**
+	 * Sets the title.
+	 *
+	 * @param title the title
+	 * @return the link message builder
+	 */
 	public LinkMessageBuilder setTitle(String title) {
 		this.linkMessage.setTitle(title);
 		return this;
 	}
 	
+	/**
+	 * Sets the text.
+	 *
+	 * @param text the text
+	 * @return the link message builder
+	 */
 	public LinkMessageBuilder setText(String text) {
 		this.linkMessage.setText(text);
 		return this;
 	}
 	
+	/**
+	 * Sets the pic url.
+	 *
+	 * @param picUrl the pic url
+	 * @return the link message builder
+	 */
 	public LinkMessageBuilder setPicUrl(String picUrl) {
 		this.linkMessage.setPicUrl(picUrl);
 		return this;
 	}
 	
+	/**
+	 * Sets the no forward.
+	 *
+	 * @param noForward the no forward
+	 * @return the link message builder
+	 */
 	public LinkMessageBuilder setNoForward(boolean noForward) {
 		this.linkMessage.setNoForward(noForward);
 		return this;
 	}
 	
+	/**
+	 * Sets the kik js data.
+	 *
+	 * @param kikJsData the kik js data
+	 * @return the link message builder
+	 */
 	public LinkMessageBuilder setKikJsData(KeyValuePair kikJsData) {
 		this.linkMessage.setKikJsData(kikJsData);
 		return this;
 	}
 	
+	/**
+	 * Sets the attribution.
+	 *
+	 * @param attribution the attribution
+	 * @return the link message builder
+	 */
 	public LinkMessageBuilder setAttribution(Attribution attribution) {
 		this.linkMessage.setAttribution(attribution);
 		return this;
 	}
 	
+	/* (non-Javadoc)
+	 * @see co.aurasphere.botmill.kik.intf.Keyboardable#addKeyboard()
+	 */
 	@Override
 	public KeyboardBuilder<LinkMessageBuilder> addKeyboard() {
 		return this.keyboardBuilder;
 	}
 	
+	/* (non-Javadoc)
+	 * @see co.aurasphere.botmill.kik.intf.Keyboardable#endKeyboard()
+	 */
 	@Override
 	public LinkMessageBuilder endKeyboard() {
 		return (LinkMessageBuilder)this.keyboardBuilder.getParentBuilder();
 	}
 	
+	/* (non-Javadoc)
+	 * @see co.aurasphere.botmill.kik.intf.Buildable#build()
+	 */
 	@Override
 	public LinkMessage build() {
 		this.linkMessage.setKeyboard(this.keyboardBuilder.buildKeyboard());

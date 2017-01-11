@@ -30,17 +30,35 @@ import java.util.List;
 
 import co.aurasphere.botmill.kik.configuration.Authentication;
 
+/**
+ * The Class KikBotMillContext.
+ */
 public class KikBotMillContext {
 	
+	/** The instance. */
 	private static KikBotMillContext instance;
+	
+	/** The authentication. */
 	private Authentication authentication;
+	
+	/** The webhook url. */
 	private String webhookUrl;
+	
+	/** The bots. */
 	private List<KikBot> bots;
 	
+	/**
+	 * Instantiates a new kik bot mill context.
+	 */
 	public KikBotMillContext() {
 		this.bots = new ArrayList<KikBot>();
 	}
 
+	/**
+	 * Gets the single instance of KikBotMillContext.
+	 *
+	 * @return single instance of KikBotMillContext
+	 */
 	public static KikBotMillContext getInstance() {
 		if (instance == null) {
 			instance = new KikBotMillContext();
@@ -48,28 +66,59 @@ public class KikBotMillContext {
 		return instance;
 	}
 
+	/**
+	 * Gets the user.
+	 *
+	 * @return the user
+	 */
 	public String getUser(){
 		return this.authentication.getUser();
 	}
 	
+	/**
+	 * Gets the api key.
+	 *
+	 * @return the api key
+	 */
 	public String getApiKey() {
 		return this.authentication.getApiKey();
 	}
 	
+	/**
+	 * Setup.
+	 *
+	 * @param username the username
+	 * @param apiKey the api key
+	 */
 	public void setup(String username, String apiKey) {
 		this.authentication = new Authentication();
 		this.authentication.setUser(username);
 		this.authentication.setApiKey(apiKey);
 	}
 	
+	/**
+	 * Register kik bot.
+	 *
+	 * @param kikbot the kikbot
+	 */
 	public void registerKikBot(KikBot kikbot) {
 		this.bots.add(kikbot);
 	}
 	
+	/**
+	 * Sets the web hook url.
+	 *
+	 * @param url the new web hook url
+	 */
 	public void setWebHookUrl(String url) {
 		this.webhookUrl = url;
 	}
 	
+	/**
+	 * Gets the web hook url.
+	 *
+	 * @return the web hook url
+	 */
 	public String getWebHookUrl() {
 		return this.webhookUrl;
 	}

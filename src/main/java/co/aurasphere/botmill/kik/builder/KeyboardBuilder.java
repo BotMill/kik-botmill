@@ -30,33 +30,72 @@ import co.aurasphere.botmill.kik.configuration.KeyboardType;
 import co.aurasphere.botmill.kik.configuration.Response;
 import co.aurasphere.botmill.kik.model.BaseBuilder;
 
+/**
+ * The Class KeyboardBuilder.
+ *
+ * @param <T> the generic type
+ */
 public class KeyboardBuilder<T> extends BaseBuilder {
 	
+	/** The keyboard. */
 	private Keyboard keyboard;
+	
+	/** The parent builder. */
 	private T parentBuilder;
 	
+	/**
+	 * Instantiates a new keyboard builder.
+	 */
 	public KeyboardBuilder() {
 		 this.keyboard = new Keyboard();
 	}
 	
+	/**
+	 * Instantiates a new keyboard builder.
+	 *
+	 * @param t the t
+	 */
 	public KeyboardBuilder(T t) {
 		 this.keyboard = new Keyboard();
 		 this.parentBuilder = t;
 	}
 	
+	/**
+	 * Sets the type.
+	 *
+	 * @param type the type
+	 * @return the keyboard builder
+	 */
 	public KeyboardBuilder<T> setType(KeyboardType type) {
 		this.keyboard.setType(type);
 		return this;
 	}
+	
+	/**
+	 * Adds the response.
+	 *
+	 * @param e the e
+	 * @return the keyboard builder
+	 */
 	public KeyboardBuilder<T> addResponse(Response e) {
 		this.keyboard.getResponses().add(e);
 		return this;
 	}
 	
+	/**
+	 * End keyboard.
+	 *
+	 * @return the t
+	 */
 	public T endKeyboard() {
 		return this.parentBuilder;
 	}
 
+	/**
+	 * Builds the keyboard.
+	 *
+	 * @return the keyboard
+	 */
 	public Keyboard buildKeyboard() {
 		return this.keyboard;
 	}

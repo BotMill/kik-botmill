@@ -73,6 +73,12 @@ public class NetworkUtils {
 	 */
 	private static final Logger logger = LoggerFactory.getLogger(NetworkUtils.class);
 	
+	/**
+	 * Post json config.
+	 *
+	 * @param input the input
+	 * @return the string
+	 */
 	public static String postJsonConfig(Object input) {
 		StringEntity stringEntity = toStringEntity(input);
 		HttpPost post = new HttpPost(KikBotMillNetworkConstants.CONFIG_ENDPOINT);
@@ -81,6 +87,12 @@ public class NetworkUtils {
 		return send(post);
 	}
 	
+	/**
+	 * Post json message.
+	 *
+	 * @param input the input
+	 * @return the string
+	 */
 	public static String postJsonMessage(Object input) {
 		StringEntity stringEntity = toStringEntity(input);
 		HttpPost post = new HttpPost(KikBotMillNetworkConstants.MESSAGE_ENDPOINT);
@@ -89,7 +101,27 @@ public class NetworkUtils {
 		return send(post);
 	}
 	
+	/**
+	 * Post json message.
+	 *
+	 * @param input the input
+	 * @return the string
+	 */
+	public static String postJsonUserMessage(Object input) {
+		StringEntity stringEntity = toStringEntity(input);
+		HttpPost post = new HttpPost(KikBotMillNetworkConstants.USER_ENDPOINT);
+		post.setHeader("Content-Type", "application/json");
+		post.setEntity(stringEntity);
+		return send(post);
+	}
+	
 
+	/**
+	 * Send.
+	 *
+	 * @param request the request
+	 * @return the string
+	 */
 	private static String send(HttpRequestBase request) {
 		
 		CredentialsProvider provider = new BasicCredentialsProvider();
@@ -182,6 +214,13 @@ public class NetworkUtils {
 	}
 
 	
+	/**
+	 * Post.
+	 *
+	 * @param url the url
+	 * @param entity the entity
+	 * @return the string
+	 */
 	public static String post(String url, StringEntity entity) {
 		HttpPost post = new HttpPost(url);
 		post.setHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -197,12 +236,17 @@ public class NetworkUtils {
 	 * @return {@link String}
 	 */
 	public static String get(String url) {
-		System.out.println(url);
 		HttpGet get = new HttpGet(url);
 		return send(get);
 	}
 	
 	
+	/**
+	 * To string entity.
+	 *
+	 * @param object the object
+	 * @return the string entity
+	 */
 	private static StringEntity toStringEntity(Object object) {
 		StringEntity input = null;
 		try {
