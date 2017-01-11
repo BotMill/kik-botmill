@@ -38,7 +38,6 @@ import co.aurasphere.botmill.kik.model.KikApi;
  * component's <code>addThreadWebhookListener</code> method. When the
  * threadWebhook event occurs, that object's appropriate method is invoked.
  *
- * @see ThreadWebhookEvent
  */
 public class ThreadWebhookListener extends Thread {
 
