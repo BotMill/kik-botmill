@@ -35,6 +35,7 @@ public abstract class KikBotMillEntry {
 	 */
 	public KikBotMillEntry() {
 		KikBotMillContext.getInstance().registerEntryPoint(this);
+		this.postCleanup(); // clean up all the stuff.
 	}
 	
 	/**
@@ -50,4 +51,7 @@ public abstract class KikBotMillEntry {
 	 * Define kik bot.
 	 */
 	protected abstract void kikBotEntry();
+	protected void postCleanup() {
+		
+	}
 }

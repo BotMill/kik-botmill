@@ -27,9 +27,9 @@ package co.aurasphere.botmill.kik;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import co.aurasphere.botmill.kik.configuration.Authentication;
-import co.aurasphere.botmill.kik.model.ActionFrame;
+import co.aurasphere.botmill.kik.intf.Domain;
+import co.aurasphere.botmill.kik.intf.Frame;
 
 /**
  * The Class KikBotMillContext.
@@ -48,11 +48,17 @@ public class KikBotMillContext {
 	/** The bots. */
 	private List<KikBotMillEntry> entryPoints;
 	
+	private List<Domain> domains;
+	
+	private List<Frame> actionFrames;
+	
 	/**
 	 * Instantiates a new kik bot mill context.
 	 */
 	public KikBotMillContext() {
 		this.entryPoints = new ArrayList<KikBotMillEntry>();
+		this.domains = new ArrayList<Domain>();
+		this.actionFrames = new ArrayList<Frame>();
 	}
 
 	/**
@@ -122,5 +128,13 @@ public class KikBotMillContext {
 	 */
 	public String getWebHookUrl() {
 		return this.webhookUrl;
+	}
+	
+	public void registerDomain(Domain domain) {
+		this.domains.add(domain);
+	}
+	
+	public void addActionFrameToContext(Frame actionFrame) {
+		this.actionFrames.add(actionFrame);
 	}
 }

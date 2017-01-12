@@ -27,11 +27,6 @@ package co.aurasphere.botmill.kik;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

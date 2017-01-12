@@ -1,6 +1,6 @@
 package co.aurasphere.botmill.kik.builder;
 
-import co.aurasphere.botmill.kik.KikBotMillResponseContext;
+import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.intf.Buildable;
 import co.aurasphere.botmill.kik.intf.Event;
 import co.aurasphere.botmill.kik.intf.Reply;
@@ -14,7 +14,7 @@ public class ActionFrameBuilder implements Buildable<ActionFrame>{
 	/** The instance. */
 	private static ActionFrameBuilder instance;
 	
-	public static ActionFrameBuilder buildAction() {
+	public static ActionFrameBuilder createAction() {
 		if (instance == null) {
 			instance = new ActionFrameBuilder();
 		}
@@ -30,9 +30,13 @@ public class ActionFrameBuilder implements Buildable<ActionFrame>{
 		return this;
 	}
 	
+	
+	public ActionFrame buildToContext() {
+		KikBotMillContext.getInstance().addActionFrameToContext(this.actionFrame);
+		return this.actionFrame;
+	}
 	@Override
 	public ActionFrame build() {
-		KikBotMillResponseContext.getInstance().addActionFrameToContext(this.actionFrame);
 		return this.actionFrame;
 	}
 }
