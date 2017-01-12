@@ -2,6 +2,7 @@ package co.aurasphere.botmill.kik.builder;
 
 import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.intf.Buildable;
+import co.aurasphere.botmill.kik.intf.Command;
 import co.aurasphere.botmill.kik.intf.Event;
 import co.aurasphere.botmill.kik.intf.Reply;
 import co.aurasphere.botmill.kik.model.ActionFrame;
@@ -30,6 +31,15 @@ public class ActionFrameBuilder implements Buildable<ActionFrame>{
 		return this;
 	}
 	
+	public ActionFrameBuilder addPreCommand(Command command) {
+		this.actionFrame.addPreCommand(command);
+		return this;
+	}
+	
+	public ActionFrameBuilder addPostCommand(Command command) {
+		this.actionFrame.addPostCommand(command);
+		return this;
+	}
 	
 	public ActionFrame buildToContext() {
 		KikBotMillContext.getInstance().addActionFrameToContext(this.actionFrame);

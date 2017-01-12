@@ -23,4 +23,6 @@ public abstract class AbstractDomain implements Domain {
 	protected void sortContextBuckets(){
 		System.out.println("sort it to different buckets");
 	}
+
+	
 }
