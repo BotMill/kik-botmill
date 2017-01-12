@@ -23,11 +23,9 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik;
+package co.aurasphere.botmill.kik.intf;
 
-/**
- * The Interface KikBotDefinition.
- */
-public interface KikBotDefinition {
+
+public interface Reply {
 	
 }

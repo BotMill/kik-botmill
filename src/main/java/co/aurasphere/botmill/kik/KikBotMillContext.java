@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.aurasphere.botmill.kik.configuration.Authentication;
+import co.aurasphere.botmill.kik.model.ActionFrame;
 
 /**
  * The Class KikBotMillContext.
@@ -45,13 +46,13 @@ public class KikBotMillContext {
 	private String webhookUrl;
 	
 	/** The bots. */
-	private List<KikBot> bots;
+	private List<KikBotMillEntry> entryPoints;
 	
 	/**
 	 * Instantiates a new kik bot mill context.
 	 */
 	public KikBotMillContext() {
-		this.bots = new ArrayList<KikBot>();
+		this.entryPoints = new ArrayList<KikBotMillEntry>();
 	}
 
 	/**
@@ -99,10 +100,10 @@ public class KikBotMillContext {
 	/**
 	 * Register kik bot.
 	 *
-	 * @param kikbot the kikbot
+	 * @param kikBotMillEntry the kikBotMillEntry
 	 */
-	public void registerKikBot(KikBot kikbot) {
-		this.bots.add(kikbot);
+	public void registerEntryPoint(KikBotMillEntry kikBotMillEntry) {
+		this.entryPoints.add(kikBotMillEntry);
 	}
 	
 	/**

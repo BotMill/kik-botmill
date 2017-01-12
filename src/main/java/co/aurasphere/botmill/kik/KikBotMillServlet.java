@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -40,19 +42,19 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class KikBotServlet.
  */
-public class KikBotServlet extends HttpServlet {
+public class KikBotMillServlet extends HttpServlet {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/** The Constant logger. */
-	private static final Logger logger = LoggerFactory.getLogger(KikBotServlet.class);
+	private static final Logger logger = LoggerFactory.getLogger(KikBotMillServlet.class);
 	
 	/* (non-Javadoc)
 	 * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
 	 */
 	@Override
-	public void init(ServletConfig config) throws ServletException {
+	public void init() throws ServletException {
 		
 		// Tries to get the botDefinitionClass name from the config defined in
 		// web.xml.
@@ -65,9 +67,9 @@ public class KikBotServlet extends HttpServlet {
 		}
 
 		// Tries to load and instantiate the botDefinitionClass.
-		KikBot botEntry = null;
+		KikBotMillEntry botEntry = null;
 		try {
-			botEntry = (KikBot) this.getClass().getClassLoader().loadClass(botDefinitionClass).newInstance();
+			botEntry = (KikBotMillEntry) this.getClass().getClassLoader().loadClass(botDefinitionClass).newInstance();
 		} catch (ClassNotFoundException e) {
 			logger.error("Error while loading KikBotDefinition class [ " + botDefinitionClass + " ]", e);
 			throw new ServletException("Error while loading KikBotDefinition class [ " + botDefinitionClass + " ]", e);
@@ -82,10 +84,10 @@ public class KikBotServlet extends HttpServlet {
 			logger.error("Error during instantiation of class [ " + botDefinitionClass + " ]", e);
 			throw new ServletException("Error during instantiation of class [ " + botDefinitionClass + " ]", e);
 		}
-
-		System.out.println(config.getServletContext().getRealPath("/"));
-		botEntry.setWebHookUrl(config.getServletContext().getRealPath("/"));
-		botEntry.defineKikBot();
+		
+		System.out.println(getServletConfig().getServletContext().getServletContextName());
+		botEntry.setWebHookUrl("https://kik-bot-021415.herokuapp.com/kikbot");
+		botEntry.kikBotEntry();
 		logger.info("KikBotMillServlet configuration OK.");
 	}
 
@@ -104,11 +106,9 @@ public class KikBotServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("POST received!");
 
-		// Extrapolates and logs the JSON for debugging.
 		String json = readerToString(req.getReader());
 		logger.debug("JSON input: " + json);
 
-		// Parses the request as a MessengerCallback.
 		try {
 			System.out.println(json);
 		} catch (Exception e) {

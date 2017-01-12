@@ -26,8 +26,28 @@
 package co.aurasphere.botmill.kik;
 
 /**
- * The Class KikBotResponse.
+ * The Class KikBot.
  */
-public class KikBotResponse {
+public abstract class KikBotMillEntry {
 	
+	/**
+	 * Instantiates a new kik bot.
+	 */
+	public KikBotMillEntry() {
+		KikBotMillContext.getInstance().registerEntryPoint(this);
+	}
+	
+	/**
+	 * Sets the web hook url.
+	 *
+	 * @param url the new web hook url
+	 */
+	protected void setWebHookUrl(String url) {
+		KikBotMillContext.getInstance().setWebHookUrl(url);
+	}
+	
+	/**
+	 * Define kik bot.
+	 */
+	protected abstract void kikBotEntry();
 }

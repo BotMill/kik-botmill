@@ -71,13 +71,13 @@ public class OutgoingMessageBuilderTest {
 	@Test
 	public void testConfigBuilderJson() {
 		
-		String configStr = "{\"webhook\":\"https://example.com/incoming\",\"features\":{\"manuallySendReadReceipts\":true,\"receiveReadReceipts\":true,\"receiveDeliveryReceipts\":true,\"receiveIsTyping\":true},\"staticKeyboard\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"A\",\"type\":\"text\"},{\"body\":\"B\",\"type\":\"text\"}]}}";
-		Configuration config = ConfigurationBuilder.getInstance().setWebhook("https://example.com/incoming").setManuallySendReadReceipts(true)
+		String configStr = "{\"webhook\":\"https://kik-bot-021415.herokuapp.com/kikbot\",\"features\":{\"manuallySendReadReceipts\":true,\"receiveReadReceipts\":true,\"receiveDeliveryReceipts\":true,\"receiveIsTyping\":true},\"staticKeyboard\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"A\",\"type\":\"text\"},{\"body\":\"B\",\"type\":\"text\"}]}}";
+		Configuration config = ConfigurationBuilder.getInstance().setWebhook("https://kik-bot-021415.herokuapp.com/kikbot").setManuallySendReadReceipts(true)
 				.setReceiveDeliveryReceipts(true).setReceiveReadReceipts(true).setReceiveIsTyping(true).addKeyboard()
 				.setType(KeyboardType.SUGGESTED).addResponse(ConfigurationFactory.createResponse("A", ResponseType.TEXT))
 				.addResponse(ConfigurationFactory.createResponse("B", ResponseType.TEXT)).endKeyboard()
 				.buildConfiguration(); 
-
+		
 		assertEquals(configStr, JsonUtils.toJson(config));
 	}
 
