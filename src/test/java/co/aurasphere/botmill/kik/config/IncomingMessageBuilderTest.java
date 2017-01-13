@@ -6,6 +6,7 @@ import co.aurasphere.botmill.kik.incoming.model.TextMessage;
 import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessageCallback;
+import co.aurasphere.botmill.kik.model.MessageEnvelope;
 
 public class IncomingMessageBuilderTest {
 
@@ -27,6 +28,21 @@ public class IncomingMessageBuilderTest {
 				TextMessage t = JsonUtils.fromJson(json, TextMessage.class);
 				System.out.println(t.getBody());
 				break;
+		}
+	}
+	@Test
+	public void testJsonParseToEnvelope() {
+		String json = "{\"messages\": [{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
+		MessageCallback m = JsonUtils.fromJson(json,MessageCallback.class);
+		
+		for(Message message:m.getMessages()) {
+			MessageEnvelope msgEnv = new MessageEnvelope();
+			if(message instanceof TextMessage) {
+				msgEnv.setIncomingMessage(message);
+				msgEnv.setParticipants(((TextMessage)message).getParticipants());
+			}
+			msgEnv.setChatId(message.getChatId());
+			System.out.println(msgEnv.getChatId());
 		}
 	}
 }
