@@ -2,8 +2,10 @@ package co.aurasphere.botmill.kik.model;
 
 import java.io.Serializable;
 import java.util.List;
+
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotEmpty;
-import com.sun.istack.internal.NotNull;
 public class MessageEnvelope implements Serializable {
 	
 	@NotNull
