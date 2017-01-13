@@ -34,6 +34,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import co.aurasphere.botmill.kik.json.JsonUtils;
+import co.aurasphere.botmill.kik.model.Message;
+
 /**
  * The Class KikBotServlet.
  */
@@ -103,6 +106,8 @@ public class KikBotMillServlet extends HttpServlet {
 
 		String json = readerToString(req.getReader());
 		logger.debug("JSON input: " + json);
+		
+		
 
 		try {
 			System.out.println(json);

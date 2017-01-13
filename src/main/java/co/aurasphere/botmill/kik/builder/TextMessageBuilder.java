@@ -30,6 +30,7 @@ import co.aurasphere.botmill.kik.intf.Keyboardable;
 import co.aurasphere.botmill.kik.model.BaseBuilder;
 import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
+import co.aurasphere.botmill.kik.reply.TextMessageReply;
 
 /**
  * The Class TextMessageBuilder.
@@ -39,6 +40,8 @@ public class TextMessageBuilder extends BaseBuilder
 	
 	/** The text message. */
 	private TextMessage textMessage;
+	
+	private TextMessageReply textMessageReply;
 	
 	/** The instance. */
 	private static TextMessageBuilder instance;
@@ -114,4 +117,8 @@ public class TextMessageBuilder extends BaseBuilder
 		return this.textMessage;
 	}
 	
+	
+	public TextMessageReply buildReply() {
+		return this.textMessageReply;
+	}
 }

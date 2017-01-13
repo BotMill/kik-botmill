@@ -33,6 +33,11 @@ import co.aurasphere.botmill.kik.model.Attribution;
  */
 public class VideoMessage extends IncomingMessage {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The video url. */
 	private String videoUrl;
 	

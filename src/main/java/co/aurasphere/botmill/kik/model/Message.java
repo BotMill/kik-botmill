@@ -27,10 +27,13 @@ package co.aurasphere.botmill.kik.model;
 
 import java.io.Serializable;
 
+import com.google.gson.annotations.SerializedName;
+
+
 /**
  * The Class Message.
  */
-public abstract class Message implements Serializable {
+public class Message implements Serializable {
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -42,6 +45,7 @@ public abstract class Message implements Serializable {
 	private String id;
 	
 	/** The type. */
+	@SerializedName("type")
 	private MessageType type;
 	
 	/** The mention. */

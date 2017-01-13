@@ -25,27 +25,38 @@
  */
 package co.aurasphere.botmill.kik.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * The Enum MessageType.
  */
 public enum MessageType {
-	
+
 	/** The text. */
+	@SerializedName("text")
 	TEXT,
-/** The link. */
-LINK,
-/** The picture. */
-PICTURE,
-/** The video. */
-VIDEO,
-/** The is typing. */
-IS_TYPING,
-/** The read receipt. */
-READ_RECEIPT,
-/** The scan data. */
-SCAN_DATA,
-/** The sticker. */
-STICKER,
-/** The friend picker. */
-FRIEND_PICKER
+	/** The link. */
+	@SerializedName("link")
+	LINK,
+	/** The picture. */
+	@SerializedName("picture")
+	PICTURE,
+	/** The video. */
+	@SerializedName("video")
+	VIDEO,
+	/** The is typing. */
+	@SerializedName("is-typing")
+	IS_TYPING,
+	/** The read receipt. */
+	@SerializedName("read-receipt")
+	READ_RECEIPT,
+	/** The scan data. */
+	@SerializedName("scan-data")
+	SCAN_DATA,
+	/** The sticker. */
+	@SerializedName("sticker")
+	STICKER,
+	/** The friend picker. */
+	@SerializedName("friend-picker")
+	FRIEND_PICKER
 }

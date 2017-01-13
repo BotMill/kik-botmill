@@ -44,4 +44,5 @@ public class EnumLowercaseSerializer implements JsonSerializer<Enum<?>> {
 		String source = src.name().replace('_', '-');
 		return context.serialize(source.toLowerCase());
 	}
+
 }

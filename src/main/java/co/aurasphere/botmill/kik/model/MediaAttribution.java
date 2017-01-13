@@ -25,13 +25,15 @@
  */
 package co.aurasphere.botmill.kik.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * The Enum MediaAttribution.
  */
 public enum MediaAttribution {
-	
+
 	/** The gallery. */
-	GALLERY, 
- /** The camera. */
- CAMERA
+	@SerializedName("gallery") GALLERY,
+	/** The camera. */
+	@SerializedName("camera") CAMERA
 }

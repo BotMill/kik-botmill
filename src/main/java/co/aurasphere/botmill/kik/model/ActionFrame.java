@@ -10,36 +10,29 @@ import co.aurasphere.botmill.kik.intf.Frame;
 import co.aurasphere.botmill.kik.intf.Reply;
 
 
-public class ActionFrame implements Frame, Serializable {
+public class ActionFrame extends AbstractFrame implements Frame, Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Event event;
-	private List<Reply> replies = new ArrayList<Reply>();
-	private List<Command> preCommands = new ArrayList<Command>();
-	private List<Command> postCommands = new ArrayList<Command>();
-	
 	public Event getEvent() {
-		return event;
+		return super.event;
 	}
 	
 	@Override
 	public void setEvent(Event event) {
-		this.event = event;
+		super.event = event;
 	}
 
 	@Override
 	public void addReply(Reply reply) {
-		this.replies.add(reply);
+		super.replies.add(reply);
 	}
 
 	public void addPreCommand(Command command) {
-		this.preCommands.add(command);
+		super.preCommands.add(command);
 	}
 	
 	public void addPostCommand(Command command) {
-		this.postCommands.add(command);
-	}
-
-	
+		super.postCommands.add(command);
+	}	
 }

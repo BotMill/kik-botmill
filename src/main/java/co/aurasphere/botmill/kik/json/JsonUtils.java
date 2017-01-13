@@ -30,6 +30,9 @@ import java.util.Calendar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import co.aurasphere.botmill.kik.model.Message;
+import co.aurasphere.botmill.kik.model.MessageType;
+
 
 /**
  * Utility class for handling JSON serialization and deserialization.
@@ -56,11 +59,10 @@ public class JsonUtils {
 			// Creates the Gson object which will manage the information
 			// received
 			GsonBuilder builder = new GsonBuilder();
-
 			// Serializes enums as lower-case.
 			builder.registerTypeHierarchyAdapter(Enum.class, new EnumLowercaseSerializer());
-			
-			//	
+
+			//	EnumDeserializer
 			builder.registerTypeHierarchyAdapter(Calendar.class, new CalendarSerializer());
 
 			gson = builder.create();
@@ -96,6 +98,12 @@ public class JsonUtils {
 	 */
 	public static String toJson(Object src) {
 		return getGson().toJson(src);
+	}
+	
+	public static MessageType getType(String json) {
+		Message message = getGson().fromJson(json, Message.class);
+		return message.getType();
+		
 	}
 
 }
