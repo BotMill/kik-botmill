@@ -1,7 +1,6 @@
 package co.aurasphere.botmill.kik.config;
 
 import org.junit.Test;
-
 import co.aurasphere.botmill.kik.incoming.model.TextMessage;
 import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.Message;

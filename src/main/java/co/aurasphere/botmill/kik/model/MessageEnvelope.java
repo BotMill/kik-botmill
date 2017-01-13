@@ -2,9 +2,12 @@ package co.aurasphere.botmill.kik.model;
 
 import java.io.Serializable;
 import java.util.List;
-
+import org.hibernate.validator.constraints.NotEmpty;
+import com.sun.istack.internal.NotNull;
 public class MessageEnvelope implements Serializable {
 	
+	@NotNull
+	@NotEmpty
 	private String chatId;
 	private List<String> participants;
 	private Message incomingMessage;
