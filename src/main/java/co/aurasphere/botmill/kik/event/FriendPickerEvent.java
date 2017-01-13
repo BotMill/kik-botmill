@@ -1,5 +1,11 @@
 package co.aurasphere.botmill.kik.event;
 
-public class FriendPickerEvent {
+import co.aurasphere.botmill.kik.intf.Event;
 
+public class FriendPickerEvent  implements Event {
+	@Override
+	public boolean verifyEvent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

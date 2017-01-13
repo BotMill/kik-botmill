@@ -3,11 +3,19 @@ package co.aurasphere.botmill.kik.event;
 import co.aurasphere.botmill.kik.intf.Event;
 
 public class TextMessagePatternEvent implements Event {
-	private static TextMessagePatternEvent instance;
-	public static TextMessagePatternEvent event() {
-		if (instance == null) {
-			instance = new TextMessagePatternEvent();
-		}
-		return instance;
+	
+	private String keywordPattern;
+
+	public TextMessagePatternEvent() {}
+	
+	public TextMessagePatternEvent setPattern(String text) {
+		this.keywordPattern = text;
+		return this;
+	}
+	
+	@Override
+	public boolean verifyEvent() {
+		//define how we need to check this.
+		return false;
 	}
 }

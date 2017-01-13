@@ -3,11 +3,9 @@ package co.aurasphere.botmill.kik.json;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
@@ -42,8 +40,6 @@ public class LowerCaseTypeAdapterFactory implements TypeAdapterFactory {
 					JsonObject jsonObject = ((JsonObject) deserialized);
 					Set<Map.Entry<String, JsonElement>> entrySet = jsonObject.entrySet();
 					for (Map.Entry<String, JsonElement> entry : entrySet) {
-						//System.out.println(entry.getValue());
-						//System.out.println(entry.getKey());
 						if (entry.getValue() instanceof JsonElement) {
 							if (entry.getKey().equalsIgnoreCase("type")) {
 								String val = jsonObject.get(entry.getKey()).toString();

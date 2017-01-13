@@ -1,5 +1,11 @@
 package co.aurasphere.botmill.kik.event;
 
-public class StartChattingEvent {
+import co.aurasphere.botmill.kik.intf.Event;
 
+public class StartChattingEvent  implements Event{
+	@Override
+	public boolean verifyEvent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

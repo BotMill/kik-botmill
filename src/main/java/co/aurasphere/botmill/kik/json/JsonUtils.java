@@ -54,17 +54,16 @@ public class JsonUtils {
 	 * 
 	 * @return the current instance of Gson.
 	 */
-	private static Gson getGson() {
+	public static Gson getGson() {
 		if (gson == null) {
 			// Creates the Gson object which will manage the information
 			// received
 			GsonBuilder builder = new GsonBuilder();
 			// Serializes enums as lower-case.
 			builder.registerTypeHierarchyAdapter(Enum.class, new EnumLowercaseSerializer());
-
 			//	EnumDeserializer
 			builder.registerTypeHierarchyAdapter(Calendar.class, new CalendarSerializer());
-
+			
 			gson = builder.create();
 		}
 		return gson;
@@ -100,6 +99,7 @@ public class JsonUtils {
 		return getGson().toJson(src);
 	}
 	
+
 	public static MessageType getType(String json) {
 		Message message = getGson().fromJson(json, Message.class);
 		return message.getType();
