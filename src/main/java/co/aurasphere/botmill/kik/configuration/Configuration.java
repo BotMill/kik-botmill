@@ -26,7 +26,6 @@
 package co.aurasphere.botmill.kik.configuration;
 
 import java.io.Serializable;
-
 import com.google.gson.annotations.SerializedName;
 
 
@@ -53,7 +52,6 @@ public class Configuration implements Serializable  {
 	 */
 	public Configuration() {
 		this.features = new Features();
-		this.keyboard = new Keyboard();
 	}
 	
 	/**

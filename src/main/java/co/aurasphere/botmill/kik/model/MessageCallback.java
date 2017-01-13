@@ -1,16 +1,19 @@
-package co.aurasphere.botmill.kik;
+package co.aurasphere.botmill.kik.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
-
-import co.aurasphere.botmill.kik.model.Message;
 
 public class MessageCallback implements Serializable{
 	
 	@SerializedName("messages")
 	private List<Message> messages;
+	
+	public MessageCallback() {
+		this.messages = new ArrayList<Message>();
+	}
 
 	public List<Message> getMessages() {
 		return messages;
@@ -20,5 +23,8 @@ public class MessageCallback implements Serializable{
 		this.messages = messages;
 	}
 	
+	public void addMessage(Message message) {
+		this.messages.add(message);
+	}
 	
 }

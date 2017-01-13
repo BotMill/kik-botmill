@@ -13,18 +13,23 @@ public abstract class AbstractFrame {
 	protected List<Command> preCommands = new ArrayList<Command>();
 	protected List<Command> postCommands = new ArrayList<Command>();
 	
-	protected void processFrame() {
-		
+	protected void processFrame(MessageEnvelope messageEnvelope) {
+		this.processPreCommands();
 		for(Reply reply : replies) {
+			reply.processReply(messageEnvelope);
+		}
+		this.processPostCommands();
+	}
+	
+	protected void processPreCommands() {
+		for(Command preCommand : preCommands) {
 			
 		}
 	}
 	
-	protected void processPreCommands() {
-		
-	}
-	
 	protected void processPostCommands() {
-		
+		for(Command postCommand : postCommands) {
+			
+		}
 	}
 }

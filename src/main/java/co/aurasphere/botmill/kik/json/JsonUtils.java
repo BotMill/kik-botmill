@@ -31,6 +31,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import co.aurasphere.botmill.kik.model.Message;
+import co.aurasphere.botmill.kik.model.MessageCallback;
 import co.aurasphere.botmill.kik.model.MessageType;
 
 
@@ -61,6 +62,8 @@ public class JsonUtils {
 			GsonBuilder builder = new GsonBuilder();
 			// Serializes enums as lower-case.
 			builder.registerTypeHierarchyAdapter(Enum.class, new EnumLowercaseSerializer());
+			
+			builder.registerTypeHierarchyAdapter(MessageCallback.class, new IncomingMessagesDeserializer());
 			//	EnumDeserializer
 			builder.registerTypeHierarchyAdapter(Calendar.class, new CalendarSerializer());
 			

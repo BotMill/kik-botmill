@@ -3,6 +3,7 @@ package co.aurasphere.botmill.kik.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.aurasphere.botmill.kik.event.TextMessageEvent;
 import co.aurasphere.botmill.kik.intf.Domain;
 import co.aurasphere.botmill.kik.intf.Frame;
 
@@ -17,6 +18,9 @@ public abstract class AbstractDomain implements Domain {
 	}
 	
 	public void addActionFrame(Frame actionFrame) {
+		if(actionFrame.getEvent() instanceof TextMessageEvent) {
+			//	add to text message buckets.
+		}
 		this.actionFrames.add(actionFrame);
 	}
 	

@@ -1,8 +1,7 @@
-/**
- * 
+/*
  * MIT License
  *
- * Copyright (c) 2017 BotMill.io
+ * Copyright (c) 2016 BotMill.io
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,12 +20,42 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- * 
  */
-package co.aurasphere.botmill.kik.intf;
+package co.aurasphere.botmill.kik.json;
 
-import co.aurasphere.botmill.kik.model.MessageEnvelope;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 
-public interface Reply {
-	void processReply(MessageEnvelope messageEnvelope);
+
+final class SkipDeserializationAnnotationExclusionStrategy implements
+		ExclusionStrategy {
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.google.gson.ExclusionStrategy#shouldSkipField(com.google.gson.
+	 * FieldAttributes)
+	 */
+	public boolean shouldSkipField(FieldAttributes f) {
+		return f.getAnnotation(SkipDeserialization.class) != null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.google.gson.ExclusionStrategy#shouldSkipClass(java.lang.Class)
+	 */
+	public boolean shouldSkipClass(Class<?> clazz) {
+		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "SkipDeserializationAnnotationExclusionStrategy []";
+	}
 }

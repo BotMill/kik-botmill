@@ -59,7 +59,6 @@ public class ConfigurationBuilder extends BaseBuilder implements Keyboardable<Co
 	 * Instantiates a new configuration builder.
 	 */
 	public ConfigurationBuilder() {
-		this.keyboardBuilder = new KeyboardBuilder<ConfigurationBuilder>(this);
 		this.config = new Configuration();
 	}
 	
@@ -123,6 +122,7 @@ public class ConfigurationBuilder extends BaseBuilder implements Keyboardable<Co
 	 */
 	@Override
 	public KeyboardBuilder<ConfigurationBuilder> addKeyboard() {
+		this.keyboardBuilder = new KeyboardBuilder<ConfigurationBuilder>(this);
 		return this.keyboardBuilder;
 	}
 	
@@ -140,7 +140,9 @@ public class ConfigurationBuilder extends BaseBuilder implements Keyboardable<Co
 	 * @return the configuration
 	 */
 	public Configuration buildConfiguration() {
-		config.setStaticKeyBoard(this.keyboardBuilder.buildKeyboard());
+		if(this.keyboardBuilder != null) {
+			config.setStaticKeyBoard(this.keyboardBuilder.buildKeyboard());
+		}
 		return this.config;
 	}
 	

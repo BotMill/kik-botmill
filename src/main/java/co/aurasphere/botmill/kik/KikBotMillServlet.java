@@ -36,6 +36,7 @@ import org.slf4j.LoggerFactory;
 
 import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.Message;
+import co.aurasphere.botmill.kik.model.MessageCallback;
 
 /**
  * The Class KikBotServlet.
@@ -106,7 +107,11 @@ public class KikBotMillServlet extends HttpServlet {
 
 		String json = readerToString(req.getReader());
 		logger.debug("JSON input: " + json);
+		MessageCallback messages = JsonUtils.fromJson(json,MessageCallback.class);
 		
+		for(Message message:messages.getMessages()) {
+			
+		}
 		
 
 		try {

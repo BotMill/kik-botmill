@@ -1,8 +1,7 @@
-/**
- * 
+/*
  * MIT License
  *
- * Copyright (c) 2017 BotMill.io
+ * Copyright (c) 2016 BotMill.io
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,12 +20,16 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- * 
  */
-package co.aurasphere.botmill.kik.intf;
+package co.aurasphere.botmill.kik.json;
 
-import co.aurasphere.botmill.kik.model.MessageEnvelope;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public interface Reply {
-	void processReply(MessageEnvelope messageEnvelope);
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface SkipDeserialization {
+
 }
