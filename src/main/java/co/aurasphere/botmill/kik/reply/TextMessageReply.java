@@ -1,12 +1,8 @@
 package co.aurasphere.botmill.kik.reply;
 
 import co.aurasphere.botmill.kik.intf.Reply;
-import co.aurasphere.botmill.kik.model.MessageEnvelope;
+import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 
-public class TextMessageReply implements Reply {
-	@Override
-	public void processReply(MessageEnvelope messageEnvelope) {
-		// TODO Auto-generated method stub
-		
-	}
+public abstract class TextMessageReply implements Reply<TextMessage> {
+	protected TextMessage textMessage;
 }

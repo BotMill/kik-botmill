@@ -8,15 +8,15 @@ import co.aurasphere.botmill.kik.intf.Reply;
 
 public abstract class AbstractFrame {
 	
-	protected Event event;
-	protected List<Reply> replies = new ArrayList<Reply>();
+	protected Event<? extends Message> event;
+	protected List<Reply<? extends Message>> replies = new ArrayList<Reply<? extends Message>>();
 	protected List<Command> preCommands = new ArrayList<Command>();
 	protected List<Command> postCommands = new ArrayList<Command>();
 	
-	protected void processFrame(MessageEnvelope messageEnvelope) {
+	protected void processFrame(Message message) {
 		this.processPreCommands();
-		for(Reply reply : replies) {
-			reply.processReply(messageEnvelope);
+		for(Reply<? extends Message> reply : replies) {
+			reply.processReply(message);
 		}
 		this.processPostCommands();
 	}

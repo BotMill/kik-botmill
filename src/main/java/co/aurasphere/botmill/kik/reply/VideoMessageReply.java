@@ -1,12 +1,10 @@
 package co.aurasphere.botmill.kik.reply;
 
 import co.aurasphere.botmill.kik.intf.Reply;
-import co.aurasphere.botmill.kik.model.MessageEnvelope;
+import co.aurasphere.botmill.kik.outgoing.model.VideoMessage;
 
-public class VideoMessageReply implements Reply {
-	@Override
-	public void processReply(MessageEnvelope messageEnvelope) {
-		// TODO Auto-generated method stub
-		
-	}
+public abstract class VideoMessageReply implements Reply<VideoMessage> {
+	
+	protected VideoMessage videoMessage;
+
 }

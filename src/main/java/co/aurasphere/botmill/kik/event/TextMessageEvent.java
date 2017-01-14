@@ -1,10 +1,10 @@
 package co.aurasphere.botmill.kik.event;
 
 import co.aurasphere.botmill.kik.intf.Event;
+import co.aurasphere.botmill.kik.incoming.model.TextMessage;
 
-public class TextMessageEvent implements Event {
+public class TextMessageEvent implements Event<TextMessage> {
 	private String keywordText;
-	private String keywordPattern;
 
 	public TextMessageEvent() {}
 	
@@ -13,14 +13,11 @@ public class TextMessageEvent implements Event {
 		return this;
 	}
 	
-	public TextMessageEvent setPattern(String text) {
-		this.keywordPattern = text;
-		return this;
-	}
-	
 	@Override
-	public boolean verifyEvent() {
-		//define how we need to check this.
+	public boolean verifyEvent(TextMessage message) {
+		if(this.keywordText.equals(message.getBody())) {
+			return true;
+		}
 		return false;
 	}
 }

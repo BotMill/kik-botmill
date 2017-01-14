@@ -28,6 +28,10 @@ package co.aurasphere.botmill.kik;
 import java.util.ArrayList;
 import java.util.List;
 import co.aurasphere.botmill.kik.configuration.Authentication;
+import co.aurasphere.botmill.kik.event.LinkMessageEvent;
+import co.aurasphere.botmill.kik.event.PictureMessageEvent;
+import co.aurasphere.botmill.kik.event.TextMessageEvent;
+import co.aurasphere.botmill.kik.event.VideoMessageEvent;
 import co.aurasphere.botmill.kik.intf.Domain;
 import co.aurasphere.botmill.kik.intf.Frame;
 
@@ -47,11 +51,37 @@ public class KikBotMillContext {
 	
 	/** The bots. */
 	private List<KikBotMillEntry> entryPoints;
-	
 	private List<Domain> domains;
 	
 	private List<Frame> actionFrames;
 	
+	//buckets
+	private List<Frame> textMessageActionFrames;
+	private List<Frame> mediaMessageActionFrames;
+	private List<Frame> linkMessageActionFrames;
+	
+	
+
+	public List<Domain> getDomains() {
+		return domains;
+	}
+
+	public List<Frame> getActionFrames() {
+		return actionFrames;
+	}
+
+	public List<Frame> getTextMessageActionFrames() {
+		return textMessageActionFrames;
+	}
+
+	public List<Frame> getMediaMessageActionFrames() {
+		return mediaMessageActionFrames;
+	}
+
+	public List<Frame> getLinkMessageActionFrames() {
+		return linkMessageActionFrames;
+	}
+
 	/**
 	 * Instantiates a new kik bot mill context.
 	 */
@@ -59,6 +89,9 @@ public class KikBotMillContext {
 		this.entryPoints = new ArrayList<KikBotMillEntry>();
 		this.domains = new ArrayList<Domain>();
 		this.actionFrames = new ArrayList<Frame>();
+		this.textMessageActionFrames = new ArrayList<Frame>();
+		this.mediaMessageActionFrames = new ArrayList<Frame>();
+		this.linkMessageActionFrames = new ArrayList<Frame>();
 	}
 
 	/**
@@ -135,6 +168,15 @@ public class KikBotMillContext {
 	}
 	
 	public void addActionFrameToContext(Frame actionFrame) {
-		this.actionFrames.add(actionFrame);
+		if(actionFrame.getEvent() instanceof TextMessageEvent) {
+			this.textMessageActionFrames.add(actionFrame);
+		}else if((actionFrame.getEvent() instanceof LinkMessageEvent)) {
+			this.linkMessageActionFrames.add(actionFrame);
+		}else if((actionFrame.getEvent() instanceof PictureMessageEvent) 
+				||(actionFrame.getEvent() instanceof VideoMessageEvent)) {
+			this.mediaMessageActionFrames.add(actionFrame);
+		}else {
+			this.actionFrames.add(actionFrame);
+		}
 	}
 }

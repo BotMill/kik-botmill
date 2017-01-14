@@ -25,8 +25,8 @@
  */
 package co.aurasphere.botmill.kik.intf;
 
-import co.aurasphere.botmill.kik.model.MessageEnvelope;
+import co.aurasphere.botmill.kik.model.Message;
 
-public interface Reply {
-	void processReply(MessageEnvelope messageEnvelope);
+public interface Reply<T> {
+	T processReply(Message message);
 }

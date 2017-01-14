@@ -1,8 +1,10 @@
 package co.aurasphere.botmill.kik.event;
 
 import co.aurasphere.botmill.kik.intf.Event;
+import co.aurasphere.botmill.kik.model.Message;
+import co.aurasphere.botmill.kik.incoming.model.TextMessage;
 
-public class TextMessagePatternEvent implements Event {
+public class TextMessagePatternEvent implements Event<TextMessage> {
 	
 	private String keywordPattern;
 
@@ -14,8 +16,8 @@ public class TextMessagePatternEvent implements Event {
 	}
 	
 	@Override
-	public boolean verifyEvent() {
-		//define how we need to check this.
+	public boolean verifyEvent(TextMessage incomingMessage) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 }

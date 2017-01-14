@@ -1,12 +1,12 @@
 package co.aurasphere.botmill.kik.reply;
 
 import co.aurasphere.botmill.kik.intf.Reply;
-import co.aurasphere.botmill.kik.model.MessageEnvelope;
+import co.aurasphere.botmill.kik.model.Message;
+import co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage;
 
-public class IsTypingReply implements Reply {
+public abstract class IsTypingReply implements Reply<IsTypingMessage> {
 	@Override
-	public void processReply(MessageEnvelope messageEnvelope) {
-		// TODO Auto-generated method stub
-		
+	public IsTypingMessage processReply(Message message) {
+		return null;
 	}
 }

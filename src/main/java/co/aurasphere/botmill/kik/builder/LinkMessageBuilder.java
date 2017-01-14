@@ -39,13 +39,13 @@ import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<LinkMessageBuilder>,Buildable<LinkMessage> {
 	
 	/** The link message. */
-	private LinkMessage linkMessage;
+	private static LinkMessage linkMessage;
 	
 	/** The instance. */
 	private static LinkMessageBuilder instance;
 	
 	/** The keyboard builder. */
-	private KeyboardBuilder<LinkMessageBuilder> keyboardBuilder;
+	private static KeyboardBuilder<LinkMessageBuilder> keyboardBuilder;
 	
 	/**
 	 * Gets the single instance of LinkMessageBuilder.
@@ -56,6 +56,8 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 		if (instance == null) {
 			instance = new LinkMessageBuilder();
 		}
+		linkMessage = new LinkMessage();
+		linkMessage.setType(MessageType.LINK);
 		return instance;
 	}
 	
@@ -63,9 +65,9 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 	 * Instantiates a new link message builder.
 	 */
 	public LinkMessageBuilder() {
-		this.keyboardBuilder = new KeyboardBuilder<LinkMessageBuilder>(this);
-		this.linkMessage = new LinkMessage();
-		this.linkMessage.setType(MessageType.LINK);
+		
+		linkMessage = new LinkMessage();
+		linkMessage.setType(MessageType.LINK);
 	}
 	
 	/**
@@ -75,7 +77,7 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 	 * @return the link message builder
 	 */
 	public LinkMessageBuilder setUrl(String url) {
-		this.linkMessage.setUrl(url);
+		linkMessage.setUrl(url);
 		return this;
 	}
 	
@@ -86,7 +88,7 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 	 * @return the link message builder
 	 */
 	public LinkMessageBuilder setTitle(String title) {
-		this.linkMessage.setTitle(title);
+		linkMessage.setTitle(title);
 		return this;
 	}
 	
@@ -97,7 +99,7 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 	 * @return the link message builder
 	 */
 	public LinkMessageBuilder setText(String text) {
-		this.linkMessage.setText(text);
+		linkMessage.setText(text);
 		return this;
 	}
 	
@@ -108,7 +110,7 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 	 * @return the link message builder
 	 */
 	public LinkMessageBuilder setPicUrl(String picUrl) {
-		this.linkMessage.setPicUrl(picUrl);
+		linkMessage.setPicUrl(picUrl);
 		return this;
 	}
 	
@@ -119,7 +121,7 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 	 * @return the link message builder
 	 */
 	public LinkMessageBuilder setNoForward(boolean noForward) {
-		this.linkMessage.setNoForward(noForward);
+		linkMessage.setNoForward(noForward);
 		return this;
 	}
 	
@@ -130,7 +132,7 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 	 * @return the link message builder
 	 */
 	public LinkMessageBuilder setKikJsData(KeyValuePair kikJsData) {
-		this.linkMessage.setKikJsData(kikJsData);
+		linkMessage.setKikJsData(kikJsData);
 		return this;
 	}
 	
@@ -141,7 +143,7 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 	 * @return the link message builder
 	 */
 	public LinkMessageBuilder setAttribution(Attribution attribution) {
-		this.linkMessage.setAttribution(attribution);
+		linkMessage.setAttribution(attribution);
 		return this;
 	}
 	
@@ -150,7 +152,8 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 	 */
 	@Override
 	public KeyboardBuilder<LinkMessageBuilder> addKeyboard() {
-		return this.keyboardBuilder;
+		keyboardBuilder = new KeyboardBuilder<LinkMessageBuilder>(this);
+		return keyboardBuilder;
 	}
 	
 	/* (non-Javadoc)
@@ -158,7 +161,7 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 	 */
 	@Override
 	public LinkMessageBuilder endKeyboard() {
-		return (LinkMessageBuilder)this.keyboardBuilder.getParentBuilder();
+		return (LinkMessageBuilder)keyboardBuilder.getParentBuilder();
 	}
 	
 	/* (non-Javadoc)
@@ -166,7 +169,9 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 	 */
 	@Override
 	public LinkMessage build() {
-		this.linkMessage.setKeyboard(this.keyboardBuilder.buildKeyboard());
-		return this.linkMessage;
+		if(keyboardBuilder != null) {
+			linkMessage.setKeyboard(keyboardBuilder.buildKeyboard());
+		}
+		return linkMessage;
 	}
 }

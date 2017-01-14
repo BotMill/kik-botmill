@@ -31,6 +31,7 @@ import co.aurasphere.botmill.kik.model.BaseBuilder;
 import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 import co.aurasphere.botmill.kik.reply.TextMessageReply;
+import javafx.scene.text.Text;
 
 /**
  * The Class TextMessageBuilder.
@@ -39,15 +40,13 @@ public class TextMessageBuilder extends BaseBuilder
 		implements Keyboardable<TextMessageBuilder>, Buildable<TextMessage> {
 	
 	/** The text message. */
-	private TextMessage textMessage;
-	
-	private TextMessageReply textMessageReply;
-	
+	private static TextMessage textMessage;
+
 	/** The instance. */
 	private static TextMessageBuilder instance;
 	
 	/** The keyboard builder. */
-	private KeyboardBuilder<TextMessageBuilder> keyboardBuilder;
+	private static KeyboardBuilder<TextMessageBuilder> keyboardBuilder;
 	
 	/**
 	 * Gets the single instance of TextMessageBuilder.
@@ -58,6 +57,8 @@ public class TextMessageBuilder extends BaseBuilder
 		if (instance == null) {
 			instance = new TextMessageBuilder();
 		}
+		textMessage = new TextMessage();
+		textMessage.setType(MessageType.TEXT);
 		return instance;
 	}
 	
@@ -65,9 +66,8 @@ public class TextMessageBuilder extends BaseBuilder
 	 * Instantiates a new text message builder.
 	 */
 	public TextMessageBuilder() {
-		this.keyboardBuilder = new KeyboardBuilder<TextMessageBuilder>(this);
-		this.textMessage = new TextMessage();
-		this.textMessage.setType(MessageType.TEXT);
+		textMessage = new TextMessage();
+		textMessage.setType(MessageType.TEXT);
 	}
 	
 	/**
@@ -77,7 +77,7 @@ public class TextMessageBuilder extends BaseBuilder
 	 * @return the text message builder
 	 */
 	public TextMessageBuilder setTo(String to) {
-		this.textMessage.setTo(to);
+		textMessage.setTo(to);
 		return this;
 	}
 	
@@ -88,7 +88,7 @@ public class TextMessageBuilder extends BaseBuilder
 	 * @return the text message builder
 	 */
 	public TextMessageBuilder setBody(String body) {
-		this.textMessage.setBody(body);
+		textMessage.setBody(body);
 		return this;
 	}
 	
@@ -97,7 +97,8 @@ public class TextMessageBuilder extends BaseBuilder
 	 */
 	@Override
 	public KeyboardBuilder<TextMessageBuilder> addKeyboard() {
-		return this.keyboardBuilder;
+		keyboardBuilder = new KeyboardBuilder<TextMessageBuilder>(this);
+		return keyboardBuilder;
 	}
 	
 	/* (non-Javadoc)
@@ -105,20 +106,17 @@ public class TextMessageBuilder extends BaseBuilder
 	 */
 	@Override
 	public TextMessageBuilder endKeyboard() {
-		return (TextMessageBuilder)this.keyboardBuilder.getParentBuilder();
+		return (TextMessageBuilder)keyboardBuilder.getParentBuilder();
 	}
-	
+	 
 	/* (non-Javadoc)
 	 * @see co.aurasphere.botmill.kik.intf.Buildable#build()
 	 */
 	@Override
 	public TextMessage build() {
-		this.textMessage.setKeyboard(this.keyboardBuilder.buildKeyboard());
-		return this.textMessage;
-	}
-	
-	
-	public TextMessageReply buildReply() {
-		return this.textMessageReply;
+		if(keyboardBuilder != null) {
+			textMessage.setKeyboard(keyboardBuilder.buildKeyboard());
+		}
+		return textMessage;
 	}
 }

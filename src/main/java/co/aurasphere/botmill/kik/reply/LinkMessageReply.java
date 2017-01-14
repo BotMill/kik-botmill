@@ -1,12 +1,13 @@
 package co.aurasphere.botmill.kik.reply;
 
 import co.aurasphere.botmill.kik.intf.Reply;
+import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessageEnvelope;
+import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 
-public class LinkMessageReply implements Reply {
+public abstract class LinkMessageReply implements Reply<LinkMessage> {
 	@Override
-	public void processReply(MessageEnvelope messageEnvelope) {
-		// TODO Auto-generated method stub
-		
+	public LinkMessage processReply(Message message) {
+		return null;
 	}
 }

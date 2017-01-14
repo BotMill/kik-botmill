@@ -1,7 +1,7 @@
 package co.aurasphere.botmill.kik.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import co.aurasphere.botmill.kik.intf.Command;
@@ -14,8 +14,11 @@ public class ActionFrame extends AbstractFrame implements Frame, Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public Event getEvent() {
+	public Event<? extends Message> getEvent() {
 		return super.event;
+	}
+	public List<Reply<? extends Message>> getReplies() {
+		return super.replies;
 	}
 	
 	@Override
