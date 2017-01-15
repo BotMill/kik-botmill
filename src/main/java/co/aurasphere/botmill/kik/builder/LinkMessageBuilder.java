@@ -65,7 +65,6 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 	 * Instantiates a new link message builder.
 	 */
 	public LinkMessageBuilder() {
-		
 		linkMessage = new LinkMessage();
 		linkMessage.setType(MessageType.LINK);
 	}
@@ -153,6 +152,7 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 	@Override
 	public KeyboardBuilder<LinkMessageBuilder> addKeyboard() {
 		keyboardBuilder = new KeyboardBuilder<LinkMessageBuilder>(this);
+		linkMessage.addKeyboard(keyboardBuilder.buildKeyboard());
 		return keyboardBuilder;
 	}
 	
@@ -169,9 +169,6 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 	 */
 	@Override
 	public LinkMessage build() {
-		if(keyboardBuilder != null) {
-			linkMessage.setKeyboard(keyboardBuilder.buildKeyboard());
-		}
 		return linkMessage;
 	}
 }

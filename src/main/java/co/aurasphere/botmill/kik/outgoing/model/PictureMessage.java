@@ -25,6 +25,9 @@
  */
 package co.aurasphere.botmill.kik.outgoing.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 
 import co.aurasphere.botmill.kik.configuration.Keyboard;
@@ -41,7 +44,7 @@ public class PictureMessage extends OutgoingMessage {
 	
 	/** The keyboard. */
 	@SerializedName("keyboards")
-	private Keyboard keyboard;
+	private List<Keyboard> keyboards  = new ArrayList<Keyboard>();
 	
 	/** The attribution. */
 	private MediaAttribution attribution;
@@ -64,24 +67,15 @@ public class PictureMessage extends OutgoingMessage {
 		this.picUrl = picUrl;
 	}
 	
-	/**
-	 * Gets the keyboard.
-	 *
-	 * @return the keyboard
-	 */
-	public Keyboard getKeyboard() {
-		return keyboard;
-	}
 	
-	/**
-	 * Sets the keyboard.
-	 *
-	 * @param keyboard the new keyboard
-	 */
-	public void setKeyboard(Keyboard keyboard) {
-		this.keyboard = keyboard;
+	public List<Keyboard> getKeyboard() {
+		return keyboards;
 	}
-	
+
+	public void setKeyboard(List<Keyboard> keyboard) {
+		this.keyboards = keyboard;
+	}
+
 	/**
 	 * Gets the attribution.
 	 *
@@ -100,5 +94,8 @@ public class PictureMessage extends OutgoingMessage {
 		this.attribution = attribution;
 	}
 	
+	public void addKeyboard(Keyboard keyboard) {
+		this.keyboards.add(keyboard);
+	}
 	
 }

@@ -39,13 +39,13 @@ public class PictureMessageBuilder extends BaseBuilder
 		implements Keyboardable<PictureMessageBuilder>, Buildable<PictureMessage> {
 	
 	/** The picture message. */
-	private PictureMessage pictureMessage;
+	private static PictureMessage pictureMessage;
 	
 	/** The instance. */
 	private static PictureMessageBuilder instance;
 	
 	/** The keyboard builder. */
-	private KeyboardBuilder<PictureMessageBuilder> keyboardBuilder;
+	private static KeyboardBuilder<PictureMessageBuilder> keyboardBuilder;
 
 	/**
 	 * Gets the single instance of PictureMessageBuilder.
@@ -56,6 +56,8 @@ public class PictureMessageBuilder extends BaseBuilder
 		if (instance == null) {
 			instance = new PictureMessageBuilder();
 		}
+		pictureMessage = new PictureMessage();
+		pictureMessage.setType(MessageType.PICTURE);
 		return instance;
 	}
 
@@ -63,9 +65,8 @@ public class PictureMessageBuilder extends BaseBuilder
 	 * Instantiates a new picture message builder.
 	 */
 	public PictureMessageBuilder() {
-		this.keyboardBuilder = new KeyboardBuilder<PictureMessageBuilder>(this);
-		this.pictureMessage = new PictureMessage();
-		this.pictureMessage.setType(MessageType.PICTURE);
+		pictureMessage = new PictureMessage();
+		pictureMessage.setType(MessageType.PICTURE);
 	}
 
 	/**
@@ -75,7 +76,7 @@ public class PictureMessageBuilder extends BaseBuilder
 	 * @return the picture message builder
 	 */
 	public PictureMessageBuilder setTo(String to) {
-		this.pictureMessage.setTo(to);
+		pictureMessage.setTo(to);
 		return this;
 	}
 
@@ -86,7 +87,7 @@ public class PictureMessageBuilder extends BaseBuilder
 	 * @return the picture message builder
 	 */
 	public PictureMessageBuilder setPicUrl(String picUrl) {
-		this.pictureMessage.setPicUrl(picUrl);
+		pictureMessage.setPicUrl(picUrl);
 		return this;
 	}
 
@@ -95,7 +96,9 @@ public class PictureMessageBuilder extends BaseBuilder
 	 */
 	@Override
 	public KeyboardBuilder<PictureMessageBuilder> addKeyboard() {
-		return this.keyboardBuilder;
+		keyboardBuilder = new KeyboardBuilder<PictureMessageBuilder>(this);
+		pictureMessage.addKeyboard(keyboardBuilder.buildKeyboard());
+		return keyboardBuilder;
 	}
 
 	/* (non-Javadoc)
@@ -103,7 +106,7 @@ public class PictureMessageBuilder extends BaseBuilder
 	 */
 	@Override
 	public PictureMessageBuilder endKeyboard() {
-		return (PictureMessageBuilder) this.keyboardBuilder.getParentBuilder();
+		return (PictureMessageBuilder) keyboardBuilder.getParentBuilder();
 	}
 
 	/* (non-Javadoc)
@@ -111,8 +114,7 @@ public class PictureMessageBuilder extends BaseBuilder
 	 */
 	@Override
 	public PictureMessage build() {
-		this.pictureMessage.setAttribution(MediaAttribution.GALLERY);
-		this.pictureMessage.setKeyboard(this.keyboardBuilder.buildKeyboard());
-		return this.pictureMessage;
+		pictureMessage.setAttribution(MediaAttribution.GALLERY);
+		return pictureMessage;
 	}
 }

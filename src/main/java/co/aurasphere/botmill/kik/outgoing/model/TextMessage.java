@@ -25,6 +25,9 @@
  */
 package co.aurasphere.botmill.kik.outgoing.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 
 import co.aurasphere.botmill.kik.configuration.Keyboard;
@@ -39,7 +42,7 @@ public class TextMessage extends OutgoingMessage {
 	
 	/** The keyboard. */
 	@SerializedName("keyboards")
-	private Keyboard keyboard;
+	private List<Keyboard> keyboards = new ArrayList<Keyboard>();
 
 	/**
 	 * Gets the type time.
@@ -58,23 +61,18 @@ public class TextMessage extends OutgoingMessage {
 	public void setTypeTime(String typeTime) {
 		this.typeTime = typeTime;
 	}
-
-	/**
-	 * Gets the keyboard.
-	 *
-	 * @return the keyboard
-	 */
-	public Keyboard getKeyboard() {
-		return keyboard;
+	
+	public List<Keyboard> getKeyboards() {
+		return keyboards;
 	}
 
-	/**
-	 * Sets the keyboard.
-	 *
-	 * @param keyboard the new keyboard
-	 */
-	public void setKeyboard(Keyboard keyboard) {
-		this.keyboard = keyboard;
+	public void setKeyboards(List<Keyboard> keyboards) {
+		this.keyboards = keyboards;
 	}
+
+	public void addKeyboard(Keyboard keyboard) {
+		this.keyboards.add(keyboard);
+	}
+	
 	
 }

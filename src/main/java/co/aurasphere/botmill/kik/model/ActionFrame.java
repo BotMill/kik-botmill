@@ -15,27 +15,27 @@ public class ActionFrame extends AbstractFrame implements Frame, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	public Event<? extends Message> getEvent() {
-		return super.event;
+		return this.event;
 	}
 	public List<Reply<? extends Message>> getReplies() {
-		return super.replies;
+		return this.replies;
 	}
 	
 	@Override
 	public void setEvent(Event event) {
-		super.event = event;
+		this.event = event;
 	}
 
 	@Override
-	public void addReply(Reply reply) {
-		super.replies.add(reply);
+	public void addReply(Reply<? extends Message> reply) {
+		this.replies.add(reply);
 	}
 
 	public void addPreCommand(Command command) {
-		super.preCommands.add(command);
+		this.preCommands.add(command);
 	}
 	
 	public void addPostCommand(Command command) {
-		super.postCommands.add(command);
+		this.postCommands.add(command);
 	}	
 }

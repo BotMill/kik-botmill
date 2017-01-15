@@ -1,7 +1,6 @@
 package co.aurasphere.botmill.kik.event;
 
 import co.aurasphere.botmill.kik.intf.Event;
-import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.incoming.model.TextMessage;
 
 public class TextMessagePatternEvent implements Event<TextMessage> {

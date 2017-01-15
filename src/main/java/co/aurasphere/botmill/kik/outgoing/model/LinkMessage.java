@@ -25,6 +25,9 @@
  */
 package co.aurasphere.botmill.kik.outgoing.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 
 import co.aurasphere.botmill.kik.configuration.Keyboard;
@@ -63,7 +66,15 @@ public class LinkMessage extends OutgoingMessage {
 	
 	/** The keyboard. */
 	@SerializedName("keyboards")
-	private Keyboard keyboard;
+	private List<Keyboard> keyboards;
+
+	public List<Keyboard> getKeyboards() {
+		return keyboards;
+	}
+
+	public void setKeyboards(List<Keyboard> keyboards) {
+		this.keyboards = keyboards;
+	}
 
 	/**
 	 * Gets the url.
@@ -193,21 +204,12 @@ public class LinkMessage extends OutgoingMessage {
 	}
 
 	/**
-	 * Gets the keyboard.
-	 *
-	 * @return the keyboard
-	 */
-	public Keyboard getKeyboard() {
-		return keyboard;
-	}
-
-	/**
 	 * Sets the keyboard.
 	 *
 	 * @param keyboard the new keyboard
 	 */
-	public void setKeyboard(Keyboard keyboard) {
-		this.keyboard = keyboard;
+	public void addKeyboard(Keyboard keyboard) {
+		this.keyboards.add(keyboard);
 	}
 	
 	

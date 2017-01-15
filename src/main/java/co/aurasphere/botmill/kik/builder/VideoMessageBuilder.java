@@ -39,13 +39,13 @@ public class VideoMessageBuilder extends BaseBuilder
 		implements Keyboardable<VideoMessageBuilder>, Buildable<VideoMessage> {
 	
 	/** The video message. */
-	private VideoMessage videoMessage;
+	private static VideoMessage videoMessage;
 	
 	/** The instance. */
 	private static VideoMessageBuilder instance;
 	
 	/** The keyboard builder. */
-	private KeyboardBuilder<VideoMessageBuilder> keyboardBuilder;
+	private static KeyboardBuilder<VideoMessageBuilder> keyboardBuilder;
 
 	/**
 	 * Gets the single instance of VideoMessageBuilder.
@@ -56,6 +56,8 @@ public class VideoMessageBuilder extends BaseBuilder
 		if (instance == null) {
 			instance = new VideoMessageBuilder();
 		}
+		videoMessage = new VideoMessage();
+		videoMessage.setType(MessageType.VIDEO);
 		return instance;
 	}
 
@@ -63,9 +65,8 @@ public class VideoMessageBuilder extends BaseBuilder
 	 * Instantiates a new video message builder.
 	 */
 	public VideoMessageBuilder() {
-		this.keyboardBuilder = new KeyboardBuilder<VideoMessageBuilder>(this);
-		this.videoMessage = new VideoMessage();
-		this.videoMessage.setType(MessageType.VIDEO);
+		videoMessage = new VideoMessage();
+		videoMessage.setType(MessageType.VIDEO);
 	}
 
 	/**
@@ -75,7 +76,7 @@ public class VideoMessageBuilder extends BaseBuilder
 	 * @return the video message builder
 	 */
 	public VideoMessageBuilder setVideoUrl(String videoUrl) {
-		this.videoMessage.setVideoUrl(videoUrl);
+		videoMessage.setVideoUrl(videoUrl);
 		return this;
 	}
 	
@@ -86,7 +87,7 @@ public class VideoMessageBuilder extends BaseBuilder
 	 * @return the video message builder
 	 */
 	public VideoMessageBuilder setLoop(boolean loop) {
-		this.videoMessage.setLoop(loop);
+		videoMessage.setLoop(loop);
 		return this;
 	}
 	
@@ -97,7 +98,7 @@ public class VideoMessageBuilder extends BaseBuilder
 	 * @return the video message builder
 	 */
 	public VideoMessageBuilder setMuted(boolean muted) {
-		this.videoMessage.setMuted(muted);
+		videoMessage.setMuted(muted);
 		return this;
 	}
 	
@@ -108,7 +109,7 @@ public class VideoMessageBuilder extends BaseBuilder
 	 * @return the video message builder
 	 */
 	public VideoMessageBuilder setAutoplay(boolean autoplay) {
-		this.videoMessage.setAutoplay(autoplay);
+		videoMessage.setAutoplay(autoplay);
 		return this;
 	}
 	
@@ -119,7 +120,7 @@ public class VideoMessageBuilder extends BaseBuilder
 	 * @return the video message builder
 	 */
 	public VideoMessageBuilder setNoSave(boolean nosave) {
-		this.videoMessage.setNoSave(nosave);
+		videoMessage.setNoSave(nosave);
 		return this;
 	}
 	
@@ -129,7 +130,9 @@ public class VideoMessageBuilder extends BaseBuilder
 	 */
 	@Override
 	public KeyboardBuilder<VideoMessageBuilder> addKeyboard() {
-		return this.keyboardBuilder;
+		keyboardBuilder = new KeyboardBuilder<VideoMessageBuilder>(this);
+		videoMessage.addKeyboard(keyboardBuilder.buildKeyboard());
+		return keyboardBuilder;
 	}
 
 	/* (non-Javadoc)
@@ -137,7 +140,7 @@ public class VideoMessageBuilder extends BaseBuilder
 	 */
 	@Override
 	public VideoMessageBuilder endKeyboard() {
-		return (VideoMessageBuilder) this.keyboardBuilder.getParentBuilder();
+		return (VideoMessageBuilder) keyboardBuilder.getParentBuilder();
 	}
 
 	/* (non-Javadoc)
@@ -145,8 +148,7 @@ public class VideoMessageBuilder extends BaseBuilder
 	 */
 	@Override
 	public VideoMessage build() {
-		this.videoMessage.setAttribution(MediaAttribution.CAMERA);
-		this.videoMessage.setKeyboard(this.keyboardBuilder.buildKeyboard());
-		return this.videoMessage;
+		videoMessage.setAttribution(MediaAttribution.CAMERA);
+		return videoMessage;
 	}
 }

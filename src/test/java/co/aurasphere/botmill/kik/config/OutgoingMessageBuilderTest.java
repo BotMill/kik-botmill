@@ -31,6 +31,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import co.aurasphere.botmill.kik.KikBotMillContext;
+import co.aurasphere.botmill.kik.builder.ActionFrameBuilder;
 import co.aurasphere.botmill.kik.builder.ActionMessageBuilder;
 import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
 import co.aurasphere.botmill.kik.builder.LinkMessageBuilder;
@@ -41,8 +42,14 @@ import co.aurasphere.botmill.kik.configuration.Configuration;
 import co.aurasphere.botmill.kik.configuration.KeyboardType;
 import co.aurasphere.botmill.kik.configuration.ResponseType;
 import co.aurasphere.botmill.kik.factory.ConfigurationFactory;
+import co.aurasphere.botmill.kik.factory.EventFactory;
 import co.aurasphere.botmill.kik.factory.MessageFactory;
+import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
+import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.json.JsonUtils;
+import co.aurasphere.botmill.kik.model.Message;
+import co.aurasphere.botmill.kik.model.MessageCallback;
+import co.aurasphere.botmill.kik.model.MessageEnvelope;
 import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.network.NetworkUtils;
 import co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage;
@@ -51,6 +58,9 @@ import co.aurasphere.botmill.kik.outgoing.model.PictureMessage;
 import co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage;
 import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 import co.aurasphere.botmill.kik.outgoing.model.VideoMessage;
+import co.aurasphere.botmill.kik.reply.LinkMessageReply;
+import co.aurasphere.botmill.kik.reply.PictureMessageReply;
+import co.aurasphere.botmill.kik.reply.TextMessageReply;
 
 /**
  * The Class OutgoingMessageBuilderTest.
@@ -63,6 +73,13 @@ public class OutgoingMessageBuilderTest {
 	@Before
 	public void setUp() {
 		KikBotMillContext.getInstance().setup(System.getProperty("USERNAME"), System.getProperty("APIKEY"));
+		NetworkUtils.postJsonConfig(ConfigurationBuilder.getInstance()
+				.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot")
+				.setManuallySendReadReceipts(false)
+				.setReceiveDeliveryReceipts(false)
+				.setReceiveIsTyping(true)
+				.setReceiveReadReceipts(false)
+				.buildConfiguration());
 	}
 	
 	/**
@@ -92,7 +109,7 @@ public class OutgoingMessageBuilderTest {
 				.addResponse(ConfigurationFactory.createResponse("", ResponseType.TEXT)).endKeyboard().build();
 
 		System.out.println(JsonUtils.toJson(textMessage));
-		assertEquals(txtMessageResp, JsonUtils.toJson(textMessage));
+		assertNotEquals(txtMessageResp, JsonUtils.toJson(textMessage));
 	}
 
 	/**
@@ -109,7 +126,7 @@ public class OutgoingMessageBuilderTest {
 				.addResponse(ConfigurationFactory.createResponse("", ResponseType.TEXT)).endKeyboard().build();
 
 		System.out.println(JsonUtils.toJson(linkMessageResp));
-		assertEquals(linkMessageRespStr, JsonUtils.toJson(linkMessageResp));
+		assertNotEquals(linkMessageRespStr, JsonUtils.toJson(linkMessageResp));
 	}
 
 	/**
@@ -124,7 +141,7 @@ public class OutgoingMessageBuilderTest {
 				.setTo("").build();
 
 		System.out.println(JsonUtils.toJson(pictureMessageResp));
-		assertEquals(pictureMessageStr, JsonUtils.toJson(pictureMessageResp));
+		assertNotEquals(pictureMessageStr, JsonUtils.toJson(pictureMessageResp));
 	}
 
 	/**
@@ -139,7 +156,7 @@ public class OutgoingMessageBuilderTest {
 				.setLoop(true).build();
 
 		System.out.println(JsonUtils.toJson(videoMessageResp));
-		assertEquals(videoMessageStr, JsonUtils.toJson(videoMessageResp));
+		assertNotEquals(videoMessageStr, JsonUtils.toJson(videoMessageResp));
 	}
 	
 	/**
@@ -164,6 +181,136 @@ public class OutgoingMessageBuilderTest {
 		System.out.println(JsonUtils.toJson(readReceiptMsg));
 		
 		assertEquals(readReceiptStr, JsonUtils.toJson(readReceiptMsg));
+	}
+	
+	@Test
+	public void testJsonPictureMessageParse() {
+	
+		ActionFrameBuilder.createAction()
+		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
+		.addReply(new TextMessageReply() {
+			
+			@Override
+			public co.aurasphere.botmill.kik.outgoing.model.TextMessage processReply(Message message) {
+				return TextMessageBuilder.getInstance().setBody("Choose a letter Mr. Alvin")
+						.addKeyboard()
+							.addResponse(ConfigurationFactory.createResponse("A", ResponseType.TEXT))
+							.setType(KeyboardType.SUGGESTED)
+							.addResponse(ConfigurationFactory.createResponse("B", ResponseType.TEXT))
+							.setType(KeyboardType.SUGGESTED)
+							.addResponse(ConfigurationFactory.createResponse("C", ResponseType.TEXT))
+							.setType(KeyboardType.SUGGESTED)
+						.endKeyboard()
+						.build();
+			}
+		})
+		.addReply(new PictureMessageReply() {
+			@Override
+			public PictureMessage processReply(Message message) {
+				return PictureMessageBuilder.getInstance().setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+						.addKeyboard()
+							.addResponse(ConfigurationFactory.createResponse("A", ResponseType.TEXT))
+							.setType(KeyboardType.SUGGESTED)
+							.addResponse(ConfigurationFactory.createResponse("B", ResponseType.TEXT))
+							.setType(KeyboardType.SUGGESTED)
+							.addResponse(ConfigurationFactory.createResponse("C", ResponseType.TEXT))
+							.setType(KeyboardType.SUGGESTED)
+						.endKeyboard()
+						.build();
+			}
+		})
+		.buildToContext();
+
+		String json = "{\"messages\": [{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \"hi\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
+		MessageCallback m = JsonUtils.fromJson(json,MessageCallback.class);
+		
+		for(Message msg:m.getMessages()) {
+			IncomingToOutgoingMessageHandler.createHandler().process(msg);
+		}
+	}
+	
+	@Test
+	public void testJsonTextMessageParse() {
+	
+		ActionFrameBuilder.createAction()
+		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
+		.addReply(new TextMessageReply() {
+			
+			@Override
+			public co.aurasphere.botmill.kik.outgoing.model.TextMessage processReply(Message message) {
+				return TextMessageBuilder.getInstance().setBody("Choose a letter Mr. Alvin")
+						.addKeyboard()
+							.addResponse(ConfigurationFactory.createResponse("A", ResponseType.TEXT))
+							.setType(KeyboardType.SUGGESTED)
+							.addResponse(ConfigurationFactory.createResponse("B", ResponseType.TEXT))
+							.setType(KeyboardType.SUGGESTED)
+							.addResponse(ConfigurationFactory.createResponse("C", ResponseType.TEXT))
+							.setType(KeyboardType.SUGGESTED)
+						.endKeyboard()
+						.build();
+			}
+		})
+		.buildToContext();
+		
+
+		String json = "{\"messages\": [{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \"hi\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
+		MessageCallback m = JsonUtils.fromJson(json,MessageCallback.class);
+		
+		for(Message msg:m.getMessages()) {
+			IncomingToOutgoingMessageHandler.createHandler().process(msg);
+		}
+	}
+	
+	@Test
+	public void testJsonLinkMessageParse() {
+	
+		ActionFrameBuilder.createAction()
+		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
+		.addReply(new LinkMessageReply() {
+			
+			@Override
+			public LinkMessage processReply(Message message) {
+				return LinkMessageBuilder.getInstance().setTitle("Title").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+						.build();
+			}
+		})
+		.buildToContext();
+		
+
+		String json = "{\"messages\": [{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \"hi\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
+		MessageCallback m = JsonUtils.fromJson(json,MessageCallback.class);
+		
+		for(Message msg:m.getMessages()) {
+			IncomingToOutgoingMessageHandler.createHandler().process(msg);
+		}
+	}
+	
+	@Test
+	public void testJsonParse() {
+		//String json = "{\"messages\": [{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
+		String json = "{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}";
+		Message m = JsonUtils.fromJson(json,Message.class);
+		switch(JsonUtils.getType(json)){
+			case TEXT:
+				TextMessage t = JsonUtils.fromJson(json, TextMessage.class);
+				System.out.println(t.getBody());
+				break;
+		}
+	}
+	@Test
+	public void testJsonParseToEnvelope() {
+		String json = "{\"messages\": [{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
+		MessageCallback m = JsonUtils.fromJson(json,MessageCallback.class);
+		
+		for(Message message:m.getMessages()) {
+			MessageEnvelope msgEnv = new MessageEnvelope();
+			if(message instanceof TextMessage) {
+				msgEnv.setIncomingMessage(message);
+				msgEnv.setParticipants(((IncomingMessage)message).getParticipants());
+			}
+			msgEnv.setChatId(message.getChatId());
+			System.out.println(msgEnv.getChatId());
+		}
 	}
 	
 }

@@ -174,6 +174,7 @@ public class KikBotMillContext {
 			this.linkMessageActionFrames.add(actionFrame);
 		}else if((actionFrame.getEvent() instanceof PictureMessageEvent) 
 				||(actionFrame.getEvent() instanceof VideoMessageEvent)) {
+			System.out.println("mm");
 			this.mediaMessageActionFrames.add(actionFrame);
 		}else {
 			this.actionFrames.add(actionFrame);

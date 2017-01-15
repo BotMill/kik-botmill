@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import co.aurasphere.botmill.kik.incoming.handler.IncomingMessageHandler;
+import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
 import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessageCallback;
@@ -112,7 +112,7 @@ public class KikBotMillServlet extends HttpServlet {
 		
 		//	Process each message.
 		for(Message message:messages.getMessages()) {
-			IncomingMessageHandler.createHandler().process(message);
+			IncomingToOutgoingMessageHandler.createHandler().process(message);
 		}
 		
 		//	always return 200

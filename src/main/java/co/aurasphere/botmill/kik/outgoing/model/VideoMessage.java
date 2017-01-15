@@ -25,6 +25,9 @@
  */
 package co.aurasphere.botmill.kik.outgoing.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 
 import co.aurasphere.botmill.kik.configuration.Keyboard;
@@ -56,7 +59,7 @@ public class VideoMessage extends OutgoingMessage {
 	
 	/** The keyboard. */
 	@SerializedName("keyboards")
-	private Keyboard keyboard;
+	private List<Keyboard> keyboards  = new ArrayList<Keyboard>();
 
 	/**
 	 * Gets the video url.
@@ -147,23 +150,17 @@ public class VideoMessage extends OutgoingMessage {
 	public void setNoSave(boolean noSave) {
 		this.noSave = noSave;
 	}
-
-	/**
-	 * Gets the keyboard.
-	 *
-	 * @return the keyboard
-	 */
-	public Keyboard getKeyboard() {
-		return keyboard;
+	
+	public void addKeyboard(Keyboard keyboard) {
+		this.keyboards.add(keyboard);
 	}
 
-	/**
-	 * Sets the keyboard.
-	 *
-	 * @param keyboard the new keyboard
-	 */
-	public void setKeyboard(Keyboard keyboard) {
-		this.keyboard = keyboard;
+	public List<Keyboard> getKeyboards() {
+		return keyboards;
+	}
+
+	public void setKeyboards(List<Keyboard> keyboards) {
+		this.keyboards = keyboards;
 	}
 
 	/**

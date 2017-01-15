@@ -98,8 +98,10 @@ public class TextMessageBuilder extends BaseBuilder
 	@Override
 	public KeyboardBuilder<TextMessageBuilder> addKeyboard() {
 		keyboardBuilder = new KeyboardBuilder<TextMessageBuilder>(this);
+		textMessage.addKeyboard(keyboardBuilder.buildKeyboard());
 		return keyboardBuilder;
 	}
+	
 	
 	/* (non-Javadoc)
 	 * @see co.aurasphere.botmill.kik.intf.Keyboardable#endKeyboard()
@@ -114,9 +116,6 @@ public class TextMessageBuilder extends BaseBuilder
 	 */
 	@Override
 	public TextMessage build() {
-		if(keyboardBuilder != null) {
-			textMessage.setKeyboard(keyboardBuilder.buildKeyboard());
-		}
 		return textMessage;
 	}
 }
