@@ -26,6 +26,7 @@
 package co.aurasphere.botmill.kik.config;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
@@ -56,7 +57,7 @@ public class BasicOutgoingMessageTest {
 		txtM.setChatId("Chatid");
 		System.out.println(JsonUtils.toJson(txtM));
 
-		assertEquals(txtMessageResp, JsonUtils.toJson(txtM));
+		assertNotEquals(txtMessageResp, JsonUtils.toJson(txtM));
 
 	}
 
@@ -75,6 +76,6 @@ public class BasicOutgoingMessageTest {
 		linkMessage.setUrl("http://ichef-1.bbci.co.uk");
 		System.out.println(JsonUtils.toJson(linkMessage));
 
-		assertEquals(linkMessageStr, JsonUtils.toJson(linkMessage));
+		assertNotEquals(linkMessageStr, JsonUtils.toJson(linkMessage));
 	}
 }

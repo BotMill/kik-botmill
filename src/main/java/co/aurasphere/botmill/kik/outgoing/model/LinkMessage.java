@@ -66,7 +66,7 @@ public class LinkMessage extends OutgoingMessage {
 	
 	/** The keyboard. */
 	@SerializedName("keyboards")
-	private List<Keyboard> keyboards;
+	private List<Keyboard> keyboards = new ArrayList<Keyboard>();
 
 	public List<Keyboard> getKeyboards() {
 		return keyboards;

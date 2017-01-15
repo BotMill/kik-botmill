@@ -72,7 +72,8 @@ public class OutgoingMessageBuilderTest {
 	 */
 	@Before
 	public void setUp() {
-		KikBotMillContext.getInstance().setup(System.getProperty("USERNAME"), System.getProperty("APIKEY"));
+		//KikBotMillContext.getInstance().setup(System.getProperty("USERNAME"), System.getProperty("APIKEY"));
+		KikBotMillContext.getInstance().setup("heyjayreyes", "01db42ee-5d8a-43b3-ae67-815e2ffce227");
 		NetworkUtils.postJsonConfig(ConfigurationBuilder.getInstance()
 				.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot")
 				.setManuallySendReadReceipts(false)
