@@ -26,7 +26,9 @@
 package co.aurasphere.botmill.kik.incoming.event;
 
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
+import co.aurasphere.botmill.kik.incoming.model.ScanDataMessage;
 import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.MessageType;
 
 /**
  * The Class ScanDataEvent.
@@ -40,7 +42,9 @@ public class ScanDataEvent implements Event {
 	 */
 	@Override
 	public boolean verifyEvent(IncomingMessage incomingMessage) {
-		// TODO Auto-generated method stub
+		if(!((ScanDataMessage)incomingMessage).getType().equals(MessageType.SCAN_DATA)) {
+			return true;
+		}
 		return false;
 	}
 }

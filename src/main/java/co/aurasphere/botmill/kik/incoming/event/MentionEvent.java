@@ -27,6 +27,7 @@ package co.aurasphere.botmill.kik.incoming.event;
 
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.MessageType;
 
 /**
  * The Class MentionEvent.
@@ -40,7 +41,6 @@ public class MentionEvent implements Event {
 	 */
 	@Override
 	public boolean verifyEvent(IncomingMessage incomingMessage) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

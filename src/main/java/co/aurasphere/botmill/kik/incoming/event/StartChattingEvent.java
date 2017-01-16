@@ -26,7 +26,10 @@
 package co.aurasphere.botmill.kik.incoming.event;
 
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
+import co.aurasphere.botmill.kik.incoming.model.ScanDataMessage;
+import co.aurasphere.botmill.kik.incoming.model.StartChattingMessage;
 import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.MessageType;
 
 /**
  * The Class StartChattingEvent.

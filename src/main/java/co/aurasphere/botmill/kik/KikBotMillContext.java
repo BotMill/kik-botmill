@@ -82,8 +82,6 @@ public class KikBotMillContext {
 	/** The broadcast action frames. */
 	private List<Frame> broadcastActionFrames;
 	
-	
-
 	/**
 	 * Get the list of domains.
 	 *

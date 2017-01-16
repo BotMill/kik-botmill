@@ -28,6 +28,7 @@ package co.aurasphere.botmill.kik.incoming.event;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.incoming.model.PictureMessage;
 import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.MessageType;
 
 /**
  * The Class PictureMessageEvent.
@@ -41,7 +42,7 @@ public class PictureMessageEvent implements Event {
 	 */
 	@Override
 	public boolean verifyEvent(IncomingMessage incomingMessage) {
-		if(!((PictureMessage)incomingMessage).getPicUrl().equals("")) {
+		if(!((PictureMessage)incomingMessage).getType().equals(MessageType.PICTURE)) {
 			return true;
 		}
 		return false;

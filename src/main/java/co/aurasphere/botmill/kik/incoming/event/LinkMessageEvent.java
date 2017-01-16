@@ -28,6 +28,7 @@ package co.aurasphere.botmill.kik.incoming.event;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.incoming.model.LinkMessage;
 import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.MessageType;
 
 /**
  * The Class LinkMessageEvent.
@@ -42,7 +43,7 @@ public class LinkMessageEvent implements Event {
 	@Override
 	public boolean verifyEvent(IncomingMessage incomingMessage) {
 		if (incomingMessage instanceof LinkMessage) {
-			if (((LinkMessage) incomingMessage).getUrl() != null) {
+			if (((LinkMessage) incomingMessage).getType().equals(MessageType.LINK)) {
 				return true;
 			}
 		}
