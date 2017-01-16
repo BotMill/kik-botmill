@@ -33,7 +33,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
 import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.Message;
@@ -116,7 +115,11 @@ public class KikBotMillServlet extends HttpServlet {
 
 			// Process each message.
 			for (Message message : messages.getMessages()) {
+				//	Process the messages.
 				IncomingToOutgoingMessageHandler.createHandler().process(message);
+				
+				//	and process any broadcast
+				IncomingToOutgoingMessageHandler.createHandler().processBroadcast(message);
 			}
 		
 		} catch (Exception e) {

@@ -69,6 +69,9 @@ public class KikBotMillContext {
 	/** The link message action frames. */
 	private List<Frame> linkMessageActionFrames;
 	
+	/** The broadcast action frames. */
+	private List<Frame> broadcastActionFrames;
+	
 	
 
 	/**
@@ -115,6 +118,15 @@ public class KikBotMillContext {
 	public List<Frame> getLinkMessageActionFrames() {
 		return linkMessageActionFrames;
 	}
+	
+	/**
+	 * Gets the broadcast message action frames.
+	 *
+	 * @return the broadcast message action frames
+	 */
+	public List<Frame> getBroadcastMessageActionFrames() {
+		return broadcastActionFrames;
+	}
 
 	/**
 	 * Instantiates a new kik bot mill context.
@@ -126,6 +138,7 @@ public class KikBotMillContext {
 		this.textMessageActionFrames = new ArrayList<Frame>();
 		this.mediaMessageActionFrames = new ArrayList<Frame>();
 		this.linkMessageActionFrames = new ArrayList<Frame>();
+		this.broadcastActionFrames = new ArrayList<Frame>();
 	}
 
 	/**
@@ -222,5 +235,14 @@ public class KikBotMillContext {
 		}else {
 			this.actionFrames.add(actionFrame);
 		}
+	}
+	
+	/**
+	 * Adds the action frame to broadcast.
+	 *
+	 * @param actionFrame the action frame
+	 */
+	public void addActionFrameToBroadcast(Frame actionFrame) {
+		this.broadcastActionFrames.add(actionFrame);
 	}
 }

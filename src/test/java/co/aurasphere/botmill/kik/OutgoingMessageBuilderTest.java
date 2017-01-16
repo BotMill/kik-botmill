@@ -420,6 +420,9 @@ public class OutgoingMessageBuilderTest {
 		}
 	}
 	
+	/**
+	 * Test get user profile.
+	 */
 	@Test
 	public void testGetUserProfile() {
 		UserProfile p = KikUserProfileRetriever.getUserProfile("alvinpreyes");

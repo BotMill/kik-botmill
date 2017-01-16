@@ -111,6 +111,28 @@ public class ActionFrameBuilder implements Buildable<ActionFrame>{
 		return actionFrame;
 	}
 	
+	
+	/**
+	 * Builds the to broadcast.
+	 *
+	 * @return the action frame
+	 */
+	public ActionFrame buildToBroadcast() {
+		KikBotMillContext.getInstance().addActionFrameToBroadcast(actionFrame);
+		return actionFrame;
+	}
+	
+	/**
+	 * Builds the to context and broadcast.
+	 *
+	 * @return the action frame
+	 */
+	public ActionFrame buildToContextAndBroadcast() {
+		KikBotMillContext.getInstance().addActionFrameToContext(actionFrame);
+		KikBotMillContext.getInstance().addActionFrameToBroadcast(actionFrame);
+		return actionFrame;
+	}
+	
 	/* (non-Javadoc)
 	 * @see co.aurasphere.botmill.kik.intf.Buildable#build()
 	 */
