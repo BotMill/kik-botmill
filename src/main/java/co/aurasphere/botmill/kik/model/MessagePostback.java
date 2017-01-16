@@ -36,6 +36,10 @@ import com.google.gson.annotations.SerializedName;
  */
 public class MessagePostback implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/** The messages. */
 	@SerializedName("messages")
 	private List<Message> messages;

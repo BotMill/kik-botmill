@@ -30,7 +30,6 @@ import co.aurasphere.botmill.kik.model.ActionFrame;
 import co.aurasphere.botmill.kik.model.Buildable;
 import co.aurasphere.botmill.kik.model.Command;
 import co.aurasphere.botmill.kik.model.Event;
-import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.Reply;
 
 /**

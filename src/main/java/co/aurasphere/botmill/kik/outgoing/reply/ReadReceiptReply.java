@@ -34,11 +34,4 @@ import co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage;
  */
 public abstract class ReadReceiptReply implements Reply<ReadReceiptMessage> {
 	
-	/* (non-Javadoc)
-	 * @see co.aurasphere.botmill.kik.intf.Reply#processReply(co.aurasphere.botmill.kik.model.Message)
-	 */
-	@Override
-	public ReadReceiptMessage processReply(Message message) {
-		return null;
-	}
 }

@@ -28,7 +28,6 @@ package co.aurasphere.botmill.kik.builder;
 import co.aurasphere.botmill.kik.model.Attribution;
 import co.aurasphere.botmill.kik.model.BaseBuilder;
 import co.aurasphere.botmill.kik.model.Buildable;
-import co.aurasphere.botmill.kik.model.KeyValuePair;
 import co.aurasphere.botmill.kik.model.Keyboardable;
 import co.aurasphere.botmill.kik.model.KikJsData;
 import co.aurasphere.botmill.kik.model.MessageType;

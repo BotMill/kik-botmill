@@ -30,7 +30,6 @@ import co.aurasphere.botmill.kik.configuration.KeyboardType;
 import co.aurasphere.botmill.kik.configuration.Response;
 import co.aurasphere.botmill.kik.configuration.ResponseType;
 import co.aurasphere.botmill.kik.model.Attribution;
-import co.aurasphere.botmill.kik.model.KeyValuePair;
 import co.aurasphere.botmill.kik.model.KikJsData;
 
 /**

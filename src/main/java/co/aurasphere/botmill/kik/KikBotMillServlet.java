@@ -84,7 +84,6 @@ public class KikBotMillServlet extends HttpServlet {
 			throw new ServletException("Error during instantiation of class [ " + botDefinitionClass + " ]", e);
 		}
 
-		botEntry.setWebHookUrl("https://kik-bot-021415.herokuapp.com/kikbot");
 		botEntry.kikBotEntry();
 		logger.info("KikBotMillServlet configuration OK.");
 	}

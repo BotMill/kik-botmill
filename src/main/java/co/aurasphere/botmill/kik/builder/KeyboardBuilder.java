@@ -25,8 +25,6 @@
  */
 package co.aurasphere.botmill.kik.builder;
 
-import java.util.List;
-
 import co.aurasphere.botmill.kik.configuration.Keyboard;
 import co.aurasphere.botmill.kik.configuration.KeyboardType;
 import co.aurasphere.botmill.kik.configuration.Response;

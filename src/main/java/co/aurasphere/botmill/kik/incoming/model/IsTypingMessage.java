@@ -30,4 +30,9 @@ package co.aurasphere.botmill.kik.incoming.model;
  */
 public class IsTypingMessage extends IncomingMessage {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 }

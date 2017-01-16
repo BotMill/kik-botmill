@@ -30,4 +30,9 @@ package co.aurasphere.botmill.kik.incoming.model;
  */
 public class FriendPickerMessage extends IncomingMessage {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 }

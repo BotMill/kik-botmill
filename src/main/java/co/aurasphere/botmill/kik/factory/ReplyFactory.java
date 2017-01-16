@@ -25,7 +25,6 @@
  */
 package co.aurasphere.botmill.kik.factory;
 
-import co.aurasphere.botmill.kik.builder.ActionFrameBuilder;
 import co.aurasphere.botmill.kik.builder.ActionMessageBuilder;
 import co.aurasphere.botmill.kik.builder.LinkMessageBuilder;
 import co.aurasphere.botmill.kik.builder.PictureMessageBuilder;

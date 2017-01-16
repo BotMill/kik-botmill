@@ -34,6 +34,11 @@ import co.aurasphere.botmill.kik.model.KikJsData;
  */
 public class LinkMessage extends IncomingMessage {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The url. */
 	private String url;
 	

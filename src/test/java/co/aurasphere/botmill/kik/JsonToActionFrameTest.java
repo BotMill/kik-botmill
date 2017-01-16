@@ -33,7 +33,6 @@ public class JsonToActionFrameTest {
 			.setReceiveIsTyping(true)
 			.setReceiveReadReceipts(false)
 			.buildConfiguration());
-		
 	}
 	
 	@Test

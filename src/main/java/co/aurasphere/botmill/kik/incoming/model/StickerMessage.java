@@ -30,7 +30,12 @@ package co.aurasphere.botmill.kik.incoming.model;
  */
 public class StickerMessage extends IncomingMessage {
 
-    /** The sticker pack id. */
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/** The sticker pack id. */
     private String stickerPackId;
 	
 	/** The sticker url. */
