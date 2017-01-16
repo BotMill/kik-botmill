@@ -80,47 +80,10 @@ Your domain holds all the actions of your Bot.
 		@Override
 		public void buildDomain() {
 			
-			
-			//	Just like constructing.
 			ActionFrameBuilder.createAction()
-					.setEvent(EventFactory.link())	// Event's are catchers. 
-					.addReply(ReplyFactory.buildTypingReply())
-					.addReply(new VideoMessageReply() {
-							@Override
-							public VideoMessage processReply(Message message) {
-								return null;
-							}
-						})	// multiple replies
-					.addReply(new TextMessageReply(){
-						@Override
-						public TextMessage processReply(Message message) {
-							return TextMessageBuilder.getInstance()
-								.setBody("")
-								.build();
-						}
-					}) 
-			.buildToContext(); // automatically assign this action to the context.
-			
-			//	 with multiple replies
-			ActionFrameBuilder.createAction()
-					.setEvent(EventFactory.textMessagePattern("(?i:hi)|(?i:hello)|(?i:hey)|(?i:good day)|(?i:home)")) // user sent "hi"
-					.addReply(ReplyFactory.buildTextMessageReply("How are you?!"))
-					.addReply(new PictureMessageReply() {
-						@Override
-						public PictureMessage processReply(Message message) {
-							return PictureMessageBuilder.getInstance().setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
-									.addKeyboard()
-										.addResponse(MessageFactory.createResponse("Keyboard A", ResponseType.TEXT))
-										.setType(KeyboardType.SUGGESTED)
-										.addResponse(MessageFactory.createResponse("Keyboard B", ResponseType.TEXT))
-										.setType(KeyboardType.SUGGESTED)
-										.addResponse(MessageFactory.createResponse("Keyboard C", ResponseType.TEXT))
-										.setType(KeyboardType.SUGGESTED)
-									.endKeyboard()
-									.build();
-						}
-					})
-					.buildToContext();
+				.setEvent(EventFactory.textMessagePattern("(?i:hello)")) // user sent "hello"
+				.addReply(ReplyFactory.buildTextMessageReply("Hello from Bot!")) // single reply
+				.buildToContext();	// build it, won't assign it to the context so it won't be picked up.
 			
 		}
 		
