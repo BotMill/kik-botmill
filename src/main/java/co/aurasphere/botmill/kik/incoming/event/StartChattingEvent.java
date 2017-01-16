@@ -43,6 +43,9 @@ public class StartChattingEvent implements Event{
 	 */
 	@Override
 	public boolean verifyEvent(IncomingMessage incomingMessage) {
+		if(!((StartChattingMessage)incomingMessage).getType().equals(MessageType.START_CHATTING)) {
+			return true;
+		}
 		return false;
 	}
 }

@@ -26,6 +26,7 @@
 package co.aurasphere.botmill.kik.factory;
 
 import co.aurasphere.botmill.kik.incoming.event.AnyEvent;
+import co.aurasphere.botmill.kik.incoming.event.DeliveryReceiptEvent;
 import co.aurasphere.botmill.kik.incoming.event.FriendPickerEvent;
 import co.aurasphere.botmill.kik.incoming.event.IsTypingEvent;
 import co.aurasphere.botmill.kik.incoming.event.LinkMessageEvent;
@@ -134,6 +135,16 @@ public class EventFactory {
 	 */
 	public static FriendPickerEvent friendPicker() {
 		return new FriendPickerEvent();
+	}
+	
+	
+	/**
+	 * Delivery receipt.
+	 *
+	 * @return the delivery receipt event
+	 */
+	public static DeliveryReceiptEvent deliveryReceipt() {
+		return new DeliveryReceiptEvent();
 	}
 	
 	/**

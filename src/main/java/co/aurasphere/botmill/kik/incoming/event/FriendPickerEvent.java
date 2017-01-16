@@ -24,8 +24,11 @@
  * 
  */
 package co.aurasphere.botmill.kik.incoming.event;
+import co.aurasphere.botmill.kik.incoming.model.FriendPickerMessage;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
+import co.aurasphere.botmill.kik.incoming.model.IsTypingMessage;
 import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.MessageType;
 
 /**
  * The Class FriendPickerEvent.
@@ -39,6 +42,11 @@ public class FriendPickerEvent implements Event {
 	 */
 	@Override
 	public boolean verifyEvent(IncomingMessage incomingMessage) {
+		if (incomingMessage instanceof FriendPickerMessage) {
+			if(incomingMessage.getType().equals(MessageType.FRIEND_PICKER)) {
+				return true;
+			}
+		}
 		return false;
 	}
 }

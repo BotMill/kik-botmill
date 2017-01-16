@@ -23,46 +23,28 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.model;
+package co.aurasphere.botmill.kik.incoming.event;
 
-import com.google.gson.annotations.SerializedName;
+import co.aurasphere.botmill.kik.incoming.model.DeliveryReceiptMessage;
+import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
+import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.MessageType;
 
 /**
- * The Enum MessageType.
+ * The Class StartChattingEvent.
+ * 
+ * @author Alvin P. Reyes
  */
-public enum MessageType {
-
-	/** The text. */
-	@SerializedName("text")
-	TEXT,
-	/** The link. */
-	@SerializedName("link")
-	LINK,
-	/** The picture. */
-	@SerializedName("picture")
-	PICTURE,
-	/** The video. */
-	@SerializedName("video")
-	VIDEO,
-	/** The is typing. */
-	@SerializedName("is-typing")
-	IS_TYPING,
-	/** The read receipt. */
-	@SerializedName("read-receipt")
-	READ_RECEIPT,
-	/** The scan data. */
-	@SerializedName("scan-data")
-	SCAN_DATA,
-	/** The sticker. */
-	@SerializedName("sticker")
-	STICKER,
-	/** The friend picker. */
-	@SerializedName("friend-picker")
-	FRIEND_PICKER,
+public class DeliveryReceiptEvent implements Event{
 	
-	@SerializedName("start-chatting")
-	START_CHATTING,
-	
-	@SerializedName("delivery-receipt")
-	DELIVERY_RECEIPT
+	/* (non-Javadoc)
+	 * @see co.aurasphere.botmill.kik.intf.Event#verifyEvent(co.aurasphere.botmill.kik.incoming.model.IncomingMessage)
+	 */
+	@Override
+	public boolean verifyEvent(IncomingMessage incomingMessage) {
+		if(!((DeliveryReceiptMessage)incomingMessage).getType().equals(MessageType.DELIVERY_RECEIPT)) {
+			return true;
+		}
+		return false;
+	}
 }

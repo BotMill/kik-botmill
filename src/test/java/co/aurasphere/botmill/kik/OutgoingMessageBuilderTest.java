@@ -76,6 +76,7 @@ public class OutgoingMessageBuilderTest {
 	@Before
 	public void setUp() {
 		KikBotMillContext.getInstance().setup(System.getenv("USERNAME"), System.getenv("APIKEY"));
+		
 		NetworkUtils.postJsonConfig(ConfigurationBuilder.getInstance()
 				.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot")
 				.setManuallySendReadReceipts(false)
@@ -183,7 +184,14 @@ public class OutgoingMessageBuilderTest {
 		
 		ActionFrameBuilder.createAction()
 			.setEvent(EventFactory.anyEvent())
-			.addReply(ReplyFactory.buildTextMessageReply("ahoy!"))
+			.addReply(new LinkMessageReply() {
+				
+				@Override
+				public LinkMessage processReply(Message message) {
+					return LinkMessageBuilder.getInstance().setTitle("Title").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+							.build();
+				}
+			})
 			.buildToContext();
 		
 		ActionFrameBuilder.createAction()
