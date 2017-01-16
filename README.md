@@ -10,6 +10,124 @@ It provides a semantic Java API that can be imported on your Java EE Project to 
 
 **<h3>Getting Started</h3>**
 
+	<dependency>
+	  <groupId>co.aurasphere.botmill</groupId>
+	  <artifactId>kik-botmill</artifactId>
+	  <version>1.0.0</version>
+	</dependency>
+	
+Gradle
+    
+    compile 'co.aurasphere.botmill:kik-botmill:1.0.0'
+
+Grovvy
+
+    @Grapes( 
+        @Grab(group='co.aurasphere.botmill', module='kik-botmill', version='1.0.0') 
+    )
+    
+Other ways to import, visit Maven central repo [site](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22kik-botmill%22) 
+
+Once you've imported the API. You need to register the FbBotMillServlet. To do that, create a Servlet project in your IDE and add this to your web.xml:
+
+     <servlet>
+		  <servlet-name>myKikBot</servlet-name>
+		  <servlet-class>co.aurasphere.botmill.fb.KikBotMillServlet</servlet-class>
+		  <init-param>
+			  <param-name>bot-definition-class</param-name>
+			  <param-value>com.sample.kik.demo.KikBotEntryPoint</param-value>
+		  </init-param>
+		  <load-on-startup>0</load-on-startup>
+	  </servlet>
+	  <servlet-mapping>
+		  <servlet-name>myKikBot</servlet-name>
+		  <url-pattern>/myKikBot</url-pattern>
+	  </servlet-mapping>
+	  
+	  
+Your KikBotEntryPoint should extends KikBotMillEntry. You need to override the kikBotEntry and define your domains and behaviours.
+
+    public class KikBotEntryPoint extends KikBotMillEntry {
+		/**
+		 * Entry point is the main method that will be called only once.
+		 * This is where we define our configuration and responses.
+		 */
+		@Override
+		protected void kikBotEntry() {
+			
+			//	setup
+			KikBotMillContext.getInstance().setup("<USERNAME>", "<APIKEY>");
+			
+			//	configuration.
+			NetworkUtils.postJsonConfig(ConfigurationBuilder.getInstance()
+				.setWebhook("<webhook url>")
+				.setManuallySendReadReceipts(false)
+				.setReceiveDeliveryReceipts(false)
+				.setReceiveIsTyping(true)
+				.setReceiveReadReceipts(false)
+				.buildConfiguration());
+			
+			//	Domain > collection of responses
+			KikBotMillContext.getInstance().registerDomain(new SampleDomain());
+			
+		}
+	}
+	
+Your domain holds all the actions of your Bot.
+
+	public class SampleDomain extends AbstractDomain {
+	
+		@Override
+		public void buildDomain() {
+			
+			
+			//	Just like constructing.
+			ActionFrameBuilder.createAction()
+					.setEvent(EventFactory.link())	// Event's are catchers. 
+					.addReply(ReplyFactory.buildTypingReply())
+					.addReply(new VideoMessageReply() {
+							@Override
+							public VideoMessage processReply(Message message) {
+								return null;
+							}
+						})	// multiple replies
+					.addReply(new TextMessageReply(){
+						@Override
+						public TextMessage processReply(Message message) {
+							return TextMessageBuilder.getInstance()
+								.setBody("")
+								.build();
+						}
+					}) 
+			.buildToContext(); // automatically assign this action to the context.
+			
+			//	 with multiple replies
+			ActionFrameBuilder.createAction()
+					.setEvent(EventFactory.textMessagePattern("(?i:hi)|(?i:hello)|(?i:hey)|(?i:good day)|(?i:home)")) // user sent "hi"
+					.addReply(ReplyFactory.buildTextMessageReply(">>> 1"))
+					.addReply(new PictureMessageReply() {
+						@Override
+						public PictureMessage processReply(Message message) {
+							return PictureMessageBuilder.getInstance().setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+									.addKeyboard()
+										.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
+										.setType(KeyboardType.SUGGESTED)
+										.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
+										.setType(KeyboardType.SUGGESTED)
+										.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+										.setType(KeyboardType.SUGGESTED)
+									.endKeyboard()
+									.build();
+						}
+					})
+					.buildToContext();
+			
+		}
+		
+	}
+
+Neat! The sample above is the simplest way to get things started, for a more comprehensive guide on how to create your facebook chatbot from scratch, you can follow this [guide](https://github.com/BotMill/fb-botmill/wiki/Developing-with-FB-BotMill). 
+
 **<h3>What's currently supported</h3>**
 
 Kik-BotMill supports this Kik Messenger Platform components:
