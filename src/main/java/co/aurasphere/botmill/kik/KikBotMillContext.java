@@ -237,6 +237,21 @@ public class KikBotMillContext {
 		}
 	}
 	
+	public void addActionFramesToContext(List<Frame> frames) {
+		for(Frame actionFrame:frames) {
+			if((actionFrame.getEvent() instanceof TextMessageEvent) || (actionFrame.getEvent() instanceof TextMessagePatternEvent)){
+				this.textMessageActionFrames.add(actionFrame);
+			}else if((actionFrame.getEvent() instanceof LinkMessageEvent)) {
+				this.linkMessageActionFrames.add(actionFrame);
+			}else if((actionFrame.getEvent() instanceof PictureMessageEvent) 
+					||(actionFrame.getEvent() instanceof VideoMessageEvent)) {
+				this.mediaMessageActionFrames.add(actionFrame);
+			}else {
+				this.actionFrames.add(actionFrame);
+			}
+		}
+	}
+	
 	/**
 	 * Adds the action frame to broadcast.
 	 *

@@ -39,6 +39,7 @@ import co.aurasphere.botmill.kik.configuration.ResponseType;
 import co.aurasphere.botmill.kik.factory.EventFactory;
 import co.aurasphere.botmill.kik.factory.MessageFactory;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
+import co.aurasphere.botmill.kik.incoming.handler.JsonToActionFrameHandler;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.incoming.model.TextMessage;
 import co.aurasphere.botmill.kik.json.JsonUtils;
@@ -131,7 +132,9 @@ public class IncomingMessageBuilderTest {
 	 */
 	@Test
 	public void testJsonTextMessageParse() {
-	
+		
+		KikBotMillContext.getInstance().addActionFramesToContext(JsonToActionFrameHandler.jsonToFrameReply("http://technowebhub.com/json_sample.json"));
+		
 		ActionFrameBuilder.createAction()
 		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
 		.addReply(new TextMessageReply() {
@@ -152,8 +155,8 @@ public class IncomingMessageBuilderTest {
 		})
 		.buildToBroadcast();
 		
-
-		String json = "{\"messages\": [{\"body\": \"hi\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \"hi\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
+		
+		String json = "{\"messages\": [{\"body\": \"1\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \"hi1\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
 		MessageCallback m = JsonUtils.fromJson(json,MessageCallback.class);
 		
 		for(Message msg:m.getMessages()) {
