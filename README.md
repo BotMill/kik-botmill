@@ -104,17 +104,17 @@ Your domain holds all the actions of your Bot.
 			//	 with multiple replies
 			ActionFrameBuilder.createAction()
 					.setEvent(EventFactory.textMessagePattern("(?i:hi)|(?i:hello)|(?i:hey)|(?i:good day)|(?i:home)")) // user sent "hi"
-					.addReply(ReplyFactory.buildTextMessageReply(">>> 1"))
+					.addReply(ReplyFactory.buildTextMessageReply("How are you?!"))
 					.addReply(new PictureMessageReply() {
 						@Override
 						public PictureMessage processReply(Message message) {
 							return PictureMessageBuilder.getInstance().setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
 									.addKeyboard()
-										.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
+										.addResponse(MessageFactory.createResponse("Keyboard A", ResponseType.TEXT))
 										.setType(KeyboardType.SUGGESTED)
-										.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
+										.addResponse(MessageFactory.createResponse("Keyboard B", ResponseType.TEXT))
 										.setType(KeyboardType.SUGGESTED)
-										.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+										.addResponse(MessageFactory.createResponse("Keyboard C", ResponseType.TEXT))
 										.setType(KeyboardType.SUGGESTED)
 									.endKeyboard()
 									.build();
