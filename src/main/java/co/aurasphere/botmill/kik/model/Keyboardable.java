@@ -23,39 +23,28 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik;
+package co.aurasphere.botmill.kik.model;
+
+import co.aurasphere.botmill.kik.builder.KeyboardBuilder;
 
 /**
- * The Class KikBot.
+ * The Interface Keyboardable.
+ *
+ * @param <T> the generic type
  */
-public abstract class KikBotMillEntry {
+public interface Keyboardable<T> {
 	
 	/**
-	 * Instantiates a new kik bot.
-	 */
-	public KikBotMillEntry() {
-		KikBotMillContext.getInstance().registerEntryPoint(this);
-		this.postCleanup(); // clean up all the stuff.
-	}
-	
-	/**
-	 * Sets the web hook url.
+	 * Adds the keyboard.
 	 *
-	 * @param url the new web hook url
+	 * @return the keyboard builder
 	 */
-	protected void setWebHookUrl(String url) {
-		KikBotMillContext.getInstance().setWebHookUrl(url);
-	}
+	public KeyboardBuilder<T> addKeyboard();
 	
 	/**
-	 * Define kik bot.
+	 * End keyboard.
+	 *
+	 * @return the t
 	 */
-	protected abstract void kikBotEntry();
-	
-	/**
-	 * Post cleanup.
-	 */
-	protected void postCleanup() {
-		
-	}
+	public T endKeyboard();
 }

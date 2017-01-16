@@ -151,14 +151,29 @@ public class VideoMessage extends OutgoingMessage {
 		this.noSave = noSave;
 	}
 	
+	/**
+	 * Adds the keyboard.
+	 *
+	 * @param keyboard the keyboard
+	 */
 	public void addKeyboard(Keyboard keyboard) {
 		this.keyboards.add(keyboard);
 	}
 
+	/**
+	 * Gets the keyboards.
+	 *
+	 * @return the keyboards
+	 */
 	public List<Keyboard> getKeyboards() {
 		return keyboards;
 	}
 
+	/**
+	 * Sets the keyboards.
+	 *
+	 * @param keyboards the new keyboards
+	 */
 	public void setKeyboards(List<Keyboard> keyboards) {
 		this.keyboards = keyboards;
 	}

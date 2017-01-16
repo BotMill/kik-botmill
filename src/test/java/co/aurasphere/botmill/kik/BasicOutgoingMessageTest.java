@@ -23,13 +23,10 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.config;
+package co.aurasphere.botmill.kik;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-
 import org.junit.Test;
-
 import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.MessageType;

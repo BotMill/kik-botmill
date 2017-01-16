@@ -23,39 +23,28 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik;
+package co.aurasphere.botmill.kik.event;
+
+import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
+import co.aurasphere.botmill.kik.incoming.model.IsTypingMessage;
+import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.MessageType;
 
 /**
- * The Class KikBot.
+ * The Class IsTypingEvent.
  */
-public abstract class KikBotMillEntry {
+public class IsTypingEvent implements Event {
 	
-	/**
-	 * Instantiates a new kik bot.
+	/* (non-Javadoc)
+	 * @see co.aurasphere.botmill.kik.intf.Event#verifyEvent(co.aurasphere.botmill.kik.incoming.model.IncomingMessage)
 	 */
-	public KikBotMillEntry() {
-		KikBotMillContext.getInstance().registerEntryPoint(this);
-		this.postCleanup(); // clean up all the stuff.
-	}
-	
-	/**
-	 * Sets the web hook url.
-	 *
-	 * @param url the new web hook url
-	 */
-	protected void setWebHookUrl(String url) {
-		KikBotMillContext.getInstance().setWebHookUrl(url);
-	}
-	
-	/**
-	 * Define kik bot.
-	 */
-	protected abstract void kikBotEntry();
-	
-	/**
-	 * Post cleanup.
-	 */
-	protected void postCleanup() {
-		
+	@Override
+	public boolean verifyEvent(IncomingMessage incomingMessage) {
+		if (incomingMessage instanceof IsTypingMessage) {
+			if(incomingMessage.getType().equals(MessageType.IS_TYPING)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

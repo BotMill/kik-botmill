@@ -23,28 +23,15 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.intf;
-
-import co.aurasphere.botmill.kik.builder.KeyboardBuilder;
+package co.aurasphere.botmill.kik.model;
 
 /**
- * The Interface Keyboardable.
- *
- * @param <T> the generic type
+ * The Interface Domain.
  */
-public interface Keyboardable<T> {
+public interface Domain {
 	
 	/**
-	 * Adds the keyboard.
-	 *
-	 * @return the keyboard builder
+	 * Builds the domain.
 	 */
-	public KeyboardBuilder<T> addKeyboard();
-	
-	/**
-	 * End keyboard.
-	 *
-	 * @return the t
-	 */
-	public T endKeyboard();
+	void buildDomain();
 }

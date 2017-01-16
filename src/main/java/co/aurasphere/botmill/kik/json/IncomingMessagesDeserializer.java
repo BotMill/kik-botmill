@@ -1,7 +1,8 @@
-/*
+/**
+ * 
  * MIT License
  *
- * Copyright (c) 2016 BotMill.io
+ * Copyright (c) 2017 BotMill.io
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,12 +21,14 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
+ * 
  */
 package co.aurasphere.botmill.kik.json;
 
 import java.lang.reflect.Type;
 
 import co.aurasphere.botmill.kik.incoming.model.FriendPickerMessage;
+import co.aurasphere.botmill.kik.incoming.model.IsTypingMessage;
 import co.aurasphere.botmill.kik.incoming.model.LinkMessage;
 import co.aurasphere.botmill.kik.incoming.model.PictureMessage;
 import co.aurasphere.botmill.kik.incoming.model.ScanDataMessage;
@@ -44,6 +47,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
 
+/**
+ * The Class IncomingMessagesDeserializer.
+ */
 public class IncomingMessagesDeserializer implements JsonDeserializer<MessageCallback> {
 
 	/**
@@ -79,7 +85,7 @@ public class IncomingMessagesDeserializer implements JsonDeserializer<MessageCal
 			//	get type.
 			JsonObject jsonMessage = jsonMessages.getAsJsonArray().get(i).getAsJsonObject();
 			String typeString = jsonMessage.get("type").getAsString();
-			MessageType messageType = MessageType.valueOf(typeString.toUpperCase());
+			MessageType messageType = MessageType.valueOf(typeString.replace('-', '_').toUpperCase());
 			Class<? extends Message> messageClass = null;
 			switch(messageType) {
 			case TEXT:
@@ -103,6 +109,8 @@ public class IncomingMessagesDeserializer implements JsonDeserializer<MessageCal
 			case FRIEND_PICKER:
 				messageClass = FriendPickerMessage.class;
 				break;
+			case IS_TYPING:
+				messageClass = IsTypingMessage.class;
 			}
 
 			Message message = context.deserialize(jsonMessage, messageClass);

@@ -25,6 +25,10 @@
  */
 package co.aurasphere.botmill.kik.factory;
 
+import co.aurasphere.botmill.kik.configuration.Keyboard;
+import co.aurasphere.botmill.kik.configuration.KeyboardType;
+import co.aurasphere.botmill.kik.configuration.Response;
+import co.aurasphere.botmill.kik.configuration.ResponseType;
 import co.aurasphere.botmill.kik.model.Attribution;
 import co.aurasphere.botmill.kik.model.KeyValuePair;
 
@@ -53,5 +57,28 @@ public class MessageFactory {
 	 */
 	public static KeyValuePair createKeyValuePair(String key, String value) {
 		return new KeyValuePair(key,value);
+	}
+	
+
+	/**
+	 * Creates a new Configuration object.
+	 *
+	 * @param body the body
+	 * @param responseType the response type
+	 * @return the response
+	 */
+	public static Response createResponse(String body, ResponseType responseType) {
+		return new Response(body, responseType);
+	}
+	
+	/**
+	 * Creates a new Configuration object.
+	 *
+	 * @param keyboardType the keyboard type
+	 * @param response the response
+	 * @return the keyboard
+	 */
+	public static Keyboard createStaticKeyboard(KeyboardType keyboardType, Response response) {
+		return new Keyboard();
 	}
 }

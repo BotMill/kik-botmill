@@ -23,39 +23,40 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik;
+package co.aurasphere.botmill.kik.model;
+
+import java.util.List;
 
 /**
- * The Class KikBot.
+ * The Interface Frame.
  */
-public abstract class KikBotMillEntry {
+public interface Frame {
 	
 	/**
-	 * Instantiates a new kik bot.
-	 */
-	public KikBotMillEntry() {
-		KikBotMillContext.getInstance().registerEntryPoint(this);
-		this.postCleanup(); // clean up all the stuff.
-	}
-	
-	/**
-	 * Sets the web hook url.
+	 * Gets the event.
 	 *
-	 * @param url the new web hook url
+	 * @return the event
 	 */
-	protected void setWebHookUrl(String url) {
-		KikBotMillContext.getInstance().setWebHookUrl(url);
-	}
+	Event getEvent();
 	
 	/**
-	 * Define kik bot.
+	 * Sets the event.
+	 *
+	 * @param event the new event
 	 */
-	protected abstract void kikBotEntry();
+	void setEvent(Event event);
 	
 	/**
-	 * Post cleanup.
+	 * Adds the reply.
+	 *
+	 * @param reply the reply
 	 */
-	protected void postCleanup() {
-		
-	}
+	void addReply(Reply<? extends Message> reply);
+	
+	/**
+	 * Gets the replies.
+	 *
+	 * @return the replies
+	 */
+	List<Reply<? extends Message>> getReplies();
 }

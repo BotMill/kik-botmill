@@ -35,6 +35,14 @@ public class IsTypingMessage extends OutgoingMessage {
 	/** The is typing. */
 	private boolean isTyping;
 	
+	
+	/**
+	 * Instantiates a new checks if is typing message.
+	 */
+	public IsTypingMessage() {
+		this.setType(MessageType.IS_TYPING);
+		this.isTyping = true;
+	}
 	/**
 	 * Instantiates a new checks if is typing message.
 	 *

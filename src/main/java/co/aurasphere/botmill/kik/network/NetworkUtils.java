@@ -251,7 +251,6 @@ public class NetworkUtils {
 		StringEntity input = null;
 		try {
 			String json = JsonUtils.toJson(object);
-			System.out.println(json);
 			input = new StringEntity(json);
 			input.setContentType("application/json");
 			logger.debug("Request: {}", inputStreamToString(input.getContent()));

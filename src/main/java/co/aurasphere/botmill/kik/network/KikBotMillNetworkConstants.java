@@ -42,4 +42,10 @@ public class KikBotMillNetworkConstants {
 	/** The Constant USER_ENDPOINT. */
 	public static final String USER_ENDPOINT = SITE + "user/";
 	
+	/** The Constant BROADCAST_ENDPOINT. */
+	public static final String BROADCAST_ENDPOINT = SITE + "broadcast";
+	
+	/** The Constant CODE_ENDPOINT. */
+	public static final String CODE_ENDPOINT = SITE + "code";
+	
 }

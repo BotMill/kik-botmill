@@ -23,37 +23,20 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.factory;
+package co.aurasphere.botmill.kik.model;
 
-import co.aurasphere.botmill.kik.configuration.KeyboardType;
-import co.aurasphere.botmill.kik.configuration.Response;
-import co.aurasphere.botmill.kik.configuration.ResponseType;
-import co.aurasphere.botmill.kik.configuration.Keyboard;
+import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 
 /**
- * A factory for creating Configuration objects.
+ * The Interface Event.
  */
-public class ConfigurationFactory {
+public interface Event {
 	
 	/**
-	 * Creates a new Configuration object.
+	 * Verify event.
 	 *
-	 * @param body the body
-	 * @param responseType the response type
-	 * @return the response
+	 * @param incomingMessage the incoming message
+	 * @return true, if successful
 	 */
-	public static Response createResponse(String body, ResponseType responseType) {
-		return new Response(body, responseType);
-	}
-	
-	/**
-	 * Creates a new Configuration object.
-	 *
-	 * @param keyboardType the keyboard type
-	 * @param response the response
-	 * @return the keyboard
-	 */
-	public static Keyboard createStaticKeyboard(KeyboardType keyboardType, Response response) {
-		return new Keyboard();
-	}
+	boolean verifyEvent(IncomingMessage incomingMessage);
 }

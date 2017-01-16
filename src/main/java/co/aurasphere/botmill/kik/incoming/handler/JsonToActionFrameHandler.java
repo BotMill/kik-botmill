@@ -23,39 +23,28 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik;
+package co.aurasphere.botmill.kik.incoming.handler;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import co.aurasphere.botmill.kik.reply.TextMessageReply;
 
 /**
- * The Class KikBot.
+ * The Class JsonToActionFrameHandler.
  */
-public abstract class KikBotMillEntry {
+public class JsonToActionFrameHandler {
 	
 	/**
-	 * Instantiates a new kik bot.
-	 */
-	public KikBotMillEntry() {
-		KikBotMillContext.getInstance().registerEntryPoint(this);
-		this.postCleanup(); // clean up all the stuff.
-	}
-	
-	/**
-	 * Sets the web hook url.
+	 * Json to text message reply.
 	 *
-	 * @param url the new web hook url
+	 * @param jsonUrl the json url
+	 * @return the list
 	 */
-	protected void setWebHookUrl(String url) {
-		KikBotMillContext.getInstance().setWebHookUrl(url);
-	}
-	
-	/**
-	 * Define kik bot.
-	 */
-	protected abstract void kikBotEntry();
-	
-	/**
-	 * Post cleanup.
-	 */
-	protected void postCleanup() {
+	public static List<TextMessageReply> jsonToTextMessageReply(String jsonUrl) {
 		
+		List<TextMessageReply> list = new ArrayList<TextMessageReply>();
+		
+		return null;
 	}
 }

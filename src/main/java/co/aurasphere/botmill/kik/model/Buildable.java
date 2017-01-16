@@ -23,10 +23,19 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.intf;
+package co.aurasphere.botmill.kik.model;
 
-import co.aurasphere.botmill.kik.model.Message;
-
-public interface Reply<T> {
-	T processReply(Message message);
+/**
+ * The Interface Buildable.
+ *
+ * @param <T> the generic type
+ */
+public interface Buildable<T> {
+	
+	/**
+	 * Builds the.
+	 *
+	 * @return the t
+	 */
+	public T build();
 }

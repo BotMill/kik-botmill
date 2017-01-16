@@ -1,4 +1,29 @@
-package co.aurasphere.botmill.kik.config;
+/**
+ * 
+ * MIT License
+ *
+ * Copyright (c) 2017 BotMill.io
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ * 
+ */
+package co.aurasphere.botmill.kik;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +36,8 @@ import co.aurasphere.botmill.kik.builder.PictureMessageBuilder;
 import co.aurasphere.botmill.kik.builder.TextMessageBuilder;
 import co.aurasphere.botmill.kik.configuration.KeyboardType;
 import co.aurasphere.botmill.kik.configuration.ResponseType;
-import co.aurasphere.botmill.kik.factory.ConfigurationFactory;
 import co.aurasphere.botmill.kik.factory.EventFactory;
+import co.aurasphere.botmill.kik.factory.MessageFactory;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
 import co.aurasphere.botmill.kik.incoming.model.TextMessage;
 import co.aurasphere.botmill.kik.json.JsonUtils;
@@ -26,8 +51,14 @@ import co.aurasphere.botmill.kik.reply.LinkMessageReply;
 import co.aurasphere.botmill.kik.reply.PictureMessageReply;
 import co.aurasphere.botmill.kik.reply.TextMessageReply;
 
+/**
+ * The Class IncomingMessageBuilderTest.
+ */
 public class IncomingMessageBuilderTest {
 
+	/**
+	 * Setup.
+	 */
 	@Before
 	public void setup() {
 		
@@ -44,6 +75,9 @@ public class IncomingMessageBuilderTest {
 		
 	}
 	
+	/**
+	 * Test json picture message parse.
+	 */
 	@Test
 	public void testJsonPictureMessageParse() {
 	
@@ -55,11 +89,11 @@ public class IncomingMessageBuilderTest {
 			public co.aurasphere.botmill.kik.outgoing.model.TextMessage processReply(Message message) {
 				return TextMessageBuilder.getInstance().setBody("Choose a letter Mr. Alvin")
 						.addKeyboard()
-							.addResponse(ConfigurationFactory.createResponse("A", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
-							.addResponse(ConfigurationFactory.createResponse("B", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
-							.addResponse(ConfigurationFactory.createResponse("C", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
 						.endKeyboard()
 						.build();
@@ -70,11 +104,11 @@ public class IncomingMessageBuilderTest {
 			public PictureMessage processReply(Message message) {
 				return PictureMessageBuilder.getInstance().setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
 						.addKeyboard()
-							.addResponse(ConfigurationFactory.createResponse("A", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
-							.addResponse(ConfigurationFactory.createResponse("B", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
-							.addResponse(ConfigurationFactory.createResponse("C", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
 						.endKeyboard()
 						.build();
@@ -90,6 +124,9 @@ public class IncomingMessageBuilderTest {
 		}
 	}
 	
+	/**
+	 * Test json text message parse.
+	 */
 	@Test
 	public void testJsonTextMessageParse() {
 	
@@ -101,11 +138,11 @@ public class IncomingMessageBuilderTest {
 			public co.aurasphere.botmill.kik.outgoing.model.TextMessage processReply(Message message) {
 				return TextMessageBuilder.getInstance().setBody("Choose a letter Mr. Alvin")
 						.addKeyboard()
-							.addResponse(ConfigurationFactory.createResponse("A", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
-							.addResponse(ConfigurationFactory.createResponse("B", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
-							.addResponse(ConfigurationFactory.createResponse("C", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
 						.endKeyboard()
 						.build();
@@ -122,6 +159,9 @@ public class IncomingMessageBuilderTest {
 		}
 	}
 	
+	/**
+	 * Test json link message parse.
+	 */
 	@Test
 	public void testJsonLinkMessageParse() {
 	
@@ -146,6 +186,9 @@ public class IncomingMessageBuilderTest {
 		}
 	}
 	
+	/**
+	 * Test json parse.
+	 */
 	@Test
 	public void testJsonParse() {
 		//String json = "{\"messages\": [{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
@@ -158,6 +201,10 @@ public class IncomingMessageBuilderTest {
 				break;
 		}
 	}
+	
+	/**
+	 * Test json parse to envelope.
+	 */
 	@Test
 	public void testJsonParseToEnvelope() {
 		String json = "{\"messages\": [{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";

@@ -68,10 +68,20 @@ public class PictureMessage extends OutgoingMessage {
 	}
 	
 	
+	/**
+	 * Gets the keyboard.
+	 *
+	 * @return the keyboard
+	 */
 	public List<Keyboard> getKeyboard() {
 		return keyboards;
 	}
 
+	/**
+	 * Sets the keyboard.
+	 *
+	 * @param keyboard the new keyboard
+	 */
 	public void setKeyboard(List<Keyboard> keyboard) {
 		this.keyboards = keyboard;
 	}
@@ -94,6 +104,11 @@ public class PictureMessage extends OutgoingMessage {
 		this.attribution = attribution;
 	}
 	
+	/**
+	 * Adds the keyboard.
+	 *
+	 * @param keyboard the keyboard
+	 */
 	public void addKeyboard(Keyboard keyboard) {
 		this.keyboards.add(keyboard);
 	}

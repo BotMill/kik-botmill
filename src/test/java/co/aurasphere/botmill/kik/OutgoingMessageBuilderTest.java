@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.config;
+package co.aurasphere.botmill.kik;
 
 import static org.junit.Assert.*;
 
@@ -41,9 +41,10 @@ import co.aurasphere.botmill.kik.builder.VideoMessageBuilder;
 import co.aurasphere.botmill.kik.configuration.Configuration;
 import co.aurasphere.botmill.kik.configuration.KeyboardType;
 import co.aurasphere.botmill.kik.configuration.ResponseType;
-import co.aurasphere.botmill.kik.factory.ConfigurationFactory;
+import co.aurasphere.botmill.kik.factory.MessageFactory;
 import co.aurasphere.botmill.kik.factory.EventFactory;
 import co.aurasphere.botmill.kik.factory.MessageFactory;
+import co.aurasphere.botmill.kik.factory.ReplyFactory;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.json.JsonUtils;
@@ -92,8 +93,8 @@ public class OutgoingMessageBuilderTest {
 		String configStr = "{\"webhook\":\"https://kik-bot-021415.herokuapp.com/kikbot\",\"features\":{\"manuallySendReadReceipts\":true,\"receiveReadReceipts\":true,\"receiveDeliveryReceipts\":true,\"receiveIsTyping\":true},\"staticKeyboard\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"A\",\"type\":\"text\"},{\"body\":\"B\",\"type\":\"text\"}]}}";
 		Configuration config = ConfigurationBuilder.getInstance().setWebhook("https://kik-bot-021415.herokuapp.com/kikbot").setManuallySendReadReceipts(true)
 				.setReceiveDeliveryReceipts(true).setReceiveReadReceipts(true).setReceiveIsTyping(true).addKeyboard()
-				.setType(KeyboardType.SUGGESTED).addResponse(ConfigurationFactory.createResponse("A", ResponseType.TEXT))
-				.addResponse(ConfigurationFactory.createResponse("B", ResponseType.TEXT)).endKeyboard()
+				.setType(KeyboardType.SUGGESTED).addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
+				.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT)).endKeyboard()
 				.buildConfiguration(); 
 		
 		assertEquals(configStr, JsonUtils.toJson(config));
@@ -106,8 +107,8 @@ public class OutgoingMessageBuilderTest {
 	public void testTextMessageBuilder() {
 		String txtMessageResp = "{\"keyboards\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"\",\"type\":\"text\"},{\"body\":\"\",\"type\":\"text\"}]},\"body\":\"11\",\"to\":\"11\",\"type\":\"text\"}";
 		TextMessage textMessage = TextMessageBuilder.getInstance().setBody("11").setTo("11").addKeyboard()
-				.setType(KeyboardType.SUGGESTED).addResponse(ConfigurationFactory.createResponse("", ResponseType.TEXT))
-				.addResponse(ConfigurationFactory.createResponse("", ResponseType.TEXT)).endKeyboard().build();
+				.setType(KeyboardType.SUGGESTED).addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
+				.addResponse(MessageFactory.createResponse("", ResponseType.TEXT)).endKeyboard().build();
 
 		System.out.println(JsonUtils.toJson(textMessage));
 		assertNotEquals(txtMessageResp, JsonUtils.toJson(textMessage));
@@ -123,8 +124,8 @@ public class OutgoingMessageBuilderTest {
 				.setAttribution(MessageFactory.createAttribution("name", "iconurl"))
 				.setKikJsData(MessageFactory.createKeyValuePair("key", "value")).setNoForward(false)
 				.setPicUrl("picure url").setText("Text").setTitle("title").setUrl("url").addKeyboard()
-				.setType(KeyboardType.SUGGESTED).addResponse(ConfigurationFactory.createResponse("", ResponseType.TEXT))
-				.addResponse(ConfigurationFactory.createResponse("", ResponseType.TEXT)).endKeyboard().build();
+				.setType(KeyboardType.SUGGESTED).addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
+				.addResponse(MessageFactory.createResponse("", ResponseType.TEXT)).endKeyboard().build();
 
 		System.out.println(JsonUtils.toJson(linkMessageResp));
 		assertNotEquals(linkMessageRespStr, JsonUtils.toJson(linkMessageResp));
@@ -137,8 +138,8 @@ public class OutgoingMessageBuilderTest {
 	public void testPicureMessageBuilder() {
 		String pictureMessageStr = "{\"picUrl\":\"\",\"keyboards\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"\",\"type\":\"text\"},{\"body\":\"\",\"type\":\"text\"}]},\"attribution\":\"gallery\",\"to\":\"\",\"type\":\"picture\"}";
 		PictureMessage pictureMessageResp = PictureMessageBuilder.getInstance().addKeyboard()
-				.setType(KeyboardType.SUGGESTED).addResponse(ConfigurationFactory.createResponse("", ResponseType.TEXT))
-				.addResponse(ConfigurationFactory.createResponse("", ResponseType.TEXT)).endKeyboard().setPicUrl("")
+				.setType(KeyboardType.SUGGESTED).addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
+				.addResponse(MessageFactory.createResponse("", ResponseType.TEXT)).endKeyboard().setPicUrl("")
 				.setTo("").build();
 
 		System.out.println(JsonUtils.toJson(pictureMessageResp));
@@ -152,8 +153,8 @@ public class OutgoingMessageBuilderTest {
 	public void testVideoMessageBuilder() {
 		String videoMessageStr = "{\"videoUrl\":\"\",\"loop\":true,\"muted\":false,\"autoplay\":false,\"noSave\":false,\"attribution\":\"camera\",\"keyboards\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"\",\"type\":\"text\"},{\"body\":\"\",\"type\":\"text\"}]},\"type\":\"video\"}";
 		VideoMessage videoMessageResp = VideoMessageBuilder.getInstance().addKeyboard().setType(KeyboardType.SUGGESTED)
-				.addResponse(ConfigurationFactory.createResponse("", ResponseType.TEXT))
-				.addResponse(ConfigurationFactory.createResponse("", ResponseType.TEXT)).endKeyboard().setVideoUrl("")
+				.addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
+				.addResponse(MessageFactory.createResponse("", ResponseType.TEXT)).endKeyboard().setVideoUrl("")
 				.setLoop(true).build();
 
 		System.out.println(JsonUtils.toJson(videoMessageResp));
@@ -173,17 +174,65 @@ public class OutgoingMessageBuilderTest {
 	}
 
 	/**
+	 * Test is typing message parse.
+	 */
+	@Test
+	public void testIsTypingMessageParse() {
+		//{\"messages\": [{\"isTyping\": true, \"from\": \"alvinpreyes\", \"timestamp\": 1484494789482, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": false, \"type\": \"is-typing\", \"id\": \"ce6c5d52-223e-4335-93df-207a1877adb1\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}
+		
+		ActionFrameBuilder.createAction()
+		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
+		.addReply(new TextMessageReply() {
+			
+			@Override
+			public co.aurasphere.botmill.kik.outgoing.model.TextMessage processReply(Message message) {
+				return TextMessageBuilder.getInstance().setBody("Choose a letter Mr. Alvin")
+						.addKeyboard()
+							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
+							.setType(KeyboardType.SUGGESTED)
+							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
+							.setType(KeyboardType.SUGGESTED)
+							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+							.setType(KeyboardType.SUGGESTED)
+						.endKeyboard()
+						.build();
+			}
+		})
+		.buildToContext();
+		
+		ActionFrameBuilder.createAction()
+		.setEvent(EventFactory.textMessagePattern("(?i:hi)|(?i:hello)|(?i:hey)|(?i:good day)|(?i:home)")) // user sent "hi"
+		.addReply(ReplyFactory.buildTextMessageReply(">>> 1"))
+		.addReply(ReplyFactory.buildTextMessageReply(">>> 2"))
+		.addReply(ReplyFactory.buildTextMessageReply(">>> 3"))
+		.addReply(ReplyFactory.buildTextMessageReply(">>> 4"))
+		.addReply(ReplyFactory.buildTextMessageReply(">>> 5"))
+		.buildToContext();
+		
+
+		String json = "{\"messages\": [{\"isTyping\": true, \"from\": \"alvinpreyes\", \"timestamp\": 1484494789482, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": false, \"type\": \"is-typing\", \"id\": \"ce6c5d52-223e-4335-93df-207a1877adb1\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
+		MessageCallback m = JsonUtils.fromJson(json,MessageCallback.class);
+		
+		for(Message msg:m.getMessages()) {
+			IncomingToOutgoingMessageHandler.createHandler().process(msg);
+		}
+	}
+	
+	/**
 	 * Test read receipt message builder.
 	 */
 	@Test
 	public void testReadReceiptMessageBuilder() {
 		String readReceiptStr = "{\"type\":\"read-receipt\"}";
-		ReadReceiptMessage readReceiptMsg = ActionMessageBuilder.buildReceReceiptMessage("to", null);
+		ReadReceiptMessage readReceiptMsg = ActionMessageBuilder.buildReadReceiptMessage("to", null);
 		System.out.println(JsonUtils.toJson(readReceiptMsg));
 		
 		assertEquals(readReceiptStr, JsonUtils.toJson(readReceiptMsg));
 	}
 	
+	/**
+	 * Test json picture message parse.
+	 */
 	@Test
 	public void testJsonPictureMessageParse() {
 	
@@ -195,11 +244,11 @@ public class OutgoingMessageBuilderTest {
 			public co.aurasphere.botmill.kik.outgoing.model.TextMessage processReply(Message message) {
 				return TextMessageBuilder.getInstance().setBody("Choose a letter Mr. Alvin")
 						.addKeyboard()
-							.addResponse(ConfigurationFactory.createResponse("A", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
-							.addResponse(ConfigurationFactory.createResponse("B", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
-							.addResponse(ConfigurationFactory.createResponse("C", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
 						.endKeyboard()
 						.build();
@@ -210,17 +259,19 @@ public class OutgoingMessageBuilderTest {
 			public PictureMessage processReply(Message message) {
 				return PictureMessageBuilder.getInstance().setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
 						.addKeyboard()
-							.addResponse(ConfigurationFactory.createResponse("A", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
-							.addResponse(ConfigurationFactory.createResponse("B", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
-							.addResponse(ConfigurationFactory.createResponse("C", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
 						.endKeyboard()
 						.build();
 			}
 		})
 		.buildToContext();
+		
+		
 
 		String json = "{\"messages\": [{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \"hi\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
 		MessageCallback m = JsonUtils.fromJson(json,MessageCallback.class);
@@ -230,28 +281,41 @@ public class OutgoingMessageBuilderTest {
 		}
 	}
 	
+	/**
+	 * Test json text message parse.
+	 */
 	@Test
 	public void testJsonTextMessageParse() {
 	
 		ActionFrameBuilder.createAction()
-		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
+		.setEvent(EventFactory.textMessage("hi1")) // user sent "hi"
 		.addReply(new TextMessageReply() {
 			
 			@Override
 			public co.aurasphere.botmill.kik.outgoing.model.TextMessage processReply(Message message) {
 				return TextMessageBuilder.getInstance().setBody("Choose a letter Mr. Alvin")
 						.addKeyboard()
-							.addResponse(ConfigurationFactory.createResponse("A", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
-							.addResponse(ConfigurationFactory.createResponse("B", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
-							.addResponse(ConfigurationFactory.createResponse("C", ResponseType.TEXT))
+							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
 							.setType(KeyboardType.SUGGESTED)
 						.endKeyboard()
 						.build();
 			}
 		})
 		.buildToContext();
+		
+		ActionFrameBuilder.createAction()
+		.setEvent(EventFactory.textMessagePattern("(?i:hi)|(?i:hello)|(?i:hey)|(?i:good day)|(?i:home)")) // user sent "hi"
+		.addReply(ReplyFactory.buildTextMessageReply(">>> 1"))
+		.addReply(ReplyFactory.buildTextMessageReply(">>> 2"))
+		.addReply(ReplyFactory.buildTextMessageReply(">>> 3"))
+		.addReply(ReplyFactory.buildTextMessageReply(">>> 4"))
+		.addReply(ReplyFactory.buildTextMessageReply(">>> 5"))
+		.buildToContext();
+
 		
 
 		String json = "{\"messages\": [{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \"hi\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
@@ -262,11 +326,18 @@ public class OutgoingMessageBuilderTest {
 		}
 	}
 	
+	/**
+	 * Test json link message parse.
+	 */
 	@Test
 	public void testJsonLinkMessageParse() {
 	
 		ActionFrameBuilder.createAction()
-		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
+		.setEvent(EventFactory.textMessage("hi"))
+		.addReply(ReplyFactory.buildTypingReply()).buildToContext();
+		
+		ActionFrameBuilder.createAction()
+		.setEvent(EventFactory.textMessage("hi1")) // user sent "hi"
 		.addReply(new LinkMessageReply() {
 			
 			@Override
@@ -275,6 +346,7 @@ public class OutgoingMessageBuilderTest {
 						.build();
 			}
 		})
+		
 		.buildToContext();
 		
 
@@ -286,6 +358,9 @@ public class OutgoingMessageBuilderTest {
 		}
 	}
 	
+	/**
+	 * Test json parse.
+	 */
 	@Test
 	public void testJsonParse() {
 		//String json = "{\"messages\": [{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
@@ -298,6 +373,10 @@ public class OutgoingMessageBuilderTest {
 				break;
 		}
 	}
+	
+	/**
+	 * Test json parse to envelope.
+	 */
 	@Test
 	public void testJsonParseToEnvelope() {
 		String json = "{\"messages\": [{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";

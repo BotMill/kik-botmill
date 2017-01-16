@@ -39,6 +39,15 @@ public class ActionMessageBuilder extends BaseBuilder {
 	/**
 	 * Builds the is typing message.
 	 *
+	 * @return the checks if is typing message
+	 */
+	public static IsTypingMessage buildIsTypingMessage() {
+		return new IsTypingMessage();
+	}
+	
+	/**
+	 * Builds the is typing message.
+	 *
 	 * @param to the to
 	 * @return the checks if is typing message
 	 */
@@ -47,13 +56,13 @@ public class ActionMessageBuilder extends BaseBuilder {
 	}
 	
 	/**
-	 * Builds the rece receipt message.
+	 * Builds the read receipt message.
 	 *
 	 * @param to the to
 	 * @param messageIds the message ids
 	 * @return the read receipt message
 	 */
-	public static ReadReceiptMessage buildReceReceiptMessage(String to, List<String> messageIds) {
+	public static ReadReceiptMessage buildReadReceiptMessage(String to, List<String> messageIds) {
 		return new ReadReceiptMessage(to,messageIds);
 	}
 }

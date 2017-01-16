@@ -31,7 +31,7 @@ import co.aurasphere.botmill.kik.builder.TextMessageBuilder;
 import co.aurasphere.botmill.kik.configuration.Configuration;
 import co.aurasphere.botmill.kik.configuration.KeyboardType;
 import co.aurasphere.botmill.kik.configuration.ResponseType;
-import co.aurasphere.botmill.kik.factory.ConfigurationFactory;
+import co.aurasphere.botmill.kik.factory.MessageFactory;
 import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 
@@ -56,27 +56,25 @@ public class Main {
 			.setReceiveIsTyping(true)
 				.addKeyboard()
 					.setType(KeyboardType.SUGGESTED)
-					.addResponse(ConfigurationFactory.createResponse("", ResponseType.TEXT))
-					.addResponse(ConfigurationFactory.createResponse("", ResponseType.TEXT))
+					.addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
+					.addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
 				.endKeyboard()
 			.buildConfiguration();	// builder everything. return Configuration Object.
 		
 		
 			
 			
-		System.out.println(JsonUtils.toJson(config));
 		
 		TextMessage textMessage = TextMessageBuilder.getInstance()
 		.setBody("11")
 		.setTo("11")
 		.addKeyboard()
 			.setType(KeyboardType.SUGGESTED)
-			.addResponse(ConfigurationFactory.createResponse("", ResponseType.TEXT))
-			.addResponse(ConfigurationFactory.createResponse("", ResponseType.TEXT))
+			.addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
+			.addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
 		.endKeyboard()
 		.build();
 		
-		System.out.println(JsonUtils.toJson(textMessage));
 	}
 	
 	/**

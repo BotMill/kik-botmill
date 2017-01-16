@@ -39,6 +39,13 @@ public class ReadReceiptMessage extends OutgoingMessage {
 	
 	/**
 	 * Instantiates a new read receipt message.
+	 */
+	public ReadReceiptMessage() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	 * Instantiates a new read receipt message.
 	 *
 	 * @param to the to
 	 * @param messageIds the message ids

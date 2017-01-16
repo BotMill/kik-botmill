@@ -25,9 +25,9 @@
  */
 package co.aurasphere.botmill.kik.builder;
 
-import co.aurasphere.botmill.kik.intf.Buildable;
-import co.aurasphere.botmill.kik.intf.Keyboardable;
 import co.aurasphere.botmill.kik.model.BaseBuilder;
+import co.aurasphere.botmill.kik.model.Buildable;
+import co.aurasphere.botmill.kik.model.Keyboardable;
 import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 import co.aurasphere.botmill.kik.reply.TextMessageReply;

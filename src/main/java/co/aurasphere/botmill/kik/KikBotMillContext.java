@@ -31,9 +31,10 @@ import co.aurasphere.botmill.kik.configuration.Authentication;
 import co.aurasphere.botmill.kik.event.LinkMessageEvent;
 import co.aurasphere.botmill.kik.event.PictureMessageEvent;
 import co.aurasphere.botmill.kik.event.TextMessageEvent;
+import co.aurasphere.botmill.kik.event.TextMessagePatternEvent;
 import co.aurasphere.botmill.kik.event.VideoMessageEvent;
-import co.aurasphere.botmill.kik.intf.Domain;
-import co.aurasphere.botmill.kik.intf.Frame;
+import co.aurasphere.botmill.kik.model.Domain;
+import co.aurasphere.botmill.kik.model.Frame;
 
 /**
  * The Class KikBotMillContext.
@@ -51,33 +52,66 @@ public class KikBotMillContext {
 	
 	/** The bots. */
 	private List<KikBotMillEntry> entryPoints;
+	
+	/** The domains. */
 	private List<Domain> domains;
 	
+	/** The action frames. */
 	private List<Frame> actionFrames;
 	
+	/** The text message action frames. */
 	//buckets
 	private List<Frame> textMessageActionFrames;
+	
+	/** The media message action frames. */
 	private List<Frame> mediaMessageActionFrames;
+	
+	/** The link message action frames. */
 	private List<Frame> linkMessageActionFrames;
 	
 	
 
+	/**
+	 * Gets the domains.
+	 *
+	 * @return the domains
+	 */
 	public List<Domain> getDomains() {
 		return domains;
 	}
 
+	/**
+	 * Gets the action frames.
+	 *
+	 * @return the action frames
+	 */
 	public List<Frame> getActionFrames() {
 		return actionFrames;
 	}
 
+	/**
+	 * Gets the text message action frames.
+	 *
+	 * @return the text message action frames
+	 */
 	public List<Frame> getTextMessageActionFrames() {
 		return textMessageActionFrames;
 	}
 
+	/**
+	 * Gets the media message action frames.
+	 *
+	 * @return the media message action frames
+	 */
 	public List<Frame> getMediaMessageActionFrames() {
 		return mediaMessageActionFrames;
 	}
 
+	/**
+	 * Gets the link message action frames.
+	 *
+	 * @return the link message action frames
+	 */
 	public List<Frame> getLinkMessageActionFrames() {
 		return linkMessageActionFrames;
 	}
@@ -163,18 +197,27 @@ public class KikBotMillContext {
 		return this.webhookUrl;
 	}
 	
+	/**
+	 * Register domain.
+	 *
+	 * @param domain the domain
+	 */
 	public void registerDomain(Domain domain) {
 		this.domains.add(domain);
 	}
 	
+	/**
+	 * Adds the action frame to context.
+	 *
+	 * @param actionFrame the action frame
+	 */
 	public void addActionFrameToContext(Frame actionFrame) {
-		if(actionFrame.getEvent() instanceof TextMessageEvent) {
+		if((actionFrame.getEvent() instanceof TextMessageEvent) || (actionFrame.getEvent() instanceof TextMessagePatternEvent)){
 			this.textMessageActionFrames.add(actionFrame);
 		}else if((actionFrame.getEvent() instanceof LinkMessageEvent)) {
 			this.linkMessageActionFrames.add(actionFrame);
 		}else if((actionFrame.getEvent() instanceof PictureMessageEvent) 
 				||(actionFrame.getEvent() instanceof VideoMessageEvent)) {
-			System.out.println("mm");
 			this.mediaMessageActionFrames.add(actionFrame);
 		}else {
 			this.actionFrames.add(actionFrame);

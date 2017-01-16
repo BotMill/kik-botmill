@@ -46,16 +46,18 @@ public class KikBotMillServlet extends HttpServlet {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	
+
 	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory.getLogger(KikBotMillServlet.class);
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
 	 */
 	@Override
 	public void init() throws ServletException {
-		
+
 		// Tries to get the botDefinitionClass name from the config defined in
 		// web.xml.
 		String botDefinitionClass = getServletConfig().getInitParameter("bot-definition-class");
@@ -74,57 +76,57 @@ public class KikBotMillServlet extends HttpServlet {
 			logger.error("Error while loading KikBotDefinition class [ " + botDefinitionClass + " ]", e);
 			throw new ServletException("Error while loading KikBotDefinition class [ " + botDefinitionClass + " ]", e);
 		} catch (ClassCastException e) {
-			logger.error(
-					"Class [ " + botDefinitionClass + " ] does not implement co.aurasphere.botmill.kik.KikBotDefinition",
-					e);
-			throw new ServletException(
-					"Class [ " + botDefinitionClass + " ] does not implement co.aurasphere.botmill.kik.KikBotDefinition",
-					e);
+			logger.error("Class [ " + botDefinitionClass
+					+ " ] does not implement co.aurasphere.botmill.kik.KikBotDefinition", e);
+			throw new ServletException("Class [ " + botDefinitionClass
+					+ " ] does not implement co.aurasphere.botmill.kik.KikBotDefinition", e);
 		} catch (Exception e) {
 			logger.error("Error during instantiation of class [ " + botDefinitionClass + " ]", e);
 			throw new ServletException("Error during instantiation of class [ " + botDefinitionClass + " ]", e);
 		}
-		
-		System.out.println(getServletConfig().getServletContext().getServletContextName());
+
 		botEntry.setWebHookUrl("https://kik-bot-021415.herokuapp.com/kikbot");
 		botEntry.kikBotEntry();
 		logger.info("KikBotMillServlet configuration OK.");
 	}
 
-	/* (non-Javadoc)
-	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.
+	 * HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		super.doGet(req, resp);
 	}
 
-	/* (non-Javadoc)
-	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.
+	 * HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		logger.trace("POST received!");
-
-		String json = readerToString(req.getReader());
-		logger.debug("JSON input: " + json);
-		MessageCallback messages = JsonUtils.fromJson(json,MessageCallback.class);
-		
-		//	Process each message.
-		for(Message message:messages.getMessages()) {
-			IncomingToOutgoingMessageHandler.createHandler().process(message);
-		}
-		
-		//	always return 200
-
 		try {
-			System.out.println(json);
+			String json = readerToString(req.getReader());
+			logger.debug("JSON INPUT: " + json);
+			MessageCallback messages = JsonUtils.fromJson(json, MessageCallback.class);
+
+			// Process each message.
+			for (Message message : messages.getMessages()) {
+				IncomingToOutgoingMessageHandler.createHandler().process(message);
+			}
+		
 		} catch (Exception e) {
 			logger.error("Error during MessengerCallback parsing: ", e);
 			return;
+		} finally {
+			resp.setStatus(HttpServletResponse.SC_OK);
 		}
 	}
-	
+
 	/**
 	 * Utility method that converts a Reader to a String.
 	 *

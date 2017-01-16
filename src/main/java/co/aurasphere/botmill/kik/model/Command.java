@@ -23,39 +23,15 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik;
+package co.aurasphere.botmill.kik.model;
 
 /**
- * The Class KikBot.
+ * The Interface Command.
  */
-public abstract class KikBotMillEntry {
+public interface Command {
 	
 	/**
-	 * Instantiates a new kik bot.
+	 * Run.
 	 */
-	public KikBotMillEntry() {
-		KikBotMillContext.getInstance().registerEntryPoint(this);
-		this.postCleanup(); // clean up all the stuff.
-	}
-	
-	/**
-	 * Sets the web hook url.
-	 *
-	 * @param url the new web hook url
-	 */
-	protected void setWebHookUrl(String url) {
-		KikBotMillContext.getInstance().setWebHookUrl(url);
-	}
-	
-	/**
-	 * Define kik bot.
-	 */
-	protected abstract void kikBotEntry();
-	
-	/**
-	 * Post cleanup.
-	 */
-	protected void postCleanup() {
-		
-	}
+	void run();
 }

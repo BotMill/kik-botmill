@@ -103,6 +103,12 @@ public class JsonUtils {
 	}
 	
 
+	/**
+	 * Gets the type.
+	 *
+	 * @param json the json
+	 * @return the type
+	 */
 	public static MessageType getType(String json) {
 		Message message = getGson().fromJson(json, Message.class);
 		return message.getType();
