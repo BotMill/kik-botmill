@@ -64,7 +64,7 @@ public class IncomingMessageBuilderTest {
 	@Before
 	public void setup() {
 		
-		KikBotMillContext.getInstance().setup(System.getProperty("USERNAME"), System.getProperty("APIKEY"));
+		KikBotMillContext.getInstance().setup(System.getenv("USERNAME"), System.getenv("APIKEY"));
 		
 		NetworkUtils.postJsonConfig(ConfigurationBuilder.getInstance()
 			.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot")
