@@ -182,6 +182,11 @@ public class OutgoingMessageBuilderTest {
 		//{\"messages\": [{\"isTyping\": true, \"from\": \"alvinpreyes\", \"timestamp\": 1484494789482, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": false, \"type\": \"is-typing\", \"id\": \"ce6c5d52-223e-4335-93df-207a1877adb1\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}
 		
 		ActionFrameBuilder.createAction()
+			.setEvent(EventFactory.anyEvent())
+			.addReply(ReplyFactory.buildTextMessageReply("ahoy!"))
+			.buildToContext();
+		
+		ActionFrameBuilder.createAction()
 		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
 		.addReply(new TextMessageReply() {
 			

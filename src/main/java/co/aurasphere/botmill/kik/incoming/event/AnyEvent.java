@@ -40,6 +40,6 @@ public class AnyEvent implements Event {
 	 */
 	@Override
 	public boolean verifyEvent(IncomingMessage incomingMessage) {
-		return false;
+		return true;
 	}
 }

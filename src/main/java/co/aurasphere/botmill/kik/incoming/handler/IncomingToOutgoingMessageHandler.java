@@ -33,6 +33,7 @@ import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessagePostback;
 import co.aurasphere.botmill.kik.model.Reply;
 import co.aurasphere.botmill.kik.network.NetworkUtils;
+import co.aurasphere.botmill.kik.outgoing.model.OutgoingMessage;
 import co.aurasphere.botmill.kik.outgoing.reply.AnyReply;
 import co.aurasphere.botmill.kik.outgoing.reply.IsTypingReply;
 import co.aurasphere.botmill.kik.outgoing.reply.LinkMessageReply;
@@ -157,7 +158,10 @@ public class IncomingToOutgoingMessageHandler {
 							outgoingMessage.setChatId(message.getChatId());
 							postback.addMessage(outgoingMessage);
 						} else if (reply instanceof AnyReply) {
-							//	Handle any reply.
+							OutgoingMessage outgoingMessage = (OutgoingMessage)reply.processReply(message);
+							outgoingMessage.setTo(((IncomingMessage) message).getFrom());
+							outgoingMessage.setChatId(message.getChatId());
+							postback.addMessage(outgoingMessage);
 						}
 					}
 					break;
