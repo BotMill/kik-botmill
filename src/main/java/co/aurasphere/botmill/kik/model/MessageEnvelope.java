@@ -53,6 +53,7 @@ public class MessageEnvelope implements Serializable {
 	private List<String> participants;
 	
 	/** The incoming message. */
+	@NotEmpty
 	private Message incomingMessage;
 	
 	/**

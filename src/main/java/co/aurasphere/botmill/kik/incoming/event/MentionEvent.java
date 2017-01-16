@@ -40,6 +40,9 @@ public class MentionEvent implements Event {
 	 */
 	@Override
 	public boolean verifyEvent(IncomingMessage incomingMessage) {
+		if(incomingMessage.getParticipants().size() > 1 && !incomingMessage.getMention().equals("")) {
+			return true;
+		}
 		return false;
 	}
 }

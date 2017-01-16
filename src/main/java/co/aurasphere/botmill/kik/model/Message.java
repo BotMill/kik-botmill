@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik.model;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.google.gson.annotations.SerializedName;
 
 
@@ -41,12 +43,14 @@ public class Message implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	/** The chat id. */
+	@NotEmpty
 	private String chatId;
 	
 	/** The id. */
 	private String id;
 	
 	/** The type. */
+	@NotEmpty
 	@SerializedName("type")
 	private MessageType type;
 	
