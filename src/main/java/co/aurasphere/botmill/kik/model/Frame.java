@@ -29,6 +29,8 @@ import java.util.List;
 
 /**
  * The Interface Frame.
+ * 
+ * @author Alvin P. Reyes
  */
 public interface Frame {
 	

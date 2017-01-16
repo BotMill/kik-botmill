@@ -33,6 +33,8 @@ import co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage;
 
 /**
  * The Class ActionMessageBuilder.
+ * 
+ * @author Alvin P. Reyes
  */
 public class ActionMessageBuilder extends BaseBuilder {
 	

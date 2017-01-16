@@ -30,6 +30,8 @@ import co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage;
 
 /**
  * The Class IsTypingReply.
+ * 
+ * @author Alvin P. Reyes
  */
 public abstract class IsTypingReply implements Reply<IsTypingMessage> {
 	

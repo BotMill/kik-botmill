@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik;
 
 /**
  * The Class KikBot.
+ * 
+ * @author Alvin P. Reyes
  */
 public abstract class KikBotMillEntry {
 	

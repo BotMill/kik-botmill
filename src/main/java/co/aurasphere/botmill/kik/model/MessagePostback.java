@@ -33,6 +33,8 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * The Class MessagePostback.
+ * 
+ * @author Alvin P. Reyes
  */
 public class MessagePostback implements Serializable{
 	

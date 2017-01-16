@@ -44,6 +44,8 @@ import co.aurasphere.botmill.kik.outgoing.reply.VideoMessageReply;
 
 /**
  * A factory for creating Reply objects.
+ * 
+ * @author Alvin P. Reyes
  */
 public class ReplyFactory {
 	

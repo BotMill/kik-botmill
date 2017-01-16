@@ -31,6 +31,8 @@ import co.aurasphere.botmill.kik.model.Keyboardable;
 
 /**
  * The Class ConfigurationBuilder.
+ * 
+ * @author Alvin P. Reyes
  */
 public class ConfigurationBuilder extends BaseBuilder implements Keyboardable<ConfigurationBuilder>{
 	

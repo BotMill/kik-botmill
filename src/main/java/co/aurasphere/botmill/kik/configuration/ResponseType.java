@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik.configuration;
 
 /**
  * The Enum ResponseType.
+ * 
+ * @author Alvin P. Reyes
  */
 public enum ResponseType {
 	

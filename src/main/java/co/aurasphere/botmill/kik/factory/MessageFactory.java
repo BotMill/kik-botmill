@@ -34,6 +34,8 @@ import co.aurasphere.botmill.kik.model.KikJsData;
 
 /**
  * A factory for creating Message objects.
+ * 
+ * @author Alvin P. Reyes
  */
 public class MessageFactory {
 

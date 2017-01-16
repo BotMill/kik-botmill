@@ -31,6 +31,8 @@ import java.util.List;
 
 /**
  * The Class Keyboard.
+ * 
+ * @author Alvin P. Reyes
  */
 public class Keyboard implements Serializable {
 	

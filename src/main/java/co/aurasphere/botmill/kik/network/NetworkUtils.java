@@ -63,7 +63,7 @@ import co.aurasphere.botmill.kik.json.JsonUtils;
  * Class that contains methods that allows KikBotMill to communicate through the
  * network.
  * 
- * @author Alvin Reyes
+ * @author Alvin P. Reyes
  * 
  */
 public class NetworkUtils {

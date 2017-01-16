@@ -38,7 +38,7 @@ import co.aurasphere.botmill.kik.model.MessageType;
 /**
  * Utility class for handling JSON serialization and deserialization.
  * 
- * @author Alvin Reyes
+ * @author Alvin P. Reyes
  * 
  */
 public class JsonUtils {

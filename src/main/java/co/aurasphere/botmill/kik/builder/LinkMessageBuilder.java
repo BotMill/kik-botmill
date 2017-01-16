@@ -35,6 +35,8 @@ import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 
 /**
  * The Class LinkMessageBuilder.
+ * 
+ * @author Alvin P. Reyes
  */
 public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<LinkMessageBuilder>,Buildable<LinkMessage> {
 	

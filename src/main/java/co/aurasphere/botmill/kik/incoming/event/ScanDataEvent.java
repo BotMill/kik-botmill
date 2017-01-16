@@ -30,6 +30,8 @@ import co.aurasphere.botmill.kik.model.Event;
 
 /**
  * The Class ScanDataEvent.
+ * 
+ * @author Alvin P. Reyes
  */
 public class ScanDataEvent implements Event {
 	

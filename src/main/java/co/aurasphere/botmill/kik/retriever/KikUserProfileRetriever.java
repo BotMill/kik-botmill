@@ -31,6 +31,8 @@ import co.aurasphere.botmill.kik.network.NetworkUtils;
 
 /**
  * The Class KikUserProfileRetriever.
+ * 
+ * @author Alvin P. Reyes
  */
 public class KikUserProfileRetriever {
 	

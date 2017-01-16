@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik.incoming.model;
 
 /**
  * The Class TextMessage.
+ * 
+ * @author Alvin P. Reyes
  */
 public class TextMessage extends IncomingMessage {
 

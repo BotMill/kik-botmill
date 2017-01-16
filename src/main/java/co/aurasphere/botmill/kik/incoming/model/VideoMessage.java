@@ -30,6 +30,8 @@ import co.aurasphere.botmill.kik.model.Attribution;
 
 /**
  * The Class VideoMessage.
+ * 
+ * @author Alvin P. Reyes
  */
 public class VideoMessage extends IncomingMessage {
 	

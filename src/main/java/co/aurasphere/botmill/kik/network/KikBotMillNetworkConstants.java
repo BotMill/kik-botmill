@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik.network;
 
 /**
  * The Class KikBotMillNetworkConstants.
+ * 
+ * @author Alvin P. Reyes
  */
 public class KikBotMillNetworkConstants {
 

@@ -30,6 +30,8 @@ import java.util.List;
 
 /**
  * The Class AbstractFrame.
+ * 
+ * @author Alvin P. Reyes
  */
 public abstract class AbstractFrame {
 	

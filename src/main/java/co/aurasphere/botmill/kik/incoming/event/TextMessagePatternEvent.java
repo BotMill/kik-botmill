@@ -32,6 +32,8 @@ import co.aurasphere.botmill.kik.model.Event;
 
 /**
  * The Class TextMessagePatternEvent.
+ * 
+ * @author Alvin P. Reyes
  */
 public class TextMessagePatternEvent implements Event {
 

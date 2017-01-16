@@ -34,6 +34,8 @@ import co.aurasphere.botmill.kik.outgoing.model.VideoMessage;
 
 /**
  * The Class VideoMessageBuilder.
+ * 
+ * @author Alvin P. Reyes
  */
 public class VideoMessageBuilder extends BaseBuilder
 		implements Keyboardable<VideoMessageBuilder>, Buildable<VideoMessage> {

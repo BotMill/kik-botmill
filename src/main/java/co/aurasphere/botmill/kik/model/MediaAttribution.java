@@ -29,6 +29,8 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * The Enum MediaAttribution.
+ * 
+ * @author Alvin P. Reyes
  */
 public enum MediaAttribution {
 

@@ -34,6 +34,8 @@ import co.aurasphere.botmill.kik.outgoing.model.PictureMessage;
 
 /**
  * The Class PictureMessageBuilder.
+ * 
+ * @author Alvin P. Reyes
  */
 public class PictureMessageBuilder extends BaseBuilder
 		implements Keyboardable<PictureMessageBuilder>, Buildable<PictureMessage> {

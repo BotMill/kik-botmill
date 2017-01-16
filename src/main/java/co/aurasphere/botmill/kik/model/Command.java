@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik.model;
 
 /**
  * The Interface Command.
+ * 
+ * @author Alvin P. Reyes
  */
 public interface Command {
 	

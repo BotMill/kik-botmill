@@ -39,6 +39,8 @@ import co.aurasphere.botmill.kik.incoming.event.VideoMessageEvent;
 
 /**
  * A factory for creating Event objects.
+ * 
+ * @author Alvin P. Reyes
  */
 public class EventFactory {
 	

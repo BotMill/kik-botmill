@@ -32,6 +32,8 @@ import co.aurasphere.botmill.kik.incoming.event.TextMessageEvent;
 
 /**
  * The Class AbstractDomain.
+ * 
+ * @author Alvin P. Reyes
  */
 public abstract class AbstractDomain implements Domain {
 	

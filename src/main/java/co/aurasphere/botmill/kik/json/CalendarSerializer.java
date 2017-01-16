@@ -34,10 +34,10 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 /**
- * Class that handles the serialization of a Calendar using the Facebook date
+ * Class that handles the serialization of a Calendar using the Kik date
  * format (YYYY-MM-DDThh:mm).
  * 
- * @author Donato Rimenti
+ * @author Alvin P. Reyes
  * 
  */
 public class CalendarSerializer implements JsonSerializer<Calendar> {

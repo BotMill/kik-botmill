@@ -43,6 +43,8 @@ import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 
 /**
  * The Class IncomingToOutgoingMessageHandler.
+ * 
+ * @author Alvin P. Reyes
  */
 public class IncomingToOutgoingMessageHandler {
 
@@ -61,6 +63,12 @@ public class IncomingToOutgoingMessageHandler {
 		return instance;
 	}
 
+	/**
+	 * Process broadcast.
+	 *
+	 * @param message the message
+	 * @return the incoming to outgoing message handler
+	 */
 	public IncomingToOutgoingMessageHandler processBroadcast(Message message) {
 		outgoingHandler(KikBotMillContext.getInstance().getBroadcastMessageActionFrames(), message, true);
 		return this;

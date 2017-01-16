@@ -31,6 +31,8 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * The Class Configuration.
+ * 
+ * @author Alvin P. Reyes
  */
 public class Configuration implements Serializable  {
 	

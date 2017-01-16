@@ -32,6 +32,8 @@ import co.aurasphere.botmill.kik.model.Frame;
 
 /**
  * The Class KikBotMillResponseContext.
+ * 
+ * @author Alvin P. Reyes
  */
 public class KikBotMillResponseContext {
 	/** The instance. */

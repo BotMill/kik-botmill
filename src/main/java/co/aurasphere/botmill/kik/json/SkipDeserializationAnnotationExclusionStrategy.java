@@ -31,6 +31,8 @@ import com.google.gson.FieldAttributes;
 
 /**
  * The Class SkipDeserializationAnnotationExclusionStrategy.
+ * 
+ * @author Alvin P. Reyes
  */
 final class SkipDeserializationAnnotationExclusionStrategy implements
 		ExclusionStrategy {

@@ -31,9 +31,15 @@ import co.aurasphere.botmill.kik.model.MessageType;
 
 /**
  * The Class ReadReceiptMessage.
+ * 
+ * @author Alvin P. Reyes
  */
 public class ReadReceiptMessage extends OutgoingMessage {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/** The message ids. */
 	private List<String> messageIds;
 	

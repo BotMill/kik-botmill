@@ -29,6 +29,8 @@ import java.io.Serializable;
 
 /**
  * The Class Response.
+ * 
+ * @author Alvin P. Reyes
  */
 public class Response implements Serializable {
 

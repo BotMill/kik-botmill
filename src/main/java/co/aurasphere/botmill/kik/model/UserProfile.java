@@ -29,8 +29,15 @@ import java.io.Serializable;
 
 /**
  * The Class UserProfile.
+ * 
+ * @author Alvin P. Reyes
  */
 public class UserProfile implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/** The first name. */
 	private String firstName;

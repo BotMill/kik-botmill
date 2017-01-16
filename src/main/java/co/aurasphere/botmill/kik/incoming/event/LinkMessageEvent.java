@@ -31,6 +31,8 @@ import co.aurasphere.botmill.kik.model.Event;
 
 /**
  * The Class LinkMessageEvent.
+ * 
+ * @author Alvin P. Reyes
  */
 public class LinkMessageEvent implements Event {
 	

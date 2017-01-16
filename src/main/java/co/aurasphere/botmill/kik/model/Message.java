@@ -32,6 +32,8 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * The Class Message.
+ * 
+ * @author Alvin P. Reyes
  */
 public class Message implements Serializable {
 	

@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik.incoming.model;
 
 /**
  * The Class StartChattingMessage.
+ * 
+ * @author Alvin P. Reyes
  */
 public class StartChattingMessage extends IncomingMessage {
 

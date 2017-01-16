@@ -31,6 +31,8 @@ import co.aurasphere.botmill.kik.model.Event;
 
 /**
  * The Class VideoMessageEvent.
+ * 
+ * @author Alvin P. Reyes
  */
 public class VideoMessageEvent implements Event {
 	

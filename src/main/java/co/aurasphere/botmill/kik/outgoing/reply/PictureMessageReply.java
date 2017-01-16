@@ -30,6 +30,8 @@ import co.aurasphere.botmill.kik.outgoing.model.PictureMessage;
 
 /**
  * The Class PictureMessageReply.
+ * 
+ * @author Alvin P. Reyes
  */
 public abstract class PictureMessageReply implements Reply<PictureMessage> {
 	

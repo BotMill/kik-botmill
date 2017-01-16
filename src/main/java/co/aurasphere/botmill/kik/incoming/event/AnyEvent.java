@@ -30,6 +30,8 @@ import co.aurasphere.botmill.kik.model.Event;
 
 /**
  * The Class AnyEvent.
+ * 
+ * @author Alvin P. Reyes
  */
 public class AnyEvent implements Event{
 	

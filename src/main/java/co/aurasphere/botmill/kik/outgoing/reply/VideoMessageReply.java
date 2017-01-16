@@ -30,6 +30,9 @@ import co.aurasphere.botmill.kik.outgoing.model.VideoMessage;
 
 /**
  * The Class VideoMessageReply.
+ * 
+ * @author Alvin P. Reyes
+ * 
  */
 public abstract class VideoMessageReply implements Reply<VideoMessage> {
 	

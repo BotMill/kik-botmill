@@ -40,6 +40,8 @@ import co.aurasphere.botmill.kik.model.MessageCallback;
 
 /**
  * The Class KikBotServlet.
+ * 
+ * @author Alvin P. Reyes
  */
 public class KikBotMillServlet extends HttpServlet {
 

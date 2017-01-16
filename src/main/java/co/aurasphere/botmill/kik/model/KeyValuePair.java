@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik.model;
 
 /**
  * The Class KeyValuePair.
+ * 
+ * @author Alvin P. Reyes
  */
 public class KeyValuePair {
 	

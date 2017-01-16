@@ -32,6 +32,8 @@ import java.lang.annotation.Target;
 
 /**
  * The Interface SkipDeserialization.
+ * 
+ * @author Alvin P. Reyes
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

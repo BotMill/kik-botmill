@@ -36,9 +36,16 @@ import co.aurasphere.botmill.kik.model.MediaAttribution;
 
 /**
  * The Class PictureMessage.
+ * 
+ * @author Alvin P. Reyes
  */
 public class PictureMessage extends OutgoingMessage {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The pic url. */
 	private String picUrl;
 	

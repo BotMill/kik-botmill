@@ -29,6 +29,8 @@ import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 
 /**
  * The Interface Event.
+ * 
+ * @author Alvin P. Reyes
  */
 public interface Event {
 	

@@ -29,6 +29,8 @@ import co.aurasphere.botmill.kik.model.Attribution;
 
 /**
  * The Class PictureMessage.
+ * 
+ * @author Alvin P. Reyes
  */
 public class PictureMessage extends IncomingMessage {
 	

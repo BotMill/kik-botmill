@@ -29,6 +29,8 @@ import co.aurasphere.botmill.kik.model.MessageType;
 
 /**
  * The Class IsTypingMessage.
+ * 
+ * @author Alvin P. Reyes
  */
 public class IsTypingMessage extends OutgoingMessage {
 	

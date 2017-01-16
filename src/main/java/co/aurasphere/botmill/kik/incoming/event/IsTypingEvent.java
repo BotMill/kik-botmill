@@ -32,6 +32,8 @@ import co.aurasphere.botmill.kik.model.MessageType;
 
 /**
  * The Class IsTypingEvent.
+ * 
+ * @author Alvin P. Reyes
  */
 public class IsTypingEvent implements Event {
 	

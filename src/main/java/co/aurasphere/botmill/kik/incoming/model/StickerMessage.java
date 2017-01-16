@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik.incoming.model;
 
 /**
  * The Class StickerMessage.
+ * 
+ * @author Alvin P. Reyes
  */
 public class StickerMessage extends IncomingMessage {
 

@@ -29,6 +29,8 @@ import co.aurasphere.botmill.kik.builder.KeyboardBuilder;
 
 /**
  * The Interface Keyboardable.
+ * 
+ * @author Alvin P. Reyes
  *
  * @param <T> the generic type
  */

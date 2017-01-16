@@ -29,6 +29,8 @@ import co.aurasphere.botmill.kik.model.Message;
 
 /**
  * The Class OutgoingMessage.
+ * 
+ * @author Alvin P. Reyes
  */
 public abstract class OutgoingMessage extends Message {
 	

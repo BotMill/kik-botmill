@@ -36,8 +36,15 @@ import co.aurasphere.botmill.kik.model.MediaAttribution;
 
 /**
  * The Class VideoMessage.
+ * 
+ * @author Alvin P. Reyes
  */
 public class VideoMessage extends OutgoingMessage {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/** The video url. */
 	private String videoUrl;

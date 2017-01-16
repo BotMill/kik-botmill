@@ -29,6 +29,8 @@ import java.io.Serializable;
 
 /**
  * The Class Features.
+ * 
+ * @author Alvin P. Reyes
  */
 public class Features implements Serializable {
    

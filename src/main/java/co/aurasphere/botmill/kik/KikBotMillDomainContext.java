@@ -32,6 +32,8 @@ import co.aurasphere.botmill.kik.model.Domain;
 
 /**
  * The Class KikBotMillDomainContext.
+ * 
+ * @author Alvin P. Reyes
  */
 public class KikBotMillDomainContext {
 	

@@ -32,6 +32,8 @@ import co.aurasphere.botmill.kik.model.BaseBuilder;
 
 /**
  * The Class KeyboardBuilder.
+ * 
+ * @author Alvin P. Reyes
  *
  * @param <T> the generic type
  */

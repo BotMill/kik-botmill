@@ -33,11 +33,21 @@ import co.aurasphere.botmill.kik.incoming.event.PictureMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.TextMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.TextMessagePatternEvent;
 import co.aurasphere.botmill.kik.incoming.event.VideoMessageEvent;
+import co.aurasphere.botmill.kik.model.ActionFrame;
 import co.aurasphere.botmill.kik.model.Domain;
 import co.aurasphere.botmill.kik.model.Frame;
 
 /**
- * The Class KikBotMillContext.
+ * KikBotMillContext
+ * 
+ * This class is used to access all globally defined objects being used on the application.
+ * Developers will be able to do the following using this class:
+ * 
+ * - Setup the environment (Api and username)
+ * - Get and Set the list of domains, action frames and broadcast frames
+ * - Get and Set the Entrypoints.
+ * 
+ * @author Alvin P. Reyes
  */
 public class KikBotMillContext {
 	
@@ -75,18 +85,18 @@ public class KikBotMillContext {
 	
 
 	/**
-	 * Gets the domains.
+	 * Get the list of domains.
 	 *
-	 * @return the domains
+	 * @return list of {@link Domain}
 	 */
 	public List<Domain> getDomains() {
 		return domains;
 	}
 
 	/**
-	 * Gets the action frames.
+	 * Get the list of action frames
 	 *
-	 * @return the action frames
+	 * @return list of {@link ActionFrame}
 	 */
 	public List<Frame> getActionFrames() {
 		return actionFrames;
@@ -95,7 +105,7 @@ public class KikBotMillContext {
 	/**
 	 * Gets the text message action frames.
 	 *
-	 * @return the text message action frames
+	 * @return list of text message {@link Frame}
 	 */
 	public List<Frame> getTextMessageActionFrames() {
 		return textMessageActionFrames;
@@ -104,7 +114,7 @@ public class KikBotMillContext {
 	/**
 	 * Gets the media message action frames.
 	 *
-	 * @return the media message action frames
+	 * @return list of media message {@link Frame}
 	 */
 	public List<Frame> getMediaMessageActionFrames() {
 		return mediaMessageActionFrames;
@@ -113,7 +123,7 @@ public class KikBotMillContext {
 	/**
 	 * Gets the link message action frames.
 	 *
-	 * @return the link message action frames
+	 * @return list of link message {@link Frame}
 	 */
 	public List<Frame> getLinkMessageActionFrames() {
 		return linkMessageActionFrames;
@@ -122,7 +132,7 @@ public class KikBotMillContext {
 	/**
 	 * Gets the broadcast message action frames.
 	 *
-	 * @return the broadcast message action frames
+	 * @return list of broadcast message{@link Frame}
 	 */
 	public List<Frame> getBroadcastMessageActionFrames() {
 		return broadcastActionFrames;
@@ -144,7 +154,7 @@ public class KikBotMillContext {
 	/**
 	 * Gets the single instance of KikBotMillContext.
 	 *
-	 * @return single instance of KikBotMillContext
+	 * @return {@link KikBotMillContext} single instance of KikBotMillContext
 	 */
 	public static KikBotMillContext getInstance() {
 		if (instance == null) {
@@ -237,6 +247,11 @@ public class KikBotMillContext {
 		}
 	}
 	
+	/**
+	 * Adds the action frames to context.
+	 *
+	 * @param frames the frames
+	 */
 	public void addActionFramesToContext(List<Frame> frames) {
 		for(Frame actionFrame:frames) {
 			if((actionFrame.getEvent() instanceof TextMessageEvent) || (actionFrame.getEvent() instanceof TextMessagePatternEvent)){

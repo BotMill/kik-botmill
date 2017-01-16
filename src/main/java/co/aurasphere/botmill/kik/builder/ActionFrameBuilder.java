@@ -34,6 +34,8 @@ import co.aurasphere.botmill.kik.model.Reply;
 
 /**
  * The Class ActionFrameBuilder.
+ * 
+ * @author Alvin P. Reyes
  */
 public class ActionFrameBuilder implements Buildable<ActionFrame>{
 

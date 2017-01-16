@@ -33,6 +33,8 @@ import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 
 /**
  * The Class TextMessageBuilder.
+ * 
+ * @author Alvin P. Reyes
  */
 public class TextMessageBuilder extends BaseBuilder
 		implements Keyboardable<TextMessageBuilder>, Buildable<TextMessage> {

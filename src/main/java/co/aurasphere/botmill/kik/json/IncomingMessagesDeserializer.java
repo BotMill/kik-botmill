@@ -49,6 +49,8 @@ import com.google.gson.JsonParseException;
 
 /**
  * The Class IncomingMessagesDeserializer.
+ * 
+ * @author Alvin P. Reyes
  */
 public class IncomingMessagesDeserializer implements JsonDeserializer<MessageCallback> {
 

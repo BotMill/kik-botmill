@@ -34,6 +34,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * The Class MessageEnvelope.
+ * 
+ * @author Alvin P. Reyes
  */
 public class MessageEnvelope implements Serializable {
 	

@@ -30,6 +30,8 @@ import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 
 /**
  * The Class LinkMessageReply.
+ * 
+ * @author Alvin P. Reyes
  */
 public abstract class LinkMessageReply implements Reply<LinkMessage> {
 	

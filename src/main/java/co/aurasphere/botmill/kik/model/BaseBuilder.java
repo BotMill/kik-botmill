@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik.model;
 
 /**
  * The Class BaseBuilder.
+ * 
+ * @author Alvin P. Reyes
  */
 public abstract class BaseBuilder {
 	

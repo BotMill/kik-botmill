@@ -32,6 +32,8 @@ import java.util.List;
 
 /**
  * The Class ActionFrame.
+ * 
+ * @author Alvin P. Reyes
  */
 public class ActionFrame extends AbstractFrame implements Frame, Serializable {
 	

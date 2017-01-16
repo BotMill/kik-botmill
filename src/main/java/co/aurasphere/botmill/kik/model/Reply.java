@@ -27,8 +27,11 @@ package co.aurasphere.botmill.kik.model;
 
 /**
  * The Interface Reply.
+ * 
+ * @author Alvin P. Reyes
  *
  * @param <T> the generic type
+ *
  */
 public interface Reply<T> {
 	

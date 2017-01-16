@@ -38,6 +38,9 @@ import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 
 /**
  * The Class Main.
+ * 
+ * @author Alvin P. Reyes
+ * 
  */
 public class Main {
 

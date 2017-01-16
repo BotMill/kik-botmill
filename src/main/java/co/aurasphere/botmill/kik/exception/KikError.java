@@ -31,8 +31,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Object that represents an error from Kik.
  * 
- * @author Alvin Reyes
- * 
+ * @author Alvin P. Reyes
  */
 public class KikError implements Serializable {
 

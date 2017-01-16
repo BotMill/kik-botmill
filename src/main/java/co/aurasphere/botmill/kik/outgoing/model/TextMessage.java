@@ -34,9 +34,16 @@ import co.aurasphere.botmill.kik.configuration.Keyboard;
 
 /**
  * The Class TextMessage.
+ * 
+ * @author Alvin P. Reyes
  */
 public class TextMessage extends OutgoingMessage {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The type time. */
 	private String typeTime;
 	

@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik.incoming.model;
 
 /**
  * The Class FriendPickerMessage.
+ * 
+ * @author Alvin P. Reyes
  */
 public class IsTypingMessage extends IncomingMessage {
 

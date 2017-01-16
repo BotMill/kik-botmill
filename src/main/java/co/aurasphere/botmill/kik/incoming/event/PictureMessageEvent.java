@@ -31,6 +31,8 @@ import co.aurasphere.botmill.kik.model.Event;
 
 /**
  * The Class PictureMessageEvent.
+ * 
+ * @author Alvin P. Reyes
  */
 public class PictureMessageEvent implements Event {
 	

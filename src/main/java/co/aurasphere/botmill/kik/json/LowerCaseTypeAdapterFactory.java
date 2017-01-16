@@ -39,6 +39,8 @@ import com.google.gson.stream.JsonWriter;
 
 /**
  * A factory for creating LowerCaseTypeAdapter objects.
+ * 
+ * @author Alvin P. Reyes
  */
 public class LowerCaseTypeAdapterFactory implements TypeAdapterFactory {
 

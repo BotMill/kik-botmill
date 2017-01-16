@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik.model;
 
 /**
  * The Class MediaMessage.
+ * 
+ * @author Alvin P. Reyes
  */
 public class MediaMessage  {
 	

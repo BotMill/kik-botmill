@@ -25,12 +25,13 @@
  */
 package co.aurasphere.botmill.kik.outgoing.reply;
 
-import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.Reply;
 import co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage;
 
 /**
  * The Class ReadReceiptReply.
+ * 
+ * @author Alvin P. Reyes
  */
 public abstract class ReadReceiptReply implements Reply<ReadReceiptMessage> {
 	

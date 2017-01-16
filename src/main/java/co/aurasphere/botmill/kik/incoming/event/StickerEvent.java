@@ -30,6 +30,8 @@ import co.aurasphere.botmill.kik.model.Event;
 
 /**
  * The Class StickerEvent.
+ * 
+ * @author Alvin P. Reyes
  */
 public class StickerEvent implements Event {
 	

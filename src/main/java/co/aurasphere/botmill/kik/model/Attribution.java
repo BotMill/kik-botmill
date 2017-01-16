@@ -29,9 +29,16 @@ import java.io.Serializable;
 
 /**
  * The Class Attribution.
+ * 
+ * @author Alvin P. Reyes
  */
 public class Attribution implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The name. */
 	private String name;
 	

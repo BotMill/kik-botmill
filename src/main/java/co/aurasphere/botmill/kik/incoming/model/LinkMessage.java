@@ -31,6 +31,8 @@ import co.aurasphere.botmill.kik.model.KikJsData;
 
 /**
  * The Class LinkMessage.
+ * 
+ * @author Alvin P. Reyes
  */
 public class LinkMessage extends IncomingMessage {
 	

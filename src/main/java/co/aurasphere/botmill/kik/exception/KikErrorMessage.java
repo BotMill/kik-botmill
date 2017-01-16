@@ -30,8 +30,7 @@ import java.io.Serializable;
 /**
  * Message which contains a {@link KikError}.
  * 
- * @author Alvin Reyes
- * 
+ * @author Alvin P. Reyes
  */
 public class KikErrorMessage implements Serializable {
 

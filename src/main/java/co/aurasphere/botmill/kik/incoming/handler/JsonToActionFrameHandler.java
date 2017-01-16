@@ -42,6 +42,8 @@ import co.aurasphere.botmill.kik.outgoing.reply.TextMessageReply;
 
 /**
  * The Class JsonToActionFrameHandler.
+ * 
+ * @author Alvin P. Reyes
  */
 public class JsonToActionFrameHandler {
 

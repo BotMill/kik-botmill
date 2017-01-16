@@ -27,16 +27,15 @@ package co.aurasphere.botmill.kik.outgoing.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
-
 import co.aurasphere.botmill.kik.configuration.Keyboard;
 import co.aurasphere.botmill.kik.model.Attribution;
-import co.aurasphere.botmill.kik.model.KeyValuePair;
 import co.aurasphere.botmill.kik.model.KikJsData;
 
 /**
  * The Class LinkMessage.
+ * 
+ * @author Alvin P. Reyes
  */
 public class LinkMessage extends OutgoingMessage {
 	

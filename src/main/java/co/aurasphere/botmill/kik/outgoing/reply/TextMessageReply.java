@@ -30,6 +30,8 @@ import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 
 /**
  * The Class TextMessageReply.
+ * 
+ * @author Alvin P. Reyes
  */
 public abstract class TextMessageReply implements Reply<TextMessage> {
 	

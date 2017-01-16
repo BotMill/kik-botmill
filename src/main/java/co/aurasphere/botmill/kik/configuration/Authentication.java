@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik.configuration;
 
 /**
  * The Class Authentication.
+ * 
+ * @author Alvin P. Reyes
  */
 public class Authentication {
 	

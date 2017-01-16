@@ -31,8 +31,9 @@ import co.aurasphere.botmill.kik.model.Message;
 
 /**
  * The Class IncomingMessage.
+ * 
+ * @author Alvin P. Reyes
  */
-//	Received message
 public abstract class IncomingMessage extends Message {
 
 	/** The Constant serialVersionUID. */

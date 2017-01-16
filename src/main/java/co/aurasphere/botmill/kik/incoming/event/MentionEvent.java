@@ -30,6 +30,8 @@ import co.aurasphere.botmill.kik.model.Event;
 
 /**
  * The Class MentionEvent.
+ * 
+ * @author Alvin P. Reyes
  */
 public class MentionEvent implements Event {
 	

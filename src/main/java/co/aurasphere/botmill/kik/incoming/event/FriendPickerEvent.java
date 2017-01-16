@@ -29,6 +29,8 @@ import co.aurasphere.botmill.kik.model.Event;
 
 /**
  * The Class FriendPickerEvent.
+ * 
+ * @author Alvin P. Reyes
  */
 public class FriendPickerEvent implements Event {
 	

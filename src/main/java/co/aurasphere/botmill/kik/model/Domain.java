@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik.model;
 
 /**
  * The Interface Domain.
+ * 
+ * @author Alvin P. Reyes
  */
 public interface Domain {
 	

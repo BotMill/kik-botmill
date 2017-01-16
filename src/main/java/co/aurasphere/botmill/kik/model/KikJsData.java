@@ -25,11 +25,20 @@
  */
 package co.aurasphere.botmill.kik.model;
 
+import java.io.Serializable;
+
 /**
  * The Class KikJsData.
+ * 
+ * @author Alvin P. Reyes
  */
-public class KikJsData {
+public class KikJsData implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The width. */
 	private String width;
 	
