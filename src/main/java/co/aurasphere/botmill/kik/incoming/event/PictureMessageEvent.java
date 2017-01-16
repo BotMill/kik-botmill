@@ -23,47 +23,25 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.model;
+package co.aurasphere.botmill.kik.incoming.event;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import co.aurasphere.botmill.kik.incoming.event.TextMessageEvent;
+import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
+import co.aurasphere.botmill.kik.incoming.model.PictureMessage;
+import co.aurasphere.botmill.kik.model.Event;
 
 /**
- * The Class AbstractDomain.
+ * The Class PictureMessageEvent.
  */
-public abstract class AbstractDomain implements Domain {
+public class PictureMessageEvent implements Event {
 	
-	/** The action frames. */
-	List<Frame> actionFrames;
-	
-	/**
-	 * Instantiates a new abstract domain.
+	/* (non-Javadoc)
+	 * @see co.aurasphere.botmill.kik.intf.Event#verifyEvent(co.aurasphere.botmill.kik.incoming.model.IncomingMessage)
 	 */
-	public AbstractDomain() {
-		this.actionFrames = new ArrayList<Frame>();
-		this.buildDomain();
-		this.sortContextBuckets();
-	}
-	
-	/**
-	 * Adds the action frame.
-	 *
-	 * @param actionFrame the action frame
-	 */
-	public void addActionFrame(Frame actionFrame) {
-		if(actionFrame.getEvent() instanceof TextMessageEvent) {
-			//	add to text message buckets.
+	@Override
+	public boolean verifyEvent(IncomingMessage incomingMessage) {
+		if(!((PictureMessage)incomingMessage).getPicUrl().equals("")) {
+			return true;
 		}
-		this.actionFrames.add(actionFrame);
+		return false;
 	}
-	
-	/**
-	 * Sort context buckets.
-	 */
-	protected void sortContextBuckets(){
-	}
-
-	
 }

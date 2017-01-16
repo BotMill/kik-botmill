@@ -23,28 +23,22 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.event;
+package co.aurasphere.botmill.kik.incoming.event;
 
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
-import co.aurasphere.botmill.kik.incoming.model.IsTypingMessage;
+import co.aurasphere.botmill.kik.incoming.model.StickerMessage;
 import co.aurasphere.botmill.kik.model.Event;
-import co.aurasphere.botmill.kik.model.MessageType;
 
 /**
- * The Class IsTypingEvent.
+ * The Class StickerEvent.
  */
-public class IsTypingEvent implements Event {
+public class StickerEvent implements Event {
 	
 	/* (non-Javadoc)
 	 * @see co.aurasphere.botmill.kik.intf.Event#verifyEvent(co.aurasphere.botmill.kik.incoming.model.IncomingMessage)
 	 */
 	@Override
 	public boolean verifyEvent(IncomingMessage incomingMessage) {
-		if (incomingMessage instanceof IsTypingMessage) {
-			if(incomingMessage.getType().equals(MessageType.IS_TYPING)) {
-				return true;
-			}
-		}
 		return false;
 	}
 }

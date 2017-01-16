@@ -28,11 +28,11 @@ package co.aurasphere.botmill.kik;
 import java.util.ArrayList;
 import java.util.List;
 import co.aurasphere.botmill.kik.configuration.Authentication;
-import co.aurasphere.botmill.kik.event.LinkMessageEvent;
-import co.aurasphere.botmill.kik.event.PictureMessageEvent;
-import co.aurasphere.botmill.kik.event.TextMessageEvent;
-import co.aurasphere.botmill.kik.event.TextMessagePatternEvent;
-import co.aurasphere.botmill.kik.event.VideoMessageEvent;
+import co.aurasphere.botmill.kik.incoming.event.LinkMessageEvent;
+import co.aurasphere.botmill.kik.incoming.event.PictureMessageEvent;
+import co.aurasphere.botmill.kik.incoming.event.TextMessageEvent;
+import co.aurasphere.botmill.kik.incoming.event.TextMessagePatternEvent;
+import co.aurasphere.botmill.kik.incoming.event.VideoMessageEvent;
 import co.aurasphere.botmill.kik.model.Domain;
 import co.aurasphere.botmill.kik.model.Frame;
 

@@ -27,6 +27,7 @@ package co.aurasphere.botmill.kik.incoming.model;
 
 
 import co.aurasphere.botmill.kik.model.Attribution;
+import co.aurasphere.botmill.kik.model.KikJsData;
 
 /**
  * The Class LinkMessage.
@@ -40,7 +41,7 @@ public class LinkMessage extends IncomingMessage {
 	private String noForward;
 	
 	/** The kik js data. */
-	private String kikJsData;
+	private KikJsData kikJsData;
 	
 	/** The attribution. */
 	private Attribution attribution;
@@ -86,7 +87,7 @@ public class LinkMessage extends IncomingMessage {
 	 *
 	 * @return the kik js data
 	 */
-	public String getKikJsData() {
+	public KikJsData getKikJsData() {
 		return kikJsData;
 	}
 	
@@ -95,7 +96,7 @@ public class LinkMessage extends IncomingMessage {
 	 *
 	 * @param kikJsData the new kik js data
 	 */
-	public void setKikJsData(String kikJsData) {
+	public void setKikJsData(KikJsData kikJsData) {
 		this.kikJsData = kikJsData;
 	}
 	

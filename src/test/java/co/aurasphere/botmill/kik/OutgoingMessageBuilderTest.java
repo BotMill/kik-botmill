@@ -122,7 +122,7 @@ public class OutgoingMessageBuilderTest {
 		String linkMessageRespStr = "{\"url\":\"url\",\"title\":\"title\",\"text\":\"Text\",\"noForward\":false,\"kikJsData\":{\"key\":\"key\",\"value\":\"value\"},\"attribution\":{\"name\":\"name\",\"iconUrl\":\"iconurl\"},\"picUrl\":\"picure url\",\"keyboards\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"\",\"type\":\"text\"},{\"body\":\"\",\"type\":\"text\"}]},\"type\":\"link\"}";
 		LinkMessage linkMessageResp = LinkMessageBuilder.getInstance()
 				.setAttribution(MessageFactory.createAttribution("name", "iconurl"))
-				.setKikJsData(MessageFactory.createKeyValuePair("key", "value")).setNoForward(false)
+				.setKikJsData(MessageFactory.createKikJsData()).setNoForward(false)
 				.setPicUrl("picure url").setText("Text").setTitle("title").setUrl("url").addKeyboard()
 				.setType(KeyboardType.SUGGESTED).addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
 				.addResponse(MessageFactory.createResponse("", ResponseType.TEXT)).endKeyboard().build();
@@ -337,7 +337,7 @@ public class OutgoingMessageBuilderTest {
 		.addReply(ReplyFactory.buildTypingReply()).buildToContext();
 		
 		ActionFrameBuilder.createAction()
-		.setEvent(EventFactory.textMessage("hi1")) // user sent "hi"
+		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
 		.addReply(new LinkMessageReply() {
 			
 			@Override
@@ -351,6 +351,31 @@ public class OutgoingMessageBuilderTest {
 		
 
 		String json = "{\"messages\": [{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \"hi\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
+		MessageCallback m = JsonUtils.fromJson(json,MessageCallback.class);
+		
+		for(Message msg:m.getMessages()) {
+			IncomingToOutgoingMessageHandler.createHandler().process(msg);
+		}
+	}
+	
+	/**
+	 * Test json parse sketch.
+	 */
+	@Test
+	public void testJsonParseSketch() {
+		
+		ActionFrameBuilder.createAction()
+		.setEvent(EventFactory.link()) // user sent "hi"
+		.addReply(new LinkMessageReply() {
+			
+			@Override
+			public LinkMessage processReply(Message message) {
+				return LinkMessageBuilder.getInstance().setTitle("Title").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+						.build();
+			}
+		}).buildToContext();
+		
+		String json ="{\"messages\": [{\"attribution\": {\"iconUrl\": \"https://storage.googleapis.com/bot-dashboard.appspot.com/hosted-images/769fa107bca6ff777b0d1e63a60a1a0b\", \"style\": \"below\", \"name\": \"Sketch\"}, \"kikJsData\": {\"width\": \"\", \"image\": \"https://cards-sketch.appspot.com/api/painting/ag5zfmNhcmRzLXNrZXRjaHIVCxIIUGFpbnRpbmcYgIDAmvLOkQgM\", \"height\": \"\"}, \"from\": \"alvinpreyes\", \"title\": \"Sketch\", \"url\": \"http://sketch.kik.com/\", \"timestamp\": 1484528280839, \"noForward\": false, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"text\": null, \"readReceiptRequested\": true, \"type\": \"link\", \"id\": \"51889dc5-3d20-4f3f-982b-9a88c3b36f51\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
 		MessageCallback m = JsonUtils.fromJson(json,MessageCallback.class);
 		
 		for(Message msg:m.getMessages()) {
@@ -392,5 +417,7 @@ public class OutgoingMessageBuilderTest {
 			System.out.println(msgEnv.getChatId());
 		}
 	}
+	
+
 	
 }

@@ -39,6 +39,7 @@ import co.aurasphere.botmill.kik.configuration.ResponseType;
 import co.aurasphere.botmill.kik.factory.EventFactory;
 import co.aurasphere.botmill.kik.factory.MessageFactory;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
+import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.incoming.model.TextMessage;
 import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.Message;
@@ -87,6 +88,7 @@ public class IncomingMessageBuilderTest {
 			
 			@Override
 			public co.aurasphere.botmill.kik.outgoing.model.TextMessage processReply(Message message) {
+				
 				return TextMessageBuilder.getInstance().setBody("Choose a letter Mr. Alvin")
 						.addKeyboard()
 							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))

@@ -30,6 +30,7 @@ import co.aurasphere.botmill.kik.model.BaseBuilder;
 import co.aurasphere.botmill.kik.model.Buildable;
 import co.aurasphere.botmill.kik.model.KeyValuePair;
 import co.aurasphere.botmill.kik.model.Keyboardable;
+import co.aurasphere.botmill.kik.model.KikJsData;
 import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 
@@ -130,7 +131,7 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 	 * @param kikJsData the kik js data
 	 * @return the link message builder
 	 */
-	public LinkMessageBuilder setKikJsData(KeyValuePair kikJsData) {
+	public LinkMessageBuilder setKikJsData(KikJsData kikJsData) {
 		linkMessage.setKikJsData(kikJsData);
 		return this;
 	}

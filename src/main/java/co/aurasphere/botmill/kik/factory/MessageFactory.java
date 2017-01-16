@@ -31,6 +31,7 @@ import co.aurasphere.botmill.kik.configuration.Response;
 import co.aurasphere.botmill.kik.configuration.ResponseType;
 import co.aurasphere.botmill.kik.model.Attribution;
 import co.aurasphere.botmill.kik.model.KeyValuePair;
+import co.aurasphere.botmill.kik.model.KikJsData;
 
 /**
  * A factory for creating Message objects.
@@ -51,12 +52,10 @@ public class MessageFactory {
 	/**
 	 * Creates a new Message object.
 	 *
-	 * @param key the key
-	 * @param value the value
 	 * @return the key value pair
 	 */
-	public static KeyValuePair createKeyValuePair(String key, String value) {
-		return new KeyValuePair(key,value);
+	public static KikJsData createKikJsData() {
+		return new KikJsData();
 	}
 	
 

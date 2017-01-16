@@ -23,22 +23,49 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.event;
+package co.aurasphere.botmill.kik.incoming.event;
 
+import java.util.regex.Pattern;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
-import co.aurasphere.botmill.kik.incoming.model.StickerMessage;
+import co.aurasphere.botmill.kik.incoming.model.TextMessage;
 import co.aurasphere.botmill.kik.model.Event;
 
 /**
- * The Class StickerEvent.
+ * The Class TextMessagePatternEvent.
  */
-public class StickerEvent implements Event {
-	
+public class TextMessagePatternEvent implements Event {
+
+	/** The keyword pattern. */
+	private String keywordPattern;
+
+	/**
+	 * Instantiates a new text message pattern event.
+	 */
+	public TextMessagePatternEvent() {}
+
+	/**
+	 * Sets the pattern.
+	 *
+	 * @param text the text
+	 * @return the text message pattern event
+	 */
+	public TextMessagePatternEvent setPattern(String text) {
+		this.keywordPattern = text;
+		return this;
+	}
+
 	/* (non-Javadoc)
 	 * @see co.aurasphere.botmill.kik.intf.Event#verifyEvent(co.aurasphere.botmill.kik.incoming.model.IncomingMessage)
 	 */
 	@Override
 	public boolean verifyEvent(IncomingMessage incomingMessage) {
+		if (incomingMessage instanceof TextMessage) {
+			if (this.keywordPattern == null) {
+				return false;
+			}
+			Pattern pattern = Pattern.compile(keywordPattern);
+			return pattern.matcher(incomingMessage.getBody()).matches();
+		}
 		return false;
 	}
 }

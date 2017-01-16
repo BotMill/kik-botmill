@@ -38,6 +38,28 @@ public class Attribution implements Serializable {
 	/** The icon url. */
 	private String iconUrl;
 	
+	/** The style. */
+	private String style;
+	
+	
+	/**
+	 * Gets the style.
+	 *
+	 * @return the style
+	 */
+	public String getStyle() {
+		return style;
+	}
+
+	/**
+	 * Sets the style.
+	 *
+	 * @param style the new style
+	 */
+	public void setStyle(String style) {
+		this.style = style;
+	}
+
 	/**
 	 * Instantiates a new attribution.
 	 *

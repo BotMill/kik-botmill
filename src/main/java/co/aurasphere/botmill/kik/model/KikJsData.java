@@ -23,25 +23,75 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.event;
-
-import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
-import co.aurasphere.botmill.kik.incoming.model.PictureMessage;
-import co.aurasphere.botmill.kik.model.Event;
+package co.aurasphere.botmill.kik.model;
 
 /**
- * The Class PictureMessageEvent.
+ * The Class KikJsData.
  */
-public class PictureMessageEvent implements Event {
+public class KikJsData {
 	
-	/* (non-Javadoc)
-	 * @see co.aurasphere.botmill.kik.intf.Event#verifyEvent(co.aurasphere.botmill.kik.incoming.model.IncomingMessage)
+	/** The width. */
+	private String width;
+	
+	/** The image. */
+	private String image;
+	
+	/** The height. */
+	private String height;
+	
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
 	 */
-	@Override
-	public boolean verifyEvent(IncomingMessage incomingMessage) {
-		if(!((PictureMessage)incomingMessage).getPicUrl().equals("")) {
-			return true;
-		}
-		return false;
+	public String getWidth() {
+		return width;
 	}
+	
+	/**
+	 * Sets the width.
+	 *
+	 * @param width the new width
+	 */
+	public void setWidth(String width) {
+		this.width = width;
+	}
+	
+	/**
+	 * Gets the image.
+	 *
+	 * @return the image
+	 */
+	public String getImage() {
+		return image;
+	}
+	
+	/**
+	 * Sets the image.
+	 *
+	 * @param image the new image
+	 */
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
+	/**
+	 * Gets the height.
+	 *
+	 * @return the height
+	 */
+	public String getHeight() {
+		return height;
+	}
+	
+	/**
+	 * Sets the height.
+	 *
+	 * @param height the new height
+	 */
+	public void setHeight(String height) {
+		this.height = height;
+	}
+	
+	
 }

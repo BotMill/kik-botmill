@@ -33,6 +33,7 @@ import com.google.gson.annotations.SerializedName;
 import co.aurasphere.botmill.kik.configuration.Keyboard;
 import co.aurasphere.botmill.kik.model.Attribution;
 import co.aurasphere.botmill.kik.model.KeyValuePair;
+import co.aurasphere.botmill.kik.model.KikJsData;
 
 /**
  * The Class LinkMessage.
@@ -56,7 +57,7 @@ public class LinkMessage extends OutgoingMessage {
 	
 	/** The kik js data. */
 	@SerializedName("kikJsData")
-	private KeyValuePair kikJsData = new KeyValuePair();
+	private KikJsData kikJsData = new KikJsData();
 	
 	/** The attribution. */
 	private Attribution attribution;
@@ -163,18 +164,17 @@ public class LinkMessage extends OutgoingMessage {
 	 *
 	 * @return the kik js data
 	 */
-	public KeyValuePair getKikJsData() {
+	public KikJsData getKikJsData() {
 		return kikJsData;
 	}
 
 	/**
 	 * Sets the kik js data.
 	 *
-	 * @param keyValuePair the new kik js data
+	 * @param kikJsData the new kik js data
 	 */
-	public void setKikJsData(KeyValuePair keyValuePair) {
-		this.kikJsData.setKey(keyValuePair.getKey());
-		this.kikJsData.setValue(keyValuePair.getValue());
+	public void setKikJsData(KikJsData kikJsData) {
+		this.kikJsData = kikJsData;
 	}
 
 	/**

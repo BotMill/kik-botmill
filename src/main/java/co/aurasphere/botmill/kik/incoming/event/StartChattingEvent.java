@@ -23,29 +23,22 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.event;
-
-import java.util.regex.Pattern;
+package co.aurasphere.botmill.kik.incoming.event;
 
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
-import co.aurasphere.botmill.kik.incoming.model.LinkMessage;
+import co.aurasphere.botmill.kik.incoming.model.StartChattingMessage;
 import co.aurasphere.botmill.kik.model.Event;
 
 /**
- * The Class LinkMessageEvent.
+ * The Class StartChattingEvent.
  */
-public class LinkMessageEvent implements Event {
+public class StartChattingEvent implements Event{
 	
 	/* (non-Javadoc)
 	 * @see co.aurasphere.botmill.kik.intf.Event#verifyEvent(co.aurasphere.botmill.kik.incoming.model.IncomingMessage)
 	 */
 	@Override
 	public boolean verifyEvent(IncomingMessage incomingMessage) {
-		if (incomingMessage instanceof LinkMessage) {
-			if (((LinkMessage) incomingMessage).getUrl() != null) {
-				return true;
-			}
-		}
 		return false;
 	}
 }

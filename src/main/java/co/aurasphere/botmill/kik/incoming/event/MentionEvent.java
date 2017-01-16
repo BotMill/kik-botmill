@@ -23,44 +23,22 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.event;
+package co.aurasphere.botmill.kik.incoming.event;
 
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
-import co.aurasphere.botmill.kik.incoming.model.TextMessage;
 import co.aurasphere.botmill.kik.model.Event;
 
 /**
- * The Class TextMessageEvent.
+ * The Class MentionEvent.
  */
-public class TextMessageEvent implements Event {
-	
-	/** The keyword text. */
-	private String keywordText;
-
-	/**
-	 * Instantiates a new text message event.
-	 */
-	public TextMessageEvent() {}
-	
-	/**
-	 * Sets the text.
-	 *
-	 * @param text the text
-	 * @return the text message event
-	 */
-	public TextMessageEvent setText(String text) {
-		this.keywordText = text;
-		return this;
-	}
+public class MentionEvent implements Event {
 	
 	/* (non-Javadoc)
 	 * @see co.aurasphere.botmill.kik.intf.Event#verifyEvent(co.aurasphere.botmill.kik.incoming.model.IncomingMessage)
 	 */
 	@Override
-	public boolean verifyEvent(IncomingMessage message) {
-		if(this.keywordText.equals(message.getBody())) {
-			return true;
-		}
+	public boolean verifyEvent(IncomingMessage incomingMessage) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 }

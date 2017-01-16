@@ -23,48 +23,43 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.event;
+package co.aurasphere.botmill.kik.incoming.event;
 
-import java.util.regex.Pattern;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.incoming.model.TextMessage;
 import co.aurasphere.botmill.kik.model.Event;
 
 /**
- * The Class TextMessagePatternEvent.
+ * The Class TextMessageEvent.
  */
-public class TextMessagePatternEvent implements Event {
-
-	/** The keyword pattern. */
-	private String keywordPattern;
+public class TextMessageEvent implements Event {
+	
+	/** The keyword text. */
+	private String keywordText;
 
 	/**
-	 * Instantiates a new text message pattern event.
+	 * Instantiates a new text message event.
 	 */
-	public TextMessagePatternEvent() {}
-
+	public TextMessageEvent() {}
+	
 	/**
-	 * Sets the pattern.
+	 * Sets the text.
 	 *
 	 * @param text the text
-	 * @return the text message pattern event
+	 * @return the text message event
 	 */
-	public TextMessagePatternEvent setPattern(String text) {
-		this.keywordPattern = text;
+	public TextMessageEvent setText(String text) {
+		this.keywordText = text;
 		return this;
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see co.aurasphere.botmill.kik.intf.Event#verifyEvent(co.aurasphere.botmill.kik.incoming.model.IncomingMessage)
 	 */
 	@Override
-	public boolean verifyEvent(IncomingMessage incomingMessage) {
-		if (incomingMessage instanceof TextMessage) {
-			if (this.keywordPattern == null) {
-				return false;
-			}
-			Pattern pattern = Pattern.compile(keywordPattern);
-			return pattern.matcher(incomingMessage.getBody()).matches();
+	public boolean verifyEvent(IncomingMessage message) {
+		if(this.keywordText.toLowerCase().equals(message.getBody().toLowerCase())) {
+			return true;
 		}
 		return false;
 	}

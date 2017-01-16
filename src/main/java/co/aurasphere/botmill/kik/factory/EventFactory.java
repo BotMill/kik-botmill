@@ -25,12 +25,17 @@
  */
 package co.aurasphere.botmill.kik.factory;
 
-import co.aurasphere.botmill.kik.event.IsTypingEvent;
-import co.aurasphere.botmill.kik.event.LinkMessageEvent;
-import co.aurasphere.botmill.kik.event.PictureMessageEvent;
-import co.aurasphere.botmill.kik.event.TextMessageEvent;
-import co.aurasphere.botmill.kik.event.TextMessagePatternEvent;
-import co.aurasphere.botmill.kik.event.VideoMessageEvent;
+import co.aurasphere.botmill.kik.incoming.event.AnyEvent;
+import co.aurasphere.botmill.kik.incoming.event.FriendPickerEvent;
+import co.aurasphere.botmill.kik.incoming.event.IsTypingEvent;
+import co.aurasphere.botmill.kik.incoming.event.LinkMessageEvent;
+import co.aurasphere.botmill.kik.incoming.event.MentionEvent;
+import co.aurasphere.botmill.kik.incoming.event.PictureMessageEvent;
+import co.aurasphere.botmill.kik.incoming.event.StartChattingEvent;
+import co.aurasphere.botmill.kik.incoming.event.StickerEvent;
+import co.aurasphere.botmill.kik.incoming.event.TextMessageEvent;
+import co.aurasphere.botmill.kik.incoming.event.TextMessagePatternEvent;
+import co.aurasphere.botmill.kik.incoming.event.VideoMessageEvent;
 
 /**
  * A factory for creating Event objects.
@@ -91,6 +96,51 @@ public class EventFactory {
 	 */
 	public static IsTypingEvent isTyping() {
 		return new IsTypingEvent();
+	}
+	
+	/**
+	 * Mention.
+	 *
+	 * @return the mention event
+	 */
+	public static MentionEvent mention() {
+		return new MentionEvent();
+	}
+	
+	/**
+	 * Start chatting.
+	 *
+	 * @return the start chatting event
+	 */
+	public static StartChattingEvent startChatting() {
+		return new StartChattingEvent();
+	}
+	
+	/**
+	 * Sticker event.
+	 *
+	 * @return the sticker event
+	 */
+	public static StickerEvent stickerEvent() {
+		return new StickerEvent();
+	}
+	
+	/**
+	 * Friend picker.
+	 *
+	 * @return the friend picker event
+	 */
+	public static FriendPickerEvent friendPicker() {
+		return new FriendPickerEvent();
+	}
+	
+	/**
+	 * Any event.
+	 *
+	 * @return the any event
+	 */
+	public static AnyEvent anyEvent() {
+		return new AnyEvent();
 	}
 	
 }
