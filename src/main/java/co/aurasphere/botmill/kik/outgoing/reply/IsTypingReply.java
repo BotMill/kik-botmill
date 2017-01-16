@@ -23,16 +23,14 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.reply;
+package co.aurasphere.botmill.kik.outgoing.reply;
 
 import co.aurasphere.botmill.kik.model.Reply;
-import co.aurasphere.botmill.kik.outgoing.model.PictureMessage;
+import co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage;
 
 /**
- * The Class PictureMessageReply.
+ * The Class IsTypingReply.
  */
-public abstract class PictureMessageReply implements Reply<PictureMessage> {
+public abstract class IsTypingReply implements Reply<IsTypingMessage> {
 	
-	/** The picture message. */
-	protected PictureMessage pictureMessage;
 }

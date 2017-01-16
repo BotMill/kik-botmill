@@ -23,17 +23,22 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.reply;
+package co.aurasphere.botmill.kik.outgoing.reply;
 
+import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.Reply;
-import co.aurasphere.botmill.kik.outgoing.model.VideoMessage;
+import co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage;
 
 /**
- * The Class VideoMessageReply.
+ * The Class ReadReceiptReply.
  */
-public abstract class VideoMessageReply implements Reply<VideoMessage> {
+public abstract class ReadReceiptReply implements Reply<ReadReceiptMessage> {
 	
-	/** The video message. */
-	protected VideoMessage videoMessage;
-
+	/* (non-Javadoc)
+	 * @see co.aurasphere.botmill.kik.intf.Reply#processReply(co.aurasphere.botmill.kik.model.Message)
+	 */
+	@Override
+	public ReadReceiptMessage processReply(Message message) {
+		return null;
+	}
 }

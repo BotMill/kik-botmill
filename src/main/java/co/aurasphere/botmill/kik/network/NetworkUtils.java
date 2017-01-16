@@ -107,11 +107,9 @@ public class NetworkUtils {
 	 * @param input the input
 	 * @return the string
 	 */
-	public static String postJsonUserMessage(Object input) {
-		StringEntity stringEntity = toStringEntity(input);
-		HttpPost post = new HttpPost(KikBotMillNetworkConstants.USER_ENDPOINT);
+	public static String getJsonUserMessage(String username) {
+		HttpGet post = new HttpGet(KikBotMillNetworkConstants.USER_ENDPOINT + username);
 		post.setHeader("Content-Type", "application/json");
-		post.setEntity(stringEntity);
 		return send(post);
 	}
 	
@@ -126,7 +124,8 @@ public class NetworkUtils {
 		
 		CredentialsProvider provider = new BasicCredentialsProvider();
 		UsernamePasswordCredentials credentials = 
-				new UsernamePasswordCredentials(KikBotMillContext.getInstance().getUser(),
+				new UsernamePasswordCredentials(
+						KikBotMillContext.getInstance().getUser(),
 						KikBotMillContext.getInstance().getApiKey());
 		provider.setCredentials(AuthScope.ANY, credentials);
 		CloseableHttpClient httpClient = HttpClientBuilder.create()

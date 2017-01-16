@@ -23,14 +23,16 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.reply;
+package co.aurasphere.botmill.kik.outgoing.reply;
 
 import co.aurasphere.botmill.kik.model.Reply;
-import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
+import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 
 /**
- * The Class LinkMessageReply.
+ * The Class TextMessageReply.
  */
-public abstract class LinkMessageReply implements Reply<LinkMessage> {
+public abstract class TextMessageReply implements Reply<TextMessage> {
 	
+	/** The text message. */
+	protected TextMessage textMessage;
 }

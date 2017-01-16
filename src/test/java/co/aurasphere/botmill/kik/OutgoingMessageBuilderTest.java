@@ -52,6 +52,7 @@ import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessageCallback;
 import co.aurasphere.botmill.kik.model.MessageEnvelope;
 import co.aurasphere.botmill.kik.model.MessageType;
+import co.aurasphere.botmill.kik.model.UserProfile;
 import co.aurasphere.botmill.kik.network.NetworkUtils;
 import co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage;
 import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
@@ -59,9 +60,10 @@ import co.aurasphere.botmill.kik.outgoing.model.PictureMessage;
 import co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage;
 import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 import co.aurasphere.botmill.kik.outgoing.model.VideoMessage;
-import co.aurasphere.botmill.kik.reply.LinkMessageReply;
-import co.aurasphere.botmill.kik.reply.PictureMessageReply;
-import co.aurasphere.botmill.kik.reply.TextMessageReply;
+import co.aurasphere.botmill.kik.outgoing.reply.LinkMessageReply;
+import co.aurasphere.botmill.kik.outgoing.reply.PictureMessageReply;
+import co.aurasphere.botmill.kik.outgoing.reply.TextMessageReply;
+import co.aurasphere.botmill.kik.retriever.KikUserProfileRetriever;
 
 /**
  * The Class OutgoingMessageBuilderTest.
@@ -416,6 +418,12 @@ public class OutgoingMessageBuilderTest {
 			msgEnv.setChatId(message.getChatId());
 			System.out.println(msgEnv.getChatId());
 		}
+	}
+	
+	@Test
+	public void testGetUserProfile() {
+		UserProfile p = KikUserProfileRetriever.getUserProfile("alvinpreyes");
+		assertNotNull(p);
 	}
 	
 

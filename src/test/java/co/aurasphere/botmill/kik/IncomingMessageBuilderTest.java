@@ -48,9 +48,9 @@ import co.aurasphere.botmill.kik.model.MessageEnvelope;
 import co.aurasphere.botmill.kik.network.NetworkUtils;
 import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 import co.aurasphere.botmill.kik.outgoing.model.PictureMessage;
-import co.aurasphere.botmill.kik.reply.LinkMessageReply;
-import co.aurasphere.botmill.kik.reply.PictureMessageReply;
-import co.aurasphere.botmill.kik.reply.TextMessageReply;
+import co.aurasphere.botmill.kik.outgoing.reply.LinkMessageReply;
+import co.aurasphere.botmill.kik.outgoing.reply.PictureMessageReply;
+import co.aurasphere.botmill.kik.outgoing.reply.TextMessageReply;
 
 /**
  * The Class IncomingMessageBuilderTest.

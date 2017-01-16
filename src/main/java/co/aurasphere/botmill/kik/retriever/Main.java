@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.webhook;
+package co.aurasphere.botmill.kik.retriever;
 
 import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;

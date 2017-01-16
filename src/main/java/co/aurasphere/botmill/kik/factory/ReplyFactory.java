@@ -37,11 +37,11 @@ import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 import co.aurasphere.botmill.kik.outgoing.model.PictureMessage;
 import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 import co.aurasphere.botmill.kik.outgoing.model.VideoMessage;
-import co.aurasphere.botmill.kik.reply.IsTypingReply;
-import co.aurasphere.botmill.kik.reply.LinkMessageReply;
-import co.aurasphere.botmill.kik.reply.PictureMessageReply;
-import co.aurasphere.botmill.kik.reply.TextMessageReply;
-import co.aurasphere.botmill.kik.reply.VideoMessageReply;
+import co.aurasphere.botmill.kik.outgoing.reply.IsTypingReply;
+import co.aurasphere.botmill.kik.outgoing.reply.LinkMessageReply;
+import co.aurasphere.botmill.kik.outgoing.reply.PictureMessageReply;
+import co.aurasphere.botmill.kik.outgoing.reply.TextMessageReply;
+import co.aurasphere.botmill.kik.outgoing.reply.VideoMessageReply;
 
 /**
  * A factory for creating Reply objects.

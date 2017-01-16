@@ -28,7 +28,7 @@ package co.aurasphere.botmill.kik.incoming.handler;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.aurasphere.botmill.kik.reply.TextMessageReply;
+import co.aurasphere.botmill.kik.outgoing.reply.TextMessageReply;
 
 /**
  * The Class JsonToActionFrameHandler.
