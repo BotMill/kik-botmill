@@ -59,13 +59,13 @@ Your KikBotEntryPoint should extends KikBotMillEntry. You need to override the k
 			KikBotMillContext.getInstance().setup("<USERNAME>", "<APIKEY>");
 			
 			//	configuration.
-			NetworkUtils.postJsonConfig(ConfigurationBuilder.getInstance()
+			ConfigurationBuilder.getInstance()
 				.setWebhook("<webhook url>")
 				.setManuallySendReadReceipts(false)
 				.setReceiveDeliveryReceipts(false)
 				.setReceiveIsTyping(true)
 				.setReceiveReadReceipts(false)
-				.buildConfiguration());
+				.buildConfiguration();
 			
 			//	Domain > collection of responses
 			KikBotMillContext.getInstance().registerDomain(new SampleDomain());
