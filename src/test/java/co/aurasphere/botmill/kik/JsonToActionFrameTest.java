@@ -45,7 +45,7 @@ public class JsonToActionFrameTest {
 		//	loop
 		for(JsonTextAction jaction : a.getJsonTextAction()) {
 			if(jaction.getType().equals("text")) {
-				list.add(ActionFrameBuilder.createAction().setEvent(EventFactory.textMessage(jaction.getInput()))
+				list.add(ActionFrameBuilder.create().setEvent(EventFactory.textMessage(jaction.getInput()))
 				.addReply(ReplyFactory.buildTextMessageReply(jaction.getOutput()))
 				.build()
 				);

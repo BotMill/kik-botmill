@@ -50,7 +50,7 @@ public class ActionFrameBuilder implements Buildable<ActionFrame>{
 	 *
 	 * @return the action frame builder
 	 */
-	public static ActionFrameBuilder createAction() {
+	public static ActionFrameBuilder create() {
 		if (instance == null) {
 			instance = new ActionFrameBuilder();
 		}

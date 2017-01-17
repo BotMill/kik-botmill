@@ -26,6 +26,7 @@
 package co.aurasphere.botmill.kik.configuration;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * The Class Response.
@@ -43,6 +44,15 @@ public class Response implements Serializable {
 	/** The type. */
 	private ResponseType type;
 	
+	/** The min. */
+	private Integer min;
+	
+	/** The max. */
+	private Integer max;
+	
+	/** The preselected. */
+	private List<String> preselected;
+	
 	/**
 	 * Instantiates a new response.
 	 *
@@ -52,6 +62,14 @@ public class Response implements Serializable {
 	public Response(String body, ResponseType type) {
 		this.body = body;
 		this.type = type;
+	}
+	
+	public Response(String body, ResponseType type, int min, int max, List<String> preselected) {
+		this.body = body;
+		this.type = type;
+		this.min = min;
+		this.max = max;
+		this.preselected = preselected;
 	}
 	
 	/**
@@ -88,6 +106,60 @@ public class Response implements Serializable {
 	 */
 	public void setType(ResponseType type) {
 		this.type = type;
+	}
+
+	/**
+	 * Gets the min.
+	 *
+	 * @return the min
+	 */
+	public int getMin() {
+		return min;
+	}
+
+	/**
+	 * Sets the min.
+	 *
+	 * @param min the new min
+	 */
+	public void setMin(Integer min) {
+		this.min = min;
+	}
+
+	/**
+	 * Gets the max.
+	 *
+	 * @return the max
+	 */
+	public int getMax() {
+		return max;
+	}
+
+	/**
+	 * Sets the max.
+	 *
+	 * @param max the new max
+	 */
+	public void setMax(Integer max) {
+		this.max = max;
+	}
+
+	/**
+	 * Gets the preselected.
+	 *
+	 * @return the preselected
+	 */
+	public List<String> getPreselected() {
+		return preselected;
+	}
+
+	/**
+	 * Sets the preselected.
+	 *
+	 * @param preselected the new preselected
+	 */
+	public void setPreselected(List<String> preselected) {
+		this.preselected = preselected;
 	}
 	
 	

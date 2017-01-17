@@ -25,6 +25,8 @@
  */
 package co.aurasphere.botmill.kik.factory;
 
+import java.util.List;
+
 import co.aurasphere.botmill.kik.configuration.Keyboard;
 import co.aurasphere.botmill.kik.configuration.KeyboardType;
 import co.aurasphere.botmill.kik.configuration.Response;
@@ -69,6 +71,19 @@ public class MessageFactory {
 	 */
 	public static Response createResponse(String body, ResponseType responseType) {
 		return new Response(body, responseType);
+	}
+	
+	/**
+	 * Creates a new Message object.
+	 *
+	 * @param body the body
+	 * @param min the min
+	 * @param max the max
+	 * @param preselected the preselected
+	 * @return the response
+	 */
+	public static Response createFriendPickerResponse(String body, int min, int max, List<String> preselected){
+		return new Response(body, ResponseType.FRIEND_PICKER);
 	}
 	
 	/**

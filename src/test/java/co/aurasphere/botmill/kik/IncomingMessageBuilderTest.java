@@ -82,7 +82,7 @@ public class IncomingMessageBuilderTest {
 	@Test
 	public void testJsonPictureMessageParse() {
 	
-		ActionFrameBuilder.createAction()
+		ActionFrameBuilder.create()
 		.setEvent(EventFactory.picture()) // user sent "hi"
 		.addReply(new TextMessageReply() {
 			
@@ -134,7 +134,7 @@ public class IncomingMessageBuilderTest {
 		
 		KikBotMillContext.getInstance().addActionFramesToContext(JsonToActionFrameHandler.jsonToFrameReply("http://technowebhub.com/json_sample.json"));
 		
-		ActionFrameBuilder.createAction()
+		ActionFrameBuilder.create()
 		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
 		.addReply(new TextMessageReply() {
 			
@@ -170,7 +170,7 @@ public class IncomingMessageBuilderTest {
 	@Test
 	public void testJsonLinkMessageParse() {
 	
-		ActionFrameBuilder.createAction()
+		ActionFrameBuilder.create()
 		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
 		.addReply(new LinkMessageReply() {
 			

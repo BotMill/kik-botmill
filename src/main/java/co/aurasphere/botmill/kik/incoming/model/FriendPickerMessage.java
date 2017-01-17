@@ -25,6 +25,8 @@
  */
 package co.aurasphere.botmill.kik.incoming.model;
 
+import java.util.List;
+
 /**
  * The Class FriendPickerMessage.
  * 
@@ -32,9 +34,28 @@ package co.aurasphere.botmill.kik.incoming.model;
  */
 public class FriendPickerMessage extends IncomingMessage {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The picked. */
+	private List<String> picked;
+
+	/**
+	 * Gets the picked.
+	 *
+	 * @return the picked
+	 */
+	public List<String> getPicked() {
+		return picked;
+	}
+
+	/**
+	 * Sets the picked.
+	 *
+	 * @param picked the new picked
+	 */
+	public void setPicked(List<String> picked) {
+		this.picked = picked;
+	}
 
 }

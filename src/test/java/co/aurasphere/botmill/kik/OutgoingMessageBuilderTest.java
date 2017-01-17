@@ -182,7 +182,7 @@ public class OutgoingMessageBuilderTest {
 	public void testIsTypingMessageParse() {
 		//{\"messages\": [{\"isTyping\": true, \"from\": \"alvinpreyes\", \"timestamp\": 1484494789482, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": false, \"type\": \"is-typing\", \"id\": \"ce6c5d52-223e-4335-93df-207a1877adb1\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}
 		
-		ActionFrameBuilder.createAction()
+		ActionFrameBuilder.create()
 			.setEvent(EventFactory.anyEvent())
 			.addReply(new LinkMessageReply() {
 				
@@ -194,7 +194,7 @@ public class OutgoingMessageBuilderTest {
 			})
 			.buildToContext();
 		
-		ActionFrameBuilder.createAction()
+		ActionFrameBuilder.create()
 		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
 		.addReply(new TextMessageReply() {
 			
@@ -214,7 +214,7 @@ public class OutgoingMessageBuilderTest {
 		})
 		.buildToContext();
 		
-		ActionFrameBuilder.createAction()
+		ActionFrameBuilder.create()
 		.setEvent(EventFactory.textMessagePattern("(?i:hi)|(?i:hello)|(?i:hey)|(?i:good day)|(?i:home)")) // user sent "hi"
 		.addReply(ReplyFactory.buildTextMessageReply(">>> 1"))
 		.addReply(ReplyFactory.buildTextMessageReply(">>> 2"))
@@ -250,7 +250,7 @@ public class OutgoingMessageBuilderTest {
 	@Test
 	public void testJsonPictureMessageParse() {
 	
-		ActionFrameBuilder.createAction()
+		ActionFrameBuilder.create()
 		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
 		.addReply(new TextMessageReply() {
 			
@@ -301,7 +301,7 @@ public class OutgoingMessageBuilderTest {
 	@Test
 	public void testJsonTextMessageParse() {
 	
-		ActionFrameBuilder.createAction()
+		ActionFrameBuilder.create()
 		.setEvent(EventFactory.textMessage("hi1")) // user sent "hi"
 		.addReply(new TextMessageReply() {
 			
@@ -321,7 +321,7 @@ public class OutgoingMessageBuilderTest {
 		})
 		.buildToContext();
 		
-		ActionFrameBuilder.createAction()
+		ActionFrameBuilder.create()
 		.setEvent(EventFactory.textMessagePattern("(?i:hi)|(?i:hello)|(?i:hey)|(?i:good day)|(?i:home)")) // user sent "hi"
 		.addReply(ReplyFactory.buildTextMessageReply(">>> 1"))
 		.addReply(ReplyFactory.buildTextMessageReply(">>> 2"))
@@ -346,11 +346,11 @@ public class OutgoingMessageBuilderTest {
 	@Test
 	public void testJsonLinkMessageParse() {
 	
-		ActionFrameBuilder.createAction()
+		ActionFrameBuilder.create()
 		.setEvent(EventFactory.textMessage("hi"))
 		.addReply(ReplyFactory.buildTypingReply()).buildToContext();
 		
-		ActionFrameBuilder.createAction()
+		ActionFrameBuilder.create()
 		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
 		.addReply(new LinkMessageReply() {
 			
@@ -378,7 +378,7 @@ public class OutgoingMessageBuilderTest {
 	@Test
 	public void testJsonParseSketch() {
 		
-		ActionFrameBuilder.createAction()
+		ActionFrameBuilder.create()
 		.setEvent(EventFactory.link()) // user sent "hi"
 		.addReply(new LinkMessageReply() {
 			
@@ -441,7 +441,5 @@ public class OutgoingMessageBuilderTest {
 		UserProfile p = KikUserProfileRetriever.getUserProfile("alvinpreyes");
 		assertNotNull(p);
 	}
-	
 
-	
 }

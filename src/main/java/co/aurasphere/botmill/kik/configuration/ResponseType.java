@@ -25,6 +25,8 @@
  */
 package co.aurasphere.botmill.kik.configuration;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * The Enum ResponseType.
  * 
@@ -33,5 +35,8 @@ package co.aurasphere.botmill.kik.configuration;
 public enum ResponseType {
 	
 	/** The text. */
-	TEXT
+	@SerializedName("text")
+	TEXT,
+	@SerializedName("friend-picker")
+	FRIEND_PICKER
 }
