@@ -28,6 +28,7 @@ package co.aurasphere.botmill.kik.builder;
 import co.aurasphere.botmill.kik.configuration.Configuration;
 import co.aurasphere.botmill.kik.model.BaseBuilder;
 import co.aurasphere.botmill.kik.model.Keyboardable;
+import co.aurasphere.botmill.kik.network.NetworkUtils;
 
 /**
  * The Class ConfigurationBuilder.
@@ -145,6 +146,7 @@ public class ConfigurationBuilder extends BaseBuilder implements Keyboardable<Co
 		if(this.keyboardBuilder != null) {
 			config.setStaticKeyBoard(this.keyboardBuilder.buildKeyboard());
 		}
+		NetworkUtils.postJsonConfig(this.config);
 		return this.config;
 	}
 	
