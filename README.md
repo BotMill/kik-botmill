@@ -87,9 +87,7 @@ Your domain holds all the actions of your Bot.
 			
 		}
 		
-	}
-
-Neat! The sample above is the simplest way to get things started, for a more comprehensive guide on how to create your facebook chatbot from scratch, you can follow this [guide](https://github.com/BotMill/fb-botmill/wiki/Developing-with-FB-BotMill). 
+	} 
 
 **<h3>What's currently supported</h3>**
 
