@@ -30,11 +30,11 @@ Grovvy
     
 Other ways to import, visit Maven central repo [site](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22kik-botmill%22) 
 
-Once you've imported the API. You need to register the FbBotMillServlet. To do that, create a Servlet project in your IDE and add this to your web.xml:
+Once you've imported the API. You need to register the KikBotMillServlet. To do that, create a Servlet project in your IDE and add this to your web.xml:
 
      <servlet>
 		  <servlet-name>myKikBot</servlet-name>
-		  <servlet-class>co.aurasphere.botmill.fb.KikBotMillServlet</servlet-class>
+		  <servlet-class>co.aurasphere.botmill.kik.KikBotMillServlet</servlet-class>
 		  <init-param>
 			  <param-name>bot-definition-class</param-name>
 			  <param-value>com.sample.kik.demo.KikBotEntryPoint</param-value>
