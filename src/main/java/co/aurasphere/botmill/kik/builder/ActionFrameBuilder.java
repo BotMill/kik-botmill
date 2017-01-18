@@ -50,7 +50,7 @@ public class ActionFrameBuilder implements Buildable<ActionFrame>{
 	 *
 	 * @return the action frame builder
 	 */
-	public static ActionFrameBuilder create() {
+	public static ActionFrameBuilder getInstance() {
 		if (instance == null) {
 			instance = new ActionFrameBuilder();
 		}
@@ -75,6 +75,7 @@ public class ActionFrameBuilder implements Buildable<ActionFrame>{
 	 * @param reply the reply
 	 * @return the action frame builder
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ActionFrameBuilder addReply(Reply reply) {
 		actionFrame.addReply(reply);
 		return this;

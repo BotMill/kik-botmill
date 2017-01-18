@@ -62,11 +62,11 @@ public class JsonToActionFrameHandler {
 
 		for (JsonTextAction jaction : a.getJsonTextAction()) {
 			if (jaction.getType().equals("text")) {
-				list.add(ActionFrameBuilder.create().setEvent(EventFactory.textMessage(jaction.getInput()))
+				list.add(ActionFrameBuilder.getInstance().setEvent(EventFactory.textMessage(jaction.getInput()))
 						.addReply(ReplyFactory.buildTextMessageReply(jaction.getOutput())).build());
 			}
 			if (jaction.getType().equals("pattern")) {
-				list.add(ActionFrameBuilder.create().setEvent(EventFactory.textMessagePattern(jaction.getInput()))
+				list.add(ActionFrameBuilder.getInstance().setEvent(EventFactory.textMessagePattern(jaction.getInput()))
 						.addReply(ReplyFactory.buildTextMessageReply(jaction.getOutput())).build());
 			}
 		}

@@ -109,26 +109,7 @@ public class KikBotMillServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		try {
-			String json = readerToString(req.getReader());
-			logger.debug("JSON INPUT: " + json);
-			MessageCallback messages = JsonUtils.fromJson(json, MessageCallback.class);
-
-			// Process each message.
-			for (Message message : messages.getMessages()) {
-				//	Process the messages.
-				IncomingToOutgoingMessageHandler.createHandler().process(message);
-				
-				//	and process any broadcast
-				IncomingToOutgoingMessageHandler.createHandler().processBroadcast(message);
-			}
-		
-		} catch (Exception e) {
-			logger.error("Error during MessengerCallback parsing: ", e);
-			return;
-		} finally {
-			resp.setStatus(HttpServletResponse.SC_OK);
-		}
+		KikBotMillLoader.getLoader().postHandler(req, resp); // call the loader instead.
 	}
 
 	/**

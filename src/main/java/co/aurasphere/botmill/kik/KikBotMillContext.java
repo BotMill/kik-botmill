@@ -70,7 +70,6 @@ public class KikBotMillContext {
 	private List<Frame> actionFrames;
 	
 	/** The text message action frames. */
-	//buckets
 	private List<Frame> textMessageActionFrames;
 	
 	/** The media message action frames. */

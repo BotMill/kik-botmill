@@ -45,7 +45,16 @@ Once you've imported the API. You need to register the KikBotMillServlet. To do 
 		  <servlet-name>myKikBot</servlet-name>
 		  <url-pattern>/myKikBot</url-pattern>
 	  </servlet-mapping>
-	  
+
+
+Alternatively, you can also load your EntryPoint class via KikBotMillLoader
+
+	// Call this upon initialization of your app (should only be called once)
+	KikBotMillLoader.getLoader().loadEntryPoint(new KikBotEntryPoint())
+	
+	//	Call this on your callback url post handler (req = HttpRequest, Resp = HttpResponse).
+	KikBotMillLoader.getLoader().postHandler(req, resp); 
+
 	  
 Your KikBotEntryPoint should extends KikBotMillEntry. You need to override the kikBotEntry and define your domains and behaviours.
 
@@ -83,9 +92,9 @@ Your domain holds all the actions of your Bot.
 		public void buildDomain() {
 			
 			ActionFrameBuilder.createAction()
-				.setEvent(EventFactory.textMessagePattern("(?i:hello)")) // user sent "hello"
-				.addReply(ReplyFactory.buildTextMessageReply("Hello from Bot!")) // single reply
-				.buildToContext();	// build it, won't assign it to the context so it won't be picked up.
+				.setEvent(EventFactory.textMessagePattern("(?i:hello)"))
+				.addReply(ReplyFactory.buildTextMessageReply("Hello from Bot!")) 
+				.buildToContext();
 			
 		}
 		
