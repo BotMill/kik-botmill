@@ -50,12 +50,11 @@ Once you've imported the API. You need to register the KikBotMillServlet. To do 
 Alternatively, you can also load your EntryPoint class via KikBotMillLoader
 
 	// Call this upon initialization of your app (should only be called once)
-	KikBotMillLoader.getLoader().loadEntryPoint(new KikBotEntryPoint())
+	KikBotMillLoader.getLoader().loadEntryPoint(new KikBotEntryPoint());
 	
 	//	Call this on your callback url post handler (req = HttpRequest, Resp = HttpResponse).
 	KikBotMillLoader.getLoader().postHandler(req, resp); 
 
-	  
 Your KikBotEntryPoint should extends KikBotMillEntry. You need to override the kikBotEntry and define your domains and behaviours.
 
     public class KikBotEntryPoint extends KikBotMillEntry {
@@ -99,6 +98,62 @@ Your domain holds all the actions of your Bot.
 		}
 		
 	} 
+
+The framework was designed to be flexible enough to work with other Java frameworks seamlessly.
+
+**On Spark Java**
+
+
+	import static spark.Spark.*;
+				
+	public class KikBot {
+	    public static void main(String[] args) {
+			// called once.
+	    	KikBotMillLoader.getLoader().loadEntryPoint(new KikBotEntryPoint());
+	    	 
+	    	//	register post (use this as webhook url on the config entrypoint);
+        	post("/webhook", (request, response) -> {
+		    	KikBotMillLoader.getLoader().postHandler(req, resp); 
+			});
+	    }
+	}
+	
+**On Spring Boot**
+
+	@SpringBootApplication
+	public class KikBotConfiguration {
+	
+		public static void main(String[] args) {
+		    //	call the loader inside the Hell
+		    SpringApplication.run(KikBotConfiguration.class, args); 
+		    
+		    //	and load Entry Point.
+		    KikBotMillLoader.getLoader().loadEntryPoint(new KikBotEntryPoint());
+			
+		}
+	
+	}
+	
+	@Controller
+	public class RestfulSourceController {
+
+	    @Autowired
+	    Response response;
+	    
+		@Autowired
+	    Request request;
+	    
+	    @RequestMapping(value="/webhoolurl", method=RequestMethod.POST, produces="application/json")
+	    @ResponseBody
+	    public void post() {
+	        return KikBotMillLoader.getLoader().postHandler(request, response); 
+	    }
+
+	}
+
+**<h3>Technical Details</h3>**
+- Primarily Compiled in Java 1.8
+- Easy to create a backward compatible version (change the settings in POM.xml). No need to worry of features not being available, we made sure that our framework on Java 1.5 and above. 
 
 **<h3>What's currently supported</h3>**
 
