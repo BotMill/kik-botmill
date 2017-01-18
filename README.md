@@ -152,8 +152,10 @@ The framework was designed to be flexible enough to work with other Java framewo
 	}
 
 **<h3>Technical Details</h3>**
-- Primarily Compiled in Java 1.8
-- Easy to create a backward compatible version (change the settings in POM.xml). No need to worry of features not being available, we made sure that our framework on Java 1.5 and above. 
+- Primarily compiled in Java 1.8
+- Hibernate Validators
+- GSON (Guava)
+- Apache Http Client (Http Components)
 
 **<h3>What's currently supported</h3>**
 
