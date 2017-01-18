@@ -15,17 +15,17 @@ It provides a semantic Java API that can be imported on your Java EE Project to 
 	<dependency>
 	  <groupId>co.aurasphere.botmill</groupId>
 	  <artifactId>kik-botmill</artifactId>
-	  <version>1.0.0</version>
+	  <version>1.0.1</version>
 	</dependency>
 	
 Gradle
     
-    compile 'co.aurasphere.botmill:kik-botmill:1.0.0'
+    compile 'co.aurasphere.botmill:kik-botmill:1.0.1'
 
 Grovvy
 
     @Grapes( 
-        @Grab(group='co.aurasphere.botmill', module='kik-botmill', version='1.0.0') 
+        @Grab(group='co.aurasphere.botmill', module='kik-botmill', version='1.0.1') 
     )
     
 Other ways to import, visit Maven central repo [site](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22kik-botmill%22) 
