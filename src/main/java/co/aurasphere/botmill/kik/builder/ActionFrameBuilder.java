@@ -25,11 +25,14 @@
  */
 package co.aurasphere.botmill.kik.builder;
 
+import java.util.List;
+
 import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.model.ActionFrame;
 import co.aurasphere.botmill.kik.model.Buildable;
 import co.aurasphere.botmill.kik.model.Command;
 import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.Reply;
 
 /**
@@ -78,6 +81,11 @@ public class ActionFrameBuilder implements Buildable<ActionFrame>{
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ActionFrameBuilder addReply(Reply reply) {
 		actionFrame.addReply(reply);
+		return this;
+	}
+	
+	public ActionFrameBuilder addReplies(List<Reply<? extends Message>> replies) {
+		actionFrame.addReplies(replies);
 		return this;
 	}
 	

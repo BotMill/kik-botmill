@@ -31,6 +31,7 @@ import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.model.Frame;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessagePostback;
+import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.model.Reply;
 import co.aurasphere.botmill.kik.network.NetworkUtils;
 import co.aurasphere.botmill.kik.outgoing.model.OutgoingMessage;
@@ -68,7 +69,8 @@ public class IncomingToOutgoingMessageHandler {
 	/**
 	 * Process broadcast.
 	 *
-	 * @param message the message
+	 * @param message
+	 *            the message
 	 * @return the incoming to outgoing message handler
 	 */
 	public IncomingToOutgoingMessageHandler processBroadcast(Message message) {
@@ -86,7 +88,7 @@ public class IncomingToOutgoingMessageHandler {
 	public IncomingToOutgoingMessageHandler process(Message message) {
 		// the responses are on a different bucket
 		switch (message.getType()) {
-		case TEXT: // received a text message
+		case TEXT:
 			outgoingHandler(KikBotMillContext.getInstance().getTextMessageActionFrames(), message, false);
 			break;
 		case PICTURE:
@@ -109,9 +111,12 @@ public class IncomingToOutgoingMessageHandler {
 	/**
 	 * Outgoing handler.
 	 *
-	 * @param actionFrames            the action frames
-	 * @param message            the message
-	 * @param broadcast the broadcast
+	 * @param actionFrames
+	 *            the action frames
+	 * @param message
+	 *            the message
+	 * @param broadcast
+	 *            the broadcast
 	 */
 	private void outgoingHandler(List<Frame> actionFrames, Message message, boolean broadcast) {
 		MessagePostback postback = null;
@@ -120,44 +125,47 @@ public class IncomingToOutgoingMessageHandler {
 				if (frame.getEvent().verifyEvent(((IncomingMessage) message))) {
 					postback = new MessagePostback();
 					for (Reply<? extends Message> reply : frame.getReplies()) {
+						OutgoingMessage outgoingMessage = null;
 						if (reply instanceof TextMessageReply) {
-							co.aurasphere.botmill.kik.outgoing.model.TextMessage outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.TextMessage();
-							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.TextMessage) reply.processReply(message);
-							outgoingMessage.setTo(((IncomingMessage) message).getFrom());
-							outgoingMessage.setChatId(message.getChatId());
-							postback.addMessage(outgoingMessage);
+							outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.TextMessage();
+							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.TextMessage) reply
+									.processReply(message);
 						} else if (reply instanceof PictureMessageReply) {
-							co.aurasphere.botmill.kik.outgoing.model.PictureMessage outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.PictureMessage();
-							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.PictureMessage) reply.processReply(message);
-							outgoingMessage.setTo(((IncomingMessage) message).getFrom());
-							outgoingMessage.setChatId(message.getChatId());
-							postback.addMessage(outgoingMessage);
+							outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.PictureMessage();
+							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.PictureMessage) reply
+									.processReply(message);
 						} else if (reply instanceof LinkMessageReply) {
-							co.aurasphere.botmill.kik.outgoing.model.LinkMessage outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.LinkMessage();
-							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.LinkMessage) reply.processReply(message);
-							outgoingMessage.setTo(((IncomingMessage) message).getFrom());
-							outgoingMessage.setChatId(message.getChatId());
-							postback.addMessage(outgoingMessage);
+							outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.LinkMessage();
+							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.LinkMessage) reply
+									.processReply(message);
 						} else if (reply instanceof VideoMessageReply) {
-							co.aurasphere.botmill.kik.outgoing.model.VideoMessage outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.VideoMessage();
-							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.VideoMessage) reply.processReply(message);
-							outgoingMessage.setTo(((IncomingMessage) message).getFrom());
-							outgoingMessage.setChatId(message.getChatId());
-							postback.addMessage(outgoingMessage);
+							outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.VideoMessage();
+							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.VideoMessage) reply
+									.processReply(message);
 						} else if (reply instanceof IsTypingReply) {
-							co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage();
-							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage) reply.processReply(message);
-							outgoingMessage.setTo(((IncomingMessage) message).getFrom());
-							outgoingMessage.setChatId(message.getChatId());
-							postback.addMessage(outgoingMessage);
+							outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage();
+							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage) reply
+									.processReply(message);
 						} else if (reply instanceof ReadReceiptReply) {
-							co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage();
-							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage) reply.processReply(message);
-							outgoingMessage.setTo(((IncomingMessage) message).getFrom());
-							outgoingMessage.setChatId(message.getChatId());
-							postback.addMessage(outgoingMessage);
+							outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage();
+							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage) reply
+									.processReply(message);
+							;
 						} else if (reply instanceof AnyReply) {
-							OutgoingMessage outgoingMessage = (OutgoingMessage)reply.processReply(message);
+							// don't treat istyping, start chatting or any
+							// non-text incoming message as any reply.
+							if (!message.getType().equals(MessageType.IS_TYPING)
+									|| !message.getType().equals(MessageType.START_CHATTING)
+									|| !message.getType().equals(MessageType.SCAN_DATA)) {
+
+								outgoingMessage = (OutgoingMessage) reply.processReply(message);
+
+							}
+						}
+						
+						
+						//	We can't set a null outgoing message.
+						if (outgoingMessage != null) {
 							outgoingMessage.setTo(((IncomingMessage) message).getFrom());
 							outgoingMessage.setChatId(message.getChatId());
 							postback.addMessage(outgoingMessage);
@@ -167,9 +175,9 @@ public class IncomingToOutgoingMessageHandler {
 				}
 			}
 			if (postback != null) {
-				if(broadcast) {
+				if (broadcast) {
 					NetworkUtils.postJsonMessageBroadcast(postback);
-				}else {
+				} else {
 					NetworkUtils.postJsonMessage(postback);
 				}
 			}
