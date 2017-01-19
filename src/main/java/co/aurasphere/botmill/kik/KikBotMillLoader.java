@@ -73,6 +73,30 @@ public class KikBotMillLoader {
 	}
 	
 	/**
+	 * Post All Broadcast defined.
+	 *
+	 * @param req the req
+	 * @param resp the resp
+	 */
+	public void postBroadcast(HttpServletRequest req, HttpServletResponse resp) {
+		try {
+			String json = readerToString(req.getReader());
+			logger.debug("BROADCAST - JSON INPUT: " + json);
+			MessageCallback messages = JsonUtils.fromJson(json, MessageCallback.class);
+
+			for (Message message : messages.getMessages()) {
+				IncomingToOutgoingMessageHandler.createHandler().processBroadcast(message);
+			}
+
+		} catch (Exception e) {
+			logger.error("Error during MessengerCallback parsing: ", e);
+			return;
+		} finally {
+			resp.setStatus(HttpServletResponse.SC_OK);
+		}
+	}
+	
+	/**
 	 * Post handler.
 	 *
 	 * @param req the req

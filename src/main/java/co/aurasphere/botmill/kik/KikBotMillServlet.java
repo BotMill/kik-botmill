@@ -112,25 +112,6 @@ public class KikBotMillServlet extends HttpServlet {
 		KikBotMillLoader.getLoader().postHandler(req, resp); // call the loader instead.
 	}
 
-	/**
-	 * Utility method that converts a Reader to a String.
-	 *
-	 * @param reader
-	 *            the reader to convert.
-	 * @return a String with the content of the reader.
-	 * @throws IOException
-	 *             Signals that an I/O exception has occurred.
-	 */
-	private static String readerToString(Reader reader) throws IOException {
-		char[] arr = new char[8 * 1024];
-		StringBuilder buffer = new StringBuilder();
-		int numCharsRead;
-		while ((numCharsRead = reader.read(arr, 0, arr.length)) != -1) {
-			buffer.append(arr, 0, numCharsRead);
-		}
-		return buffer.toString();
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
