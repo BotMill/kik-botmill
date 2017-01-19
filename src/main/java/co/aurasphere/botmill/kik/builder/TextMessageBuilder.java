@@ -91,6 +91,28 @@ public class TextMessageBuilder extends BaseBuilder
 	}
 	
 	/**
+	 * Sets the delay.
+	 *
+	 * @param delay the delay
+	 * @return the text message builder
+	 */
+	public TextMessageBuilder setDelay(Integer delay) {
+		textMessage.setDelay(String.valueOf(delay));
+		return this;
+	}
+	
+	/**
+	 * Sets the time type.
+	 *
+	 * @param typeTime the type time
+	 * @return the text message builder
+	 */
+	public TextMessageBuilder setTimeType(Integer typeTime) {
+		textMessage.setTypeTime(String.valueOf(typeTime));
+		return this;
+	}
+	
+	/**
 	 * Adds the keyboard.
 	 *
 	 * @param keyboard the keyboard

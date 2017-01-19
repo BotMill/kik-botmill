@@ -145,6 +145,17 @@ public class LinkMessageBuilder extends BaseBuilder implements Buildable<LinkMes
 		linkMessage.setAttribution(attribution);
 		return this;
 	}
+	
+	/**
+	 * Sets the delay.
+	 *
+	 * @param delay the delay
+	 * @return the link message builder
+	 */
+	public LinkMessageBuilder setDelay(Integer delay) {
+		linkMessage.setDelay(String.valueOf(delay));
+		return this;
+	}
 
 	/**
 	 * Adds the keyboard.

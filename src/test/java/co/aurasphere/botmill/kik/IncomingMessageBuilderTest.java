@@ -25,6 +25,8 @@
  */
 package co.aurasphere.botmill.kik;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -129,6 +131,8 @@ public class IncomingMessageBuilderTest {
 		for(Message msg:m.getMessages()) {
 			IncomingToOutgoingMessageHandler.createHandler().process(msg);
 		}
+		
+		assertNotNull(m);
 	}
 	
 	/**
@@ -167,6 +171,8 @@ public class IncomingMessageBuilderTest {
 			IncomingToOutgoingMessageHandler.createHandler().process(msg);
 			IncomingToOutgoingMessageHandler.createHandler().processBroadcast(msg);
 		}
+		
+		assertNotNull(m);
 	}
 	
 	/**
@@ -194,6 +200,8 @@ public class IncomingMessageBuilderTest {
 		for(Message msg:m.getMessages()) {
 			IncomingToOutgoingMessageHandler.createHandler().process(msg);
 		}
+		
+		assertNotNull(m);
 	}
 	
 	/**
@@ -210,6 +218,8 @@ public class IncomingMessageBuilderTest {
 				System.out.println(t.getBody());
 				break;
 		}
+		
+		assertNotNull(m);
 	}
 	
 	/**
@@ -229,5 +239,7 @@ public class IncomingMessageBuilderTest {
 			msgEnv.setChatId(message.getChatId());
 			System.out.println(msgEnv.getChatId());
 		}
+		
+		assertNotNull(m);
 	}
 }

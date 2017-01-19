@@ -90,6 +90,17 @@ public class PictureMessageBuilder extends BaseBuilder
 		pictureMessage.setPicUrl(picUrl);
 		return this;
 	}
+	
+	/**
+	 * Sets the delay.
+	 *
+	 * @param delay the delay
+	 * @return the picture message builder
+	 */
+	public PictureMessageBuilder setDelay(Integer delay) {
+		pictureMessage.setDelay(String.valueOf(delay));
+		return this;
+	}
 
 	/**
 	 * Adds the keyboard.

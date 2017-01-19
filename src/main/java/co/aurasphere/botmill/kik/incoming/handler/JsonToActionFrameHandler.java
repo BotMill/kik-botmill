@@ -46,6 +46,12 @@ import co.aurasphere.botmill.kik.outgoing.reply.TextMessageReply;
  * @author Alvin P. Reyes
  */
 public class JsonToActionFrameHandler {
+	
+	/** The Constant CONST_TEXT. */
+	private static final String CONST_TEXT = "text";
+	
+	/** The Constant CONST_PATTERN. */
+	private static final String CONST_PATTERN = "pattern";
 
 	/**
 	 * Json to text message reply.
@@ -61,11 +67,11 @@ public class JsonToActionFrameHandler {
 		JsonToActionFrame a = JsonUtils.fromJson(json, JsonToActionFrame.class);
 
 		for (JsonTextAction jaction : a.getJsonTextAction()) {
-			if (jaction.getType().equals("text")) {
+			if (jaction.getType().equals(CONST_TEXT)) {
 				list.add(ActionFrameBuilder.getInstance().setEvent(EventFactory.textMessage(jaction.getInput()))
 						.addReply(ReplyFactory.buildTextMessageReply(jaction.getOutput())).build());
 			}
-			if (jaction.getType().equals("pattern")) {
+			if (jaction.getType().equals(CONST_PATTERN)) {
 				list.add(ActionFrameBuilder.getInstance().setEvent(EventFactory.textMessagePattern(jaction.getInput()))
 						.addReply(ReplyFactory.buildTextMessageReply(jaction.getOutput())).build());
 			}

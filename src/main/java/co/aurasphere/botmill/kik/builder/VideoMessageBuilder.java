@@ -28,7 +28,6 @@ package co.aurasphere.botmill.kik.builder;
 import co.aurasphere.botmill.kik.configuration.Keyboard;
 import co.aurasphere.botmill.kik.model.BaseBuilder;
 import co.aurasphere.botmill.kik.model.Buildable;
-import co.aurasphere.botmill.kik.model.Keyboardable;
 import co.aurasphere.botmill.kik.model.MediaAttribution;
 import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.outgoing.model.VideoMessage;
@@ -121,6 +120,17 @@ public class VideoMessageBuilder extends BaseBuilder
 	 */
 	public VideoMessageBuilder setNoSave(boolean nosave) {
 		videoMessage.setNoSave(nosave);
+		return this;
+	}
+	
+	/**
+	 * Sets the delay.
+	 *
+	 * @param delay the delay
+	 * @return the video message builder
+	 */
+	public VideoMessageBuilder setDelay(Integer delay) {
+		videoMessage.setDelay(String.valueOf(delay));
 		return this;
 	}
 	

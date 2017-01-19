@@ -70,6 +70,12 @@ public class ActionFrame extends AbstractFrame implements Frame, Serializable {
 		this.replies.add(reply);
 	}
 	
+
+	/**
+	 * Adds the replies.
+	 *
+	 * @param reply the reply
+	 */
 	public void addReplies(List<Reply<? extends Message>> reply) {
 		this.replies.addAll(reply);
 	}

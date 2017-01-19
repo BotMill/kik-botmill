@@ -39,6 +39,55 @@ public class Keyboard implements Serializable {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
+	/** The type. */
+	private KeyboardType type;
+	
+	/** The responses. */
+	private List<Response> responses;
+	
+	/** The to. */
+	private String to;
+	
+	/** The hidden. */
+	private Boolean hidden;
+	
+	
+	/**
+	 * Gets the to.
+	 *
+	 * @return the to
+	 */
+	public String getTo() {
+		return to;
+	}
+
+	/**
+	 * Sets the to.
+	 *
+	 * @param to the new to
+	 */
+	public void setTo(String to) {
+		this.to = to;
+	}
+
+	/**
+	 * Gets the hidden.
+	 *
+	 * @return the hidden
+	 */
+	public Boolean getHidden() {
+		return hidden;
+	}
+
+	/**
+	 * Sets the hidden.
+	 *
+	 * @param hidden the new hidden
+	 */
+	public void setHidden(Boolean hidden) {
+		this.hidden = hidden;
+	}
+
 	/**
 	 * Instantiates a new keyboard.
 	 */
@@ -82,9 +131,5 @@ public class Keyboard implements Serializable {
 		this.responses = responses;
 	}
 	
-	/** The type. */
-	private KeyboardType type;
-	
-	/** The responses. */
-	private List<Response> responses;
+
 }

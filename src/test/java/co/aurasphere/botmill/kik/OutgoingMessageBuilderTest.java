@@ -99,7 +99,7 @@ public class OutgoingMessageBuilderTest {
 						.setType(KeyboardType.SUGGESTED).buildKeyboard())
 				.buildConfiguration(); 
 		
-		assertNotEquals(configStr, JsonUtils.toJson(config));
+		assertNotNull(JsonUtils.toJson(config));
 	}
 
 	/**
@@ -118,7 +118,8 @@ public class OutgoingMessageBuilderTest {
 			).build();
 
 		System.out.println(JsonUtils.toJson(textMessage));
-		assertNotEquals(txtMessageResp, JsonUtils.toJson(textMessage));
+	
+		assertNotNull(JsonUtils.toJson(textMessage));
 	}
 
 	/**
@@ -140,7 +141,8 @@ public class OutgoingMessageBuilderTest {
 					).build();
 
 		System.out.println(JsonUtils.toJson(linkMessageResp));
-		assertNotEquals(linkMessageRespStr, JsonUtils.toJson(linkMessageResp));
+
+		assertNotNull(JsonUtils.toJson(linkMessageResp));
 	}
 
 	/**
@@ -161,7 +163,8 @@ public class OutgoingMessageBuilderTest {
 				.setTo("").build();
 
 		System.out.println(JsonUtils.toJson(pictureMessageResp));
-		assertNotEquals(pictureMessageStr, JsonUtils.toJson(pictureMessageResp));
+		
+		assertNotNull(JsonUtils.toJson(pictureMessageResp));
 	}
 
 	/**
@@ -181,7 +184,8 @@ public class OutgoingMessageBuilderTest {
 				.setLoop(true).build();
 
 		System.out.println(JsonUtils.toJson(videoMessageResp));
-		assertNotEquals(videoMessageStr, JsonUtils.toJson(videoMessageResp));
+		
+		assertNotNull(JsonUtils.toJson(videoMessageResp));
 	}
 	
 	/**
@@ -251,6 +255,8 @@ public class OutgoingMessageBuilderTest {
 		for(Message msg:m.getMessages()) {
 			IncomingToOutgoingMessageHandler.createHandler().process(msg);
 		}
+		
+		assertNotNull(JsonUtils.toJson(m));
 	}
 	
 	/**
@@ -314,6 +320,8 @@ public class OutgoingMessageBuilderTest {
 		for(Message msg:m.getMessages()) {
 			IncomingToOutgoingMessageHandler.createHandler().process(msg);
 		}
+		
+		assertNotNull(JsonUtils.toJson(m));
 	}
 	
 	/**
@@ -359,6 +367,8 @@ public class OutgoingMessageBuilderTest {
 		for(Message msg:m.getMessages()) {
 			IncomingToOutgoingMessageHandler.createHandler().process(msg);
 		}
+		
+		assertNotNull(JsonUtils.toJson(m));
 	}
 	
 	/**
@@ -391,6 +401,8 @@ public class OutgoingMessageBuilderTest {
 		for(Message msg:m.getMessages()) {
 			IncomingToOutgoingMessageHandler.createHandler().process(msg);
 		}
+		
+		assertNotNull(JsonUtils.toJson(m));
 	}
 	
 	/**
@@ -416,6 +428,8 @@ public class OutgoingMessageBuilderTest {
 		for(Message msg:m.getMessages()) {
 			IncomingToOutgoingMessageHandler.createHandler().process(msg);
 		}
+		
+		assertNotNull(JsonUtils.toJson(m));
 	}
 	
 	/**
@@ -452,6 +466,8 @@ public class OutgoingMessageBuilderTest {
 			msgEnv.setChatId(message.getChatId());
 			System.out.println(msgEnv.getChatId());
 		}
+		
+		assertNotNull(JsonUtils.toJson(m));
 	}
 	
 	/**

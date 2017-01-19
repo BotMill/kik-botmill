@@ -84,6 +84,12 @@ public class ActionFrameBuilder implements Buildable<ActionFrame>{
 		return this;
 	}
 	
+	/**
+	 * Adds the replies.
+	 *
+	 * @param replies the replies
+	 * @return the action frame builder
+	 */
 	public ActionFrameBuilder addReplies(List<Reply<? extends Message>> replies) {
 		actionFrame.addReplies(replies);
 		return this;

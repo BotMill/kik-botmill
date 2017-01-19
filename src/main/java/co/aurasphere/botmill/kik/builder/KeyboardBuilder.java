@@ -64,7 +64,27 @@ public class KeyboardBuilder extends BaseBuilder {
 		 keyboard = new Keyboard();
 	}
 	
+	/**
+	 * Sets the to.
+	 *
+	 * @param to the to
+	 * @return the keyboard builder
+	 */
+	public KeyboardBuilder setTo(String to) {
+		keyboard.setTo(to);
+		return this;
+	}
 	
+	/**
+	 * Sets the hidden.
+	 *
+	 * @param hidden the hidden
+	 * @return the keyboard builder
+	 */
+	public KeyboardBuilder setHidden(Boolean hidden) {
+		keyboard.setHidden(hidden);
+		return this;
+	}
 	/**
 	 * Sets the type.
 	 *
