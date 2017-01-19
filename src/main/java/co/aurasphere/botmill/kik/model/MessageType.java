@@ -60,9 +60,11 @@ public enum MessageType {
 	@SerializedName("friend-picker")
 	FRIEND_PICKER,
 	
+	/** The start chatting. */
 	@SerializedName("start-chatting")
 	START_CHATTING,
 	
+	/** The delivery receipt. */
 	@SerializedName("delivery-receipt")
 	DELIVERY_RECEIPT
 }

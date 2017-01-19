@@ -7,7 +7,6 @@
 	<groupId>co.aurasphere.botmill</groupId>
 	<description>Event-driven framework for Kik Messenger's bots</description>
 	<url>http://www.botmill.io</url>
-
 	<licenses>
 		<license>
 			<name>MIT License</name>

@@ -25,8 +25,11 @@
  */
 package co.aurasphere.botmill.kik.retriever;
 
+import javax.swing.text.JTextComponent.KeyBinding;
+
 import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
+import co.aurasphere.botmill.kik.builder.KeyboardBuilder;
 import co.aurasphere.botmill.kik.builder.TextMessageBuilder;
 import co.aurasphere.botmill.kik.configuration.Configuration;
 import co.aurasphere.botmill.kik.configuration.KeyboardType;
@@ -57,11 +60,13 @@ public class Main {
 			.setReceiveDeliveryReceipts(true)
 			.setReceiveReadReceipts(true)
 			.setReceiveIsTyping(true)
-				.addKeyboard()
-					.setType(KeyboardType.SUGGESTED)
-					.addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
-					.addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
-				.endKeyboard()
+			.setStaticKeyboard(
+					KeyboardBuilder.getInstance()
+						.setType(KeyboardType.SUGGESTED)
+						.addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
+						.addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
+						.buildKeyboard()
+					)
 			.buildConfiguration();	// builder everything. return Configuration Object.
 		
 		
@@ -71,12 +76,13 @@ public class Main {
 		TextMessage textMessage = TextMessageBuilder.getInstance()
 		.setBody("11")
 		.setTo("11")
-		.addKeyboard()
-			.setType(KeyboardType.SUGGESTED)
-			.addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
-			.addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
-		.endKeyboard()
-		.build();
+		.addKeyboard(
+				KeyboardBuilder.getInstance()
+					.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
+					.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
+					.buildKeyboard()
+		).
+		build();
 		
 	}
 	

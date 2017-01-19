@@ -36,9 +36,7 @@ import co.aurasphere.botmill.kik.model.MessageType;
  */
 public class ReadReceiptMessage extends OutgoingMessage {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/** The message ids. */
 	private List<String> messageIds;

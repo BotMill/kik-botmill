@@ -37,6 +37,8 @@ public enum ResponseType {
 	/** The text. */
 	@SerializedName("text")
 	TEXT,
+	
+	/** The friend picker. */
 	@SerializedName("friend-picker")
 	FRIEND_PICKER
 }

@@ -25,6 +25,7 @@
  */
 package co.aurasphere.botmill.kik.builder;
 
+import co.aurasphere.botmill.kik.configuration.Keyboard;
 import co.aurasphere.botmill.kik.model.Attribution;
 import co.aurasphere.botmill.kik.model.BaseBuilder;
 import co.aurasphere.botmill.kik.model.Buildable;
@@ -38,16 +39,13 @@ import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
  * 
  * @author Alvin P. Reyes
  */
-public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<LinkMessageBuilder>,Buildable<LinkMessage> {
+public class LinkMessageBuilder extends BaseBuilder implements Buildable<LinkMessage> {
 	
 	/** The link message. */
 	private static LinkMessage linkMessage;
 	
 	/** The instance. */
 	private static LinkMessageBuilder instance;
-	
-	/** The keyboard builder. */
-	private static KeyboardBuilder<LinkMessageBuilder> keyboardBuilder;
 	
 	/**
 	 * Gets the single instance of LinkMessageBuilder.
@@ -147,23 +145,16 @@ public class LinkMessageBuilder extends BaseBuilder implements Keyboardable<Link
 		linkMessage.setAttribution(attribution);
 		return this;
 	}
-	
-	/* (non-Javadoc)
-	 * @see co.aurasphere.botmill.kik.intf.Keyboardable#addKeyboard()
+
+	/**
+	 * Adds the keyboard.
+	 *
+	 * @param keyboard the keyboard
+	 * @return the link message builder
 	 */
-	@Override
-	public KeyboardBuilder<LinkMessageBuilder> addKeyboard() {
-		keyboardBuilder = new KeyboardBuilder<LinkMessageBuilder>(this);
-		linkMessage.addKeyboard(keyboardBuilder.buildKeyboard());
-		return keyboardBuilder;
-	}
-	
-	/* (non-Javadoc)
-	 * @see co.aurasphere.botmill.kik.intf.Keyboardable#endKeyboard()
-	 */
-	@Override
-	public LinkMessageBuilder endKeyboard() {
-		return (LinkMessageBuilder)keyboardBuilder.getParentBuilder();
+	public LinkMessageBuilder addKeyboard(Keyboard keyboard) {
+		linkMessage.addKeyboard(keyboard);
+		return this;
 	}
 	
 	/* (non-Javadoc)

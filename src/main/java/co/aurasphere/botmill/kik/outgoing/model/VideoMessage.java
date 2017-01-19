@@ -41,9 +41,7 @@ import co.aurasphere.botmill.kik.model.MediaAttribution;
  */
 public class VideoMessage extends OutgoingMessage {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/** The video url. */

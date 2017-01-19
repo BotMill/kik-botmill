@@ -39,9 +39,7 @@ import co.aurasphere.botmill.kik.configuration.Keyboard;
  */
 public class TextMessage extends OutgoingMessage {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/** The type time. */

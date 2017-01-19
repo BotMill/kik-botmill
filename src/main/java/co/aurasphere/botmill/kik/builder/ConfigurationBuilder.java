@@ -26,8 +26,8 @@
 package co.aurasphere.botmill.kik.builder;
 
 import co.aurasphere.botmill.kik.configuration.Configuration;
+import co.aurasphere.botmill.kik.configuration.Keyboard;
 import co.aurasphere.botmill.kik.model.BaseBuilder;
-import co.aurasphere.botmill.kik.model.Keyboardable;
 import co.aurasphere.botmill.kik.network.NetworkUtils;
 
 /**
@@ -35,16 +35,13 @@ import co.aurasphere.botmill.kik.network.NetworkUtils;
  * 
  * @author Alvin P. Reyes
  */
-public class ConfigurationBuilder extends BaseBuilder implements Keyboardable<ConfigurationBuilder>{
+public class ConfigurationBuilder extends BaseBuilder{
 	
 	/** The config. */
 	private Configuration config = new Configuration();
 	
 	/** The instance. */
 	private static ConfigurationBuilder instance;
-	
-	/** The keyboard builder. */
-	private KeyboardBuilder<ConfigurationBuilder> keyboardBuilder;
 	
 	/**
 	 * Gets the single instance of ConfigurationBuilder.
@@ -120,21 +117,15 @@ public class ConfigurationBuilder extends BaseBuilder implements Keyboardable<Co
 		return this;
 	}
 	
-	/* (non-Javadoc)
-	 * @see co.aurasphere.botmill.kik.intf.Keyboardable#addKeyboard()
+	/**
+	 * Set the keyboard of the Configuration.
+	 *
+	 * @param keyboard the keyboard
+	 * @return the configuration builder
 	 */
-	@Override
-	public KeyboardBuilder<ConfigurationBuilder> addKeyboard() {
-		this.keyboardBuilder = new KeyboardBuilder<ConfigurationBuilder>(this);
-		return this.keyboardBuilder;
-	}
-	
-	/* (non-Javadoc)
-	 * @see co.aurasphere.botmill.kik.intf.Keyboardable#endKeyboard()
-	 */
-	@Override
-	public ConfigurationBuilder endKeyboard() {
-		return (ConfigurationBuilder)this.keyboardBuilder.getParentBuilder();
+	public ConfigurationBuilder setStaticKeyboard(Keyboard keyboard) {
+		this.config.setStaticKeyBoard(keyboard);
+		return this;
 	}
 	
 	/**
@@ -143,9 +134,6 @@ public class ConfigurationBuilder extends BaseBuilder implements Keyboardable<Co
 	 * @return the configuration
 	 */
 	public Configuration buildConfiguration() {
-		if(this.keyboardBuilder != null) {
-			config.setStaticKeyBoard(this.keyboardBuilder.buildKeyboard());
-		}
 		NetworkUtils.postJsonConfig(this.config);
 		return this.config;
 	}

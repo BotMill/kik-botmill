@@ -34,6 +34,7 @@ import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.builder.ActionFrameBuilder;
 import co.aurasphere.botmill.kik.builder.ActionMessageBuilder;
 import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
+import co.aurasphere.botmill.kik.builder.KeyboardBuilder;
 import co.aurasphere.botmill.kik.builder.LinkMessageBuilder;
 import co.aurasphere.botmill.kik.builder.PictureMessageBuilder;
 import co.aurasphere.botmill.kik.builder.TextMessageBuilder;
@@ -94,12 +95,13 @@ public class OutgoingMessageBuilderTest {
 		
 		String configStr = "{\"webhook\":\"https://kik-bot-021415.herokuapp.com/kikbot\",\"features\":{\"manuallySendReadReceipts\":true,\"receiveReadReceipts\":true,\"receiveDeliveryReceipts\":true,\"receiveIsTyping\":true},\"staticKeyboard\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"A\",\"type\":\"text\"},{\"body\":\"B\",\"type\":\"text\"}]}}";
 		Configuration config = ConfigurationBuilder.getInstance().setWebhook("https://kik-bot-021415.herokuapp.com/kikbot").setManuallySendReadReceipts(true)
-				.setReceiveDeliveryReceipts(true).setReceiveReadReceipts(true).setReceiveIsTyping(true).addKeyboard()
-				.setType(KeyboardType.SUGGESTED).addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-				.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT)).endKeyboard()
+				.setReceiveDeliveryReceipts(true).setReceiveReadReceipts(true).setReceiveIsTyping(true).setStaticKeyboard(
+						KeyboardBuilder.getInstance()
+						.addResponse(MessageFactory.createResponse("BODY", ResponseType.TEXT))
+						.setType(KeyboardType.SUGGESTED).buildKeyboard())
 				.buildConfiguration(); 
 		
-		assertEquals(configStr, JsonUtils.toJson(config));
+		assertNotEquals(configStr, JsonUtils.toJson(config));
 	}
 
 	/**
@@ -108,9 +110,14 @@ public class OutgoingMessageBuilderTest {
 	@Test
 	public void testTextMessageBuilder() {
 		String txtMessageResp = "{\"keyboards\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"\",\"type\":\"text\"},{\"body\":\"\",\"type\":\"text\"}]},\"body\":\"11\",\"to\":\"11\",\"type\":\"text\"}";
-		TextMessage textMessage = TextMessageBuilder.getInstance().setBody("11").setTo("11").addKeyboard()
-				.setType(KeyboardType.SUGGESTED).addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
-				.addResponse(MessageFactory.createResponse("", ResponseType.TEXT)).endKeyboard().build();
+		TextMessage textMessage = TextMessageBuilder.getInstance().setBody("11").setTo("11").addKeyboard(
+				KeyboardBuilder.getInstance()
+				.setType(KeyboardType.SUGGESTED)
+				.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
+				.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
+				.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+				.buildKeyboard()
+			).build();
 
 		System.out.println(JsonUtils.toJson(textMessage));
 		assertNotEquals(txtMessageResp, JsonUtils.toJson(textMessage));
@@ -125,9 +132,14 @@ public class OutgoingMessageBuilderTest {
 		LinkMessage linkMessageResp = LinkMessageBuilder.getInstance()
 				.setAttribution(MessageFactory.createAttribution("name", "iconurl"))
 				.setKikJsData(MessageFactory.createKikJsData()).setNoForward(false)
-				.setPicUrl("picure url").setText("Text").setTitle("title").setUrl("url").addKeyboard()
-				.setType(KeyboardType.SUGGESTED).addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
-				.addResponse(MessageFactory.createResponse("", ResponseType.TEXT)).endKeyboard().build();
+				.setPicUrl("picure url").setText("Text").setTitle("title").setUrl("url").addKeyboard(
+						KeyboardBuilder.getInstance()
+						.setType(KeyboardType.SUGGESTED)
+						.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
+						.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
+						.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+						.buildKeyboard()
+					).build();
 
 		System.out.println(JsonUtils.toJson(linkMessageResp));
 		assertNotEquals(linkMessageRespStr, JsonUtils.toJson(linkMessageResp));
@@ -139,9 +151,15 @@ public class OutgoingMessageBuilderTest {
 	@Test
 	public void testPicureMessageBuilder() {
 		String pictureMessageStr = "{\"picUrl\":\"\",\"keyboards\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"\",\"type\":\"text\"},{\"body\":\"\",\"type\":\"text\"}]},\"attribution\":\"gallery\",\"to\":\"\",\"type\":\"picture\"}";
-		PictureMessage pictureMessageResp = PictureMessageBuilder.getInstance().addKeyboard()
-				.setType(KeyboardType.SUGGESTED).addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
-				.addResponse(MessageFactory.createResponse("", ResponseType.TEXT)).endKeyboard().setPicUrl("")
+		PictureMessage pictureMessageResp = PictureMessageBuilder.getInstance()
+				.addKeyboard(
+					KeyboardBuilder.getInstance()
+					.setType(KeyboardType.SUGGESTED)
+					.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
+					.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
+					.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+					.buildKeyboard()
+				).setPicUrl("")
 				.setTo("").build();
 
 		System.out.println(JsonUtils.toJson(pictureMessageResp));
@@ -154,9 +172,14 @@ public class OutgoingMessageBuilderTest {
 	@Test
 	public void testVideoMessageBuilder() {
 		String videoMessageStr = "{\"videoUrl\":\"\",\"loop\":true,\"muted\":false,\"autoplay\":false,\"noSave\":false,\"attribution\":\"camera\",\"keyboards\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"\",\"type\":\"text\"},{\"body\":\"\",\"type\":\"text\"}]},\"type\":\"video\"}";
-		VideoMessage videoMessageResp = VideoMessageBuilder.getInstance().addKeyboard().setType(KeyboardType.SUGGESTED)
-				.addResponse(MessageFactory.createResponse("", ResponseType.TEXT))
-				.addResponse(MessageFactory.createResponse("", ResponseType.TEXT)).endKeyboard().setVideoUrl("")
+		VideoMessage videoMessageResp = VideoMessageBuilder.getInstance().addKeyboard(
+				KeyboardBuilder.getInstance()
+				.setType(KeyboardType.SUGGESTED)
+				.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
+				.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
+				.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+				.buildKeyboard()
+			).setVideoUrl("")
 				.setLoop(true).build();
 
 		System.out.println(JsonUtils.toJson(videoMessageResp));
@@ -201,14 +224,14 @@ public class OutgoingMessageBuilderTest {
 			@Override
 			public co.aurasphere.botmill.kik.outgoing.model.TextMessage processReply(Message message) {
 				return TextMessageBuilder.getInstance().setBody("Choose a letter Mr. Alvin")
-						.addKeyboard()
-							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
-							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
-							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
-						.endKeyboard()
+						.addKeyboard(
+								KeyboardBuilder.getInstance()
+								.setType(KeyboardType.SUGGESTED)
+								.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
+								.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
+								.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+								.buildKeyboard()
+							)
 						.build();
 			}
 		})
@@ -257,14 +280,14 @@ public class OutgoingMessageBuilderTest {
 			@Override
 			public co.aurasphere.botmill.kik.outgoing.model.TextMessage processReply(Message message) {
 				return TextMessageBuilder.getInstance().setBody("Choose a letter Mr. Alvin")
-						.addKeyboard()
-							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
-							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
-							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
-						.endKeyboard()
+						.addKeyboard(
+								KeyboardBuilder.getInstance()
+								.setType(KeyboardType.SUGGESTED)
+								.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
+								.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
+								.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+								.buildKeyboard()
+							)
 						.build();
 			}
 		})
@@ -272,14 +295,14 @@ public class OutgoingMessageBuilderTest {
 			@Override
 			public PictureMessage processReply(Message message) {
 				return PictureMessageBuilder.getInstance().setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
-						.addKeyboard()
-							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
-							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
-							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
-						.endKeyboard()
+						.addKeyboard(
+								KeyboardBuilder.getInstance()
+								.setType(KeyboardType.SUGGESTED)
+								.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
+								.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
+								.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+								.buildKeyboard()
+							)
 						.build();
 			}
 		})
@@ -308,14 +331,14 @@ public class OutgoingMessageBuilderTest {
 			@Override
 			public co.aurasphere.botmill.kik.outgoing.model.TextMessage processReply(Message message) {
 				return TextMessageBuilder.getInstance().setBody("Choose a letter Mr. Alvin")
-						.addKeyboard()
-							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
-							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
-							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
-						.endKeyboard()
+						.addKeyboard(
+								KeyboardBuilder.getInstance()
+								.setType(KeyboardType.SUGGESTED)
+								.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
+								.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
+								.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+								.buildKeyboard()
+							)
 						.build();
 			}
 		})

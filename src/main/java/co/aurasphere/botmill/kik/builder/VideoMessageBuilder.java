@@ -25,6 +25,7 @@
  */
 package co.aurasphere.botmill.kik.builder;
 
+import co.aurasphere.botmill.kik.configuration.Keyboard;
 import co.aurasphere.botmill.kik.model.BaseBuilder;
 import co.aurasphere.botmill.kik.model.Buildable;
 import co.aurasphere.botmill.kik.model.Keyboardable;
@@ -38,16 +39,13 @@ import co.aurasphere.botmill.kik.outgoing.model.VideoMessage;
  * @author Alvin P. Reyes
  */
 public class VideoMessageBuilder extends BaseBuilder
-		implements Keyboardable<VideoMessageBuilder>, Buildable<VideoMessage> {
+		implements Buildable<VideoMessage> {
 	
 	/** The video message. */
 	private static VideoMessage videoMessage;
 	
 	/** The instance. */
 	private static VideoMessageBuilder instance;
-	
-	/** The keyboard builder. */
-	private static KeyboardBuilder<VideoMessageBuilder> keyboardBuilder;
 
 	/**
 	 * Gets the single instance of VideoMessageBuilder.
@@ -126,24 +124,17 @@ public class VideoMessageBuilder extends BaseBuilder
 		return this;
 	}
 	
+	/**
+	 * Adds the keyboard.
+	 *
+	 * @param keyboard the keyboard
+	 * @return the video message builder
+	 */
+	public VideoMessageBuilder addKeyboard(Keyboard keyboard) {
+		videoMessage.addKeyboard(keyboard);
+		return this;
+	}
 	
-	/* (non-Javadoc)
-	 * @see co.aurasphere.botmill.kik.intf.Keyboardable#addKeyboard()
-	 */
-	@Override
-	public KeyboardBuilder<VideoMessageBuilder> addKeyboard() {
-		keyboardBuilder = new KeyboardBuilder<VideoMessageBuilder>(this);
-		videoMessage.addKeyboard(keyboardBuilder.buildKeyboard());
-		return keyboardBuilder;
-	}
-
-	/* (non-Javadoc)
-	 * @see co.aurasphere.botmill.kik.intf.Keyboardable#endKeyboard()
-	 */
-	@Override
-	public VideoMessageBuilder endKeyboard() {
-		return (VideoMessageBuilder) keyboardBuilder.getParentBuilder();
-	}
 
 	/* (non-Javadoc)
 	 * @see co.aurasphere.botmill.kik.intf.Buildable#build()

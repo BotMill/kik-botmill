@@ -39,9 +39,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class MessageEnvelope implements Serializable {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/** The chat id. */

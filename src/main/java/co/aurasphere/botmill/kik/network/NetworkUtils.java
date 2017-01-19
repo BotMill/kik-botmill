@@ -101,6 +101,12 @@ public class NetworkUtils {
 		return send(post);
 	}
 	
+	/**
+	 * Post json message broadcast.
+	 *
+	 * @param input the input
+	 * @return the string
+	 */
 	public static String postJsonMessageBroadcast(Object input) {
 		StringEntity stringEntity = toStringEntity(input);
 		HttpPost post = new HttpPost(KikBotMillNetworkConstants.BROADCAST_ENDPOINT);

@@ -64,6 +64,15 @@ public class Response implements Serializable {
 		this.type = type;
 	}
 	
+	/**
+	 * Instantiates a new response.
+	 *
+	 * @param body the body
+	 * @param type the type
+	 * @param min the min
+	 * @param max the max
+	 * @param preselected the preselected
+	 */
 	public Response(String body, ResponseType type, int min, int max, List<String> preselected) {
 		this.body = body;
 		this.type = type;

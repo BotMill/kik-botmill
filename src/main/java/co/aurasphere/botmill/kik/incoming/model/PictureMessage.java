@@ -34,9 +34,7 @@ import co.aurasphere.botmill.kik.model.Attribution;
  */
 public class PictureMessage extends IncomingMessage {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/** The pic url. */

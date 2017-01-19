@@ -41,7 +41,7 @@ public interface Keyboardable<T> {
 	 *
 	 * @return the keyboard builder
 	 */
-	public KeyboardBuilder<T> addKeyboard();
+	public KeyboardBuilder addKeyboard();
 	
 	/**
 	 * End keyboard.

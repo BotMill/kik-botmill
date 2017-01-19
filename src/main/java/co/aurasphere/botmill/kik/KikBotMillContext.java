@@ -91,7 +91,7 @@ public class KikBotMillContext {
 	}
 
 	/**
-	 * Get the list of action frames
+	 * Get the list of action frames.
 	 *
 	 * @return list of {@link ActionFrame}
 	 */

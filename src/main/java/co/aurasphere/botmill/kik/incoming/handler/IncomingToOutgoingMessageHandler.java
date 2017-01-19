@@ -109,10 +109,9 @@ public class IncomingToOutgoingMessageHandler {
 	/**
 	 * Outgoing handler.
 	 *
-	 * @param actionFrames
-	 *            the action frames
-	 * @param message
-	 *            the message
+	 * @param actionFrames            the action frames
+	 * @param message            the message
+	 * @param broadcast the broadcast
 	 */
 	private void outgoingHandler(List<Frame> actionFrames, Message message, boolean broadcast) {
 		MessagePostback postback = null;

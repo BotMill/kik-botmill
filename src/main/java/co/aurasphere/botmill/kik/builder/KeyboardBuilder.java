@@ -35,32 +35,35 @@ import co.aurasphere.botmill.kik.model.BaseBuilder;
  * 
  * @author Alvin P. Reyes
  *
- * @param <T> the generic type
  */
-public class KeyboardBuilder<T> extends BaseBuilder {
+public class KeyboardBuilder extends BaseBuilder {
 	
 	/** The keyboard. */
-	private Keyboard keyboard;
+	private static Keyboard keyboard;
 	
-	/** The parent builder. */
-	private T parentBuilder;
+	/** The instance. */
+	private static KeyboardBuilder instance;
+	
+	/**
+	 * Gets the single instance of KeyboardBuilder.
+	 *
+	 * @return single instance of KeyboardBuilder
+	 */
+	public static KeyboardBuilder getInstance() {
+		if (instance == null) {
+			instance = new KeyboardBuilder();
+		}
+		keyboard = new Keyboard();
+		return instance;
+	}
 	
 	/**
 	 * Instantiates a new keyboard builder.
 	 */
 	public KeyboardBuilder() {
-		 this.keyboard = new Keyboard();
+		 keyboard = new Keyboard();
 	}
 	
-	/**
-	 * Instantiates a new keyboard builder.
-	 *
-	 * @param t the t
-	 */
-	public KeyboardBuilder(T t) {
-		 this.keyboard = new Keyboard();
-		 this.parentBuilder = t;
-	}
 	
 	/**
 	 * Sets the type.
@@ -68,8 +71,8 @@ public class KeyboardBuilder<T> extends BaseBuilder {
 	 * @param type the type
 	 * @return the keyboard builder
 	 */
-	public KeyboardBuilder<T> setType(KeyboardType type) {
-		this.keyboard.setType(type);
+	public KeyboardBuilder setType(KeyboardType type) {
+		keyboard.setType(type);
 		return this;
 	}
 	
@@ -79,18 +82,9 @@ public class KeyboardBuilder<T> extends BaseBuilder {
 	 * @param e the e
 	 * @return the keyboard builder
 	 */
-	public KeyboardBuilder<T> addResponse(Response e) {
-		this.keyboard.getResponses().add(e);
+	public KeyboardBuilder addResponse(Response e) {
+		keyboard.getResponses().add(e);
 		return this;
-	}
-	
-	/**
-	 * End keyboard.
-	 *
-	 * @return the t
-	 */
-	public T endKeyboard() {
-		return this.parentBuilder;
 	}
 
 	/**
@@ -99,6 +93,6 @@ public class KeyboardBuilder<T> extends BaseBuilder {
 	 * @return the keyboard
 	 */
 	public Keyboard buildKeyboard() {
-		return this.keyboard;
+		return keyboard;
 	}
 }

@@ -31,6 +31,7 @@ import org.junit.Test;
 import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.builder.ActionFrameBuilder;
 import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
+import co.aurasphere.botmill.kik.builder.KeyboardBuilder;
 import co.aurasphere.botmill.kik.builder.LinkMessageBuilder;
 import co.aurasphere.botmill.kik.builder.PictureMessageBuilder;
 import co.aurasphere.botmill.kik.builder.TextMessageBuilder;
@@ -72,6 +73,10 @@ public class IncomingMessageBuilderTest {
 			.setReceiveDeliveryReceipts(false)
 			.setReceiveIsTyping(true)
 			.setReceiveReadReceipts(false)
+			.setStaticKeyboard(
+						KeyboardBuilder.getInstance()
+						.addResponse(MessageFactory.createResponse("BODY", ResponseType.TEXT))
+						.setType(KeyboardType.SUGGESTED).buildKeyboard())
 			.buildConfiguration());
 		
 	}
@@ -90,14 +95,14 @@ public class IncomingMessageBuilderTest {
 			public co.aurasphere.botmill.kik.outgoing.model.TextMessage processReply(Message message) {
 				
 				return TextMessageBuilder.getInstance().setBody("Choose a letter Mr. Alvin")
-						.addKeyboard()
+						.addKeyboard(
+						KeyboardBuilder.getInstance()
+							.setType(KeyboardType.SUGGESTED)
 							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
 							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
 							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
-						.endKeyboard()
+							.buildKeyboard()
+							)
 						.build();
 			}
 		})
@@ -105,14 +110,14 @@ public class IncomingMessageBuilderTest {
 			@Override
 			public PictureMessage processReply(Message message) {
 				return PictureMessageBuilder.getInstance().setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
-						.addKeyboard()
+						.addKeyboard(
+						KeyboardBuilder.getInstance()
+							.setType(KeyboardType.SUGGESTED)
 							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
 							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
 							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
-						.endKeyboard()
+							.buildKeyboard()
+							)
 						.build();
 			}
 		})
@@ -141,14 +146,14 @@ public class IncomingMessageBuilderTest {
 			@Override
 			public co.aurasphere.botmill.kik.outgoing.model.TextMessage processReply(Message message) {
 				return TextMessageBuilder.getInstance().setBody("Choose a letter Mr. Alvin")
-						.addKeyboard()
+						.addKeyboard(
+						KeyboardBuilder.getInstance()
+							.setType(KeyboardType.SUGGESTED)
 							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
 							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
 							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
-							.setType(KeyboardType.SUGGESTED)
-						.endKeyboard()
+							.buildKeyboard()
+							)
 						.build();
 			}
 		})

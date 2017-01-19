@@ -34,9 +34,7 @@ import java.io.Serializable;
  */
 public class Attribution implements Serializable {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/** The name. */
