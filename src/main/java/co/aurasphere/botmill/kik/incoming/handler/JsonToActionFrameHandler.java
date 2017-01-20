@@ -31,12 +31,13 @@ import java.util.List;
 import co.aurasphere.botmill.kik.builder.ActionFrameBuilder;
 import co.aurasphere.botmill.kik.factory.EventFactory;
 import co.aurasphere.botmill.kik.factory.ReplyFactory;
+import co.aurasphere.botmill.kik.incoming.handler.model.JsonAction;
+import co.aurasphere.botmill.kik.incoming.handler.model.JsonReply;
+import co.aurasphere.botmill.kik.incoming.handler.model.JsonToActionFrame;
 import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.ActionFrame;
 import co.aurasphere.botmill.kik.model.Event;
 import co.aurasphere.botmill.kik.model.Frame;
-import co.aurasphere.botmill.kik.model.JsonTextAction;
-import co.aurasphere.botmill.kik.model.JsonToActionFrame;
 import co.aurasphere.botmill.kik.network.NetworkUtils;
 import co.aurasphere.botmill.kik.outgoing.reply.TextMessageReply;
 
@@ -61,22 +62,23 @@ public class JsonToActionFrameHandler {
 	 * @return the list
 	 */
 	public static List<Frame> jsonToFrameReply(String jsonUrl) {
-
+		
+	
 		List<Frame> list = new ArrayList<Frame>();
 		String json = NetworkUtils.get(jsonUrl);
 		JsonToActionFrame a = JsonUtils.fromJson(json, JsonToActionFrame.class);
-
-		for (JsonTextAction jaction : a.getJsonTextAction()) {
-			if (jaction.getType().equals(CONST_TEXT)) {
-				list.add(ActionFrameBuilder.getInstance().setEvent(EventFactory.textMessage(jaction.getInput()))
-						.addReply(ReplyFactory.buildTextMessageReply(jaction.getOutput())).build());
-			}
-			if (jaction.getType().equals(CONST_PATTERN)) {
-				list.add(ActionFrameBuilder.getInstance().setEvent(EventFactory.textMessagePattern(jaction.getInput()))
-						.addReply(ReplyFactory.buildTextMessageReply(jaction.getOutput())).build());
+		
+		for (JsonAction jaction : a.getJsonTextAction()) {
+			
+			if (jaction.getEvent().equals(CONST_PATTERN)) {
+				
+				
 			}
 		}
 
 		return list;
 	}
+	
+	
+	
 }

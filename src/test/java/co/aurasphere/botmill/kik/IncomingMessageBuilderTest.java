@@ -141,8 +141,6 @@ public class IncomingMessageBuilderTest {
 	@Test
 	public void testJsonTextMessageParse() {
 		
-		KikBotMillContext.getInstance().addActionFramesToContext(JsonToActionFrameHandler.jsonToFrameReply("http://technowebhub.com/json_sample.json"));
-		
 		ActionFrameBuilder.getInstance()
 		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
 		.addReply(new TextMessageReply() {

@@ -163,7 +163,6 @@ public class IncomingToOutgoingMessageHandler {
 							}
 						}
 						
-						
 						//	We can't set a null outgoing message.
 						if (outgoingMessage != null) {
 							outgoingMessage.setTo(((IncomingMessage) message).getFrom());

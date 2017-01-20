@@ -23,40 +23,64 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.model;
+package co.aurasphere.botmill.kik.incoming.handler.model;
 
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
- * The Class JsonToActionFrame.
+ * The Class JsonTextAction.
  * 
  * @author Alvin P. Reyes
  */
-public class JsonToActionFrame {
+public class JsonAction {
 	
-	/** The json text action. */
-	@SerializedName("jsonkikbotmill")
-	private List<JsonTextAction> jsonTextAction;
+	/** The type. */
+	@SerializedName("keyboards")
+	private List<JsonKeyboard> keyboards;
+	
+	/** The input. */
+	private String event;
+	
+	/** The output. */
+	private String input;
+	
+	@SerializedName("replies")
+	private List<JsonReply> replies;
 
-	/**
-	 * Gets the json text action.
-	 *
-	 * @return the json text action
-	 */
-	public List<JsonTextAction> getJsonTextAction() {
-		return jsonTextAction;
+	public List<JsonKeyboard> getKeyboards() {
+		return keyboards;
 	}
 
-	/**
-	 * Sets the json text action.
-	 *
-	 * @param jsonTextAction the new json text action
-	 */
-	public void setJsonTextAction(List<JsonTextAction> jsonTextAction) {
-		this.jsonTextAction = jsonTextAction;
+	public void setKeyboards(List<JsonKeyboard> keyboards) {
+		this.keyboards = keyboards;
 	}
+
+	public String getEvent() {
+		return event;
+	}
+
+	public void setEvent(String event) {
+		this.event = event;
+	}
+
+	public String getInput() {
+		return input;
+	}
+
+	public void setInput(String input) {
+		this.input = input;
+	}
+
+	public List<JsonReply> getReplies() {
+		return replies;
+	}
+
+	public void setReplies(List<JsonReply> replies) {
+		this.replies = replies;
+	}
+
 	
 	
 }

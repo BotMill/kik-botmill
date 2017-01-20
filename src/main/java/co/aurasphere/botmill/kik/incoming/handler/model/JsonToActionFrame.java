@@ -23,76 +23,39 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.model;
+package co.aurasphere.botmill.kik.incoming.handler.model;
+
+import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
- * The Class JsonTextAction.
+ * The Class JsonToActionFrame.
  * 
  * @author Alvin P. Reyes
  */
-public class JsonTextAction {
+public class JsonToActionFrame {
 	
-	/** The type. */
-	private String type;
-	
-	/** The input. */
-	private String input;
-	
-	/** The output. */
-	private String output;
-	
+	/** The json text action. */
+	@SerializedName("jsonkikbotmill")
+	private List<JsonAction> jsonTextAction;
+
 	/**
-	 * Gets the type.
+	 * Gets the json text action.
 	 *
-	 * @return the type
+	 * @return the json text action
 	 */
-	public String getType() {
-		return type;
+	public List<JsonAction> getJsonTextAction() {
+		return jsonTextAction;
 	}
-	
+
 	/**
-	 * Sets the type.
+	 * Sets the json text action.
 	 *
-	 * @param type the new type
+	 * @param jsonTextAction the new json text action
 	 */
-	public void setType(String type) {
-		this.type = type;
-	}
-	
-	/**
-	 * Gets the input.
-	 *
-	 * @return the input
-	 */
-	public String getInput() {
-		return input;
-	}
-	
-	/**
-	 * Sets the input.
-	 *
-	 * @param input the new input
-	 */
-	public void setInput(String input) {
-		this.input = input;
-	}
-	
-	/**
-	 * Gets the output.
-	 *
-	 * @return the output
-	 */
-	public String getOutput() {
-		return output;
-	}
-	
-	/**
-	 * Sets the output.
-	 *
-	 * @param output the new output
-	 */
-	public void setOutput(String output) {
-		this.output = output;
+	public void setJsonTextAction(List<JsonAction> jsonTextAction) {
+		this.jsonTextAction = jsonTextAction;
 	}
 	
 	
