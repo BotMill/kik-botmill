@@ -12,20 +12,22 @@ It provides a semantic Java API that can be imported on your Java EE Project to 
 
 **<h3>Getting Started</h3>**
 
+x.x.x - indicates version.  
+
 	<dependency>
 	  <groupId>co.aurasphere.botmill</groupId>
 	  <artifactId>kik-botmill</artifactId>
-	  <version>1.0.1</version>
+	  <version>x.x.x</version>
 	</dependency>
 	
 Gradle
     
-    compile 'co.aurasphere.botmill:kik-botmill:1.0.1'
+    compile 'co.aurasphere.botmill:kik-botmill:x.x.x'
 
 Grovvy
 
     @Grapes( 
-        @Grab(group='co.aurasphere.botmill', module='kik-botmill', version='1.0.1') 
+        @Grab(group='co.aurasphere.botmill', module='kik-botmill', version='x.x.x') 
     )
     
 Other ways to import, visit Maven central repo [site](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22kik-botmill%22) 
