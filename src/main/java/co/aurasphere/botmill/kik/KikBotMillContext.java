@@ -28,6 +28,7 @@ package co.aurasphere.botmill.kik;
 import java.util.ArrayList;
 import java.util.List;
 import co.aurasphere.botmill.kik.configuration.Authentication;
+import co.aurasphere.botmill.kik.incoming.event.AnyEvent;
 import co.aurasphere.botmill.kik.incoming.event.LinkMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.PictureMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.TextMessageEvent;
@@ -40,47 +41,63 @@ import co.aurasphere.botmill.kik.model.Frame;
 /**
  * KikBotMillContext
  * 
- * This class is used to access all globally defined objects being used on the application.
- * Developers will be able to do the following using this class:
+ * This class is used to access all globally defined objects being used on the
+ * application. Developers will be able to do the following using this class:
  * 
- * - Setup the environment (Api and username)
- * - Get and Set the list of domains, action frames and broadcast frames
- * - Get and Set the Entrypoints.
+ * - Setup the environment (Api and username) - Get and Set the list of domains,
+ * action frames and broadcast frames - Get and Set the Entrypoints.
  * 
  * @author Alvin P. Reyes
  */
 public class KikBotMillContext {
-	
+
 	/** The instance. */
 	private static KikBotMillContext instance;
-	
+
 	/** The authentication. */
 	private Authentication authentication;
-	
+
 	/** The webhook url. */
 	private String webhookUrl;
-	
+
 	/** The bots. */
 	private List<KikBotMillEntry> entryPoints;
-	
+
 	/** The domains. */
 	private List<Domain> domains;
-	
+
 	/** The action frames. */
 	private List<Frame> actionFrames;
-	
-	/** The text message action frames. */
-	private List<Frame> textMessageActionFrames;
-	
-	/** The media message action frames. */
-	private List<Frame> mediaMessageActionFrames;
-	
-	/** The link message action frames. */
-	private List<Frame> linkMessageActionFrames;
+
+	/** The any event action frames. */
+	private List<Frame> anyEventActionFrames;
 	
 	/** The broadcast action frames. */
 	private List<Frame> broadcastActionFrames;
-	
+
+	/**
+	 * Instantiates a new kik bot mill context.
+	 */
+	public KikBotMillContext() {
+		this.entryPoints = new ArrayList<KikBotMillEntry>();
+		this.domains = new ArrayList<Domain>();
+		this.actionFrames = new ArrayList<Frame>();
+		this.anyEventActionFrames = new ArrayList<Frame>();
+		this.broadcastActionFrames = new ArrayList<Frame>(); 
+	}
+
+	/**
+	 * Gets the single instance of KikBotMillContext.
+	 *
+	 * @return {@link KikBotMillContext} single instance of KikBotMillContext
+	 */
+	public static KikBotMillContext getInstance() {
+		if (instance == null) {
+			instance = new KikBotMillContext();
+		}
+		return instance;
+	}
+
 	/**
 	 * Get the list of domains.
 	 *
@@ -100,64 +117,21 @@ public class KikBotMillContext {
 	}
 
 	/**
-	 * Gets the text message action frames.
+	 * Gets the any event action frames.
 	 *
-	 * @return list of text message {@link Frame}
+	 * @return the any event action frames
 	 */
-	public List<Frame> getTextMessageActionFrames() {
-		return textMessageActionFrames;
-	}
-
-	/**
-	 * Gets the media message action frames.
-	 *
-	 * @return list of media message {@link Frame}
-	 */
-	public List<Frame> getMediaMessageActionFrames() {
-		return mediaMessageActionFrames;
-	}
-
-	/**
-	 * Gets the link message action frames.
-	 *
-	 * @return list of link message {@link Frame}
-	 */
-	public List<Frame> getLinkMessageActionFrames() {
-		return linkMessageActionFrames;
+	public List<Frame> getAnyEventActionFrames() {
+		return anyEventActionFrames;
 	}
 	
 	/**
 	 * Gets the broadcast message action frames.
 	 *
-	 * @return list of broadcast message{@link Frame}
+	 * @return the broadcast message action frames
 	 */
 	public List<Frame> getBroadcastMessageActionFrames() {
 		return broadcastActionFrames;
-	}
-
-	/**
-	 * Instantiates a new kik bot mill context.
-	 */
-	public KikBotMillContext() {
-		this.entryPoints = new ArrayList<KikBotMillEntry>();
-		this.domains = new ArrayList<Domain>();
-		this.actionFrames = new ArrayList<Frame>();
-		this.textMessageActionFrames = new ArrayList<Frame>();
-		this.mediaMessageActionFrames = new ArrayList<Frame>();
-		this.linkMessageActionFrames = new ArrayList<Frame>();
-		this.broadcastActionFrames = new ArrayList<Frame>();
-	}
-
-	/**
-	 * Gets the single instance of KikBotMillContext.
-	 *
-	 * @return {@link KikBotMillContext} single instance of KikBotMillContext
-	 */
-	public static KikBotMillContext getInstance() {
-		if (instance == null) {
-			instance = new KikBotMillContext();
-		}
-		return instance;
 	}
 
 	/**
@@ -165,10 +139,10 @@ public class KikBotMillContext {
 	 *
 	 * @return the user
 	 */
-	public String getUser(){
+	public String getUser() {
 		return this.authentication.getUser();
 	}
-	
+
 	/**
 	 * Gets the api key.
 	 *
@@ -177,37 +151,41 @@ public class KikBotMillContext {
 	public String getApiKey() {
 		return this.authentication.getApiKey();
 	}
-	
+
 	/**
 	 * Setup.
 	 *
-	 * @param username the username
-	 * @param apiKey the api key
+	 * @param username
+	 *            the username
+	 * @param apiKey
+	 *            the api key
 	 */
 	public void setup(String username, String apiKey) {
 		this.authentication = new Authentication();
 		this.authentication.setUser(username);
 		this.authentication.setApiKey(apiKey);
 	}
-	
+
 	/**
 	 * Register kik bot.
 	 *
-	 * @param kikBotMillEntry the kikBotMillEntry
+	 * @param kikBotMillEntry
+	 *            the kikBotMillEntry
 	 */
 	public void registerEntryPoint(KikBotMillEntry kikBotMillEntry) {
 		this.entryPoints.add(kikBotMillEntry);
 	}
-	
+
 	/**
 	 * Sets the web hook url.
 	 *
-	 * @param url the new web hook url
+	 * @param url
+	 *            the new web hook url
 	 */
 	public void setWebHookUrl(String url) {
 		this.webhookUrl = url;
 	}
-	
+
 	/**
 	 * Gets the web hook url.
 	 *
@@ -216,58 +194,52 @@ public class KikBotMillContext {
 	public String getWebHookUrl() {
 		return this.webhookUrl;
 	}
-	
+
 	/**
 	 * Register domain.
 	 *
-	 * @param domain the domain
+	 * @param domain
+	 *            the domain
 	 */
 	public void registerDomain(Domain domain) {
 		this.domains.add(domain);
 	}
-	
+
 	/**
 	 * Adds the action frame to context.
 	 *
-	 * @param actionFrame the action frame
+	 * @param actionFrame
+	 *            the action frame
 	 */
 	public void addActionFrameToContext(Frame actionFrame) {
-		if((actionFrame.getEvent() instanceof TextMessageEvent) || (actionFrame.getEvent() instanceof TextMessagePatternEvent)){
-			this.textMessageActionFrames.add(actionFrame);
-		}else if((actionFrame.getEvent() instanceof LinkMessageEvent)) {
-			this.linkMessageActionFrames.add(actionFrame);
-		}else if((actionFrame.getEvent() instanceof PictureMessageEvent) 
-				||(actionFrame.getEvent() instanceof VideoMessageEvent)) {
-			this.mediaMessageActionFrames.add(actionFrame);
-		}else {
+		if (actionFrame.getEvent() instanceof AnyEvent) {
+			this.anyEventActionFrames.add(actionFrame);
+		} else {
 			this.actionFrames.add(actionFrame);
 		}
 	}
-	
+
 	/**
 	 * Adds the action frames to context.
 	 *
-	 * @param frames the frames
+	 * @param frames
+	 *            the frames
 	 */
 	public void addActionFramesToContext(List<Frame> frames) {
-		for(Frame actionFrame:frames) {
-			if((actionFrame.getEvent() instanceof TextMessageEvent) || (actionFrame.getEvent() instanceof TextMessagePatternEvent)){
-				this.textMessageActionFrames.add(actionFrame);
-			}else if((actionFrame.getEvent() instanceof LinkMessageEvent)) {
-				this.linkMessageActionFrames.add(actionFrame);
-			}else if((actionFrame.getEvent() instanceof PictureMessageEvent) 
-					||(actionFrame.getEvent() instanceof VideoMessageEvent)) {
-				this.mediaMessageActionFrames.add(actionFrame);
-			}else {
+		for (Frame actionFrame : frames) {
+			if (actionFrame.getEvent() instanceof AnyEvent) {
+				this.anyEventActionFrames.add(actionFrame);
+			} else {
 				this.actionFrames.add(actionFrame);
 			}
 		}
 	}
-	
+
 	/**
 	 * Adds the action frame to broadcast.
 	 *
-	 * @param actionFrame the action frame
+	 * @param actionFrame
+	 *            the action frame
 	 */
 	public void addActionFrameToBroadcast(Frame actionFrame) {
 		this.broadcastActionFrames.add(actionFrame);

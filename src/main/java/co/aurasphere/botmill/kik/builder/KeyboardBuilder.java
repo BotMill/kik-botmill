@@ -25,10 +25,10 @@
  */
 package co.aurasphere.botmill.kik.builder;
 
-import co.aurasphere.botmill.kik.configuration.Keyboard;
-import co.aurasphere.botmill.kik.configuration.KeyboardType;
-import co.aurasphere.botmill.kik.configuration.Response;
 import co.aurasphere.botmill.kik.model.BaseBuilder;
+import co.aurasphere.botmill.kik.model.Keyboard;
+import co.aurasphere.botmill.kik.model.KeyboardType;
+import co.aurasphere.botmill.kik.model.Response;
 
 /**
  * The Class KeyboardBuilder.

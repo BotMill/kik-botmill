@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik.incoming.event;
 
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.MessageType;
+import co.aurasphere.botmill.kik.outgoing.model.OutgoingMessage;
 
 /**
  * The Class AnyEvent.
@@ -40,6 +42,11 @@ public class AnyEvent implements Event {
 	 */
 	@Override
 	public boolean verifyEvent(IncomingMessage incomingMessage) {
+		if (incomingMessage.getType().equals(MessageType.IS_TYPING)
+				|| incomingMessage.getType().equals(MessageType.START_CHATTING)
+				|| incomingMessage.getType().equals(MessageType.SCAN_DATA)) {
+			return false;
+		}
 		return true;
 	}
 }

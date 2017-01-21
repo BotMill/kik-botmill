@@ -40,17 +40,17 @@ import co.aurasphere.botmill.kik.builder.PictureMessageBuilder;
 import co.aurasphere.botmill.kik.builder.TextMessageBuilder;
 import co.aurasphere.botmill.kik.builder.VideoMessageBuilder;
 import co.aurasphere.botmill.kik.configuration.Configuration;
-import co.aurasphere.botmill.kik.configuration.KeyboardType;
-import co.aurasphere.botmill.kik.configuration.ResponseType;
 import co.aurasphere.botmill.kik.factory.MessageFactory;
 import co.aurasphere.botmill.kik.factory.EventFactory;
 import co.aurasphere.botmill.kik.factory.ReplyFactory;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.json.JsonUtils;
+import co.aurasphere.botmill.kik.model.KeyboardType;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessageCallback;
 import co.aurasphere.botmill.kik.model.MessageEnvelope;
+import co.aurasphere.botmill.kik.model.ResponseType;
 import co.aurasphere.botmill.kik.model.UserProfile;
 import co.aurasphere.botmill.kik.network.NetworkUtils;
 import co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage;
@@ -60,7 +60,6 @@ import co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage;
 import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 import co.aurasphere.botmill.kik.outgoing.model.VideoMessage;
 import co.aurasphere.botmill.kik.outgoing.reply.LinkMessageReply;
-import co.aurasphere.botmill.kik.outgoing.reply.PictureMessageReply;
 import co.aurasphere.botmill.kik.outgoing.reply.TextMessageReply;
 import co.aurasphere.botmill.kik.retriever.KikUserProfileRetriever;
 
@@ -107,6 +106,7 @@ public class OutgoingMessageBuilderTest {
 	 */
 	@Test
 	public void testTextMessageBuilder() {
+		
 		String txtMessageResp = "{\"keyboards\":{\"type\":\"suggested\",\"responses\":[{\"body\":\"\",\"type\":\"text\"},{\"body\":\"\",\"type\":\"text\"}]},\"body\":\"11\",\"to\":\"11\",\"type\":\"text\"}";
 		TextMessage textMessage = TextMessageBuilder.getInstance().setBody("11").setTo("11").addKeyboard(
 				KeyboardBuilder.getInstance()
@@ -114,6 +114,7 @@ public class OutgoingMessageBuilderTest {
 				.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
 				.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
 				.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+				.addResponse(MessageFactory.createFriendPickerResponse("hello", 0, 4, null))
 				.buildKeyboard()
 			).build();
 
@@ -137,6 +138,7 @@ public class OutgoingMessageBuilderTest {
 						.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
 						.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
 						.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+						.addResponse(MessageFactory.createFriendPickerResponse("hello", 0, 4, null))
 						.buildKeyboard()
 					).build();
 
@@ -158,6 +160,7 @@ public class OutgoingMessageBuilderTest {
 					.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
 					.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
 					.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+					.addResponse(MessageFactory.createFriendPickerResponse("hello", 0, 4, null))
 					.buildKeyboard()
 				).setPicUrl("")
 				.setTo("").build();
@@ -179,6 +182,7 @@ public class OutgoingMessageBuilderTest {
 				.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
 				.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
 				.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+				.addResponse(MessageFactory.createFriendPickerResponse("hello", 0, 4, null))
 				.buildKeyboard()
 			).setVideoUrl("")
 				.setLoop(true).build();
@@ -213,7 +217,7 @@ public class OutgoingMessageBuilderTest {
 				
 				@Override
 				public LinkMessage processReply(Message message) {
-					return LinkMessageBuilder.getInstance().setTitle("Title").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+					return LinkMessageBuilder.getInstance().setTitle("Title").setUrl("https://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
 							.build();
 				}
 			})
@@ -232,6 +236,7 @@ public class OutgoingMessageBuilderTest {
 								.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
 								.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
 								.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+								.addResponse(MessageFactory.createFriendPickerResponse("hello", 0, 4, null))
 								.buildKeyboard()
 							)
 						.build();
@@ -278,6 +283,18 @@ public class OutgoingMessageBuilderTest {
 	public void testJsonPictureMessageParse() {
 	
 		ActionFrameBuilder.getInstance()
+			.setEvent(EventFactory.anyEvent())
+			.addReply(new LinkMessageReply() {
+				
+				@Override
+				public LinkMessage processReply(Message message) {
+					return LinkMessageBuilder.getInstance().setTitle("Title").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+							.build();
+				}
+			})
+			.buildToContext();
+		
+		ActionFrameBuilder.getInstance()
 		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
 		.addReply(new TextMessageReply() {
 			
@@ -287,24 +304,7 @@ public class OutgoingMessageBuilderTest {
 						.addKeyboard(
 								KeyboardBuilder.getInstance()
 								.setType(KeyboardType.SUGGESTED)
-								.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-								.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-								.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
-								.buildKeyboard()
-							)
-						.build();
-			}
-		})
-		.addReply(new PictureMessageReply() {
-			@Override
-			public PictureMessage processReply(Message message) {
-				return PictureMessageBuilder.getInstance().setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
-						.addKeyboard(
-								KeyboardBuilder.getInstance()
-								.setType(KeyboardType.SUGGESTED)
-								.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-								.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-								.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+								.addResponse(MessageFactory.createFriendPickerResponse("hello", 1, 4, null))
 								.buildKeyboard()
 							)
 						.build();
@@ -314,7 +314,7 @@ public class OutgoingMessageBuilderTest {
 		
 		
 
-		String json = "{\"messages\": [{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \"hi\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
+		String json = "{\"messages\": [{\"body\": \"hi\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \"hi1s\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
 		MessageCallback m = JsonUtils.fromJson(json,MessageCallback.class);
 		
 		for(Message msg:m.getMessages()) {

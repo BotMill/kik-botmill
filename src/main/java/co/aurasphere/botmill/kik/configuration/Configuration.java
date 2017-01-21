@@ -28,6 +28,8 @@ package co.aurasphere.botmill.kik.configuration;
 import java.io.Serializable;
 import com.google.gson.annotations.SerializedName;
 
+import co.aurasphere.botmill.kik.model.Keyboard;
+
 
 /**
  * The Class Configuration.

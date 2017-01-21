@@ -25,9 +25,9 @@
  */
 package co.aurasphere.botmill.kik.builder;
 
-import co.aurasphere.botmill.kik.configuration.Keyboard;
 import co.aurasphere.botmill.kik.model.BaseBuilder;
 import co.aurasphere.botmill.kik.model.Buildable;
+import co.aurasphere.botmill.kik.model.Keyboard;
 import co.aurasphere.botmill.kik.model.Keyboardable;
 import co.aurasphere.botmill.kik.model.MediaAttribution;
 import co.aurasphere.botmill.kik.model.MessageType;
@@ -98,7 +98,7 @@ public class PictureMessageBuilder extends BaseBuilder
 	 * @return the picture message builder
 	 */
 	public PictureMessageBuilder setDelay(Integer delay) {
-		pictureMessage.setDelay(String.valueOf(delay));
+		pictureMessage.setDelay(delay);
 		return this;
 	}
 

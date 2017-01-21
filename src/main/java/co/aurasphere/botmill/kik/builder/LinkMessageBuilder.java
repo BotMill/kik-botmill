@@ -25,10 +25,10 @@
  */
 package co.aurasphere.botmill.kik.builder;
 
-import co.aurasphere.botmill.kik.configuration.Keyboard;
 import co.aurasphere.botmill.kik.model.Attribution;
 import co.aurasphere.botmill.kik.model.BaseBuilder;
 import co.aurasphere.botmill.kik.model.Buildable;
+import co.aurasphere.botmill.kik.model.Keyboard;
 import co.aurasphere.botmill.kik.model.Keyboardable;
 import co.aurasphere.botmill.kik.model.KikJsData;
 import co.aurasphere.botmill.kik.model.MessageType;
@@ -153,7 +153,7 @@ public class LinkMessageBuilder extends BaseBuilder implements Buildable<LinkMes
 	 * @return the link message builder
 	 */
 	public LinkMessageBuilder setDelay(Integer delay) {
-		linkMessage.setDelay(String.valueOf(delay));
+		linkMessage.setDelay(delay);
 		return this;
 	}
 

@@ -26,22 +26,12 @@
 package co.aurasphere.botmill.kik;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
-
-import co.aurasphere.botmill.kik.builder.ActionFrameBuilder;
 import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
-import co.aurasphere.botmill.kik.factory.EventFactory;
-import co.aurasphere.botmill.kik.factory.ReplyFactory;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
 import co.aurasphere.botmill.kik.incoming.handler.JsonToActionFrameHandler;
-import co.aurasphere.botmill.kik.incoming.handler.model.JsonAction;
-import co.aurasphere.botmill.kik.incoming.handler.model.JsonToActionFrame;
 import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.Frame;
 import co.aurasphere.botmill.kik.model.Message;
@@ -59,8 +49,7 @@ public class JsonToActionFrameTest {
 	@Before
 	public void setup() {
 		
-		//KikBotMillContext.getInstance().setup(System.getenv("USERNAME"), System.getenv("APIKEY"));
-		KikBotMillContext.getInstance().setup("heyjayreyes", "01db42ee-5d8a-43b3-ae67-815e2ffce227");
+		KikBotMillContext.getInstance().setup(System.getenv("USERNAME"), System.getenv("APIKEY"));
 		
 		NetworkUtils.postJsonConfig(ConfigurationBuilder.getInstance()
 			.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot")
@@ -76,7 +65,7 @@ public class JsonToActionFrameTest {
 	 */
 	@Test
 	public void testBasicJsonToActionFrame() {
-		List<Frame> actionFrames = JsonToActionFrameHandler.jsonToFrameReply("http://technowebhub.com/json_sample_1.json");
+		List<Frame> actionFrames = JsonToActionFrameHandler.jsonToFrameReply("http://technowebhub.com/json_sample.json");
 		
 		String json = "{\"messages\": [{\"body\": \"who created you?\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \"hi\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
 		MessageCallback m = JsonUtils.fromJson(json,MessageCallback.class);

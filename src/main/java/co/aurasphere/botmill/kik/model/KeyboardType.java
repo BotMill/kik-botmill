@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.configuration;
+package co.aurasphere.botmill.kik.model;
 
 /**
  * The Enum KeyboardType.

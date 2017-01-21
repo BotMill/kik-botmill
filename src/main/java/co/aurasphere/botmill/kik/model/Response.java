@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.configuration;
+package co.aurasphere.botmill.kik.model;
 
 import java.io.Serializable;
 import java.util.List;

@@ -27,12 +27,12 @@ package co.aurasphere.botmill.kik.factory;
 
 import java.util.List;
 
-import co.aurasphere.botmill.kik.configuration.Keyboard;
-import co.aurasphere.botmill.kik.configuration.KeyboardType;
-import co.aurasphere.botmill.kik.configuration.Response;
-import co.aurasphere.botmill.kik.configuration.ResponseType;
 import co.aurasphere.botmill.kik.model.Attribution;
+import co.aurasphere.botmill.kik.model.Keyboard;
+import co.aurasphere.botmill.kik.model.KeyboardType;
 import co.aurasphere.botmill.kik.model.KikJsData;
+import co.aurasphere.botmill.kik.model.Response;
+import co.aurasphere.botmill.kik.model.ResponseType;
 
 /**
  * A factory for creating Message objects.
@@ -83,7 +83,11 @@ public class MessageFactory {
 	 * @return the response
 	 */
 	public static Response createFriendPickerResponse(String body, int min, int max, List<String> preselected){
-		return new Response(body, ResponseType.FRIEND_PICKER);
+		Response response = new Response(body, ResponseType.FRIEND_PICKER);
+		response.setMin(min);
+		response.setMax(max);
+		response.setPreselected(preselected);
+		return response;
 	}
 	
 	/**

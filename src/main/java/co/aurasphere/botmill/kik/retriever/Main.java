@@ -32,10 +32,10 @@ import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
 import co.aurasphere.botmill.kik.builder.KeyboardBuilder;
 import co.aurasphere.botmill.kik.builder.TextMessageBuilder;
 import co.aurasphere.botmill.kik.configuration.Configuration;
-import co.aurasphere.botmill.kik.configuration.KeyboardType;
-import co.aurasphere.botmill.kik.configuration.ResponseType;
 import co.aurasphere.botmill.kik.factory.MessageFactory;
 import co.aurasphere.botmill.kik.json.JsonUtils;
+import co.aurasphere.botmill.kik.model.KeyboardType;
+import co.aurasphere.botmill.kik.model.ResponseType;
 import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 
 

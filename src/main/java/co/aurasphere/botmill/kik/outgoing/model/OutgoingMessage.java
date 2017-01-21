@@ -44,7 +44,7 @@ public abstract class OutgoingMessage extends Message {
 	private String to;
 	
 	/** The delay. */
-	private String delay;
+	private Integer delay;
 	
 	/**
 	 * Gets the body.
@@ -87,7 +87,7 @@ public abstract class OutgoingMessage extends Message {
 	 *
 	 * @return the delay
 	 */
-	public String getDelay() {
+	public Integer getDelay() {
 		return delay;
 	}
 	
@@ -96,7 +96,7 @@ public abstract class OutgoingMessage extends Message {
 	 *
 	 * @param delay the new delay
 	 */
-	public void setDelay(String delay) {
+	public void setDelay(Integer delay) {
 		this.delay = delay;
 	}
 	

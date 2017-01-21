@@ -26,6 +26,7 @@
 package co.aurasphere.botmill.kik.incoming.event;
 
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
+import co.aurasphere.botmill.kik.incoming.model.TextMessage;
 import co.aurasphere.botmill.kik.model.Event;
 
 /**
@@ -59,8 +60,10 @@ public class TextMessageEvent implements Event {
 	 */
 	@Override
 	public boolean verifyEvent(IncomingMessage message) {
-		if(this.keywordText.toLowerCase().equals(message.getBody().toLowerCase())) {
-			return true;
+		if (message instanceof TextMessage) {
+			if(this.keywordText.toLowerCase().equals(message.getBody().toLowerCase())) {
+				return true;
+			}
 		}
 		return false;
 	}

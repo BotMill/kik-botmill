@@ -27,6 +27,7 @@ package co.aurasphere.botmill.kik.incoming.event;
 
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.incoming.model.ScanDataMessage;
+import co.aurasphere.botmill.kik.incoming.model.StartChattingMessage;
 import co.aurasphere.botmill.kik.model.Event;
 import co.aurasphere.botmill.kik.model.MessageType;
 
@@ -42,8 +43,10 @@ public class ScanDataEvent implements Event {
 	 */
 	@Override
 	public boolean verifyEvent(IncomingMessage incomingMessage) {
-		if(!((ScanDataMessage)incomingMessage).getType().equals(MessageType.SCAN_DATA)) {
-			return true;
+		if (incomingMessage instanceof ScanDataMessage) {
+			if(incomingMessage.getType().equals(MessageType.SCAN_DATA)) {
+				return true;
+			}
 		}
 		return false;
 	}

@@ -25,10 +25,9 @@
  */
 package co.aurasphere.botmill.kik.builder;
 
-import co.aurasphere.botmill.kik.configuration.Keyboard;
 import co.aurasphere.botmill.kik.model.BaseBuilder;
 import co.aurasphere.botmill.kik.model.Buildable;
-import co.aurasphere.botmill.kik.model.Keyboardable;
+import co.aurasphere.botmill.kik.model.Keyboard;
 import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
 
@@ -97,7 +96,7 @@ public class TextMessageBuilder extends BaseBuilder
 	 * @return the text message builder
 	 */
 	public TextMessageBuilder setDelay(Integer delay) {
-		textMessage.setDelay(String.valueOf(delay));
+		textMessage.setDelay(delay);
 		return this;
 	}
 	

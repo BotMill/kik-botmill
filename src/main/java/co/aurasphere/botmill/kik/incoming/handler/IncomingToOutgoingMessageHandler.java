@@ -25,6 +25,7 @@
  */
 package co.aurasphere.botmill.kik.incoming.handler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.aurasphere.botmill.kik.KikBotMillContext;
@@ -74,7 +75,7 @@ public class IncomingToOutgoingMessageHandler {
 	 * @return the incoming to outgoing message handler
 	 */
 	public IncomingToOutgoingMessageHandler processBroadcast(Message message) {
-		outgoingHandler(KikBotMillContext.getInstance().getBroadcastMessageActionFrames(), message, true);
+		handleOutgoingMessage(KikBotMillContext.getInstance().getBroadcastMessageActionFrames(), message, true);
 		return this;
 	}
 
@@ -86,25 +87,10 @@ public class IncomingToOutgoingMessageHandler {
 	 * @return the incoming to outgoing message handler
 	 */
 	public IncomingToOutgoingMessageHandler process(Message message) {
-		// the responses are on a different bucket
-		switch (message.getType()) {
-		case TEXT:
-			outgoingHandler(KikBotMillContext.getInstance().getTextMessageActionFrames(), message, false);
-			break;
-		case PICTURE:
-			outgoingHandler(KikBotMillContext.getInstance().getMediaMessageActionFrames(), message, false);
-			break;
-		case VIDEO:
-			outgoingHandler(KikBotMillContext.getInstance().getMediaMessageActionFrames(), message, false);
-			break;
-		case LINK:
-			outgoingHandler(KikBotMillContext.getInstance().getLinkMessageActionFrames(), message, false);
-			break;
-		default:
-			outgoingHandler(KikBotMillContext.getInstance().getActionFrames(), message, false);
-			break;
-		}
-
+		List<Frame> actionFrames = new ArrayList<Frame>();
+		actionFrames.addAll(KikBotMillContext.getInstance().getActionFrames());
+		actionFrames.addAll(KikBotMillContext.getInstance().getAnyEventActionFrames());
+		handleOutgoingMessage(actionFrames, message, false);
 		return this;
 	}
 
@@ -118,7 +104,7 @@ public class IncomingToOutgoingMessageHandler {
 	 * @param broadcast
 	 *            the broadcast
 	 */
-	private void outgoingHandler(List<Frame> actionFrames, Message message, boolean broadcast) {
+	private void handleOutgoingMessage(List<Frame> actionFrames, Message message, boolean broadcast) {
 		MessagePostback postback = null;
 		if (actionFrames.size() > 0) {
 			for (Frame frame : actionFrames) {
@@ -150,16 +136,6 @@ public class IncomingToOutgoingMessageHandler {
 							outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage();
 							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage) reply
 									.processReply(message);
-						} else if (reply instanceof AnyReply) {
-							// don't treat istyping, start chatting or any
-							// non-text incoming message as any reply.
-							if (!message.getType().equals(MessageType.IS_TYPING)
-									|| !message.getType().equals(MessageType.START_CHATTING)
-									|| !message.getType().equals(MessageType.SCAN_DATA)) {
-
-								outgoingMessage = (OutgoingMessage) reply.processReply(message);
-
-							}
 						}
 						
 						//	We can't set a null outgoing message.

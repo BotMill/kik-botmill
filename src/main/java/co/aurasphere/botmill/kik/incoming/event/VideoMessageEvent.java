@@ -26,6 +26,7 @@
 package co.aurasphere.botmill.kik.incoming.event;
 
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
+import co.aurasphere.botmill.kik.incoming.model.LinkMessage;
 import co.aurasphere.botmill.kik.incoming.model.VideoMessage;
 import co.aurasphere.botmill.kik.model.Event;
 import co.aurasphere.botmill.kik.model.MessageType;
@@ -42,9 +43,10 @@ public class VideoMessageEvent implements Event {
 	 */
 	@Override
 	public boolean verifyEvent(IncomingMessage incomingMessage) {
-		VideoMessage videoMessage = (VideoMessage)incomingMessage;
-		if(videoMessage.getType().equals(MessageType.VIDEO)) {
-			return true;
+		if (incomingMessage instanceof VideoMessage) {
+			if (((VideoMessage) incomingMessage).getType().equals(MessageType.VIDEO)) {
+				return true;
+			}
 		}
 		return false;
 	}

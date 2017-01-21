@@ -26,6 +26,7 @@
 package co.aurasphere.botmill.kik.incoming.event;
 
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
+import co.aurasphere.botmill.kik.incoming.model.StartChattingMessage;
 import co.aurasphere.botmill.kik.incoming.model.StickerMessage;
 import co.aurasphere.botmill.kik.model.Event;
 import co.aurasphere.botmill.kik.model.MessageType;
@@ -42,8 +43,10 @@ public class StickerEvent implements Event {
 	 */
 	@Override
 	public boolean verifyEvent(IncomingMessage incomingMessage) {
-		if(!((StickerMessage)incomingMessage).getType().equals(MessageType.STICKER)) {
-			return true;
+		if (incomingMessage instanceof StickerMessage) {
+			if(incomingMessage.getType().equals(MessageType.STICKER)) {
+				return true;
+			}
 		}
 		return false;
 	}
