@@ -150,7 +150,6 @@ public class IncomingToOutgoingMessageHandler {
 							outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage();
 							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage) reply
 									.processReply(message);
-							;
 						} else if (reply instanceof AnyReply) {
 							// don't treat istyping, start chatting or any
 							// non-text incoming message as any reply.

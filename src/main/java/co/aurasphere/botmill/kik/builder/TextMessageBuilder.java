@@ -93,7 +93,7 @@ public class TextMessageBuilder extends BaseBuilder
 	/**
 	 * Sets the delay.
 	 *
-	 * @param delay the delay
+	 * @param delay the delay before this message is process. This is in milliseconds.
 	 * @return the text message builder
 	 */
 	public TextMessageBuilder setDelay(Integer delay) {

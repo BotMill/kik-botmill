@@ -187,7 +187,7 @@ public class NetworkUtils {
 			// Parses the error message and logs it.
 			KikErrorMessage errorMessage = JsonUtils.fromJson(output, KikErrorMessage.class);
 			KikError error = errorMessage.getError();
-			logger.error("Error message from Facebook. Message: [{}], Code: [{}], Type: [{}], FbTraceID: [{}].",
+			logger.error("Error message from Kik. Message: [{}], Code: [{}], Type: [{}], FbTraceID: [{}].",
 					error.getMessage(), error.getCode(), error.getType(), error.getFbTraceId());
 		}
 		return output;

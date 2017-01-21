@@ -46,37 +46,78 @@ public class JsonAction {
 	/** The output. */
 	private String input;
 	
+	/** The replies. */
 	@SerializedName("replies")
 	private List<JsonReply> replies;
 
+	/**
+	 * Gets the keyboards.
+	 *
+	 * @return the keyboards
+	 */
 	public List<JsonKeyboard> getKeyboards() {
 		return keyboards;
 	}
 
+	/**
+	 * Sets the keyboards.
+	 *
+	 * @param keyboards the new keyboards
+	 */
 	public void setKeyboards(List<JsonKeyboard> keyboards) {
 		this.keyboards = keyboards;
 	}
 
+	/**
+	 * Gets the event.
+	 *
+	 * @return the event
+	 */
 	public String getEvent() {
 		return event;
 	}
 
+	/**
+	 * Sets the event.
+	 *
+	 * @param event the new event
+	 */
 	public void setEvent(String event) {
 		this.event = event;
 	}
 
+	/**
+	 * Gets the input.
+	 *
+	 * @return the input
+	 */
 	public String getInput() {
 		return input;
 	}
 
+	/**
+	 * Sets the input.
+	 *
+	 * @param input the new input
+	 */
 	public void setInput(String input) {
 		this.input = input;
 	}
 
+	/**
+	 * Gets the replies.
+	 *
+	 * @return the replies
+	 */
 	public List<JsonReply> getReplies() {
 		return replies;
 	}
 
+	/**
+	 * Sets the replies.
+	 *
+	 * @param replies the new replies
+	 */
 	public void setReplies(List<JsonReply> replies) {
 		this.replies = replies;
 	}

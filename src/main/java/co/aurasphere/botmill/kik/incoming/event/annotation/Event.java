@@ -33,12 +33,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * The Interface AnyEvent.
+ * The Interface Event.
  */
 @Documented
-@Target(ElementType.METHOD)
+@Target(ElementType.CONSTRUCTOR)
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-public @interface AnyEvent {
-	
+public @interface Event {
+
 }
