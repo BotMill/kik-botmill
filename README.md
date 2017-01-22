@@ -72,12 +72,16 @@ Your KikBotEntryPoint should extends KikBotMillEntry. You need to override the k
 			
 			//	configuration.
 			ConfigurationBuilder.getInstance().setWebhook("<webhookurl>")
-			.setManuallySendReadReceipts(false).setReceiveDeliveryReceipts(false).setReceiveIsTyping(true)
-			.setReceiveReadReceipts(false).setStaticKeyboard(
+				.setManuallySendReadReceipts(false)
+				.setReceiveDeliveryReceipts(false)
+				.setReceiveIsTyping(true)
+				.setReceiveReadReceipts(false)
+				.setStaticKeyboard(
 					KeyboardBuilder.getInstance().setType(KeyboardType.SUGGESTED)
 					.addResponse(MessageFactory.createResponse("Make me a ChatBot!", ResponseType.TEXT))
 					.addResponse(MessageFactory.createResponse("What are ChatBots?", ResponseType.TEXT))
-					.addResponse(MessageFactory.createResponse("Milling Tools!", ResponseType.TEXT)).buildKeyboard())
+					.addResponse(MessageFactory.createResponse("Milling Tools!", ResponseType.TEXT))
+				.buildKeyboard())
 			.buildConfiguration();
 				
 			//	Domain > collection of responses
