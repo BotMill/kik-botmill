@@ -37,6 +37,7 @@ import co.aurasphere.botmill.kik.incoming.event.StickerEvent;
 import co.aurasphere.botmill.kik.incoming.event.TextMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.TextMessagePatternEvent;
 import co.aurasphere.botmill.kik.incoming.event.VideoMessageEvent;
+import co.aurasphere.botmill.kik.incoming.model.PictureMessage;
 
 /**
  * A factory for creating Event objects.
@@ -71,6 +72,15 @@ public class EventFactory {
 	 * @return the picture message event
 	 */
 	public static PictureMessageEvent picture(){
+		return new PictureMessageEvent();
+	}
+	
+	/**
+	 * Picture.
+	 *
+	 * @return the picture message event
+	 */
+	public static PictureMessageEvent picture(PictureMessage incomingPictureMessage){
 		return new PictureMessageEvent();
 	}
 	

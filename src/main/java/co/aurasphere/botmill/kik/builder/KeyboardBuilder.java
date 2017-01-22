@@ -33,6 +33,9 @@ import co.aurasphere.botmill.kik.model.Response;
 /**
  * The Class KeyboardBuilder.
  * 
+ * Builder class to create a KeyBoard object that can be used to interact with the
+ * Kik Bot users.
+ * 
  * @author Alvin P. Reyes
  *
  */

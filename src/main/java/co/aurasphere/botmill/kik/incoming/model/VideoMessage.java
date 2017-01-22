@@ -33,7 +33,7 @@ import co.aurasphere.botmill.kik.model.Attribution;
  * 
  * @author Alvin P. Reyes
  */
-public class VideoMessage extends IncomingMessage {
+public class VideoMessage extends IncomingMessage implements Comparable<VideoMessage> {
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -78,6 +78,14 @@ public class VideoMessage extends IncomingMessage {
 	 */
 	public void setAttribution(Attribution attribution) {
 		this.attribution = attribution;
+	}
+	
+	@Override
+	public int compareTo(VideoMessage o) {
+		if(this.getVideoUrl().equals(o.getVideoUrl())) {
+			return 0;
+		}
+		return -1;
 	}
 
 }

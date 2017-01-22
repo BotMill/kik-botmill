@@ -40,6 +40,11 @@ import co.aurasphere.botmill.kik.model.MessageCallback;
 
 /**
  * The Class KikBotMillLoader.
+ * 
+ * Wrapper class that can be used to load the entry point and catch all post request
+ * from Kik.
+ * 
+ * @author Alvin P. Reyes
  */
 public class KikBotMillLoader {
 

@@ -28,6 +28,9 @@ package co.aurasphere.botmill.kik.configuration;
 /**
  * The Class Authentication.
  * 
+ * The class used to create an Authentication data that is used
+ * to initiated the Kik Bot.
+ * 
  * @author Alvin P. Reyes
  */
 public class Authentication {

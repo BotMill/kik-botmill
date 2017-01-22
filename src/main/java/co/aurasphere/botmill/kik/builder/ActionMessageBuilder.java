@@ -34,6 +34,8 @@ import co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage;
 /**
  * The Class ActionMessageBuilder.
  * 
+ * Common Action builder to create isTyping and ReadReceipt response.
+ * 
  * @author Alvin P. Reyes
  */
 public class ActionMessageBuilder extends BaseBuilder {

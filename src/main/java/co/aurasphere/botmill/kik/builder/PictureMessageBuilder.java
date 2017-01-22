@@ -28,13 +28,14 @@ package co.aurasphere.botmill.kik.builder;
 import co.aurasphere.botmill.kik.model.BaseBuilder;
 import co.aurasphere.botmill.kik.model.Buildable;
 import co.aurasphere.botmill.kik.model.Keyboard;
-import co.aurasphere.botmill.kik.model.Keyboardable;
 import co.aurasphere.botmill.kik.model.MediaAttribution;
 import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.outgoing.model.PictureMessage;
 
 /**
  * The Class PictureMessageBuilder.
+ * 
+ * Builder class that can be used to create or build a picture message as a response.
  * 
  * @author Alvin P. Reyes
  */

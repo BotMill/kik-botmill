@@ -29,13 +29,14 @@ import co.aurasphere.botmill.kik.model.Attribution;
 import co.aurasphere.botmill.kik.model.BaseBuilder;
 import co.aurasphere.botmill.kik.model.Buildable;
 import co.aurasphere.botmill.kik.model.Keyboard;
-import co.aurasphere.botmill.kik.model.Keyboardable;
 import co.aurasphere.botmill.kik.model.KikJsData;
 import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 
 /**
  * The Class LinkMessageBuilder.
+ * 
+ * Builder class that can be used to create a link message response.
  * 
  * @author Alvin P. Reyes
  */

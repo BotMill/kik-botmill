@@ -38,6 +38,9 @@ import co.aurasphere.botmill.kik.model.Reply;
 /**
  * The Class ActionFrameBuilder.
  * 
+ * The main frame builder class. This can be used to create action frames
+ * that are essential in building responses from the Bot.
+ * 
  * @author Alvin P. Reyes
  */
 public class ActionFrameBuilder implements Buildable<ActionFrame>{

@@ -29,11 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 import co.aurasphere.botmill.kik.configuration.Authentication;
 import co.aurasphere.botmill.kik.incoming.event.AnyEvent;
-import co.aurasphere.botmill.kik.incoming.event.LinkMessageEvent;
-import co.aurasphere.botmill.kik.incoming.event.PictureMessageEvent;
-import co.aurasphere.botmill.kik.incoming.event.TextMessageEvent;
-import co.aurasphere.botmill.kik.incoming.event.TextMessagePatternEvent;
-import co.aurasphere.botmill.kik.incoming.event.VideoMessageEvent;
 import co.aurasphere.botmill.kik.model.ActionFrame;
 import co.aurasphere.botmill.kik.model.Domain;
 import co.aurasphere.botmill.kik.model.Frame;
@@ -77,6 +72,8 @@ public class KikBotMillContext {
 
 	/**
 	 * Instantiates a new kik bot mill context.
+	 * The KikBotMillContext is the heart of it all. This where all the Domains, Events and Replies
+	 * are located.
 	 */
 	public KikBotMillContext() {
 		this.entryPoints = new ArrayList<KikBotMillEntry>();
@@ -153,7 +150,7 @@ public class KikBotMillContext {
 	}
 
 	/**
-	 * Setup.
+	 * This is the main setup method. 
 	 *
 	 * @param username
 	 *            the username

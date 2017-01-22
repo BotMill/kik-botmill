@@ -35,6 +35,8 @@ import co.aurasphere.botmill.kik.outgoing.model.VideoMessage;
 /**
  * The Class VideoMessageBuilder.
  * 
+ * Builder class that can be used to create or build a video message as a response.
+ * 
  * @author Alvin P. Reyes
  */
 public class VideoMessageBuilder extends BaseBuilder

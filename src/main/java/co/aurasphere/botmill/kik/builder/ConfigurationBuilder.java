@@ -33,6 +33,8 @@ import co.aurasphere.botmill.kik.network.NetworkUtils;
 /**
  * The Class ConfigurationBuilder.
  * 
+ * Builder class to create the configuration needed to initiate a Kik Bot.
+ * 
  * @author Alvin P. Reyes
  */
 public class ConfigurationBuilder extends BaseBuilder{

@@ -34,7 +34,7 @@ import co.aurasphere.botmill.kik.model.KikJsData;
  * 
  * @author Alvin P. Reyes
  */
-public class LinkMessage extends IncomingMessage {
+public class LinkMessage extends IncomingMessage implements Comparable<LinkMessage> {
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -121,5 +121,13 @@ public class LinkMessage extends IncomingMessage {
 	 */
 	public void setAttribution(Attribution attribution) {
 		this.attribution = attribution;
+	}
+	
+	@Override
+	public int compareTo(LinkMessage o) {
+		if(this.getUrl().equals(o.getUrl())) {
+			return 0;
+		}
+		return -1;
 	}
 }

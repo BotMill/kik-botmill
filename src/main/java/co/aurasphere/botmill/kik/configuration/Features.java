@@ -30,6 +30,9 @@ import java.io.Serializable;
 /**
  * The Class Features.
  * 
+ * The class that can be used to create an Object with features that's
+ * attached to the configuration.
+ * 
  * @author Alvin P. Reyes
  */
 public class Features implements Serializable {

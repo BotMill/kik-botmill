@@ -28,6 +28,9 @@ package co.aurasphere.botmill.kik;
 /**
  * The Class KikBot.
  * 
+ * This is the abstract class that needs to be inherited by any
+ * EntryPoint class that the developer needs to register.
+ * 
  * @author Alvin P. Reyes
  */
 public abstract class KikBotMillEntry {

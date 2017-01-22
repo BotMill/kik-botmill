@@ -142,5 +142,5 @@ public abstract class IncomingMessage extends Message {
 	 */
 	public void setReadReceiptRequested(String readReceiptRequested) {
 		this.readReceiptRequested = readReceiptRequested;
-	}	
+	}
 }

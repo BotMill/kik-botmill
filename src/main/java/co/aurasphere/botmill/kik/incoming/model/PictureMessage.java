@@ -25,6 +25,8 @@
  */
 package co.aurasphere.botmill.kik.incoming.model;
 
+import java.util.regex.Pattern;
+
 import co.aurasphere.botmill.kik.model.Attribution;
 
 /**
@@ -32,7 +34,7 @@ import co.aurasphere.botmill.kik.model.Attribution;
  * 
  * @author Alvin P. Reyes
  */
-public class PictureMessage extends IncomingMessage {
+public class PictureMessage extends IncomingMessage implements Comparable<PictureMessage> {
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -77,6 +79,14 @@ public class PictureMessage extends IncomingMessage {
 	 */
 	public void setAttribution(Attribution attribution) {
 		this.attribution = attribution;
+	}
+	
+	@Override
+	public int compareTo(PictureMessage o) {
+		if(this.getPicUrl().equals(o.getPicUrl())) {
+			return 0;
+		}
+		return -1;
 	}
 	
 }

@@ -34,6 +34,9 @@ import co.aurasphere.botmill.kik.model.Keyboard;
 /**
  * The Class Configuration.
  * 
+ * The class used to create a configuration object that holds 
+ * the initial configuration of the Kik Bot.
+ * 
  * @author Alvin P. Reyes
  */
 public class Configuration implements Serializable  {
