@@ -89,7 +89,8 @@ public class KikBotEntryPoint extends KikBotMillEntry {
 
 ```
 	
-Your domain holds all the actions of your Bot.
+Your domain holds all the actions of your Bot.  
+In the following example, the action will catch either a "hello" or "HELLO" response from the user and respond back a message "Hello from Bot!".  
 
 ```java
 
@@ -97,18 +98,24 @@ public class SampleDomain extends AbstractDomain {
 
 	@Override
 	public void buildDomain() {
-		
-		ActionFrameBuilder.createAction()
-			.setEvent(EventFactory.textMessagePattern("(?i:hello)"))
-			.addReply(ReplyFactory.buildTextMessageReply("Hello from Bot!")) 
-			.buildToContext();
+	
+		ActionFrameBuilder.getInstance()
+			.setEvent(EventFactory .textMessagePattern("(?i:hello)"))
+			.addReply(new TextMessageReply() {
+				@Override
+				public TextMessage processReply(Message message) {
+					return TextMessageBuilder.getInstance()
+							.setBody("Hey " + ((IncomingMessage) message).getFrom() + "! How can I help you today?")
+							.build();
+				}
+			}).buildToContext();
 		
 	}
 }
 
 ```
 
-Alternatively, you can also load your EntryPoint class via KikBotMillLoader
+Alternatively, if you're not using any XML file to initialize your context, you can always use the following methods.
 
 ```java
 // Call this upon initialization of your app (should only be called once)
@@ -118,7 +125,6 @@ KikBotMillLoader.getLoader().loadEntryPoint(new KikBotEntryPoint());
 KikBotMillLoader.getLoader().postHandler(req, resp); 
 ```
 
-The framework was designed to be flexible enough to work with other Java frameworks seamlessly.
 
 **On Spark Java**
 
