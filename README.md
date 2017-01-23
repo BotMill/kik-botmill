@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/BotMill/kik-botmill.svg?branch=master)](https://travis-ci.org/BotMill/kik-botmill)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/co.aurasphere.botmill/kik-botmill/badge.svg?style=blue)](https://maven-badges.herokuapp.com/maven-central/co.aurasphere.botmill/kik-botmill)
 [![Javadocs](http://www.javadoc.io/badge/co.aurasphere.botmill/kik-botmill.svg)](http://www.javadoc.io/doc/co.aurasphere.botmill/kik-botmill)
+[![Gitter](https://badges.gitter.im/BotMill/kik-botmill.svg)](https://gitter.im/BotMill/kik-botmill?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 # Kik-BotMill - Tools to Mill Kik Bots
 
