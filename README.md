@@ -34,135 +34,149 @@ Other ways to import, visit Maven central repo [site](http://search.maven.org/#s
 
 Once you've imported the API. You need to register the KikBotMillServlet. To do that, create a Servlet project in your IDE and add this to your web.xml:
 
-     <servlet>
-		  <servlet-name>myKikBot</servlet-name>
-		  <servlet-class>co.aurasphere.botmill.kik.KikBotMillServlet</servlet-class>
-		  <init-param>
-			  <param-name>bot-definition-class</param-name>
-			  <param-value>com.sample.kik.demo.KikBotEntryPoint</param-value>
-		  </init-param>
-		  <load-on-startup>0</load-on-startup>
-	  </servlet>
-	  <servlet-mapping>
-		  <servlet-name>myKikBot</servlet-name>
-		  <url-pattern>/myKikBot</url-pattern>
-	  </servlet-mapping>
+```xml
 
-
-Alternatively, you can also load your EntryPoint class via KikBotMillLoader
-
-	// Call this upon initialization of your app (should only be called once)
-	KikBotMillLoader.getLoader().loadEntryPoint(new KikBotEntryPoint());
-	
-	//	Call this on your callback url post handler (req = HttpRequest, Resp = HttpResponse).
-	KikBotMillLoader.getLoader().postHandler(req, resp); 
+ <servlet>
+	  <servlet-name>myKikBot</servlet-name>
+	  <servlet-class>co.aurasphere.botmill.kik.KikBotMillServlet</servlet-class>
+	  <init-param>
+		  <param-name>bot-definition-class</param-name>
+		  <param-value>com.sample.kik.demo.KikBotEntryPoint</param-value>
+	  </init-param>
+	  <load-on-startup>0</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+	  <servlet-name>myKikBot</servlet-name>
+	  <url-pattern>/myKikBot</url-pattern>
+  </servlet-mapping>
+  
+```
 
 Your KikBotEntryPoint should extends KikBotMillEntry. You need to override the kikBotEntry and define your domains and behaviours.
 
-    public class KikBotEntryPoint extends KikBotMillEntry {
-		/**
-		 * Entry point is the main method that will be called only once.
-		 * This is where we define our configuration and responses.
-		 */
-		@Override
-		protected void kikBotEntry() {
+```java
+
+public class KikBotEntryPoint extends KikBotMillEntry {
+	/**
+	 * Entry point is the main method that will be called only once.
+	 * This is where we define our configuration and responses.
+	 */
+	@Override
+	protected void kikBotEntry() {
+		
+		//	setup
+		KikBotMillContext.getInstance().setup("<USERNAME>", "<APIKEY>");
+		
+		//	configuration.
+		ConfigurationBuilder.getInstance().setWebhook("<webhookurl>")
+			.setManuallySendReadReceipts(false)
+			.setReceiveDeliveryReceipts(false)
+			.setReceiveIsTyping(true)
+			.setReceiveReadReceipts(false)
+			.setStaticKeyboard(
+				KeyboardBuilder.getInstance().setType(KeyboardType.SUGGESTED)
+				.addResponse(MessageFactory.createResponse("Make me a ChatBot!", ResponseType.TEXT))
+				.addResponse(MessageFactory.createResponse("What are ChatBots?", ResponseType.TEXT))
+				.addResponse(MessageFactory.createResponse("Milling Tools!", ResponseType.TEXT))
+			.buildKeyboard())
+		.buildConfiguration();
 			
-			//	setup
-			KikBotMillContext.getInstance().setup("<USERNAME>", "<APIKEY>");
-			
-			//	configuration.
-			ConfigurationBuilder.getInstance().setWebhook("<webhookurl>")
-				.setManuallySendReadReceipts(false)
-				.setReceiveDeliveryReceipts(false)
-				.setReceiveIsTyping(true)
-				.setReceiveReadReceipts(false)
-				.setStaticKeyboard(
-					KeyboardBuilder.getInstance().setType(KeyboardType.SUGGESTED)
-					.addResponse(MessageFactory.createResponse("Make me a ChatBot!", ResponseType.TEXT))
-					.addResponse(MessageFactory.createResponse("What are ChatBots?", ResponseType.TEXT))
-					.addResponse(MessageFactory.createResponse("Milling Tools!", ResponseType.TEXT))
-				.buildKeyboard())
-			.buildConfiguration();
-				
-			//	Domain > collection of responses
-			KikBotMillContext.getInstance().registerDomain(new SampleDomain());
-			
-		}
+		//	Domain > collection of responses
+		KikBotMillContext.getInstance().registerDomain(new SampleDomain());
+		
 	}
+}
+
+```
 	
 Your domain holds all the actions of your Bot.
 
-	public class SampleDomain extends AbstractDomain {
-	
-		@Override
-		public void buildDomain() {
-			
-			ActionFrameBuilder.createAction()
-				.setEvent(EventFactory.textMessagePattern("(?i:hello)"))
-				.addReply(ReplyFactory.buildTextMessageReply("Hello from Bot!")) 
-				.buildToContext();
-			
-		}
+```java
+
+public class SampleDomain extends AbstractDomain {
+
+	@Override
+	public void buildDomain() {
 		
-	} 
+		ActionFrameBuilder.createAction()
+			.setEvent(EventFactory.textMessagePattern("(?i:hello)"))
+			.addReply(ReplyFactory.buildTextMessageReply("Hello from Bot!")) 
+			.buildToContext();
+		
+	}
+}
+
+```
+
+Alternatively, you can also load your EntryPoint class via KikBotMillLoader
+
+```java
+// Call this upon initialization of your app (should only be called once)
+KikBotMillLoader.getLoader().loadEntryPoint(new KikBotEntryPoint());
+
+//	Call this on your callback url post handler (req = HttpRequest, Resp = HttpResponse).
+KikBotMillLoader.getLoader().postHandler(req, resp); 
+```
 
 The framework was designed to be flexible enough to work with other Java frameworks seamlessly.
 
 **On Spark Java**
 
-
-	import static spark.Spark.*;
-				
-	public class KikBot {
-	    public static void main(String[] args) {
-			// called once.
-	    	KikBotMillLoader.getLoader().loadEntryPoint(new KikBotEntryPoint());
-	    	 
-	    	//	register post (use this as webhook url on the config entrypoint);
-        	post("/webhook", (request, response) -> {
-		    	KikBotMillLoader.getLoader().postHandler(req, resp); 
-			});
-	    }
-	}
+```java
+import static spark.Spark.*;
+			
+public class KikBot {
+    public static void main(String[] args) {
+		// called once.
+    	KikBotMillLoader.getLoader().loadEntryPoint(new KikBotEntryPoint());
+    	 
+    	//	register post (use this as webhook url on the config entrypoint);
+    	post("/webhook", (request, response) -> {
+	    	KikBotMillLoader.getLoader().postHandler(req, resp); 
+		});
+    }
+}
+```
 	
 **On Spring Boot**
 
-	@SpringBootApplication
-	public class KikBotConfiguration {
-	
-		public static void main(String[] args) {
-		    //	call the loader inside the Hell
-		    SpringApplication.run(KikBotConfiguration.class, args); 
-		    
-		    //	and load Entry Point.
-		    KikBotMillLoader.getLoader().loadEntryPoint(new KikBotEntryPoint());
-			
-		}
-	
-	}
-	
-	@Controller
-	public class RestfulSourceController {
+```java
 
-	    @Autowired
-	    Response response;
-	    
-		@Autowired
-	    Request request;
-	    
-	    @RequestMapping(value="/webhoolurl", method=RequestMethod.POST, produces="application/json")
-	    @ResponseBody
-	    public void post() {
-	        return KikBotMillLoader.getLoader().postHandler(request, response); 
-	    }
+@SpringBootApplication
+public class KikBotConfiguration {
 
+	public static void main(String[] args) {
+	    //	call the loader inside the Hell
+	    SpringApplication.run(KikBotConfiguration.class, args); 
+	    
+	    //	and load Entry Point.
+	    KikBotMillLoader.getLoader().loadEntryPoint(new KikBotEntryPoint());
+		
 	}
 
-**<h3>Technical Details</h3>**
-- Primarily compiled in Java 1.8
-- Hibernate Validators
-- GSON (Guava)
-- Apache Http Client (Http Components)
+}
+```
+
+```java	
+
+@Controller
+public class RestfulSourceController {
+
+    @Autowired
+    Response response;
+    
+	@Autowired
+    Request request;
+    
+    @RequestMapping(value="/webhoolurl", method=RequestMethod.POST, produces="application/json")
+    @ResponseBody
+    public void post() {
+        return KikBotMillLoader.getLoader().postHandler(request, response); 
+    }
+
+}
+
+```
 
 **<h3>What's currently supported</h3>**
 
