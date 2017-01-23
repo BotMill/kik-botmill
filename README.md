@@ -90,7 +90,7 @@ public class KikBotEntryPoint extends KikBotMillEntry {
 ```
 	
 Your domain holds all the actions of your Bot.  
-In the following example, the action will catch either a "hello" or "HELLO" response from the user and respond back a message "Hello from Bot!".  
+In the following example, the action will catch either a "hello" or "HELLO" response from the user and respond back a message "Hey <user>! How can I help you today?".  
 
 ```java
 
@@ -114,6 +114,12 @@ public class SampleDomain extends AbstractDomain {
 }
 
 ```
+
+<div>
+<div style="text-align:centered; width:100%;padding:5px; border:1px solid gray;">
+<img src="https://dl.dropboxusercontent.com/u/1737239/botmill/kik_sample.png" height="345" width="210" />&nbsp;
+</div>
+</div>
 
 Alternatively, if you're not using any XML file to initialize your context, you can always use the following methods.
 
