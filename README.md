@@ -68,7 +68,7 @@ public class KikBotEntryPoint extends KikBotMillEntry {
 		KikBotMillContext.getInstance().setup("<USERNAME>", "<APIKEY>");
 		
 		//	configuration.
-		ConfigurationBuilder.getInstance().setWebhook("<webhookurl>")
+		ConfigurationBuilder.getInstance().setWebhook("<webhook>/myKikBot")
 			.setManuallySendReadReceipts(false)
 			.setReceiveDeliveryReceipts(false)
 			.setReceiveIsTyping(true)
