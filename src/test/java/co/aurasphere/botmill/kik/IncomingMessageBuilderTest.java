@@ -40,8 +40,6 @@ import co.aurasphere.botmill.kik.builder.TextMessageBuilder;
 import co.aurasphere.botmill.kik.factory.EventFactory;
 import co.aurasphere.botmill.kik.factory.MessageFactory;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
-import co.aurasphere.botmill.kik.incoming.handler.JsonToActionFrameHandler;
-import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.incoming.model.TextMessage;
 import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.KeyboardType;
@@ -180,16 +178,19 @@ public class IncomingMessageBuilderTest {
 	public void testJsonLinkMessageParse() {
 	
 		ActionFrameBuilder.getInstance()
-		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
-		.addReply(new LinkMessageReply() {
-			
-			@Override
-			public LinkMessage processReply(Message message) {
-				return LinkMessageBuilder.getInstance().setTitle("Title").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
-						.build();
-			}
-		})
-		.buildToContext();
+			.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
+			.addReply(new LinkMessageReply() {
+				
+				@Override
+				public LinkMessage processReply(Message message) {
+					return LinkMessageBuilder.getInstance()
+							.setTitle("Title")
+							.setUrl("http://alvinjayreyes.com")
+							.setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+							.build();
+				}
+			})
+			.buildToContext();
 		
 
 		String json = "{\"messages\": [{\"body\": \":P\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \"hi\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";

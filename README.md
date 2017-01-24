@@ -125,7 +125,7 @@ public class SampleDomain extends AbstractDomain {
 
 The framework offers a set of builders and factories to build the perfect response of your bot. 
 
-Be it a Link or a Media (picture and video)  
+Be it a Link  
 
 ```java
 ActionFrameBuilder.getInstance()
@@ -138,11 +138,13 @@ ActionFrameBuilder.getInstance()
 	}).buildToContext();
 		
 ```
+
+or a Media (picture and video) 
+
 ```java
 ActionFrameBuilder.getInstance()
 	.setEvent(EventFactory.textMessagePattern("(?i:hello)")
 	.addReply(new LinkMessageReply() {
-
 		@Override
 		public LinkMessage processReply(Message message) {
 			return LinkMessageBuilder.getInstance()
@@ -154,6 +156,30 @@ ActionFrameBuilder.getInstance()
 	})
 	.buildToContext();
 ```
+
+with Keyboard
+
+```java
+ActionFrameBuilder.getInstance()
+	.setEvent(EventFactory.textMessagePattern("(?i:hello)")
+	.addReply(new LinkMessageReply() {
+		@Override
+		public LinkMessage processReply(Message message) {
+			return LinkMessageBuilder.getInstance()
+					.setTitle("Title")
+					.setUrl("http://alvinjayreyes.com")
+					.setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+					.addKeyboard(KeyboardBuilder.getInstance().setType(KeyboardType.SUGGESTED)
+						.addResponse(MessageFactory.createResponse("Make me a ChatBot!", ResponseType.TEXT))
+						.addResponse(MessageFactory.createResponse("What are ChatBots?", ResponseType.TEXT))
+						.addResponse(MessageFactory.createResponse("Milling Tools!", ResponseType.TEXT)).buildKeyboard()
+					)
+					.build();
+		}
+	})
+	.buildToContext();
+```
+
 
 **<h3>How to use it on other Java Frameworks</h3>**
 
