@@ -91,6 +91,7 @@ public class KikBotEntryPoint extends KikBotMillEntry {
 ```
 	
 Your domain holds all the actions of your Bot.  
+
 In the following example, the action will catch either a "hello" or "HELLO" response from the user and respond back a message "Hey <user>! How can I help you today?".  
 
 ```java
@@ -122,7 +123,41 @@ public class SampleDomain extends AbstractDomain {
 </div>
 </div>
 
-Alternatively, if you're not using any XML file to initialize your context, you can always use the following methods.
+The framework offers a set of builders and factories to build the perfect response of your bot. 
+
+Be it a Link or a Media (picture and video)  
+
+```java
+ActionFrameBuilder.getInstance()
+	.setEvent(EventFactory.textMessagePattern("(?i:hello)"))
+	.addReply(new PictureMessageReply() {
+			@Override
+			public PictureMessage processReply(Message message) {
+				return PictureMessageBuilder.getInstance().setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg").build();
+			}
+	}).buildToContext();
+		
+```
+```java
+ActionFrameBuilder.getInstance()
+	.setEvent(EventFactory.textMessagePattern("(?i:hello)")
+	.addReply(new LinkMessageReply() {
+
+		@Override
+		public LinkMessage processReply(Message message) {
+			return LinkMessageBuilder.getInstance()
+					.setTitle("Title")
+					.setUrl("http://alvinjayreyes.com")
+					.setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+					.build();
+		}
+	})
+	.buildToContext();
+```
+
+**<h3>How to use it on other Java Frameworks</h3>**
+
+The KikBotMillLoad class offers a set of static methods that can be accessto load Entry Points and catch WebHook URL POST Request.  
 
 ```java
 // Call this upon initialization of your app (should only be called once)
@@ -131,7 +166,6 @@ KikBotMillLoader.getLoader().loadEntryPoint(new KikBotEntryPoint());
 //	Call this on your callback url post handler (req = HttpRequest, Resp = HttpResponse).
 KikBotMillLoader.getLoader().postHandler(req, resp); 
 ```
-
 
 **On Spark Java**
 
@@ -214,6 +248,10 @@ Kik-BotMill supports this Kik Messenger Platform components:
 - Broadcasting
 - User Profiles
 - Kik Codes  
+
+**Coming Soon**
+- Broadcast Dashboard
+- Analytics Dashboard
 
 
 <sub>Copyright (c) 2017 BotMill.io</sub>
