@@ -88,7 +88,7 @@ public abstract class AbstractAnnotationDomain implements Domain {
 						textOrPattern = botMillController.pattern();
 					}
 					actionFrame.setEvent(toEvent(botMillController.event(),textOrPattern));
-					method.invoke(this,toEvent(botMillController.event(),textOrPattern));
+					method.invoke(this);
 					KikBotMillContext.getInstance().addActionFrameToContext(actionFrame);
 				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 					e.printStackTrace();
@@ -98,15 +98,8 @@ public abstract class AbstractAnnotationDomain implements Domain {
 		}
 	}
 	
-	/**
-	 * Reply.
-	 *
-	 * @param event the event
-	 * @param reply the reply
-	 */
-	public void reply(Event event, Reply<? extends Message> reply) {
+	public void reply(Reply<? extends Message> reply) {
 		actionFrame.addReply(reply);
-		System.out.println(actionFrame);
 	}
 	
 	/**

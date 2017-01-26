@@ -24,7 +24,8 @@ public class AnnotatedDomain extends AbstractAnnotationDomain {
 	
 	@BotMillController(event = EventType.TEXT_MESSAGE, text = "v")
 	public void replyText(Event event) {
-		reply(event, new LinkMessageReply() {
+		reply(
+				new LinkMessageReply() {
 			@Override
 			public LinkMessage processReply(Message message) {
 				return LinkMessageBuilder.getInstance().setTitle("Title").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
@@ -35,7 +36,7 @@ public class AnnotatedDomain extends AbstractAnnotationDomain {
 	
 	@BotMillController(event = EventType.TEXT_PATTERN, pattern = "(?i:hi)")
 	public void replyText1(Event event) {
-		reply(event, new LinkMessageReply() {
+		reply(new LinkMessageReply() {
 			@Override
 			public LinkMessage processReply(Message message) {
 				return LinkMessageBuilder.getInstance().setTitle("Title1").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
