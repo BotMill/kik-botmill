@@ -38,8 +38,8 @@ public interface Reply<T> {
 	/**
 	 * Process reply.
 	 *
-	 * @param message the message
+	 * @param incomingMessage the incoming message
 	 * @return the t
 	 */
-	T processReply(Message message);
+	T processReply(Message incomingMessage);
 }

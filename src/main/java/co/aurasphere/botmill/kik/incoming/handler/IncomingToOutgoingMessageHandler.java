@@ -32,11 +32,9 @@ import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.model.Frame;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessagePostback;
-import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.model.Reply;
 import co.aurasphere.botmill.kik.network.NetworkUtils;
 import co.aurasphere.botmill.kik.outgoing.model.OutgoingMessage;
-import co.aurasphere.botmill.kik.outgoing.reply.AnyReply;
 import co.aurasphere.botmill.kik.outgoing.reply.IsTypingReply;
 import co.aurasphere.botmill.kik.outgoing.reply.LinkMessageReply;
 import co.aurasphere.botmill.kik.outgoing.reply.PictureMessageReply;
@@ -48,6 +46,16 @@ import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 /**
  * The Class IncomingToOutgoingMessageHandler.
  * 
+ * This class handles the in between process of handling the incoming message and outgoing
+ * messages. In the code of this class is a method that catches all the POST request from
+ * Kik, convert that into Java Objects which is then pass through the handler.
+ * 
+ * The handler checks for any matching conditions. This is done by iterating through the list of
+ * action frames (from the specified domains). Once a match is found, the designated Reply object
+ * is executed that constructs the Outgoing message to Kik passing the ChatID and To values 
+ * from the incoming messages.
+ * 
+ * This is the core handler between Kik and the Kik-BotMill.
  * @author Alvin P. Reyes
  */
 public class IncomingToOutgoingMessageHandler {
@@ -80,7 +88,7 @@ public class IncomingToOutgoingMessageHandler {
 	}
 
 	/**
-	 * Process.
+	 * Process the incoming message.
 	 *
 	 * @param message
 	 *            the message

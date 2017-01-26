@@ -96,7 +96,7 @@ public class KikBotMillContext {
 	}
 
 	/**
-	 * Get the list of domains.
+	 * Method to get all available domains created by the developer.
 	 *
 	 * @return list of {@link Domain}
 	 */
@@ -105,7 +105,7 @@ public class KikBotMillContext {
 	}
 
 	/**
-	 * Get the list of action frames.
+	 * Method to get all available action frames created by the developer.
 	 *
 	 * @return list of {@link ActionFrame}
 	 */

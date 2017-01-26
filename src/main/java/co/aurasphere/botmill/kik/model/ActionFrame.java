@@ -79,6 +79,17 @@ public class ActionFrame extends AbstractFrame implements Frame, Serializable {
 	public void addReplies(List<Reply<? extends Message>> reply) {
 		this.replies.addAll(reply);
 	}
+	
+	/**
+	 * Adds the replies.
+	 *
+	 * @param replies the replies
+	 */
+	public void addReplies(@SuppressWarnings("unchecked") Reply<? extends Message>... replies) {
+		for(Reply<? extends Message> reply:replies) {
+			this.replies.add(reply);
+		}
+	}
 
 	/**
 	 * Adds the pre command.

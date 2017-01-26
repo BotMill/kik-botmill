@@ -23,22 +23,37 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.incoming.event.annotation;
-
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+package co.aurasphere.botmill.kik.incoming.event;
 
 /**
- * The Interface AnyEvent.
+ * The Enum EventType.
  */
-@Documented
-@Target(ElementType.METHOD)
-@Inherited
-@Retention(RetentionPolicy.RUNTIME)
-public @interface AnyEvent {
+public enum EventType {
 	
+	/** The any. */
+	ANY, 
+ /** The delivery receipt. */
+ DELIVERY_RECEIPT, 
+ /** The friend picker. */
+ FRIEND_PICKER, 
+ /** The is typing. */
+ IS_TYPING, 
+ /** The link. */
+ LINK, 
+ /** The mention. */
+ MENTION, 
+ /** The picture. */
+ PICTURE, 
+ /** The scan data. */
+ SCAN_DATA, 
+ /** The start chatting. */
+ START_CHATTING, 
+ /** The sticker. */
+ STICKER, 
+ /** The text message. */
+ TEXT_MESSAGE, 
+ /** The text pattern. */
+ TEXT_PATTERN, 
+ /** The video. */
+ VIDEO
 }

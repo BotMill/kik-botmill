@@ -52,6 +52,11 @@ public class ActionFrameBuilder implements Buildable<ActionFrame>{
 	private static ActionFrameBuilder instance;
 	
 	/**
+	 * Instantiates a new action frame builder.
+	 */
+	private ActionFrameBuilder() {}
+	
+	/**
 	 * Creates the action.
 	 *
 	 * @return the action frame builder
@@ -94,6 +99,17 @@ public class ActionFrameBuilder implements Buildable<ActionFrame>{
 	 * @return the action frame builder
 	 */
 	public ActionFrameBuilder addReplies(List<Reply<? extends Message>> replies) {
+		actionFrame.addReplies(replies);
+		return this;
+	}
+	
+	/**
+	 * Adds the replies.
+	 *
+	 * @param replies the replies
+	 * @return the action frame builder
+	 */
+	public ActionFrameBuilder addReplies(@SuppressWarnings("unchecked") Reply<? extends Message>... replies) {
 		actionFrame.addReplies(replies);
 		return this;
 	}
@@ -159,4 +175,5 @@ public class ActionFrameBuilder implements Buildable<ActionFrame>{
 	public ActionFrame build() {
 		return actionFrame;
 	}
+	
 }

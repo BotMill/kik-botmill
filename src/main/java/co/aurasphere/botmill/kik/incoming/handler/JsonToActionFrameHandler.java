@@ -38,8 +38,6 @@ import co.aurasphere.botmill.kik.incoming.handler.model.JsonAction;
 import co.aurasphere.botmill.kik.incoming.handler.model.JsonReply;
 import co.aurasphere.botmill.kik.incoming.handler.model.JsonToActionFrame;
 import co.aurasphere.botmill.kik.json.JsonUtils;
-import co.aurasphere.botmill.kik.model.ActionFrame;
-import co.aurasphere.botmill.kik.model.Event;
 import co.aurasphere.botmill.kik.model.Frame;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.Reply;
@@ -49,11 +47,17 @@ import co.aurasphere.botmill.kik.outgoing.model.PictureMessage;
 import co.aurasphere.botmill.kik.outgoing.model.VideoMessage;
 import co.aurasphere.botmill.kik.outgoing.reply.LinkMessageReply;
 import co.aurasphere.botmill.kik.outgoing.reply.PictureMessageReply;
-import co.aurasphere.botmill.kik.outgoing.reply.TextMessageReply;
 import co.aurasphere.botmill.kik.outgoing.reply.VideoMessageReply;
 
 /**
  * The Class JsonToActionFrameHandler.
+ * 
+ * This class is use to handle the JSON Data from an external source (with a conditional format)
+ * that in turn converts it to a Kik-BotMill Action Frame. 
+ * 
+ * The way it works is, when the developer specify a JSON reply (format below). The handler uses 
+ * that information to create an Action Frame which can then be used by the Kik ChatBot.
+ * 
  * 
  * @author Alvin P. Reyes
  */
@@ -66,7 +70,7 @@ public class JsonToActionFrameHandler {
 	private static final String CONST_PATTERN = "pattern";
 
 	/**
-	 * Json to text message reply.
+	 * This method is called to convert the JSON Response to an actual Kik-BotMill Action Frame.
 	 *
 	 * @param jsonUrl
 	 *            the json url. 
@@ -90,7 +94,7 @@ public class JsonToActionFrameHandler {
 	 *	}
 	 * @return the list
 	 */
-	public static List<Frame> jsonToFrameReply(String jsonUrl) {
+	public static List<Frame> jsonFrameToActionFrame(String jsonUrl) {
 
 		List<Frame> list = new ArrayList<Frame>();
 		String json = NetworkUtils.get(jsonUrl);
@@ -111,7 +115,7 @@ public class JsonToActionFrameHandler {
 	}
 	
 	/**
-	 * Process replies.
+	 * This method is used to create replies based off on {@link JsonAction} object.
 	 *
 	 * @param jaction the jaction
 	 * @return the list< reply<? extends message>>

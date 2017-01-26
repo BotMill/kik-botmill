@@ -29,8 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
-
-import co.aurasphere.botmill.kik.model.Attribution;
 import co.aurasphere.botmill.kik.model.Keyboard;
 import co.aurasphere.botmill.kik.model.MediaAttribution;
 

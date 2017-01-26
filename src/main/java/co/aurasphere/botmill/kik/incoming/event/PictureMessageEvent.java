@@ -37,10 +37,19 @@ import co.aurasphere.botmill.kik.model.MessageType;
  */
 public class PictureMessageEvent implements Event {
 	
+	/** The incoming picture message. */
 	private PictureMessage incomingPictureMessage = null;
 	
+	/**
+	 * Instantiates a new picture message event.
+	 */
 	public PictureMessageEvent() {}
 	
+	/**
+	 * Instantiates a new picture message event.
+	 *
+	 * @param incomingPictureMessage the incoming picture message
+	 */
 	public PictureMessageEvent(PictureMessage incomingPictureMessage) {
 		this.incomingPictureMessage = incomingPictureMessage;
 	}

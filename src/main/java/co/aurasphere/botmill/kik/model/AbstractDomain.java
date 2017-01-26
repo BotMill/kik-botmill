@@ -28,44 +28,21 @@ package co.aurasphere.botmill.kik.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.aurasphere.botmill.kik.incoming.event.TextMessageEvent;
-
 /**
  * The Class AbstractDomain.
  * 
  * @author Alvin P. Reyes
  */
 public abstract class AbstractDomain implements Domain {
-	
+
 	/** The action frames. */
 	List<Frame> actionFrames;
-	
+
 	/**
 	 * Instantiates a new abstract domain.
 	 */
 	public AbstractDomain() {
 		this.actionFrames = new ArrayList<Frame>();
 		this.buildDomain();
-		this.sortContextBuckets();
 	}
-	
-	/**
-	 * Adds the action frame.
-	 *
-	 * @param actionFrame the action frame
-	 */
-	public void addActionFrame(Frame actionFrame) {
-		if(actionFrame.getEvent() instanceof TextMessageEvent) {
-			//	add to text message buckets.
-		}
-		this.actionFrames.add(actionFrame);
-	}
-	
-	/**
-	 * Sort context buckets.
-	 */
-	protected void sortContextBuckets(){
-	}
-
-	
 }

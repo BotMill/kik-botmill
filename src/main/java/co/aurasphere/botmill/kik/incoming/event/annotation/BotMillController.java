@@ -31,20 +31,34 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
+import co.aurasphere.botmill.kik.incoming.event.EventType;
 /**
- * The Interface TextMessagePatternEvent.
+ * The Interface Event.
  */
 @Documented
 @Target(ElementType.METHOD)
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-public @interface TextMessagePatternEvent {
+public @interface BotMillController {
+	
+	/**
+	 * Event.
+	 *
+	 * @return the event type
+	 */
+	EventType event() default EventType.TEXT_MESSAGE;
+	
+	/**
+	 * Text.
+	 *
+	 * @return the string
+	 */
+	String text() default "";
 	
 	/**
 	 * Pattern.
 	 *
 	 * @return the string
 	 */
-	String pattern();
+	String pattern() default "";
 }

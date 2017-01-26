@@ -34,6 +34,8 @@ import co.aurasphere.botmill.kik.model.MessageType;
  */
 public class IsTypingMessage extends OutgoingMessage {
 	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 	/** The is typing. */
 	private boolean isTyping;
 	

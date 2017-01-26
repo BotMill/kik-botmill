@@ -26,7 +26,6 @@
 package co.aurasphere.botmill.kik.incoming.event;
 
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
-import co.aurasphere.botmill.kik.incoming.model.LinkMessage;
 import co.aurasphere.botmill.kik.incoming.model.VideoMessage;
 import co.aurasphere.botmill.kik.model.Event;
 import co.aurasphere.botmill.kik.model.MessageType;

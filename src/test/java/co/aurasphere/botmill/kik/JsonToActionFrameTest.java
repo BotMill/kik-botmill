@@ -65,7 +65,7 @@ public class JsonToActionFrameTest {
 	 */
 	@Test
 	public void testBasicJsonToActionFrame() {
-		List<Frame> actionFrames = JsonToActionFrameHandler.jsonToFrameReply("http://technowebhub.com/json_sample.json");
+		List<Frame> actionFrames = JsonToActionFrameHandler.jsonFrameToActionFrame("http://technowebhub.com/json_sample.json");
 		
 		String json = "{\"messages\": [{\"body\": \"who created you?\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \"hi\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
 		MessageCallback m = JsonUtils.fromJson(json,MessageCallback.class);

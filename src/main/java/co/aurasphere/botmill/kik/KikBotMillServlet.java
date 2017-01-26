@@ -36,6 +36,9 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class KikBotServlet.
  * 
+ * This is the main servlet that Java Web App can call to handle post and initialize the 
+ * Entry Points.
+ * 
  * @author Alvin P. Reyes
  */
 public class KikBotMillServlet extends HttpServlet {

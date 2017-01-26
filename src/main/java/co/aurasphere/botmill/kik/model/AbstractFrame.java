@@ -65,7 +65,7 @@ public abstract class AbstractFrame {
 	 */
 	protected void processPreCommands() {
 		for(Command preCommand : preCommands) {
-			
+			preCommand.run();
 		}
 	}
 	
@@ -74,7 +74,7 @@ public abstract class AbstractFrame {
 	 */
 	protected void processPostCommands() {
 		for(Command postCommand : postCommands) {
-			
+			postCommand.run();
 		}
 	}
 }

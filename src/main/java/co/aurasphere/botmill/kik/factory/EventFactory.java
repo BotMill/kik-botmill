@@ -78,6 +78,7 @@ public class EventFactory {
 	/**
 	 * Picture.
 	 *
+	 * @param incomingPictureMessage the incoming picture message
 	 * @return the picture message event
 	 */
 	public static PictureMessageEvent picture(PictureMessage incomingPictureMessage){

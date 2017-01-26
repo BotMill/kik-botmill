@@ -28,7 +28,7 @@ package co.aurasphere.botmill.kik.incoming.model;
 import java.util.List;
 
 /**
- * The Class ScanDataMessage.
+ * The Class DeliveryReceiptMessage.
  * 
  * @author Alvin P. Reyes
  */
