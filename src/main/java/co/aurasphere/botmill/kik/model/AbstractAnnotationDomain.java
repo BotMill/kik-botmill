@@ -56,6 +56,7 @@ public abstract class AbstractAnnotationDomain implements Domain {
 	/** The method map. */
 	Map<String,Reply<? extends Message>> methodMap = new HashMap<String,Reply<? extends Message>>();
 	
+	/** The action frame. */
 	private ActionFrame actionFrame;
 
 	/* (non-Javadoc)
@@ -98,6 +99,11 @@ public abstract class AbstractAnnotationDomain implements Domain {
 		}
 	}
 	
+	/**
+	 * Reply.
+	 *
+	 * @param reply the reply
+	 */
 	public void reply(Reply<? extends Message> reply) {
 		actionFrame.addReply(reply);
 	}
@@ -106,6 +112,7 @@ public abstract class AbstractAnnotationDomain implements Domain {
 	 * To event.
 	 *
 	 * @param eventType the event type
+	 * @param textOrPattern the text or pattern
 	 * @return the event
 	 */
 	private Event toEvent(EventType eventType, String textOrPattern) {

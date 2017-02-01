@@ -201,6 +201,15 @@ public class KikBotMillContext {
 	public void registerDomain(Domain domain) {
 		this.domains.add(domain);
 	}
+	
+	/**
+	 * Register annotated domain.
+	 *
+	 * @param domain the domain
+	 */
+	public void registerAnnotatedDomain(Domain domain) {
+		
+	}
 
 	/**
 	 * Adds the action frame to context.
