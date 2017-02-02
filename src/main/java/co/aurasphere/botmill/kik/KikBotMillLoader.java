@@ -44,6 +44,9 @@ import co.aurasphere.botmill.kik.model.MessageCallback;
  * Wrapper class that can be used to load the entry point and catch all post request
  * from Kik.
  * 
+ * This was developed to separate the process loader of Kik chatbot initialization and 
+ * webhook post request processing.
+ * 
  * @author Alvin P. Reyes
  */
 public class KikBotMillLoader {

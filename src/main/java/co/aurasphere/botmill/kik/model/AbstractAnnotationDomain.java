@@ -30,6 +30,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import co.aurasphere.botmill.kik.KikBotMillContext;
+import co.aurasphere.botmill.kik.exception.KikBotMillException;
+import co.aurasphere.botmill.kik.exception.KikError;
+import co.aurasphere.botmill.kik.exception.KikErrorMessage;
 import co.aurasphere.botmill.kik.incoming.event.AnyEvent;
 import co.aurasphere.botmill.kik.incoming.event.DeliveryReceiptEvent;
 import co.aurasphere.botmill.kik.incoming.event.EventType;
@@ -45,6 +48,7 @@ import co.aurasphere.botmill.kik.incoming.event.TextMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.TextMessagePatternEvent;
 import co.aurasphere.botmill.kik.incoming.event.VideoMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillController;
+import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillDomain;
 
 /**
  * The Class AbstractDomain.
@@ -69,33 +73,46 @@ public abstract class AbstractAnnotationDomain implements Domain {
 	 * Instantiates a new abstract domain.
 	 */
 	public AbstractAnnotationDomain() {
-		this.buildAnnotatedDomain();
+		try {
+			this.buildAnnotatedDomain();
+		} catch (KikBotMillException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * Builds the annotated domain.
+	 * @throws KikBotMillException 
 	 */
-	public void buildAnnotatedDomain() {
+	public void buildAnnotatedDomain() throws KikBotMillException {
 		Method[] methods = this.getClass().getMethods();
-		for (Method method : methods) {
-			if (method.isAnnotationPresent(BotMillController.class)) {
-				BotMillController botMillController = method.getAnnotation(BotMillController.class);
-				try {
-					actionFrame = new ActionFrame();
-					String textOrPattern = "";
-					if(!botMillController.text().equals("")) {
-						textOrPattern = botMillController.text();
-					}else {
-						textOrPattern = botMillController.pattern();
+		System.out.println(this.getClass().isAnnotationPresent(BotMillDomain.class));
+		//	check first if this class is BotMillDomain annotated, if not, throw error.
+		if(!this.getClass().isAnnotationPresent(BotMillDomain.class)) {
+			throw new KikBotMillException("Domain is not BotMillDomain annotated. Make sure the class " + this.getClass().getName() + " is annotated properly.");
+		}else {	//	if annotation is present.
+			for (Method method : methods) {
+				if (method.isAnnotationPresent(BotMillController.class)) {
+					BotMillController botMillController = method.getAnnotation(BotMillController.class);
+					try {
+						actionFrame = new ActionFrame();
+						String textOrPattern = "";
+						if(!botMillController.text().equals("")) {
+							textOrPattern = botMillController.text();
+						}else {
+							textOrPattern = botMillController.pattern();
+						}
+						//	set the event.
+						actionFrame.setEvent(toEvent(botMillController.event(),textOrPattern));
+						method.invoke(this);	// invoke the method.
+						
+						//	add the action frame to the context.
+						KikBotMillContext.getInstance().addActionFrameToContext(actionFrame);
+					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+						e.printStackTrace();
 					}
-					actionFrame.setEvent(toEvent(botMillController.event(),textOrPattern));
-					method.invoke(this);
-					KikBotMillContext.getInstance().addActionFrameToContext(actionFrame);
-				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-					e.printStackTrace();
 				}
 			}
-			
 		}
 	}
 	
@@ -144,6 +161,6 @@ public abstract class AbstractAnnotationDomain implements Domain {
 		case VIDEO:
 			return new VideoMessageEvent();
 		}
-		return null;
+		return null; // it's impossible to have a null event, but if it does happen, it will be ignored on the handler.
 	}
 }

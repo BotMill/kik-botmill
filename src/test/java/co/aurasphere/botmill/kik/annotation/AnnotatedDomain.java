@@ -34,6 +34,7 @@ import co.aurasphere.botmill.kik.factory.MessageFactory;
 import co.aurasphere.botmill.kik.factory.ReplyFactory;
 import co.aurasphere.botmill.kik.incoming.event.EventType;
 import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillController;
+import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillDomain;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.json.JsonUtils;
@@ -51,9 +52,9 @@ import co.aurasphere.botmill.kik.outgoing.reply.LinkMessageReply;
 /**
  * The Class AnnotatedDomain.
  */
+@BotMillDomain
 public class AnnotatedDomain extends AbstractAnnotationDomain {
 
-	
 	/**
 	 * Reply text.
 	 *
@@ -61,8 +62,7 @@ public class AnnotatedDomain extends AbstractAnnotationDomain {
 	 */
 	@BotMillController(event = EventType.TEXT_MESSAGE, text = "v")
 	public void replyText() {
-		reply(
-				new LinkMessageReply() {
+		reply(new LinkMessageReply() {
 			@Override
 			public LinkMessage processReply(Message message) {
 				return LinkMessageBuilder.getInstance().setTitle("Title").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
