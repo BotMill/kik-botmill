@@ -55,7 +55,7 @@ import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillDomain;
  * 
  * @author Alvin P. Reyes
  */
-public abstract class AbstractAnnotationDomain implements Domain {
+public abstract class AbstractAnnotatedDomain implements Domain {
 
 	/** The method map. */
 	Map<String,Reply<? extends Message>> methodMap = new HashMap<String,Reply<? extends Message>>();
@@ -72,9 +72,10 @@ public abstract class AbstractAnnotationDomain implements Domain {
 	/**
 	 * Instantiates a new abstract domain.
 	 */
-	public AbstractAnnotationDomain() {
+	public AbstractAnnotatedDomain() {
 		try {
 			this.buildAnnotatedDomain();
+			this.buildDomain();
 		} catch (KikBotMillException e) {
 			e.printStackTrace();
 		}
@@ -82,7 +83,8 @@ public abstract class AbstractAnnotationDomain implements Domain {
 	
 	/**
 	 * Builds the annotated domain.
-	 * @throws KikBotMillException 
+	 *
+	 * @throws KikBotMillException the kik bot mill exception
 	 */
 	public void buildAnnotatedDomain() throws KikBotMillException {
 		Method[] methods = this.getClass().getMethods();

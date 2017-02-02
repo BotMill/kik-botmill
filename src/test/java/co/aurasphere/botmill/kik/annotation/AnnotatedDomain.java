@@ -29,21 +29,17 @@ import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
 import co.aurasphere.botmill.kik.builder.KeyboardBuilder;
 import co.aurasphere.botmill.kik.builder.LinkMessageBuilder;
-import co.aurasphere.botmill.kik.builder.TextMessageBuilder;
 import co.aurasphere.botmill.kik.factory.MessageFactory;
 import co.aurasphere.botmill.kik.factory.ReplyFactory;
 import co.aurasphere.botmill.kik.incoming.event.EventType;
 import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillController;
 import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillDomain;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
-import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.json.JsonUtils;
-import co.aurasphere.botmill.kik.model.AbstractAnnotationDomain;
-import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.AbstractAnnotatedDomain;
 import co.aurasphere.botmill.kik.model.KeyboardType;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessageCallback;
-import co.aurasphere.botmill.kik.model.Reply;
 import co.aurasphere.botmill.kik.model.ResponseType;
 import co.aurasphere.botmill.kik.network.NetworkUtils;
 import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
@@ -53,7 +49,7 @@ import co.aurasphere.botmill.kik.outgoing.reply.LinkMessageReply;
  * The Class AnnotatedDomain.
  */
 @BotMillDomain
-public class AnnotatedDomain extends AbstractAnnotationDomain {
+public class AnnotatedDomain extends AbstractAnnotatedDomain {
 
 	/**
 	 * Reply text.
@@ -91,6 +87,7 @@ public class AnnotatedDomain extends AbstractAnnotationDomain {
 	public void replyText2() {
 		reply(ReplyFactory.buildTextMessageReply("yeaaasss"));	
 	}
+
 	
 	/**
 	 * The main method.
