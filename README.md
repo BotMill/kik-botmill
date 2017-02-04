@@ -184,9 +184,42 @@ actionFrameBuilder()
 	.buildToContext();
 ```
 
+**Prefer annotations?**
+Alternatively, you can also use @BotMillDomain and @BotMillController to your designated method and create the reply.
+
+```java
+@BotMillDomain
+public class SampleDomain extends AbstractDomain {
+
+	@BotMillController(event = EventType.TEXT_MESSAGE, text = "Hello")
+	public void replyText() {
+		reply(new LinkMessageReply() {
+			@Override
+			public LinkMessage processReply(Message message) {
+				return LinkMessageBuilder.getInstance().setTitle("Title").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+						.build();
+			}
+		});
+	}
+
+	@BotMillController(event = EventType.TEXT_PATTERN, pattern = "(?i:hi)")
+	public void replyText1() {
+		reply(new LinkMessageReply() {
+			@Override
+			public LinkMessage processReply(Message message) {
+				return LinkMessageBuilder.getInstance().setTitle("Title1").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+						.build();
+			}
+		});
+	}
+}
+
+```
+
+
 **<h3>How to use it on other Java Frameworks</h3>**
 
-The KikBotMillLoad class offers a set of static methods that can be accessto load Entry Points and catch WebHook URL POST Request.  
+The KikBotMillLoad class offers a set of static methods that can be access to load Entry Points and catch WebHook URL POST Request.  
 
 ```java
 // Call this upon initialization of your app (should only be called once)
