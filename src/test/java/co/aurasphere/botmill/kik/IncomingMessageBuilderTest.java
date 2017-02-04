@@ -184,7 +184,7 @@ public class IncomingMessageBuilderTest {
 				@Override
 				public LinkMessage processReply(Message message) {
 					return LinkMessageBuilder.getInstance()
-							.setTitle("Title")
+							.setTitle("This is a link title")
 							.setUrl("http://alvinjayreyes.com")
 							.setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
 							.build();

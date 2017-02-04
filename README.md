@@ -129,15 +129,24 @@ Be it a Link
 
 ```java
 actionFrameBuilder()
-	.setEvent(EventFactory.textMessagePattern("(?i:hello)"))
-	.addReply(new PictureMessageReply() {
-			@Override
-			public PictureMessage processReply(Message message) {
-				return PictureMessageBuilder.getInstance().setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg").build();
-			}
-	}).buildToContext();
-		
+	.setEvent(EventFactory.textMessage("hi"))
+	.addReply(new LinkMessageReply() {
+		@Override
+		public LinkMessage processReply(Message message) {
+			return LinkMessageBuilder.getInstance()
+					.setTitle("This is a link title")
+					.setUrl("http://alvinjayreyes.com")
+					.setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+					.build();
+		}
+	})
+	.buildToContext();
 ```
+<div>
+<div style="text-align:centered; width:100%;padding:5px; border:1px solid gray;">
+<img src="https://dl.dropboxusercontent.com/u/1737239/botmill/kik_image_crop.png" height="345" width="210" />&nbsp;
+</div>
+</div>
 
 or a Media (picture and video) 
 
@@ -179,7 +188,11 @@ actionFrameBuilder()
 	})
 	.buildToContext();
 ```
-
+<div>
+<div style="text-align:centered; width:100%;padding:5px; border:1px solid gray;">
+<img src="https://dl.dropboxusercontent.com/u/1737239/botmill/keyboard_kik2.png" height="345" width="210" />&nbsp;
+</div>
+</div>
 
 **<h3>How to use it on other Java Frameworks</h3>**
 
