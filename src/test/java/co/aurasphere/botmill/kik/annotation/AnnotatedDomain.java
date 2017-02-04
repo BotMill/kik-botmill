@@ -53,8 +53,6 @@ public class AnnotatedDomain extends AbstractAnnotatedDomain {
 
 	/**
 	 * Reply text.
-	 *
-	 * @param event the event
 	 */
 	@BotMillController(event = EventType.TEXT_MESSAGE, text = "v")
 	public void replyText() {
@@ -69,8 +67,6 @@ public class AnnotatedDomain extends AbstractAnnotatedDomain {
 	
 	/**
 	 * Reply text 1.
-	 *
-	 * @param event the event
 	 */
 	@BotMillController(event = EventType.TEXT_PATTERN, pattern = "(?i:hi11)")
 	public void replyText1() {
@@ -83,6 +79,9 @@ public class AnnotatedDomain extends AbstractAnnotatedDomain {
 		});
 	}
 	
+	/**
+	 * Reply text 2.
+	 */
 	@BotMillController(event = EventType.ANY)
 	public void replyText2() {
 		reply(ReplyFactory.buildTextMessageReply("yeaaasss"));	

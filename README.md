@@ -95,13 +95,13 @@ Your domain holds all the actions of your Bot.
 In the following example, the action will catch either a "hello" or "HELLO" response from the user and respond back a message "Hey <user>! How can I help you today?".  
 
 ```java
-
+@BotMillDomain
 public class SampleDomain extends AbstractDomain {
 
 	@Override
 	public void buildDomain() {
 	
-		ActionFrameBuilder.getInstance()
+		actionFrameBuilder()
 			.setEvent(EventFactory .textMessagePattern("(?i:hello)"))
 			.addReply(new TextMessageReply() {
 				@Override
@@ -128,7 +128,7 @@ The framework offers a set of builders and factories to build the perfect respon
 Be it a Link  
 
 ```java
-ActionFrameBuilder.getInstance()
+actionFrameBuilder()
 	.setEvent(EventFactory.textMessagePattern("(?i:hello)"))
 	.addReply(new PictureMessageReply() {
 			@Override
@@ -142,7 +142,7 @@ ActionFrameBuilder.getInstance()
 or a Media (picture and video) 
 
 ```java
-ActionFrameBuilder.getInstance()
+actionFrameBuilder()
 	.setEvent(EventFactory.textMessagePattern("(?i:hello)")
 	.addReply(new LinkMessageReply() {
 		@Override
@@ -160,7 +160,7 @@ ActionFrameBuilder.getInstance()
 with Keyboard
 
 ```java
-ActionFrameBuilder.getInstance()
+actionFrameBuilder()
 	.setEvent(EventFactory.textMessagePattern("(?i:hello)")
 	.addReply(new LinkMessageReply() {
 		@Override

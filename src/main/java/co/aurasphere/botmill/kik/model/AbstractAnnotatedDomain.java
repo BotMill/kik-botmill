@@ -31,8 +31,6 @@ import java.util.HashMap;
 import java.util.Map;
 import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.exception.KikBotMillException;
-import co.aurasphere.botmill.kik.exception.KikError;
-import co.aurasphere.botmill.kik.exception.KikErrorMessage;
 import co.aurasphere.botmill.kik.incoming.event.AnyEvent;
 import co.aurasphere.botmill.kik.incoming.event.DeliveryReceiptEvent;
 import co.aurasphere.botmill.kik.incoming.event.EventType;
@@ -57,9 +55,6 @@ import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillDomain;
  */
 public abstract class AbstractAnnotatedDomain implements Domain {
 
-	/** The method map. */
-	Map<String,Reply<? extends Message>> methodMap = new HashMap<String,Reply<? extends Message>>();
-	
 	/** The action frame. */
 	private ActionFrame actionFrame;
 
