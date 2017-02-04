@@ -123,7 +123,7 @@ public class SampleDomain extends AbstractDomain {
 </div>
 </div>
 
-The framework offers a set of builders and factories to build the perfect response of your bot. 
+**The framework offers a set of builders and factories to build the perfect response of your bot.**
 
 Be it a Link  
 
@@ -142,11 +142,6 @@ actionFrameBuilder()
 	})
 	.buildToContext();
 ```
-<div>
-<div style="text-align:centered; width:100%;padding:5px; border:1px solid gray;">
-<img src="https://dl.dropboxusercontent.com/u/1737239/botmill/kik_image_crop.png" height="345" width="210" />&nbsp;
-</div>
-</div>
 
 or a Media (picture and video) 
 
@@ -188,11 +183,6 @@ actionFrameBuilder()
 	})
 	.buildToContext();
 ```
-<div>
-<div style="text-align:centered; width:100%;padding:5px; border:1px solid gray;">
-<img src="https://dl.dropboxusercontent.com/u/1737239/botmill/keyboard_kik2.png" height="345" width="210" />&nbsp;
-</div>
-</div>
 
 **<h3>How to use it on other Java Frameworks</h3>**
 
