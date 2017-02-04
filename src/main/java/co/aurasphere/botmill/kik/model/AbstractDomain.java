@@ -83,7 +83,7 @@ public abstract class AbstractDomain implements Domain {
 	 *
 	 * @throws KikBotMillException the kik bot mill exception
 	 */
-	public void buildAnnotatedDomain() throws KikBotMillException {
+	protected void buildAnnotatedDomain() throws KikBotMillException {
 		Method[] methods = this.getClass().getMethods();
 		//	check first if this class is BotMillDomain annotated, if not, throw error.
 		if(!this.getClass().isAnnotationPresent(BotMillDomain.class)) {
@@ -119,7 +119,7 @@ public abstract class AbstractDomain implements Domain {
 	 *
 	 * @param reply the reply
 	 */
-	public final void reply(Reply<? extends Message> reply) {
+	protected final void reply(Reply<? extends Message> reply) {
 		actionFrame.addReply(reply);
 	}
 	
@@ -130,7 +130,7 @@ public abstract class AbstractDomain implements Domain {
 	 * @param event the event
 	 * @param reply the reply
 	 */
-	public final void addActionFrame(Event event, Reply<? extends Message> reply) {
+	protected final void addActionFrame(Event event, Reply<? extends Message> reply) {
 		ActionFrameBuilder.getInstance().setEvent(event).addReply(reply)
 		.buildToContext();
 	}
@@ -141,7 +141,7 @@ public abstract class AbstractDomain implements Domain {
 	 * @param event the event
 	 * @param replies the replies
 	 */
-	public final void addActionFrame(Event event, List<Reply<? extends Message>> replies) {
+	protected final void addActionFrame(Event event, List<Reply<? extends Message>> replies) {
 		ActionFrameBuilder.getInstance().setEvent(event).addReplies(replies)
 		.buildToContext();
 	}
@@ -152,7 +152,7 @@ public abstract class AbstractDomain implements Domain {
 	 * @param event the event
 	 * @param replies the replies
 	 */
-	public final void addActionFrame(Event event, Reply<? extends Message>... replies) {
+	protected final void addActionFrame(Event event, Reply<? extends Message>... replies) {
 		ActionFrameBuilder.getInstance().setEvent(event).addReplies(replies)
 		.buildToContext();
 	}
@@ -162,7 +162,7 @@ public abstract class AbstractDomain implements Domain {
 	 *
 	 * @return the action frame builder
 	 */
-	public ActionFrameBuilder actionFrameBuilder() {
+	protected ActionFrameBuilder actionFrameBuilder() {
 		return ActionFrameBuilder.getInstance();
 	}
 	
