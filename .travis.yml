@@ -9,4 +9,4 @@ branches:
   - master
 
 script:
-  - mvn clean install
+  - mvn clean install deploy
