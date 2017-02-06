@@ -55,7 +55,7 @@ import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillDomain;
  * 
  * @author Alvin P. Reyes
  */
-public abstract class AbstractDomain implements Domain {
+public abstract class AbstractKikBot implements Domain {
 
 	/** The action frame. */
 	private ActionFrame actionFrame;
@@ -63,7 +63,7 @@ public abstract class AbstractDomain implements Domain {
 	/**
 	 * Instantiates a new abstract domain.
 	 */
-	public AbstractDomain() {
+	public AbstractKikBot() {
 		try {
 			this.buildAnnotatedDomain();
 			this.buildDomain();

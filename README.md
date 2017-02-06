@@ -83,38 +83,33 @@ public class KikBotEntryPoint extends KikBotMillEntry {
 		.buildConfiguration();
 			
 		//	Domain > collection of responses
-		KikBotMillContext.getInstance().registerDomain(new SampleDomain());
+		KikBotMillContext.getInstance().registerDomain(new SampleKikBot());
 		
 	}
 }
 
 ```
-	
+
 Your domain holds all the actions of your Bot.  
 
-In the following example, the action will catch either a "hello" or "HELLO" response from the user and respond back a message "Hey <user>! How can I help you today?".  
+In the following example, the action will catch either a "hello" or "HELLO" response from the user and respond back a message "Hey <user>! How can I help you today?".
 
 ```java
-@BotMillDomain
-public class SampleDomain extends AbstractDomain {
+public class SampleKikBot extends AbstractKikBot {
 
-	@Override
-	public void buildDomain() {
-	
-		actionFrameBuilder()
-			.setEvent(EventFactory .textMessagePattern("(?i:hello)"))
-			.addReply(new TextMessageReply() {
-				@Override
-				public TextMessage processReply(Message message) {
-					return TextMessageBuilder.getInstance()
-							.setBody("Hey " + ((IncomingMessage) message).getFrom() + "! How can I help you today?")
-							.build();
-				}
-			}).buildToContext();
-		
+	@BotMillController(event = EventType.TEXT_PATTERN, pattern = "(?i:hello)")
+	public void replyCatchTextPattern() {
+		reply(new TextMessageReply() {
+			@Override
+			public TextMessage processReply(Message message) {
+				return TextMessageBuilder.getInstance()
+						.setBody("Hey " + ((IncomingMessage) message).getFrom() + "! How can I help you today?")
+						.build();
+			}
+		});
 	}
+	
 }
-
 ```
 
 <div>
@@ -123,50 +118,48 @@ public class SampleDomain extends AbstractDomain {
 </div>
 </div>
 
-**The framework offers a set of builders and factories to build the perfect response of your bot.**
+<h4>The framework offers a set of builders and factories to catch and build the perfect response of your bot.</h4>
 
-Be it a Link  
+**Be it a Link**
 
 ```java
-actionFrameBuilder()
-	.setEvent(EventFactory.textMessage("hi"))
-	.addReply(new LinkMessageReply() {
+@BotMillController(event = EventType.TEXT_MESSAGE, text = "Hi")
+public void replyCatchText() {
+	reply(new LinkMessageReply() {
+	    @Override
+	    public LinkMessage processReply(Message message) {
+	        return LinkMessageBuilder.getInstance()
+	                .setTitle("This is a link title")
+	                .setUrl("http://alvinjayreyes.com")
+	                .setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+	                .build();
+	    }
+	});
+}
+```
+
+**or a Media (picture and video)**
+
+```java
+@BotMillController(event = EventType.TEXT_MESSAGE, text = "Hi")
+public void replyCatchText() {
+	reply(new PictureMessageReply() {
 		@Override
-		public LinkMessage processReply(Message message) {
-			return LinkMessageBuilder.getInstance()
-					.setTitle("This is a link title")
-					.setUrl("http://alvinjayreyes.com")
+		public PictureMessage processReply(Message message) {
+			return PictureMessageBuilder.getInstance()
 					.setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
 					.build();
 		}
-	})
-	.buildToContext();
+	});
+}
 ```
 
-or a Media (picture and video) 
+**or both, with Keyboard**
 
 ```java
-actionFrameBuilder()
-	.setEvent(EventFactory.textMessagePattern("(?i:hello)")
-	.addReply(new LinkMessageReply() {
-		@Override
-		public LinkMessage processReply(Message message) {
-			return LinkMessageBuilder.getInstance()
-					.setTitle("Title")
-					.setUrl("http://alvinjayreyes.com")
-					.setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
-					.build();
-		}
-	})
-	.buildToContext();
-```
-
-with Keyboard
-
-```java
-actionFrameBuilder()
-	.setEvent(EventFactory.textMessagePattern("(?i:hello)")
-	.addReply(new LinkMessageReply() {
+@BotMillController(event = EventType.TEXT_MESSAGE, text = "Hi")
+public void replyCatchText() {
+	reply(new LinkMessageReply() {
 		@Override
 		public LinkMessage processReply(Message message) {
 			return LinkMessageBuilder.getInstance()
@@ -180,42 +173,99 @@ actionFrameBuilder()
 					)
 					.build();
 		}
-	})
-	.buildToContext();
+	});
+}
 ```
 
-**Prefer annotations?**
-Alternatively, you can also use @BotMillDomain and @BotMillController to your designated method and create the reply.
+**catch a pattern from user input**
+```java
+@BotMillController(event = EventType.TEXT_PATTERN, text = "(?i:hello)")
+public void replyCatchTextPattern() {
+	reply(new LinkMessageReply() {
+		@Override
+		public LinkMessage processReply(Message message) {
+			return LinkMessageBuilder.getInstance()
+					.setTitle("Title")
+					.setUrl("http://alvinjayreyes.com")
+					.setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+					.addKeyboard(KeyboardBuilder.getInstance().setType(KeyboardType.SUGGESTED)
+						.addResponse(MessageFactory.createResponse("Make me a ChatBot!", ResponseType.TEXT))
+						.addResponse(MessageFactory.createResponse("What are ChatBots?", ResponseType.TEXT))
+						.addResponse(MessageFactory.createResponse("Milling Tools!", ResponseType.TEXT)).buildKeyboard()
+					)
+					.build();
+		}
+	});
+}
+```
+**or catch the start chatting**
 
 ```java
-@BotMillDomain
-public class SampleDomain extends AbstractDomain {
-
-	@BotMillController(event = EventType.TEXT_MESSAGE, text = "Hello")
-	public void replyText() {
-		reply(new LinkMessageReply() {
-			@Override
-			public LinkMessage processReply(Message message) {
-				return LinkMessageBuilder.getInstance().setTitle("Title").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
-						.build();
-			}
-		});
-	}
-
-	@BotMillController(event = EventType.TEXT_PATTERN, pattern = "(?i:hi)")
-	public void replyText1() {
-		reply(new LinkMessageReply() {
-			@Override
-			public LinkMessage processReply(Message message) {
-				return LinkMessageBuilder.getInstance().setTitle("Title1").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
-						.build();
-			}
-		});
-	}
+@BotMillController(event = EventType.START_CHATTING)
+public void replyCatchTextPattern() {
+	reply(new LinkMessageReply() {
+		@Override
+		public LinkMessage processReply(Message message) {
+			return LinkMessageBuilder.getInstance()
+					.setTitle("Title")
+					.setUrl("http://alvinjayreyes.com")
+					.setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+					.addKeyboard(KeyboardBuilder.getInstance().setType(KeyboardType.SUGGESTED)
+						.addResponse(MessageFactory.createResponse("Make me a ChatBot!", ResponseType.TEXT))
+						.addResponse(MessageFactory.createResponse("What are ChatBots?", ResponseType.TEXT))
+						.addResponse(MessageFactory.createResponse("Milling Tools!", ResponseType.TEXT)).buildKeyboard()
+					)
+					.build();
+		}
+	});
 }
-
 ```
 
+**catch a sticker**
+
+```java
+@BotMillController(event = EventType.STICKER)
+public void replyCatchTextPattern() {
+	reply(new LinkMessageReply() {
+		@Override
+		public LinkMessage processReply(Message message) {
+			return LinkMessageBuilder.getInstance()
+					.setTitle("Title")
+					.setUrl("http://alvinjayreyes.com")
+					.setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+					.addKeyboard(KeyboardBuilder.getInstance().setType(KeyboardType.SUGGESTED)
+						.addResponse(MessageFactory.createResponse("Make me a ChatBot!", ResponseType.TEXT))
+						.addResponse(MessageFactory.createResponse("What are ChatBots?", ResponseType.TEXT))
+						.addResponse(MessageFactory.createResponse("Milling Tools!", ResponseType.TEXT)).buildKeyboard()
+					)
+					.build();
+		}
+	});
+}
+```
+
+**or catch a scan data**
+
+```java
+@BotMillController(event = EventType.SCAN_DATA)
+public void replyCatchTextPattern() {
+	reply(new LinkMessageReply() {
+		@Override
+		public LinkMessage processReply(Message message) {
+			return LinkMessageBuilder.getInstance()
+					.setTitle("Title")
+					.setUrl("http://alvinjayreyes.com")
+					.setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+					.addKeyboard(KeyboardBuilder.getInstance().setType(KeyboardType.SUGGESTED)
+						.addResponse(MessageFactory.createResponse("Make me a ChatBot!", ResponseType.TEXT))
+						.addResponse(MessageFactory.createResponse("What are ChatBots?", ResponseType.TEXT))
+						.addResponse(MessageFactory.createResponse("Milling Tools!", ResponseType.TEXT)).buildKeyboard()
+					)
+					.build();
+		}
+	});
+}
+```
 
 **<h3>How to use it on other Java Frameworks</h3>**
 
@@ -282,7 +332,6 @@ public class RestfulSourceController {
     public void post() {
         return KikBotMillLoader.getLoader().postHandler(request, response); 
     }
-
 }
 
 ```
@@ -314,6 +363,10 @@ Kik-BotMill supports this Kik Messenger Platform components:
 **Coming Soon**
 - Broadcast Dashboard
 - Analytics Dashboard
+- Payments
+
+<h3>Contribution</h3>
+We'd love to get more people involve in the project. Kik Interactive recently made bold investments to improve Kik and we might see a lot of improvements in the upcoming months (possibly Payments). Any contribution to this project will be highly appreciated.
 
 
 <sub>Copyright (c) 2017 BotMill.io</sub>

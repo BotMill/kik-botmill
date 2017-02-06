@@ -37,6 +37,7 @@ import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillDomain;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
 import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.AbstractAnnotatedDomain;
+import co.aurasphere.botmill.kik.model.AbstractKikBot;
 import co.aurasphere.botmill.kik.model.KeyboardType;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessageCallback;
@@ -48,8 +49,7 @@ import co.aurasphere.botmill.kik.outgoing.reply.LinkMessageReply;
 /**
  * The Class AnnotatedDomain.
  */
-@BotMillDomain
-public class AnnotatedDomain extends AbstractAnnotatedDomain {
+public class AnnotatedDomain extends AbstractKikBot {
 
 	/**
 	 * Reply text.
