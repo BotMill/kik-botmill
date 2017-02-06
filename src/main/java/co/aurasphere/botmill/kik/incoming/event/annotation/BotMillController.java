@@ -46,7 +46,7 @@ public @interface BotMillController {
 	 *
 	 * @return the event type
 	 */
-	EventType event() default EventType.TEXT_MESSAGE;
+	EventType eventType() default EventType.TEXT_MESSAGE;
 	
 	/**
 	 * Text.

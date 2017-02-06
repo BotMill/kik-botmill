@@ -101,7 +101,7 @@ public abstract class AbstractKikBot implements Domain {
 							textOrPattern = botMillController.pattern();
 						}
 						//	set the event.
-						actionFrame.setEvent(toEvent(botMillController.event(),textOrPattern));
+						actionFrame.setEvent(toEvent(botMillController.eventType(),textOrPattern));
 						method.invoke(this);	// invoke the method.
 						
 						//	add the action frame to the context.

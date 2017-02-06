@@ -54,7 +54,7 @@ public class AnnotatedDomain extends AbstractKikBot {
 	/**
 	 * Reply text.
 	 */
-	@BotMillController(event = EventType.TEXT_MESSAGE, text = "v")
+	@BotMillController(eventType = EventType.TEXT_MESSAGE, text = "v")
 	public void replyText() {
 		reply(new LinkMessageReply() {
 			@Override
@@ -68,7 +68,7 @@ public class AnnotatedDomain extends AbstractKikBot {
 	/**
 	 * Reply text 1.
 	 */
-	@BotMillController(event = EventType.TEXT_PATTERN, pattern = "(?i:hi11)")
+	@BotMillController(eventType = EventType.TEXT_PATTERN, pattern = "(?i:hi11)")
 	public void replyText1() {
 		reply(new LinkMessageReply() {
 			@Override
@@ -82,7 +82,7 @@ public class AnnotatedDomain extends AbstractKikBot {
 	/**
 	 * Reply text 2.
 	 */
-	@BotMillController(event = EventType.ANY)
+	@BotMillController(eventType = EventType.ANY)
 	public void replyText2() {
 		reply(ReplyFactory.buildTextMessageReply("yeaaasss"));	
 	}
