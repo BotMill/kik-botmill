@@ -86,32 +86,32 @@ public abstract class AbstractKikBot implements Domain {
 	protected void buildAnnotatedDomain() throws KikBotMillException {
 		Method[] methods = this.getClass().getMethods();
 		//	check first if this class is BotMillDomain annotated, if not, throw error.
-		if(!this.getClass().isAnnotationPresent(BotMillDomain.class)) {
-			throw new KikBotMillException("Domain is not BotMillDomain annotated. Make sure the class " + this.getClass().getName() + " is annotated properly.");
-		}else {	//	if annotation is present.
-			for (Method method : methods) {
-				if (method.isAnnotationPresent(BotMillController.class)) {
-					BotMillController botMillController = method.getAnnotation(BotMillController.class);
-					try {
-						actionFrame = new ActionFrame();
-						String textOrPattern = "";
-						if(!botMillController.text().equals("")) {
-							textOrPattern = botMillController.text();
-						}else {
-							textOrPattern = botMillController.pattern();
-						}
-						//	set the event.
-						actionFrame.setEvent(toEvent(botMillController.eventType(),textOrPattern));
-						method.invoke(this);	// invoke the method.
-						
-						//	add the action frame to the context.
-						KikBotMillContext.getInstance().addActionFrameToContext(actionFrame);
-					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-						e.printStackTrace();
+//		if(!this.getClass().isAnnotationPresent(BotMillDomain.class)) {
+//			throw new KikBotMillException("Domain is not BotMillDomain annotated. Make sure the class " + this.getClass().getName() + " is annotated properly.");
+//		}else {	//	if annotation is present.
+		for (Method method : methods) {
+			if (method.isAnnotationPresent(BotMillController.class)) {
+				BotMillController botMillController = method.getAnnotation(BotMillController.class);
+				try {
+					actionFrame = new ActionFrame();
+					String textOrPattern = "";
+					if(!botMillController.text().equals("")) {
+						textOrPattern = botMillController.text();
+					}else {
+						textOrPattern = botMillController.pattern();
 					}
+					//	set the event.
+					actionFrame.setEvent(toEvent(botMillController.eventType(),textOrPattern));
+					method.invoke(this);	// invoke the method.
+					
+					//	add the action frame to the context.
+					KikBotMillContext.getInstance().addActionFrameToContext(actionFrame);
+				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					e.printStackTrace();
 				}
 			}
 		}
+//		}
 	}
 	
 	/**

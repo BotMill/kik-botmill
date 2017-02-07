@@ -27,6 +27,8 @@ package co.aurasphere.botmill.kik.exception;
 
 /**
  * The Class KikBotMillException.
+ * 
+ * @author Alvin P. Reyes
  */
 public class KikBotMillException extends Exception {
 	

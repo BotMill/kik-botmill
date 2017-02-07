@@ -104,7 +104,7 @@ public class AnnotatedDomain extends AbstractKikBot {
 			.setReceiveReadReceipts(false)
 			.setStaticKeyboard(
 						KeyboardBuilder.getInstance()
-						.addResponse(MessageFactory.createResponse("BODY", ResponseType.TEXT))
+						.addResponse(MessageFactory.createTextResponse("BODY"))
 						.setType(KeyboardType.SUGGESTED).buildKeyboard())
 			.buildConfiguration());
 	

@@ -26,7 +26,11 @@
 package co.aurasphere.botmill.kik.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import co.aurasphere.botmill.kik.json.JsonUtils;
 
 /**
  * The Class Response.
@@ -38,8 +42,14 @@ public class Response implements Serializable {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
+	/** The metadata map. */
+	private Map<String,String> metadataMap;
+	
 	/** The body. */
 	private String body;
+	
+	/** The pic url. */
+	private String picUrl;
 	
 	/** The type. */
 	private ResponseType type;
@@ -53,6 +63,9 @@ public class Response implements Serializable {
 	/** The preselected. */
 	private List<String> preselected;
 	
+	/** The metadata. */
+	private String metadata;
+	
 	/**
 	 * Instantiates a new response.
 	 *
@@ -61,6 +74,20 @@ public class Response implements Serializable {
 	 */
 	public Response(String body, ResponseType type) {
 		this.body = body;
+		this.type = type;
+	}
+	
+	/**
+	 * Instantiates a new response.
+	 *
+	 * @param picUrl the pic url
+	 * @param metadata the metadata
+	 * @param type the type
+	 */
+	public Response(String picUrl, Map<String,String> metadata, ResponseType type) {
+		this.picUrl = picUrl;
+		String metaString = JsonUtils.toJson(metadata);
+		this.metadata = metaString;
 		this.type = type;
 	}
 	
@@ -170,6 +197,50 @@ public class Response implements Serializable {
 	public void setPreselected(List<String> preselected) {
 		this.preselected = preselected;
 	}
+
+	/**
+	 * Gets the pic url.
+	 *
+	 * @return the pic url
+	 */
+	public String getPicUrl() {
+		return picUrl;
+	}
+
+	/**
+	 * Sets the pic url.
+	 *
+	 * @param picUrl the new pic url
+	 */
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
+	}
+
+	/**
+	 * Gets the metadata.
+	 *
+	 * @return the metadata
+	 */
+	public String getMetadata() {
+		return metadata;
+	}
+
+	/**
+	 * Sets the metadata.
+	 *
+	 * @param metadata the new metadata
+	 */
+	public void setMetadata(String metadata) {
+		this.metadata = metadata;
+	}
 	
-	
+	/**
+	 * Adds the metadata.
+	 *
+	 * @param key the key
+	 * @param value the value
+	 */
+	public void addMetadata(String key, String value) {
+		metadataMap.put(key, value);
+	}
 }

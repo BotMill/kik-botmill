@@ -26,6 +26,7 @@
 package co.aurasphere.botmill.kik.factory;
 
 import java.util.List;
+import java.util.Map;
 
 import co.aurasphere.botmill.kik.model.Attribution;
 import co.aurasphere.botmill.kik.model.Keyboard;
@@ -66,11 +67,10 @@ public class MessageFactory {
 	 * Creates a new Configuration object.
 	 *
 	 * @param body the body
-	 * @param responseType the response type
 	 * @return the response
 	 */
-	public static Response createResponse(String body, ResponseType responseType) {
-		return new Response(body, responseType);
+	public static Response createTextResponse(String body) {
+		return new Response(body, ResponseType.TEXT);
 	}
 	
 	/**
@@ -87,6 +87,19 @@ public class MessageFactory {
 		response.setMin(min);
 		response.setMax(max);
 		response.setPreselected(preselected);
+		return response;
+	}
+
+	
+	/**
+	 * Creates a new Message object.
+	 *
+	 * @param picUrl the pic url
+	 * @param metadata the metadata
+	 * @return the response
+	 */
+	public static Response createPictureResponse(String picUrl, Map<String,String> metadata){
+		Response response = new Response(picUrl, metadata, ResponseType.PICTURE);
 		return response;
 	}
 	

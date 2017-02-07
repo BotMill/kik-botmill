@@ -40,5 +40,8 @@ public enum ResponseType {
 	
 	/** The friend picker. */
 	@SerializedName("friend-picker")
-	FRIEND_PICKER
+	FRIEND_PICKER,
+	
+	@SerializedName("picture")
+	PICTURE
 }

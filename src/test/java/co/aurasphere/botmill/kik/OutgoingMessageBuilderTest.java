@@ -94,7 +94,7 @@ public class OutgoingMessageBuilderTest {
 		Configuration config = ConfigurationBuilder.getInstance().setWebhook("https://kik-bot-021415.herokuapp.com/kikbot").setManuallySendReadReceipts(true)
 				.setReceiveDeliveryReceipts(true).setReceiveReadReceipts(true).setReceiveIsTyping(true).setStaticKeyboard(
 						KeyboardBuilder.getInstance()
-						.addResponse(MessageFactory.createResponse("BODY", ResponseType.TEXT))
+						.addResponse(MessageFactory.createTextResponse("BODY"))
 						.setType(KeyboardType.SUGGESTED).buildKeyboard())
 				.buildConfiguration(); 
 		
@@ -111,9 +111,9 @@ public class OutgoingMessageBuilderTest {
 		TextMessage textMessage = TextMessageBuilder.getInstance().setBody("11").setTo("11").addKeyboard(
 				KeyboardBuilder.getInstance()
 				.setType(KeyboardType.SUGGESTED)
-				.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-				.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-				.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+				.addResponse(MessageFactory.createTextResponse("A"))
+				.addResponse(MessageFactory.createTextResponse("B"))
+				.addResponse(MessageFactory.createTextResponse("C"))
 				.addResponse(MessageFactory.createFriendPickerResponse("hello", 0, 4, null))
 				.buildKeyboard()
 			).build();
@@ -135,9 +135,9 @@ public class OutgoingMessageBuilderTest {
 				.setPicUrl("picure url").setText("Text").setTitle("title").setUrl("url").addKeyboard(
 						KeyboardBuilder.getInstance()
 						.setType(KeyboardType.SUGGESTED)
-						.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-						.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-						.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+						.addResponse(MessageFactory.createTextResponse("A"))
+						.addResponse(MessageFactory.createTextResponse("B"))
+						.addResponse(MessageFactory.createTextResponse("C"))
 						.addResponse(MessageFactory.createFriendPickerResponse("hello", 0, 4, null))
 						.buildKeyboard()
 					).build();
@@ -157,9 +157,9 @@ public class OutgoingMessageBuilderTest {
 				.addKeyboard(
 					KeyboardBuilder.getInstance()
 					.setType(KeyboardType.SUGGESTED)
-					.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-					.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-					.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+					.addResponse(MessageFactory.createTextResponse("A"))
+					.addResponse(MessageFactory.createTextResponse("B"))
+					.addResponse(MessageFactory.createTextResponse("C"))
 					.addResponse(MessageFactory.createFriendPickerResponse("hello", 0, 4, null))
 					.buildKeyboard()
 				).setPicUrl("")
@@ -179,9 +179,9 @@ public class OutgoingMessageBuilderTest {
 		VideoMessage videoMessageResp = VideoMessageBuilder.getInstance().addKeyboard(
 				KeyboardBuilder.getInstance()
 				.setType(KeyboardType.SUGGESTED)
-				.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-				.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-				.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+				.addResponse(MessageFactory.createTextResponse("A"))
+				.addResponse(MessageFactory.createTextResponse("B"))
+				.addResponse(MessageFactory.createTextResponse("C"))
 				.addResponse(MessageFactory.createFriendPickerResponse("hello", 0, 4, null))
 				.buildKeyboard()
 			).setVideoUrl("")
@@ -233,9 +233,9 @@ public class OutgoingMessageBuilderTest {
 						.addKeyboard(
 								KeyboardBuilder.getInstance()
 								.setType(KeyboardType.SUGGESTED)
-								.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-								.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-								.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+								.addResponse(MessageFactory.createTextResponse("A"))
+								.addResponse(MessageFactory.createTextResponse("B"))
+								.addResponse(MessageFactory.createTextResponse("C"))
 								.addResponse(MessageFactory.createFriendPickerResponse("hello", 0, 4, null))
 								.buildKeyboard()
 							)
@@ -340,9 +340,9 @@ public class OutgoingMessageBuilderTest {
 						.addKeyboard(
 								KeyboardBuilder.getInstance()
 								.setType(KeyboardType.SUGGESTED)
-								.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-								.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-								.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+								.addResponse(MessageFactory.createTextResponse("A"))
+								.addResponse(MessageFactory.createTextResponse("B"))
+								.addResponse(MessageFactory.createTextResponse("C"))
 								.buildKeyboard()
 							)
 						.build();

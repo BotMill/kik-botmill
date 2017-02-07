@@ -35,6 +35,7 @@ import co.aurasphere.botmill.kik.builder.ActionFrameBuilder;
 import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
 import co.aurasphere.botmill.kik.builder.KeyboardBuilder;
 import co.aurasphere.botmill.kik.builder.LinkMessageBuilder;
+import co.aurasphere.botmill.kik.builder.MetadataBuilder;
 import co.aurasphere.botmill.kik.builder.PictureMessageBuilder;
 import co.aurasphere.botmill.kik.builder.TextMessageBuilder;
 import co.aurasphere.botmill.kik.factory.EventFactory;
@@ -66,7 +67,6 @@ public class IncomingMessageBuilderTest {
 	public void setup() {
 		
 		KikBotMillContext.getInstance().setup(System.getenv("USERNAME"), System.getenv("APIKEY"));
-		
 		NetworkUtils.postJsonConfig(ConfigurationBuilder.getInstance()
 			.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot")
 			.setManuallySendReadReceipts(false)
@@ -75,7 +75,7 @@ public class IncomingMessageBuilderTest {
 			.setReceiveReadReceipts(false)
 			.setStaticKeyboard(
 						KeyboardBuilder.getInstance()
-						.addResponse(MessageFactory.createResponse("BODY", ResponseType.TEXT))
+						.addResponse(MessageFactory.createTextResponse("BODY"))
 						.setType(KeyboardType.SUGGESTED).buildKeyboard())
 			.buildConfiguration());
 		
@@ -98,9 +98,9 @@ public class IncomingMessageBuilderTest {
 						.addKeyboard(
 						KeyboardBuilder.getInstance()
 							.setType(KeyboardType.SUGGESTED)
-							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+							.addResponse(MessageFactory.createTextResponse("A"))
+							.addResponse(MessageFactory.createTextResponse("B"))
+							.addResponse(MessageFactory.createTextResponse("C"))
 							.buildKeyboard()
 							)
 						.build();
@@ -113,9 +113,9 @@ public class IncomingMessageBuilderTest {
 						.addKeyboard(
 						KeyboardBuilder.getInstance()
 							.setType(KeyboardType.SUGGESTED)
-							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
+							.addResponse(MessageFactory.createTextResponse("A"))
+							.addResponse(MessageFactory.createTextResponse("B"))
+							.addResponse(MessageFactory.createTextResponse("C"))
 							.buildKeyboard()
 							)
 						.build();
@@ -142,25 +142,28 @@ public class IncomingMessageBuilderTest {
 		ActionFrameBuilder.getInstance()
 		.setEvent(EventFactory.textMessage("hi")) // user sent "hi"
 		.addReply(new TextMessageReply() {
-			
 			@Override
 			public co.aurasphere.botmill.kik.outgoing.model.TextMessage processReply(Message message) {
 				return TextMessageBuilder.getInstance().setBody("Choose a letter Mr. Alvin")
 						.addKeyboard(
-						KeyboardBuilder.getInstance()
-							.setType(KeyboardType.SUGGESTED)
-							.addResponse(MessageFactory.createResponse("A", ResponseType.TEXT))
-							.addResponse(MessageFactory.createResponse("B", ResponseType.TEXT))
-							.addResponse(MessageFactory.createResponse("C", ResponseType.TEXT))
-							.buildKeyboard()
-							)
+							KeyboardBuilder.getInstance()
+								.setType(KeyboardType.SUGGESTED)
+								.addResponse(MessageFactory.createPictureResponse(
+										"http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg",
+											MetadataBuilder.getInstance()
+												.addMetadata("product", "1")
+												.addMetadata("product_2", "noice")
+											.build())
+										)
+								.buildKeyboard()
+								)
 						.build();
 			}
 		})
-		.buildToBroadcast();
+		.buildToContext();
 		
 		
-		String json = "{\"messages\": [{\"body\": \"1\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \"hi1\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
+		String json = "{\"messages\": [{\"body\": \"hi\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"},{\"body\": \"hi1\", \"from\": \"alvinpreyes\", \"timestamp\": 1484181332091, \"mention\": null, \"participants\": [\"alvinpreyes\"], \"readReceiptRequested\": true, \"type\": \"text\", \"id\": \"0d1c6c95-f155-45b6-84bd-824323359b56\", \"chatId\": \"35301de98509f5ec304818f79d37d63725e2dfaeef473aff76ae48d5d8a404a3\"}]}";
 		MessageCallback m = JsonUtils.fromJson(json,MessageCallback.class);
 		
 		for(Message msg:m.getMessages()) {
