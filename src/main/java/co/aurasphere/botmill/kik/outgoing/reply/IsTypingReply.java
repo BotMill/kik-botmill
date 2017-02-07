@@ -34,5 +34,5 @@ import co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage;
  * @author Alvin P. Reyes
  */
 public abstract class IsTypingReply implements Reply<IsTypingMessage> {
-	
+	protected IsTypingMessage isTypingMessage;
 }

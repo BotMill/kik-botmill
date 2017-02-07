@@ -27,10 +27,12 @@ package co.aurasphere.botmill.kik.outgoing.reply;
 
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.Reply;
+import co.aurasphere.botmill.kik.outgoing.model.OutgoingMessage;
 
 /**
  * The Class AnyReply.
  */
 public abstract class AnyReply implements Reply<Message> {
 	
+	protected OutgoingMessage outgoingMessage;
 }

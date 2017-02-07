@@ -31,6 +31,7 @@ import co.aurasphere.botmill.kik.incoming.event.FriendPickerEvent;
 import co.aurasphere.botmill.kik.incoming.event.IsTypingEvent;
 import co.aurasphere.botmill.kik.incoming.event.LinkMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.MentionEvent;
+import co.aurasphere.botmill.kik.incoming.event.MetadataEvent;
 import co.aurasphere.botmill.kik.incoming.event.PictureMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.StartChattingEvent;
 import co.aurasphere.botmill.kik.incoming.event.StickerEvent;
@@ -64,6 +65,17 @@ public class EventFactory {
 	 */
 	public static TextMessageEvent textMessage(String text){
 		return new TextMessageEvent().setText(text);
+	}
+	
+	/**
+	 * Metadata message.
+	 *
+	 * @param key the key
+	 * @param value the value
+	 * @return the metadata event
+	 */
+	public static MetadataEvent metadataMessage(String key, String value) {
+		return new MetadataEvent(key, value);
 	}
 	
 	/**

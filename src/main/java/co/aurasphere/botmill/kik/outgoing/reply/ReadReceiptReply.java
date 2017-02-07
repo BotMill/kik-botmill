@@ -34,5 +34,5 @@ import co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage;
  * @author Alvin P. Reyes
  */
 public abstract class ReadReceiptReply implements Reply<ReadReceiptMessage> {
-	
+	protected ReadReceiptMessage readReceiptMessage;
 }
