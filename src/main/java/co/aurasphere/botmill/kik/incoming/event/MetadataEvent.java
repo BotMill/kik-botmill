@@ -23,26 +23,44 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.model;
+package co.aurasphere.botmill.kik.incoming.event;
+import java.util.HashMap;
+import java.util.Map;
 
-import com.google.gson.annotations.SerializedName;
+import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
+import co.aurasphere.botmill.kik.json.JsonUtils;
+import co.aurasphere.botmill.kik.model.Event;
 
 /**
- * The Enum ResponseType.
+ * The Class MetadataEvent.
  * 
  * @author Alvin P. Reyes
  */
-public enum ResponseType {
+public class MetadataEvent implements Event {
+
+	private String key;
+	private String value;
+	private Map<String,String> metadataMap = new HashMap<String,String>();
+	/**
+	 * Instantiates a new text message event.
+	 */
+	public MetadataEvent(String key, String value) {
+		this.key = key;
+		this.value = value;
+	}
+
 	
-	/** The text. */
-	@SerializedName("text")
-	TEXT,
-	
-	/** The friend picker. */
-	@SerializedName("friend-picker")
-	FRIEND_PICKER,
-	
-	/** The picture. */
-	@SerializedName("picture")
-	PICTURE
+	/* (non-Javadoc)
+	 * @see co.aurasphere.botmill.kik.model.Event#verifyEvent(co.aurasphere.botmill.kik.incoming.model.IncomingMessage)
+	 */
+	@Override
+	public boolean verifyEvent(IncomingMessage message) {
+		if(message.getMetadata() != null) {
+			metadataMap = (Map<String,String>)JsonUtils.fromJson(message.getMetadata(), metadataMap.getClass());
+			if(metadataMap.get(key).equals(value)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -57,6 +57,9 @@ public class Message implements Serializable {
 	/** The mention. */
 	private String mention;
 	
+	/** The metadata. */
+	private String metadata;
+	
 	/**
 	 * Gets the chat id.
 	 *
@@ -127,6 +130,24 @@ public class Message implements Serializable {
 	 */
 	public void setMention(String mention) {
 		this.mention = mention;
+	}
+
+	/**
+	 * Gets the metadata.
+	 *
+	 * @return the metadata
+	 */
+	public String getMetadata() {
+		return metadata;
+	}
+
+	/**
+	 * Sets the metadata.
+	 *
+	 * @param metadata the new metadata
+	 */
+	public void setMetadata(String metadata) {
+		this.metadata = metadata;
 	}
 
 }

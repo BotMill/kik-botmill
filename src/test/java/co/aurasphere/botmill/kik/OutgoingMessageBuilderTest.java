@@ -336,6 +336,7 @@ public class OutgoingMessageBuilderTest {
 			
 			@Override
 			public co.aurasphere.botmill.kik.outgoing.model.TextMessage processReply(Message message) {
+
 				return TextMessageBuilder.getInstance().setBody("Choose a letter Mr. Alvin")
 						.addKeyboard(
 								KeyboardBuilder.getInstance()

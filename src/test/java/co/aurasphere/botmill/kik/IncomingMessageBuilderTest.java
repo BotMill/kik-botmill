@@ -67,6 +67,7 @@ public class IncomingMessageBuilderTest {
 	public void setup() {
 		
 		KikBotMillContext.getInstance().setup(System.getenv("USERNAME"), System.getenv("APIKEY"));
+		
 		NetworkUtils.postJsonConfig(ConfigurationBuilder.getInstance()
 			.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot")
 			.setManuallySendReadReceipts(false)
