@@ -355,6 +355,10 @@ Kik-BotMill supports this Kik Messenger Platform components:
 	- Read Receipt
 	- Friend Picker
 - Keyboards
+	- Text
+	- Picture Message
+	- Friend Picker
+- Metadata
 - Attributions
 - Broadcasting
 - User Profiles
