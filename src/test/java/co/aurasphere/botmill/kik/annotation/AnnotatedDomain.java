@@ -52,6 +52,9 @@ import co.aurasphere.botmill.kik.util.network.NetworkUtils;
  */
 public class AnnotatedDomain extends AbstractKikBot {
 	
+	/**
+	 * Initialize.
+	 */
 	@BotMillInit
 	public void initialize() {
 		ConfigurationBuilder.getInstance()

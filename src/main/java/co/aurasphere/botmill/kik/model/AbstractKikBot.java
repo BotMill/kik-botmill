@@ -64,9 +64,8 @@ import co.aurasphere.botmill.kik.util.properties.PropertiesUtil;
 public abstract class AbstractKikBot implements Domain {
 
 	/** The Constant logger. */
-	private static final Logger logger = LoggerFactory
-			.getLogger(AbstractKikBot.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(AbstractKikBot.class);
+
 	/** The action frame. */
 	private ActionFrame actionFrame;
 
@@ -84,13 +83,15 @@ public abstract class AbstractKikBot implements Domain {
 		}
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see co.aurasphere.botmill.kik.model.Domain#buildDomain()
 	 */
 	@Override
-	public void buildDomain() {}
+	public void buildDomain() {
+	}
 
-	
 	/**
 	 * Builds the annotated init domain.
 	 */
@@ -106,37 +107,46 @@ public abstract class AbstractKikBot implements Domain {
 			}
 		}
 	}
-	
+
 	/**
 	 * Builds the kik bot config.
 	 *
-	 * @throws BotMillMissingConfigurationException the bot mill missing configuration exception
+	 * @throws BotMillMissingConfigurationException
+	 *             the bot mill missing configuration exception
 	 */
 	private void buildKikBotConfig() throws BotMillMissingConfigurationException {
-	Properties prop = PropertiesUtil.load("botmill.properties");
+		Properties prop = PropertiesUtil.load("botmill.properties");
+		String kikUsername;
+		String kikApiKey;
 		
-		String kikUsername = prop.getProperty("kik.user.name");
-		String kikApiKey = prop.getProperty("kik.api.key");
-		if(kikUsername == null || kikApiKey == null) {
-			
-			//	Check the environment, maybe it's there.
-			String systemPropKikUsername = System.getProperty("USERNAME");
-			String systemPropApiKey = System.getProperty("APIKEY");
-			
-			if(systemPropKikUsername == null || systemPropApiKey == null) {
-				throw new BotMillMissingConfigurationException("Kik-BotMill Configuration is missing (botmill.properties). "
-						+ "Please check if the appropriate property values are configured correctly.");
-			}
+		try {
+			kikUsername = ((prop.getProperty("kik.user.name").equals("")
+					|| prop.getProperty("kik.user.name").indexOf("<USERNAME>") == 0) ? System.getProperty("USERNAME")
+							: prop.getProperty("kik.user.name"));
+
+			kikApiKey = ((prop.getProperty("kik.api.key").equals("")
+					|| prop.getProperty("kik.api.key").indexOf("<API_KEY>") == 0) ? System.getProperty("APIKEY")
+							: prop.getProperty("kik.api.key"));
+		} catch (Exception e) {
+			logger.error("Make sure that kik.user.name and kik.api.key properties exist on the property file");
+			return;
 		}
-		
-		//	Everything goes well, initialize the setup.
-		KikBotMillContext.getInstance().setup(prop.getProperty("kik.user.name"), prop.getProperty("kik.api.key"));
-	
+
+		if (kikUsername == null || kikApiKey == null) {
+			throw new BotMillMissingConfigurationException("Kik-BotMill Configuration is missing (botmill.properties). "
+					+ "Please check if the appropriate property values are configured correctly.");
+		}
+
+		// Everything goes well, initialize the setup.
+		KikBotMillContext.getInstance().setup(kikUsername, kikApiKey);
+
 	}
+
 	/**
 	 * Builds the annotated domain.
 	 *
-	 * @throws KikBotMillException the kik bot mill exception
+	 * @throws KikBotMillException
+	 *             the kik bot mill exception
 	 */
 	private void buildAnnotatedDomain() throws KikBotMillException {
 		Method[] methods = this.getClass().getMethods();
@@ -146,16 +156,16 @@ public abstract class AbstractKikBot implements Domain {
 				try {
 					actionFrame = new ActionFrame();
 					String textOrPattern = "";
-					if(!botMillController.text().equals("")) {
+					if (!botMillController.text().equals("")) {
 						textOrPattern = botMillController.text();
-					}else {
+					} else {
 						textOrPattern = botMillController.pattern();
 					}
-					//	set the event.
-					actionFrame.setEvent(toEvent(botMillController.eventType(),textOrPattern));
-					method.invoke(this);	// invoke the method.
-					
-					//	add the action frame to the context.
+					// set the event.
+					actionFrame.setEvent(toEvent(botMillController.eventType(), textOrPattern));
+					method.invoke(this); // invoke the method.
+
+					// add the action frame to the context.
 					KikBotMillContext.getInstance().addActionFrameToContext(actionFrame);
 				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 					e.printStackTrace();
@@ -163,48 +173,51 @@ public abstract class AbstractKikBot implements Domain {
 			}
 		}
 	}
-	
+
 	/**
 	 * Reply.
 	 *
-	 * @param reply the reply
+	 * @param reply
+	 *            the reply
 	 */
 	protected final void reply(Reply<? extends Message> reply) {
 		actionFrame.addReply(reply);
 	}
-	
-	
+
 	/**
 	 * Adds the action frame.
 	 *
-	 * @param event the event
-	 * @param reply the reply
+	 * @param event
+	 *            the event
+	 * @param reply
+	 *            the reply
 	 */
 	protected final void addActionFrame(Event event, Reply<? extends Message> reply) {
-		ActionFrameBuilder.getInstance().setEvent(event).addReply(reply)
-		.buildToContext();
+		ActionFrameBuilder.getInstance().setEvent(event).addReply(reply).buildToContext();
 	}
-	
+
 	/**
 	 * Adds the action frame.
 	 *
-	 * @param event the event
-	 * @param replies the replies
+	 * @param event
+	 *            the event
+	 * @param replies
+	 *            the replies
 	 */
 	protected final void addActionFrame(Event event, List<Reply<? extends Message>> replies) {
-		ActionFrameBuilder.getInstance().setEvent(event).addReplies(replies)
-		.buildToContext();
+		ActionFrameBuilder.getInstance().setEvent(event).addReplies(replies).buildToContext();
 	}
-	
+
 	/**
 	 * Adds the action frame.
 	 *
-	 * @param event the event
-	 * @param replies the replies
+	 * @param event
+	 *            the event
+	 * @param replies
+	 *            the replies
 	 */
 	protected final void addActionFrame(Event event, Reply<? extends Message>... replies) {
-		ActionFrameBuilder.getInstance().setEvent(event).addReplies(replies)
-		.buildToContext();
+		ActionFrameBuilder.getInstance().setEvent(event).addReplies(replies).buildToContext();
 	}
 
 	/**
@@ -215,12 +228,14 @@ public abstract class AbstractKikBot implements Domain {
 	protected ActionFrameBuilder actionFrameBuilder() {
 		return ActionFrameBuilder.getInstance();
 	}
-	
+
 	/**
 	 * To event.
 	 *
-	 * @param eventType the event type
-	 * @param textOrPattern the text or pattern
+	 * @param eventType
+	 *            the event type
+	 * @param textOrPattern
+	 *            the text or pattern
 	 * @return the event
 	 */
 	private Event toEvent(EventType eventType, String textOrPattern) {
@@ -241,7 +256,7 @@ public abstract class AbstractKikBot implements Domain {
 			return new PictureMessageEvent();
 		case SCAN_DATA:
 			return new ScanDataEvent();
-		case START_CHATTING:	
+		case START_CHATTING:
 			return new StartChattingEvent();
 		case STICKER:
 			return new StickerEvent();
@@ -252,6 +267,7 @@ public abstract class AbstractKikBot implements Domain {
 		case VIDEO:
 			return new VideoMessageEvent();
 		}
-		return null; // it's impossible to have a null event, but if it does happen, it will be ignored on the handler.
+		return null; // it's impossible to have a null event, but if it does
+						// happen, it will be ignored on the handler.
 	}
 }

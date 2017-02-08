@@ -61,4 +61,11 @@ public @interface BotMillController {
 	 * @return the string
 	 */
 	String pattern() default "";
+	
+	/**
+	 * Meta.
+	 *
+	 * @return the string
+	 */
+	String meta()  default "";
 }
