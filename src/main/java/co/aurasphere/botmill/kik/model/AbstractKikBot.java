@@ -65,6 +65,13 @@ public abstract class AbstractKikBot implements Domain {
 
 	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory.getLogger(AbstractKikBot.class);
+	private static final String KIK_BOTMILL_PROPERTIES_FILENAME = "botmill.properties";
+	private static final String KIK_BOTMILL_USER_NAME_PROP = "kik.user.name";
+	private static final String KIK_BOTMILL_API_KEY_PROP = "kik.api.key";
+	private static final String KIK_BOTMILL_USER_NAME_PROPERTY = "USERNAME";
+	private static final String KIK_BOTMILL_API_KEY_PROPERTY = "API_KEY";
+	private static final String KIK_BOTMILL_USER_NAME_PROP_PHOLDER = "<USERNAME>";
+	private static final String KIK_BOTMILL_API_KEY_PROP_PHOLDER = "<API_KEY>";
 
 	/** The action frame. */
 	private ActionFrame actionFrame;
@@ -115,25 +122,25 @@ public abstract class AbstractKikBot implements Domain {
 	 *             the bot mill missing configuration exception
 	 */
 	private void buildKikBotConfig() throws BotMillMissingConfigurationException {
-		Properties prop = PropertiesUtil.load("botmill.properties");
+		Properties prop = PropertiesUtil.load(KIK_BOTMILL_PROPERTIES_FILENAME);
 		String kikUsername;
 		String kikApiKey;
 		
 		try {
-			kikUsername = ((prop.getProperty("kik.user.name").equals("")
-					|| prop.getProperty("kik.user.name").indexOf("<USERNAME>") == 0) ? System.getenv("USERNAME")
-							: prop.getProperty("kik.user.name"));
+			kikUsername = ((prop.getProperty(KIK_BOTMILL_USER_NAME_PROP).equals("")
+					|| prop.getProperty(KIK_BOTMILL_USER_NAME_PROP).indexOf(KIK_BOTMILL_USER_NAME_PROP_PHOLDER) == 0) ? System.getenv(KIK_BOTMILL_USER_NAME_PROPERTY)
+							: prop.getProperty(KIK_BOTMILL_USER_NAME_PROP));
 
-			kikApiKey = ((prop.getProperty("kik.api.key").equals("")
-					|| prop.getProperty("kik.api.key").indexOf("<API_KEY>") == 0) ? System.getenv("APIKEY")
-							: prop.getProperty("kik.api.key"));
+			kikApiKey = ((prop.getProperty(KIK_BOTMILL_API_KEY_PROP).equals("")
+					|| prop.getProperty(KIK_BOTMILL_API_KEY_PROP).indexOf(KIK_BOTMILL_API_KEY_PROP_PHOLDER) == 0) ? System.getenv(KIK_BOTMILL_API_KEY_PROPERTY)
+							: prop.getProperty(KIK_BOTMILL_API_KEY_PROP));
 		} catch (Exception e) {
 			logger.error("Make sure that kik.user.name and kik.api.key properties exist on the property file");
 			return;
 		}
 
 		if (kikUsername == null || kikApiKey == null) {
-			throw new BotMillMissingConfigurationException("Kik-BotMill Configuration is missing (botmill.properties). "
+			logger.error("Kik-BotMill Configuration is missing (botmill.properties). "
 					+ "Please check if the appropriate property values are configured correctly.");
 		}
 
