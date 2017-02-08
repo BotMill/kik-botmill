@@ -121,11 +121,11 @@ public abstract class AbstractKikBot implements Domain {
 		
 		try {
 			kikUsername = ((prop.getProperty("kik.user.name").equals("")
-					|| prop.getProperty("kik.user.name").indexOf("<USERNAME>") == 0) ? System.getProperty("USERNAME")
+					|| prop.getProperty("kik.user.name").indexOf("<USERNAME>") == 0) ? System.getenv("USERNAME")
 							: prop.getProperty("kik.user.name"));
 
 			kikApiKey = ((prop.getProperty("kik.api.key").equals("")
-					|| prop.getProperty("kik.api.key").indexOf("<API_KEY>") == 0) ? System.getProperty("APIKEY")
+					|| prop.getProperty("kik.api.key").indexOf("<API_KEY>") == 0) ? System.getenv("APIKEY")
 							: prop.getProperty("kik.api.key"));
 		} catch (Exception e) {
 			logger.error("Make sure that kik.user.name and kik.api.key properties exist on the property file");
