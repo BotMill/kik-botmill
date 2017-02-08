@@ -23,18 +23,31 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.outgoing.reply;
-
-import co.aurasphere.botmill.kik.model.Reply;
-import co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage;
+package co.aurasphere.botmill.kik.util.network;
 
 /**
- * The Class IsTypingReply.
+ * The Class KikBotMillNetworkConstants.
  * 
  * @author Alvin P. Reyes
  */
-public abstract class IsTypingReply implements Reply<IsTypingMessage> {
+public class KikBotMillNetworkConstants {
+
+	/** The Constant SITE. */
+	public static final String SITE = "https://api.kik.com/v1/";
+
+	/** The Constant CONFIG_ENDPOINT. */
+	public static final String CONFIG_ENDPOINT = SITE + "config";
+
+	/** The Constant MESSAGE_ENDPOINT. */
+	public static final String MESSAGE_ENDPOINT = SITE + "message";
+
+	/** The Constant USER_ENDPOINT. */
+	public static final String USER_ENDPOINT = SITE + "user/";
 	
-	/** The is typing message. */
-	protected IsTypingMessage isTypingMessage;
+	/** The Constant BROADCAST_ENDPOINT. */
+	public static final String BROADCAST_ENDPOINT = SITE + "broadcast";
+	
+	/** The Constant CODE_ENDPOINT. */
+	public static final String CODE_ENDPOINT = SITE + "code";
+	
 }

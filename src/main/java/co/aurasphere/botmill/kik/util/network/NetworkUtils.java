@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.network;
+package co.aurasphere.botmill.kik.util.network;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
 import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.exception.KikError;
 import co.aurasphere.botmill.kik.exception.KikErrorMessage;
-import co.aurasphere.botmill.kik.json.JsonUtils;
+import co.aurasphere.botmill.kik.util.json.JsonUtils;
 
 /**
  * Class that contains methods that allows KikBotMill to communicate through the

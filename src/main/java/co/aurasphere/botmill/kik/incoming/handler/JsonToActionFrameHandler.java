@@ -37,17 +37,17 @@ import co.aurasphere.botmill.kik.factory.ReplyFactory;
 import co.aurasphere.botmill.kik.incoming.handler.model.JsonAction;
 import co.aurasphere.botmill.kik.incoming.handler.model.JsonReply;
 import co.aurasphere.botmill.kik.incoming.handler.model.JsonToActionFrame;
-import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.Frame;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.Reply;
-import co.aurasphere.botmill.kik.network.NetworkUtils;
 import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 import co.aurasphere.botmill.kik.outgoing.model.PictureMessage;
 import co.aurasphere.botmill.kik.outgoing.model.VideoMessage;
 import co.aurasphere.botmill.kik.outgoing.reply.LinkMessageReply;
 import co.aurasphere.botmill.kik.outgoing.reply.PictureMessageReply;
 import co.aurasphere.botmill.kik.outgoing.reply.VideoMessageReply;
+import co.aurasphere.botmill.kik.util.json.JsonUtils;
+import co.aurasphere.botmill.kik.util.network.NetworkUtils;
 
 /**
  * The Class JsonToActionFrameHandler.

@@ -23,20 +23,46 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.json;
+package co.aurasphere.botmill.kik.util.json;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+
 
 /**
- * The Interface SkipDeserialization.
+ * The Class SkipDeserializationAnnotationExclusionStrategy.
  * 
  * @author Alvin P. Reyes
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface SkipDeserialization {
+final class SkipDeserializationAnnotationExclusionStrategy implements
+		ExclusionStrategy {
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.google.gson.ExclusionStrategy#shouldSkipField(com.google.gson.
+	 * FieldAttributes)
+	 */
+	public boolean shouldSkipField(FieldAttributes f) {
+		return f.getAnnotation(SkipDeserialization.class) != null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.google.gson.ExclusionStrategy#shouldSkipClass(java.lang.Class)
+	 */
+	public boolean shouldSkipClass(Class<?> clazz) {
+		return false;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "SkipDeserializationAnnotationExclusionStrategy []";
+	}
 }

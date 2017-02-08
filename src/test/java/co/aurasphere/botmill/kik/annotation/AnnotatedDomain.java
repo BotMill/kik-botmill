@@ -34,23 +34,35 @@ import co.aurasphere.botmill.kik.factory.ReplyFactory;
 import co.aurasphere.botmill.kik.incoming.event.EventType;
 import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillController;
 import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillDomain;
+import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillInit;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
-import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.AbstractAnnotatedDomain;
 import co.aurasphere.botmill.kik.model.AbstractKikBot;
 import co.aurasphere.botmill.kik.model.KeyboardType;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessageCallback;
 import co.aurasphere.botmill.kik.model.ResponseType;
-import co.aurasphere.botmill.kik.network.NetworkUtils;
 import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 import co.aurasphere.botmill.kik.outgoing.reply.LinkMessageReply;
+import co.aurasphere.botmill.kik.util.json.JsonUtils;
+import co.aurasphere.botmill.kik.util.network.NetworkUtils;
 
 /**
  * The Class AnnotatedDomain.
  */
 public class AnnotatedDomain extends AbstractKikBot {
-
+	
+	@BotMillInit
+	public void initialize() {
+		ConfigurationBuilder.getInstance()
+			.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot").setManuallySendReadReceipts(false)
+			.setReceiveDeliveryReceipts(false).setReceiveIsTyping(true).setReceiveReadReceipts(false)
+			.setStaticKeyboard(KeyboardBuilder.getInstance()
+					.addResponse(MessageFactory.createTextResponse("BODY"))
+					.setType(KeyboardType.SUGGESTED).buildKeyboard())
+			.buildConfiguration();
+	}
+	
 	/**
 	 * Reply text.
 	 */

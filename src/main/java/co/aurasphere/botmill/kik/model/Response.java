@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import co.aurasphere.botmill.kik.json.JsonUtils;
+import co.aurasphere.botmill.kik.util.json.JsonUtils;
 
 /**
  * The Class Response.

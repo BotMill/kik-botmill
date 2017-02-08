@@ -23,28 +23,35 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.json;
-
-import java.lang.reflect.Type;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+package co.aurasphere.botmill.kik.exception;
 
 /**
- * The Class EnumLowercaseSerializer.
- * 
- * @author Alvin P. Reyes
+ * The Class FbBotMillControllerEventMisMatchException.
  */
-public class EnumLowercaseSerializer implements JsonSerializer<Enum<?>> {
-
-	/* (non-Javadoc)
-	 * @see com.google.gson.JsonSerializer#serialize(java.lang.Object, java.lang.reflect.Type, com.google.gson.JsonSerializationContext)
+public class BotMillMissingConfigurationException extends Exception {
+	/**
+	 * The serial version UID.
 	 */
-	public JsonElement serialize(Enum<?> src, Type typeOfSrc, JsonSerializationContext context) {
-		//lower case and convert "_" into '-';
-		String source = src.name().replace('_', '-');
-		return context.serialize(source.toLowerCase());
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Instantiates a new FbBot illegal attachment exception.
+	 *
+	 * @param message
+	 *            the message.
+	 */
+	public BotMillMissingConfigurationException(String message) {
+		super(message);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Throwable#toString()
+	 */
+	@Override
+	public String toString() {
+		return "FbBotMillControllerEventMisMatchException []";
 	}
 
 }

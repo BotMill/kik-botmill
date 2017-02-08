@@ -33,7 +33,6 @@ import co.aurasphere.botmill.kik.model.Frame;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessagePostback;
 import co.aurasphere.botmill.kik.model.Reply;
-import co.aurasphere.botmill.kik.network.NetworkUtils;
 import co.aurasphere.botmill.kik.outgoing.model.OutgoingMessage;
 import co.aurasphere.botmill.kik.outgoing.reply.IsTypingReply;
 import co.aurasphere.botmill.kik.outgoing.reply.LinkMessageReply;
@@ -41,6 +40,7 @@ import co.aurasphere.botmill.kik.outgoing.reply.PictureMessageReply;
 import co.aurasphere.botmill.kik.outgoing.reply.ReadReceiptReply;
 import co.aurasphere.botmill.kik.outgoing.reply.TextMessageReply;
 import co.aurasphere.botmill.kik.outgoing.reply.VideoMessageReply;
+import co.aurasphere.botmill.kik.util.network.NetworkUtils;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 
 /**

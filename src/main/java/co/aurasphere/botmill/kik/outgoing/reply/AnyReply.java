@@ -34,5 +34,6 @@ import co.aurasphere.botmill.kik.outgoing.model.OutgoingMessage;
  */
 public abstract class AnyReply implements Reply<Message> {
 	
+	/** The outgoing message. */
 	protected OutgoingMessage outgoingMessage;
 }

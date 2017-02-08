@@ -25,9 +25,9 @@
  */
 package co.aurasphere.botmill.kik.retriever;
 
-import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.UserProfile;
-import co.aurasphere.botmill.kik.network.NetworkUtils;
+import co.aurasphere.botmill.kik.util.json.JsonUtils;
+import co.aurasphere.botmill.kik.util.network.NetworkUtils;
 
 /**
  * The Class KikUserProfileRetriever.

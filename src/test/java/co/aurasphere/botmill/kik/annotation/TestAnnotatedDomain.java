@@ -33,12 +33,12 @@ import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
 import co.aurasphere.botmill.kik.builder.KeyboardBuilder;
 import co.aurasphere.botmill.kik.factory.MessageFactory;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
-import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.KeyboardType;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessageCallback;
 import co.aurasphere.botmill.kik.model.ResponseType;
-import co.aurasphere.botmill.kik.network.NetworkUtils;
+import co.aurasphere.botmill.kik.util.json.JsonUtils;
+import co.aurasphere.botmill.kik.util.network.NetworkUtils;
 
 /**
  * The Class TestAnnotatedDomain.

@@ -29,9 +29,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.builder.ActionFrameBuilder;
+import co.aurasphere.botmill.kik.exception.BotMillMissingConfigurationException;
 import co.aurasphere.botmill.kik.exception.KikBotMillException;
 import co.aurasphere.botmill.kik.incoming.event.AnyEvent;
 import co.aurasphere.botmill.kik.incoming.event.DeliveryReceiptEvent;
@@ -48,7 +53,8 @@ import co.aurasphere.botmill.kik.incoming.event.TextMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.TextMessagePatternEvent;
 import co.aurasphere.botmill.kik.incoming.event.VideoMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillController;
-import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillDomain;
+import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillInit;
+import co.aurasphere.botmill.kik.util.properties.PropertiesUtil;
 
 /**
  * The Class AbstractDomain.
@@ -57,6 +63,10 @@ import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillDomain;
  */
 public abstract class AbstractKikBot implements Domain {
 
+	/** The Constant logger. */
+	private static final Logger logger = LoggerFactory
+			.getLogger(AbstractKikBot.class);
+	
 	/** The action frame. */
 	private ActionFrame actionFrame;
 
@@ -65,10 +75,12 @@ public abstract class AbstractKikBot implements Domain {
 	 */
 	public AbstractKikBot() {
 		try {
+			this.buildKikBotConfig();
+			this.buildAnnotatedInitDomain();
 			this.buildAnnotatedDomain();
 			this.buildDomain();
-		} catch (KikBotMillException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
 		}
 	}
 
@@ -78,17 +90,56 @@ public abstract class AbstractKikBot implements Domain {
 	@Override
 	public void buildDomain() {}
 
+	
+	/**
+	 * Builds the annotated init domain.
+	 */
+	private void buildAnnotatedInitDomain() {
+		Method[] methods = this.getClass().getMethods();
+		for (Method method : methods) {
+			if (method.isAnnotationPresent(BotMillInit.class)) {
+				try {
+					method.invoke(this);
+				} catch (Exception e) {
+					logger.error(e.getMessage());
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Builds the kik bot config.
+	 *
+	 * @throws BotMillMissingConfigurationException the bot mill missing configuration exception
+	 */
+	private void buildKikBotConfig() throws BotMillMissingConfigurationException {
+	Properties prop = PropertiesUtil.load("botmill.properties");
+		
+		String kikUsername = prop.getProperty("kik.user.name");
+		String kikApiKey = prop.getProperty("kik.api.key");
+		if(kikUsername == null || kikApiKey == null) {
+			
+			//	Check the environment, maybe it's there.
+			String systemPropKikUsername = System.getProperty("USERNAME");
+			String systemPropApiKey = System.getProperty("APIKEY");
+			
+			if(systemPropKikUsername == null || systemPropApiKey == null) {
+				throw new BotMillMissingConfigurationException("Kik-BotMill Configuration is missing (botmill.properties). "
+						+ "Please check if the appropriate property values are configured correctly.");
+			}
+		}
+		
+		//	Everything goes well, initialize the setup.
+		KikBotMillContext.getInstance().setup(prop.getProperty("kik.user.name"), prop.getProperty("kik.api.key"));
+	
+	}
 	/**
 	 * Builds the annotated domain.
 	 *
 	 * @throws KikBotMillException the kik bot mill exception
 	 */
-	protected void buildAnnotatedDomain() throws KikBotMillException {
+	private void buildAnnotatedDomain() throws KikBotMillException {
 		Method[] methods = this.getClass().getMethods();
-		//	check first if this class is BotMillDomain annotated, if not, throw error.
-//		if(!this.getClass().isAnnotationPresent(BotMillDomain.class)) {
-//			throw new KikBotMillException("Domain is not BotMillDomain annotated. Make sure the class " + this.getClass().getName() + " is annotated properly.");
-//		}else {	//	if annotation is present.
 		for (Method method : methods) {
 			if (method.isAnnotationPresent(BotMillController.class)) {
 				BotMillController botMillController = method.getAnnotation(BotMillController.class);
@@ -111,7 +162,6 @@ public abstract class AbstractKikBot implements Domain {
 				}
 			}
 		}
-//		}
 	}
 	
 	/**

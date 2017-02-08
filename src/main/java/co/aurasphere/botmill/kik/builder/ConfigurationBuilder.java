@@ -28,7 +28,7 @@ package co.aurasphere.botmill.kik.builder;
 import co.aurasphere.botmill.kik.configuration.Configuration;
 import co.aurasphere.botmill.kik.model.BaseBuilder;
 import co.aurasphere.botmill.kik.model.Keyboard;
-import co.aurasphere.botmill.kik.network.NetworkUtils;
+import co.aurasphere.botmill.kik.util.network.NetworkUtils;
 
 /**
  * The Class ConfigurationBuilder.

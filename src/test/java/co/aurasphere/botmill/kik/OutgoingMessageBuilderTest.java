@@ -44,13 +44,11 @@ import co.aurasphere.botmill.kik.factory.EventFactory;
 import co.aurasphere.botmill.kik.factory.ReplyFactory;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
-import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.KeyboardType;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessageCallback;
 import co.aurasphere.botmill.kik.model.MessageEnvelope;
 import co.aurasphere.botmill.kik.model.UserProfile;
-import co.aurasphere.botmill.kik.network.NetworkUtils;
 import co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage;
 import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 import co.aurasphere.botmill.kik.outgoing.model.PictureMessage;
@@ -60,6 +58,8 @@ import co.aurasphere.botmill.kik.outgoing.model.VideoMessage;
 import co.aurasphere.botmill.kik.outgoing.reply.LinkMessageReply;
 import co.aurasphere.botmill.kik.outgoing.reply.TextMessageReply;
 import co.aurasphere.botmill.kik.retriever.KikUserProfileRetriever;
+import co.aurasphere.botmill.kik.util.json.JsonUtils;
+import co.aurasphere.botmill.kik.util.network.NetworkUtils;
 
 /**
  * The Class OutgoingMessageBuilderTest.

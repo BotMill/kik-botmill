@@ -29,10 +29,10 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import co.aurasphere.botmill.kik.KikBotMillContext;
-import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
+import co.aurasphere.botmill.kik.util.json.JsonUtils;
 
 /**
  * The Class BasicOutgoingMessageTest.

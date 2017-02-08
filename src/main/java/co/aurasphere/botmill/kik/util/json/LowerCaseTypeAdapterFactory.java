@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.json;
+package co.aurasphere.botmill.kik.util.json;
 
 import java.io.IOException;
 import java.util.Map;

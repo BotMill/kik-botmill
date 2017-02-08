@@ -28,8 +28,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
-import co.aurasphere.botmill.kik.json.JsonUtils;
 import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.util.json.JsonUtils;
 
 /**
  * The Class MetadataEvent.
@@ -38,11 +38,20 @@ import co.aurasphere.botmill.kik.model.Event;
  */
 public class MetadataEvent implements Event {
 
+	/** The key. */
 	private String key;
+	
+	/** The value. */
 	private String value;
+	
+	/** The metadata map. */
 	private Map<String,String> metadataMap = new HashMap<String,String>();
+	
 	/**
 	 * Instantiates a new text message event.
+	 *
+	 * @param key the key
+	 * @param value the value
 	 */
 	public MetadataEvent(String key, String value) {
 		this.key = key;

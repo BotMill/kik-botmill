@@ -23,31 +23,28 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.network;
+package co.aurasphere.botmill.kik.util.json;
+
+import java.lang.reflect.Type;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 /**
- * The Class KikBotMillNetworkConstants.
+ * The Class EnumLowercaseSerializer.
  * 
  * @author Alvin P. Reyes
  */
-public class KikBotMillNetworkConstants {
+public class EnumLowercaseSerializer implements JsonSerializer<Enum<?>> {
 
-	/** The Constant SITE. */
-	public static final String SITE = "https://api.kik.com/v1/";
+	/* (non-Javadoc)
+	 * @see com.google.gson.JsonSerializer#serialize(java.lang.Object, java.lang.reflect.Type, com.google.gson.JsonSerializationContext)
+	 */
+	public JsonElement serialize(Enum<?> src, Type typeOfSrc, JsonSerializationContext context) {
+		//lower case and convert "_" into '-';
+		String source = src.name().replace('_', '-');
+		return context.serialize(source.toLowerCase());
+	}
 
-	/** The Constant CONFIG_ENDPOINT. */
-	public static final String CONFIG_ENDPOINT = SITE + "config";
-
-	/** The Constant MESSAGE_ENDPOINT. */
-	public static final String MESSAGE_ENDPOINT = SITE + "message";
-
-	/** The Constant USER_ENDPOINT. */
-	public static final String USER_ENDPOINT = SITE + "user/";
-	
-	/** The Constant BROADCAST_ENDPOINT. */
-	public static final String BROADCAST_ENDPOINT = SITE + "broadcast";
-	
-	/** The Constant CODE_ENDPOINT. */
-	public static final String CODE_ENDPOINT = SITE + "code";
-	
 }
