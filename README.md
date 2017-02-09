@@ -53,6 +53,15 @@ Once you've imported the API. You need to register the KikBotMillServlet. To do 
   
 ```
 
+Create a file name **botmill.properties** and put the username and apikey in it.
+
+```
+kik.user.name=<USERNAME>
+kik.api.key=<API_KEY>
+```
+
+Place this file on the root of the classpath. The Class loader will look into this file to initialize the connection of your KikBot.
+
 Your KikBotEntryPoint should extends KikBotMillEntry. You need to override the kikBotEntry and define your domains and behaviours.
 
 ```java
@@ -65,10 +74,25 @@ public class KikBotEntryPoint extends KikBotMillEntry {
 	@Override
 	protected void kikBotEntry() {
 		
-		//	setup
-		KikBotMillContext.getInstance().setup("<USERNAME>", "<APIKEY>");
+		//	You can register multiple KikBots at once in this single entry point.
+		KikBotMillContext.getInstance().registerDomain(new SampleKikBot());
 		
-		//	configuration.
+	}
+}
+
+```
+
+Your **domain** holds all the actions of your Bot.  
+
+In the following example, the action will catch either a "hello" or "HELLO" response from the user and respond back a message "Hey <user>! How can I help you today?".
+
+```java
+public class SampleKikBot extends AbstractKikBot {
+
+	//	@BotmillInit will only be called once and always first after object initialization. 
+	//	it's intended to be used to create the initial configuration of the Kik ChatBot
+	@BotMillInit
+	public void initialize() {
 		ConfigurationBuilder.getInstance().setWebhook("<webhook>/myKikBot")
 			.setManuallySendReadReceipts(false)
 			.setReceiveDeliveryReceipts(false)
@@ -81,22 +105,9 @@ public class KikBotEntryPoint extends KikBotMillEntry {
 				.addResponse(MessageFactory.createResponse("Milling Tools!", ResponseType.TEXT))
 			.buildKeyboard())
 		.buildConfiguration();
-			
-		//	Domain > collection of responses
-		KikBotMillContext.getInstance().registerDomain(new SampleKikBot());
-		
 	}
-}
-
-```
-
-Your domain holds all the actions of your Bot.  
-
-In the following example, the action will catch either a "hello" or "HELLO" response from the user and respond back a message "Hey <user>! How can I help you today?".
-
-```java
-public class SampleKikBot extends AbstractKikBot {
-
+	
+	//	@BotMillController let's you catch events.
 	@BotMillController(event = EventType.TEXT_PATTERN, pattern = "(?i:hello)")
 	public void replyCatchTextPattern() {
 		reply(new TextMessageReply() {
@@ -108,7 +119,6 @@ public class SampleKikBot extends AbstractKikBot {
 			}
 		});
 	}
-	
 }
 ```
 
@@ -154,7 +164,7 @@ public void replyCatchText() {
 }
 ```
 
-**or both, with Keyboard**
+**or both -  with Keyboard**
 
 ```java
 @BotMillController(event = EventType.TEXT_MESSAGE, text = "Hi")
@@ -198,7 +208,7 @@ public void replyCatchTextPattern() {
 	});
 }
 ```
-**or catch the start chatting**
+**or catch the 'start chatting' event**
 
 ```java
 @BotMillController(event = EventType.START_CHATTING)
@@ -221,7 +231,7 @@ public void replyCatchTextPattern() {
 }
 ```
 
-**catch a sticker**
+**or when a user sent a sticker**
 
 ```java
 @BotMillController(event = EventType.STICKER)
@@ -244,7 +254,7 @@ public void replyCatchTextPattern() {
 }
 ```
 
-**or catch a scan data**
+**or if a user tries to scan the kik data code**
 
 ```java
 @BotMillController(event = EventType.SCAN_DATA)
