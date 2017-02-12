@@ -34,6 +34,8 @@ import java.lang.annotation.Target;
 
 /**
  * The Interface BotMillDomain.
+ * 
+ * @author Alvin P. Reyes
  */
 @Documented
 @Target(ElementType.TYPE)

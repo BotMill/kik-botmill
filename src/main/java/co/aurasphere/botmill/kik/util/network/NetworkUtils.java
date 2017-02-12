@@ -131,6 +131,7 @@ public class NetworkUtils {
 				new UsernamePasswordCredentials(
 						KikBotMillContext.getInstance().getUser(),
 						KikBotMillContext.getInstance().getApiKey());
+		
 		provider.setCredentials(AuthScope.ANY, credentials);
 		CloseableHttpClient httpClient = HttpClientBuilder.create()
 				.setDefaultCredentialsProvider(provider)
@@ -177,8 +178,8 @@ public class NetworkUtils {
 			// Parses the error message and logs it.
 			KikErrorMessage errorMessage = JsonUtils.fromJson(output, KikErrorMessage.class);
 			KikError error = errorMessage.getError();
-			logger.error("Error message from Kik. Message: [{}], Code: [{}], Type: [{}], FbTraceID: [{}].",
-					error.getMessage(), error.getCode(), error.getType(), error.getFbTraceId());
+			logger.error("Error message from Kik. Message: [{}]",
+					error.getMessage());
 		}
 		return output;
 	}

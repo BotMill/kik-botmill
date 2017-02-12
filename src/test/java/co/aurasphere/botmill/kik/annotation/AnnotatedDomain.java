@@ -50,12 +50,13 @@ import co.aurasphere.botmill.kik.util.network.NetworkUtils;
 /**
  * The Class AnnotatedDomain.
  */
+@BotMillDomain
 public class AnnotatedDomain extends AbstractKikBot {
 	
 	/**
 	 * Initialize.
 	 */
-	@BotMillInit
+	@BotMillInit(meta="initialization")
 	public void initialize() {
 		ConfigurationBuilder.getInstance()
 			.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot").setManuallySendReadReceipts(false)

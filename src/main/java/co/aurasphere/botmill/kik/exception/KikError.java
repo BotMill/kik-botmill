@@ -55,11 +55,6 @@ public class KikError implements Serializable {
 	 */
 	private String code;
 
-	/**
-	 * The error Facebook's trace ID.
-	 */
-	@SerializedName("fbtrace_id")
-	private String fbTraceId;
 
 	/**
 	 * Gets the {@link #message}.
@@ -118,23 +113,5 @@ public class KikError implements Serializable {
 		this.code = code;
 	}
 
-	/**
-	 * Gets the {@link #fbTraceId}.
-	 *
-	 * @return the {@link #fbTraceId}.
-	 */
-	public String getFbTraceId() {
-		return fbTraceId;
-	}
-
-	/**
-	 * Sets the {@link #fbTraceId}.
-	 *
-	 * @param fbTraceId
-	 *            the {@link #fbTraceId} to set.
-	 */
-	public void setFbTraceId(String fbTraceId) {
-		this.fbTraceId = fbTraceId;
-	}
 
 }
