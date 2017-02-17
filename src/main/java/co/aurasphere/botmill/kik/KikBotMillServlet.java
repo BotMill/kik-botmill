@@ -33,6 +33,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import co.aurasphere.botmill.common.base.BotMillServlet;
+
 /**
  * The Class KikBotServlet.
  * 
@@ -41,52 +43,13 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Alvin P. Reyes
  */
-public class KikBotMillServlet extends HttpServlet {
+public class KikBotMillServlet extends BotMillServlet {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory.getLogger(KikBotMillServlet.class);
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
-	 */
-	@Override
-	public void init() throws ServletException {
-
-		// Tries to get the botDefinitionClass name from the config defined in
-		// web.xml.
-		String botDefinitionClass = getServletConfig().getInitParameter("bot-definition-class");
-		if (botDefinitionClass == null || botDefinitionClass.isEmpty()) {
-			logger.error(
-					"Bot definition class not found in web.xml. Make sure to add the fully qualified name of the a class implementing co.aurasphere.botmill.fb.KikBotDefinition as an init-param of the FbBotMillServlet.");
-			throw new ServletException(
-					"Bot definition class not found in web.xml. Make sure to add the fully qualified name of the a class implementing co.aurasphere.botmill.fb.KikBotDefinition as an init-param of the FbBotMillServlet.");
-		}
-
-		// Tries to load and instantiate the botDefinitionClass.
-		KikBotMillEntry botEntry = null;
-		try {
-			botEntry = (KikBotMillEntry) this.getClass().getClassLoader().loadClass(botDefinitionClass).newInstance();
-		} catch (ClassNotFoundException e) {
-			logger.error("Error while loading KikBotDefinition class [ " + botDefinitionClass + " ]", e);
-			throw new ServletException("Error while loading KikBotDefinition class [ " + botDefinitionClass + " ]", e);
-		} catch (ClassCastException e) {
-			logger.error("Class [ " + botDefinitionClass
-					+ " ] does not implement co.aurasphere.botmill.kik.KikBotDefinition", e);
-			throw new ServletException("Class [ " + botDefinitionClass
-					+ " ] does not implement co.aurasphere.botmill.kik.KikBotDefinition", e);
-		} catch (Exception e) {
-			logger.error("Error during instantiation of class [ " + botDefinitionClass + " ]", e);
-			throw new ServletException("Error during instantiation of class [ " + botDefinitionClass + " ]", e);
-		}
-
-		botEntry.kikBotEntry();
-		logger.info("KikBotMillServlet configuration OK.");
-	}
 
 	/*
 	 * (non-Javadoc)

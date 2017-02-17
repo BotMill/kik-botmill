@@ -50,7 +50,6 @@ import co.aurasphere.botmill.kik.util.network.NetworkUtils;
 /**
  * The Class AnnotatedDomain.
  */
-@BotMillDomain
 public class AnnotatedDomain extends AbstractKikBot {
 	
 	/**

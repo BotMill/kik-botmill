@@ -34,6 +34,7 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import co.aurasphere.botmill.common.BotDefinition;
 import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.builder.ActionFrameBuilder;
 import co.aurasphere.botmill.kik.exception.BotMillMissingConfigurationException;
@@ -61,7 +62,7 @@ import co.aurasphere.botmill.kik.util.properties.PropertiesUtil;
  * 
  * @author Alvin P. Reyes
  */
-public abstract class AbstractKikBot implements Domain {
+public abstract class AbstractKikBot implements BotDefinition {
 
 	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory.getLogger(AbstractKikBot.class);
@@ -84,21 +85,15 @@ public abstract class AbstractKikBot implements Domain {
 			this.buildKikBotConfig();
 			this.buildAnnotatedInitDomain();
 			this.buildAnnotatedDomain();
-			this.buildDomain();
+			this.defineBehaviour();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see co.aurasphere.botmill.kik.model.Domain#buildDomain()
-	 */
+	
 	@Override
-	public void buildDomain() {
-	}
-
+	public void defineBehaviour() {}
+	
 	/**
 	 * Builds the annotated init domain.
 	 */
