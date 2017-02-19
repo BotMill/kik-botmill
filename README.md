@@ -3,7 +3,7 @@
 [![Javadocs](http://www.javadoc.io/badge/co.aurasphere.botmill/kik-botmill.svg)](http://www.javadoc.io/doc/co.aurasphere.botmill/kik-botmill)
 [![Gitter](https://badges.gitter.im/BotMill/kik-botmill.svg)](https://gitter.im/BotMill/kik-botmill?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-# Kik-BotMill - Tools to Mill Kik Bots
+# Kik-BotMill - Awesome Framework to Build Kik Bots
 
 Inspired by our first ever Bot Framework [FB-BotMill](https://github.com/BotMill/fb-botmill)
 
