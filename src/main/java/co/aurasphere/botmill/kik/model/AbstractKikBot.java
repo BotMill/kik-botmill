@@ -169,7 +169,7 @@ public abstract class AbstractKikBot implements BotDefinition {
 
 					// add the action frame to the context.
 					KikBotMillContext.getInstance().addActionFrameToContext(actionFrame);
-				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}

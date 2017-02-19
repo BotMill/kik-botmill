@@ -83,7 +83,6 @@ public class VideoMessage extends IncomingMessage implements Comparable<VideoMes
 	/* (non-Javadoc)
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
-	@Override
 	public int compareTo(VideoMessage o) {
 		if(this.getVideoUrl().equals(o.getVideoUrl())) {
 			return 0;

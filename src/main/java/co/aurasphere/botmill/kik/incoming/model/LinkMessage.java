@@ -126,7 +126,6 @@ public class LinkMessage extends IncomingMessage implements Comparable<LinkMessa
 	/* (non-Javadoc)
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
-	@Override
 	public int compareTo(LinkMessage o) {
 		if(this.getUrl().equals(o.getUrl())) {
 			return 0;

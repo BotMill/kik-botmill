@@ -82,7 +82,6 @@ public class PictureMessage extends IncomingMessage implements Comparable<Pictur
 	/* (non-Javadoc)
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
-	@Override
 	public int compareTo(PictureMessage o) {
 		if(this.getPicUrl().equals(o.getPicUrl())) {
 			return 0;

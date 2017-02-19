@@ -55,9 +55,8 @@ public class ReplyFactory {
 	 * @param text the text
 	 * @return the text message reply
 	 */
-	public static TextMessageReply buildTextMessageReply(String text){
+	public static TextMessageReply buildTextMessageReply(final String text){
 		return new TextMessageReply() {
-			@Override
 			public TextMessage processReply(Message message) {
 				return TextMessageBuilder.getInstance().setBody(text).build();
 			}
@@ -70,9 +69,8 @@ public class ReplyFactory {
 	 * @param pictureUrl the picture url
 	 * @return the picture message reply
 	 */
-	public static PictureMessageReply buildPictureMessageReply(String pictureUrl) {
+	public static PictureMessageReply buildPictureMessageReply(final String pictureUrl) {
 		return new PictureMessageReply() {
-			@Override
 			public PictureMessage processReply(Message message) {
 				return PictureMessageBuilder.getInstance().setPicUrl(pictureUrl).build();
 			}
@@ -86,7 +84,6 @@ public class ReplyFactory {
 	 */
 	public static IsTypingReply buildTypingReply() {
 		return new IsTypingReply() {
-			@Override
 			public IsTypingMessage processReply(Message message) {
 				return ActionMessageBuilder.buildIsTypingMessage();
 			}
@@ -99,9 +96,8 @@ public class ReplyFactory {
 	 * @param videoUrl the video url
 	 * @return the video message reply
 	 */
-	public static VideoMessageReply buildVideoMessageReply(String videoUrl) {
+	public static VideoMessageReply buildVideoMessageReply(final String videoUrl) {
 		return new VideoMessageReply() {
-			@Override
 			public VideoMessage processReply(Message message) {
 				return VideoMessageBuilder.getInstance().setVideoUrl(videoUrl).build();
 			}
@@ -116,9 +112,8 @@ public class ReplyFactory {
 	 * @param pictureUrl the picture url
 	 * @return the link message reply
 	 */
-	public static LinkMessageReply buildLinkMessageReply(String title, String link, String pictureUrl) {
+	public static LinkMessageReply buildLinkMessageReply(final String title, final String link, final String pictureUrl) {
 		return new LinkMessageReply() {
-			@Override
 			public LinkMessage processReply(Message message) {
 				return LinkMessageBuilder.getInstance().setTitle(title).setUrl(link).setPicUrl(pictureUrl).build();
 			}

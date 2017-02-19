@@ -40,7 +40,6 @@ public class AnyEvent implements Event {
 	/* (non-Javadoc)
 	 * @see co.aurasphere.botmill.kik.intf.Event#verifyEvent(co.aurasphere.botmill.kik.incoming.model.IncomingMessage)
 	 */
-	@Override
 	public boolean verifyEvent(IncomingMessage incomingMessage) {
 		if (incomingMessage.getType().equals(MessageType.IS_TYPING)
 				|| incomingMessage.getType().equals(MessageType.START_CHATTING)

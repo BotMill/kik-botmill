@@ -105,7 +105,7 @@ public abstract class AbstractAnnotatedDomain implements Domain {
 						
 						//	add the action frame to the context.
 						KikBotMillContext.getInstance().addActionFrameToContext(actionFrame);
-					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}

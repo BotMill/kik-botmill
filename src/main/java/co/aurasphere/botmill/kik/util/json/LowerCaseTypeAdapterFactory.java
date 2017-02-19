@@ -47,7 +47,6 @@ public class LowerCaseTypeAdapterFactory implements TypeAdapterFactory {
 	/* (non-Javadoc)
 	 * @see com.google.gson.TypeAdapterFactory#create(com.google.gson.Gson, com.google.gson.reflect.TypeToken)
 	 */
-	@Override
 	public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
 		final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
 		final TypeAdapter<T> delegate = gson.getDelegateAdapter(this, type);

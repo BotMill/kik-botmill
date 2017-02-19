@@ -124,15 +124,14 @@ public class JsonToActionFrameHandler {
 		
 		List<Reply<? extends Message>> replies = new ArrayList<Reply<? extends Message>>();
 		
-		for(JsonReply jsonReply:jaction.getReplies()) {
+		for(final JsonReply jsonReply:jaction.getReplies()) {
 			if(jsonReply.getType().equals("text")) {
 				replies.add(ReplyFactory.buildTextMessageReply(jsonReply.getText().getBody()));
 			}
 			
 			if(jsonReply.getType().equals("picture")) {
 				replies.add(new PictureMessageReply() {
-					
-					@Override
+				
 					public PictureMessage processReply(Message message) {
 						return PictureMessageBuilder.getInstance()
 								.setPicUrl(jsonReply.getPicture().getPicUrl())
@@ -142,8 +141,7 @@ public class JsonToActionFrameHandler {
 			}
 			if(jsonReply.getType().equals("video")) {
 				replies.add(new VideoMessageReply() {
-					
-					@Override
+			
 					public VideoMessage processReply(Message message) {
 						return VideoMessageBuilder.getInstance()
 								.setVideoUrl(jsonReply.getVideo().getVideoUrl())
@@ -154,7 +152,7 @@ public class JsonToActionFrameHandler {
 			if(jsonReply.getType().equals("link")) {
 				replies.add(new LinkMessageReply() {
 					
-					@Override
+		
 					public LinkMessage processReply(Message message) {
 						return LinkMessageBuilder.getInstance().setText(jsonReply.getLink().getText())
 								.setTitle(jsonReply.getLink().getTitle())

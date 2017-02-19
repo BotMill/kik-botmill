@@ -33,15 +33,12 @@ import co.aurasphere.botmill.kik.factory.MessageFactory;
 import co.aurasphere.botmill.kik.factory.ReplyFactory;
 import co.aurasphere.botmill.kik.incoming.event.EventType;
 import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillController;
-import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillDomain;
 import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillInit;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
-import co.aurasphere.botmill.kik.model.AbstractAnnotatedDomain;
 import co.aurasphere.botmill.kik.model.AbstractKikBot;
 import co.aurasphere.botmill.kik.model.KeyboardType;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessageCallback;
-import co.aurasphere.botmill.kik.model.ResponseType;
 import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 import co.aurasphere.botmill.kik.outgoing.reply.LinkMessageReply;
 import co.aurasphere.botmill.kik.util.json.JsonUtils;
@@ -72,7 +69,6 @@ public class AnnotatedDomain extends AbstractKikBot {
 	@BotMillController(eventType = EventType.TEXT_MESSAGE, text = "v")
 	public void replyText() {
 		reply(new LinkMessageReply() {
-			@Override
 			public LinkMessage processReply(Message message) {
 				return LinkMessageBuilder.getInstance().setTitle("Title").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
 						.build();
@@ -86,7 +82,6 @@ public class AnnotatedDomain extends AbstractKikBot {
 	@BotMillController(eventType = EventType.TEXT_PATTERN, pattern = "(?i:hi11)")
 	public void replyText1() {
 		reply(new LinkMessageReply() {
-			@Override
 			public LinkMessage processReply(Message message) {
 				return LinkMessageBuilder.getInstance().setTitle("Title1").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
 						.build();
