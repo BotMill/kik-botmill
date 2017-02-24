@@ -25,16 +25,13 @@
  */
 package co.aurasphere.botmill.kik.model;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import co.aurasphere.botmill.common.BotDefinition;
+import co.aurasphere.botmill.core.BotDefinition;
+import co.aurasphere.botmill.core.BotMillSession;
 import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.builder.ActionFrameBuilder;
 import co.aurasphere.botmill.kik.exception.BotMillMissingConfigurationException;
@@ -76,6 +73,8 @@ public abstract class AbstractKikBot implements BotDefinition {
 
 	/** The action frame. */
 	private ActionFrame actionFrame;
+	
+	private BotMillSession botMillSession;
 
 	/**
 	 * Instantiates a new abstract domain.
@@ -141,6 +140,9 @@ public abstract class AbstractKikBot implements BotDefinition {
 
 		// Everything goes well, initialize the setup.
 		KikBotMillContext.getInstance().setup(kikUsername, kikApiKey);
+		
+		//	Create the botmill session.
+		botMillSession = BotMillSession.getInstance();
 
 	}
 
@@ -176,6 +178,10 @@ public abstract class AbstractKikBot implements BotDefinition {
 		}
 	}
 
+	protected final BotMillSession botMillSession() {
+		return this.botMillSession;
+	}
+	
 	/**
 	 * Reply.
 	 *
@@ -218,6 +224,7 @@ public abstract class AbstractKikBot implements BotDefinition {
 	 * @param replies
 	 *            the replies
 	 */
+	@SafeVarargs
 	protected final void addActionFrame(Event event, Reply<? extends Message>... replies) {
 		ActionFrameBuilder.getInstance().setEvent(event).addReplies(replies).buildToContext();
 	}

@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import co.aurasphere.botmill.common.base.BotMillServlet;
+import co.aurasphere.botmill.core.base.BotMillServlet;
 
 /**
  * The Class KikBotServlet.
