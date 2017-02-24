@@ -1,8 +1,8 @@
-/**
+/*
  * 
  * MIT License
  *
- * Copyright (c) 2017 BotMill.io
+ * Copyright (c) 2016 BotMill.io
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,6 @@ package co.aurasphere.botmill.kik;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
