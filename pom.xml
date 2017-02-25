@@ -49,6 +49,9 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
+	<properties>
+		<java.source.runtime>1.5</java.source.runtime>
+	</properties>
 	<build>
 		<plugins>
 			<plugin>
@@ -106,6 +109,15 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.0</version>
+				<configuration>
+					<source>${java.source.runtime}</source>
+					<target>${java.target.runtime}</target>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
