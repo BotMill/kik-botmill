@@ -45,8 +45,7 @@ import co.aurasphere.botmill.kik.incoming.event.StickerEvent;
 import co.aurasphere.botmill.kik.incoming.event.TextMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.TextMessagePatternEvent;
 import co.aurasphere.botmill.kik.incoming.event.VideoMessageEvent;
-import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillController;
-import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillDomain;
+import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillController;
 
 /**
  * The Class AbstractDomain.
@@ -58,12 +57,15 @@ public abstract class AbstractAnnotatedDomain implements Domain {
 	/** The action frame. */
 	private ActionFrame actionFrame;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see co.aurasphere.botmill.kik.model.Domain#buildDomain()
 	 */
 	@Override
-	public void buildDomain() {}
-	
+	public void buildDomain() {
+	}
+
 	/**
 	 * Instantiates a new abstract domain.
 	 */
@@ -75,58 +77,57 @@ public abstract class AbstractAnnotatedDomain implements Domain {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Builds the annotated domain.
 	 *
-	 * @throws KikBotMillException the kik bot mill exception
+	 * @throws KikBotMillException
+	 *             the kik bot mill exception
 	 */
 	public void buildAnnotatedDomain() throws KikBotMillException {
 		Method[] methods = this.getClass().getMethods();
-		System.out.println(this.getClass().isAnnotationPresent(BotMillDomain.class));
-		//	check first if this class is BotMillDomain annotated, if not, throw error.
-		if(!this.getClass().isAnnotationPresent(BotMillDomain.class)) {
-			throw new KikBotMillException("Domain is not BotMillDomain annotated. Make sure the class " + this.getClass().getName() + " is annotated properly.");
-		}else {	//	if annotation is present.
-			for (Method method : methods) {
-				if (method.isAnnotationPresent(BotMillController.class)) {
-					BotMillController botMillController = method.getAnnotation(BotMillController.class);
-					try {
-						actionFrame = new ActionFrame();
-						String textOrPattern = "";
-						if(!botMillController.text().equals("")) {
-							textOrPattern = botMillController.text();
-						}else {
-							textOrPattern = botMillController.pattern();
-						}
-						//	set the event.
-						actionFrame.setEvent(toEvent(botMillController.eventType(),textOrPattern));
-						method.invoke(this);	// invoke the method.
-						
-						//	add the action frame to the context.
-						KikBotMillContext.getInstance().addActionFrameToContext(actionFrame);
-					} catch (Exception e) {
-						e.printStackTrace();
+		for (Method method : methods) {
+			if (method.isAnnotationPresent(KikBotMillController.class)) {
+				KikBotMillController botMillController = method.getAnnotation(KikBotMillController.class);
+				try {
+					actionFrame = new ActionFrame();
+					String textOrPattern = "";
+					if (!botMillController.text().equals("")) {
+						textOrPattern = botMillController.text();
+					} else {
+						textOrPattern = botMillController.pattern();
 					}
+					// set the event.
+					actionFrame.setEvent(toEvent(botMillController.eventType(), textOrPattern));
+					method.invoke(this); // invoke the method.
+
+					// add the action frame to the context.
+					KikBotMillContext.getInstance().addActionFrameToContext(actionFrame);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		}
+
 	}
-	
+
 	/**
 	 * Reply.
 	 *
-	 * @param reply the reply
+	 * @param reply
+	 *            the reply
 	 */
 	public void reply(Reply<? extends Message> reply) {
 		actionFrame.addReply(reply);
 	}
-	
+
 	/**
 	 * To event.
 	 *
-	 * @param eventType the event type
-	 * @param textOrPattern the text or pattern
+	 * @param eventType
+	 *            the event type
+	 * @param textOrPattern
+	 *            the text or pattern
 	 * @return the event
 	 */
 	private Event toEvent(EventType eventType, String textOrPattern) {
@@ -147,7 +148,7 @@ public abstract class AbstractAnnotatedDomain implements Domain {
 			return new PictureMessageEvent();
 		case SCAN_DATA:
 			return new ScanDataEvent();
-		case START_CHATTING:	
+		case START_CHATTING:
 			return new StartChattingEvent();
 		case STICKER:
 			return new StickerEvent();
@@ -158,6 +159,7 @@ public abstract class AbstractAnnotatedDomain implements Domain {
 		case VIDEO:
 			return new VideoMessageEvent();
 		}
-		return null; // it's impossible to have a null event, but if it does happen, it will be ignored on the handler.
+		return null; // it's impossible to have a null event, but if it does
+						// happen, it will be ignored on the handler.
 	}
 }

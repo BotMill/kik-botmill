@@ -50,8 +50,8 @@ import co.aurasphere.botmill.kik.incoming.event.StickerEvent;
 import co.aurasphere.botmill.kik.incoming.event.TextMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.TextMessagePatternEvent;
 import co.aurasphere.botmill.kik.incoming.event.VideoMessageEvent;
-import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillController;
-import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillInit;
+import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillController;
+import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillInit;
 import co.aurasphere.botmill.kik.util.properties.PropertiesUtil;
 
 /**
@@ -83,7 +83,7 @@ public abstract class AbstractKikBot implements BotDefinition {
 		try {
 			this.buildKikBotConfig();
 			this.buildAnnotatedInitDomain();
-			this.buildAnnotatedDomain();
+			this.buildAnnotatedBehaviour();
 			this.defineBehaviour();
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -99,7 +99,7 @@ public abstract class AbstractKikBot implements BotDefinition {
 	private void buildAnnotatedInitDomain() {
 		Method[] methods = this.getClass().getMethods();
 		for (Method method : methods) {
-			if (method.isAnnotationPresent(BotMillInit.class)) {
+			if (method.isAnnotationPresent(KikBotMillInit.class)) {
 				try {
 					method.invoke(this);
 				} catch (Exception e) {
@@ -152,11 +152,11 @@ public abstract class AbstractKikBot implements BotDefinition {
 	 * @throws KikBotMillException
 	 *             the kik bot mill exception
 	 */
-	private void buildAnnotatedDomain() throws KikBotMillException {
+	private void buildAnnotatedBehaviour() throws KikBotMillException {
 		Method[] methods = this.getClass().getMethods();
 		for (Method method : methods) {
-			if (method.isAnnotationPresent(BotMillController.class)) {
-				BotMillController botMillController = method.getAnnotation(BotMillController.class);
+			if (method.isAnnotationPresent(KikBotMillController.class)) {
+				KikBotMillController botMillController = method.getAnnotation(KikBotMillController.class);
 				try {
 					actionFrame = new ActionFrame();
 					String textOrPattern = "";

@@ -39,7 +39,7 @@ import co.aurasphere.botmill.kik.incoming.event.EventType;
 @Target(ElementType.METHOD)
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-public @interface BotMillController {
+public @interface KikBotMillController {
 	
 	/**
 	 * Event.

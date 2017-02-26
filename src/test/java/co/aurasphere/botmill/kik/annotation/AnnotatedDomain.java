@@ -32,8 +32,8 @@ import co.aurasphere.botmill.kik.builder.LinkMessageBuilder;
 import co.aurasphere.botmill.kik.factory.MessageFactory;
 import co.aurasphere.botmill.kik.factory.ReplyFactory;
 import co.aurasphere.botmill.kik.incoming.event.EventType;
-import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillController;
-import co.aurasphere.botmill.kik.incoming.event.annotation.BotMillInit;
+import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillController;
+import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillInit;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
 import co.aurasphere.botmill.kik.model.AbstractKikBot;
 import co.aurasphere.botmill.kik.model.KeyboardType;
@@ -52,7 +52,7 @@ public class AnnotatedDomain extends AbstractKikBot {
 	/**
 	 * Initialize.
 	 */
-	@BotMillInit(meta="initialization")
+	@KikBotMillInit(meta="initialization")
 	public void initialize() {
 		ConfigurationBuilder.getInstance()
 			.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot").setManuallySendReadReceipts(false)
@@ -66,7 +66,7 @@ public class AnnotatedDomain extends AbstractKikBot {
 	/**
 	 * Reply text.
 	 */
-	@BotMillController(eventType = EventType.TEXT_MESSAGE, text = "v")
+	@KikBotMillController(eventType = EventType.TEXT_MESSAGE, text = "v")
 	public void replyText() {
 		reply(new LinkMessageReply() {
 			public LinkMessage processReply(Message message) {
@@ -79,7 +79,7 @@ public class AnnotatedDomain extends AbstractKikBot {
 	/**
 	 * Reply text 1.
 	 */
-	@BotMillController(eventType = EventType.TEXT_PATTERN, pattern = "(?i:hi11)")
+	@KikBotMillController(eventType = EventType.TEXT_PATTERN, pattern = "(?i:hi11)")
 	public void replyText1() {
 		reply(new LinkMessageReply() {
 			public LinkMessage processReply(Message message) {
@@ -94,7 +94,7 @@ public class AnnotatedDomain extends AbstractKikBot {
 	/**
 	 * Reply text 2.
 	 */
-	@BotMillController(eventType = EventType.ANY)
+	@KikBotMillController(eventType = EventType.ANY)
 	public void replyText2() {
 		reply(ReplyFactory.buildTextMessageReply("yeaaasss"));	
 	}
