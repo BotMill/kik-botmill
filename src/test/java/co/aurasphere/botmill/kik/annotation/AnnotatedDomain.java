@@ -25,6 +25,7 @@
  */
 package co.aurasphere.botmill.kik.annotation;
 
+import co.aurasphere.botmill.core.annotation.Bot;
 import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
 import co.aurasphere.botmill.kik.builder.KeyboardBuilder;
@@ -47,6 +48,7 @@ import co.aurasphere.botmill.kik.util.network.NetworkUtils;
 /**
  * The Class AnnotatedDomain.
  */
+@Bot
 public class AnnotatedDomain extends AbstractKikBot {
 	
 	/**
