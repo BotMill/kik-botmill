@@ -59,10 +59,10 @@ import co.aurasphere.botmill.kik.util.properties.PropertiesUtil;
  * 
  * @author Alvin P. Reyes
  */
-public abstract class AbstractKikBot implements BotDefinition {
+public abstract class KikBot implements BotDefinition {
 
 	/** The Constant logger. */
-	private static final Logger logger = LoggerFactory.getLogger(AbstractKikBot.class);
+	private static final Logger logger = LoggerFactory.getLogger(KikBot.class);
 	private static final String KIK_BOTMILL_PROPERTIES_FILENAME = "botmill.properties";
 	private static final String KIK_BOTMILL_USER_NAME_PROP = "kik.user.name";
 	private static final String KIK_BOTMILL_API_KEY_PROP = "kik.api.key";
@@ -79,7 +79,7 @@ public abstract class AbstractKikBot implements BotDefinition {
 	/**
 	 * Instantiates a new abstract domain.
 	 */
-	public AbstractKikBot() {
+	public KikBot() {
 		try {
 			this.buildKikBotConfig();
 			this.buildAnnotatedInitDomain();

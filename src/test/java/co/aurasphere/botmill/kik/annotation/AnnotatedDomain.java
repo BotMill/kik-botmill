@@ -36,7 +36,7 @@ import co.aurasphere.botmill.kik.incoming.event.EventType;
 import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillController;
 import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillInit;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
-import co.aurasphere.botmill.kik.model.AbstractKikBot;
+import co.aurasphere.botmill.kik.model.KikBot;
 import co.aurasphere.botmill.kik.model.KeyboardType;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessageCallback;
@@ -49,7 +49,7 @@ import co.aurasphere.botmill.kik.util.network.NetworkUtils;
  * The Class AnnotatedDomain.
  */
 @Bot
-public class AnnotatedDomain extends AbstractKikBot {
+public class AnnotatedDomain extends KikBot {
 	
 	/**
 	 * Initialize.
