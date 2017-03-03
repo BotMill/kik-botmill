@@ -82,7 +82,7 @@ public class MyKikBot extends KikBot {
 			.buildConfiguration();
 	}
 	
-	@KikBotMillController(event=EventType.TEXT_MESSAGE, text="Hi")
+	@KikBotMillController(eventType=EventType.TEXT_MESSAGE, text="Hi")
 	public void sendMessage() {
 		reply(ReplyFactory.buildTextMessageReply("Hello World!"));	
 	}
@@ -246,74 +246,6 @@ public void replyCatchTextPattern() {
 }
 ```
 
-**<h3>How to use it on other Java Frameworks</h3>**
-
-The KikBotMillLoad class offers a set of static methods that can be access to load Entry Points and catch WebHook URL POST Request.  
-
-```java
-// Call this upon initialization of your app (should only be called once)
-KikBotMillLoader.getLoader().loadEntryPoint(new KikBotEntryPoint());
-
-//	Call this on your callback url post handler (req = HttpRequest, Resp = HttpResponse).
-KikBotMillLoader.getLoader().postHandler(req, resp); 
-```
-
-**On Spark Java**
-
-```java
-import static spark.Spark.*;
-			
-public class KikBot {
-    public static void main(String[] args) {
-		// called once.
-    	KikBotMillLoader.getLoader().loadEntryPoint(new KikBotEntryPoint());
-    	 
-    	//	register post (use this as webhook url on the config entrypoint);
-    	post("/webhook", (request, response) -> {
-	    	KikBotMillLoader.getLoader().postHandler(req, resp); 
-		});
-    }
-}
-```
-	
-**On Spring Boot**
-
-```java
-
-@SpringBootApplication
-public class KikBotConfiguration {
-
-	public static void main(String[] args) {
-	    //	call the loader inside the Hell
-	    SpringApplication.run(KikBotConfiguration.class, args); 
-	    
-	    //	and load Entry Point.
-	    KikBotMillLoader.getLoader().loadEntryPoint(new KikBotEntryPoint());
-		
-	}
-
-}
-```
-
-```java	
-
-@Controller
-public class RestfulSourceController {
-
-    @Autowired
-    Response response;
-    
-	@Autowired
-    Request request;
-    
-    @RequestMapping(value="/webhoolurl", method=RequestMethod.POST, produces="application/json")
-    @ResponseBody
-    public void post() {
-        return KikBotMillLoader.getLoader().postHandler(request, response); 
-    }
-}
-
-```
 
 <h3>Contribution</h3>
 We'd love to get more people involve in the project. Kik Interactive recently made bold investments to improve Kik and we might see a lot of improvements in the upcoming months (possibly Payments). Any contribution to this project will be highly appreciated.
