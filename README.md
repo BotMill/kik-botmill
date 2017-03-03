@@ -18,17 +18,17 @@ x.x.x - indicates version.
 	<dependency>
 	  <groupId>co.aurasphere.botmill</groupId>
 	  <artifactId>kik-botmill</artifactId>
-	  <version>x.x.x</version>
+	  <version>2.0.0-RC1</version>
 	</dependency>
 	
 Gradle
     
-    compile 'co.aurasphere.botmill:kik-botmill:x.x.x'
+    compile 'co.aurasphere.botmill:kik-botmill:2.0.0-RC1'
 
 Grovvy
 
     @Grapes( 
-        @Grab(group='co.aurasphere.botmill', module='kik-botmill', version='x.x.x') 
+        @Grab(group='co.aurasphere.botmill', module='kik-botmill', version='2.0.0-RC1') 
     )
     
 Other ways to import, visit Maven central repo [site](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22kik-botmill%22) 
@@ -40,11 +40,6 @@ Once you've imported the API. You need to register the KikBotMillServlet. To do 
  <servlet>
 	  <servlet-name>myKikBot</servlet-name>
 	  <servlet-class>co.aurasphere.botmill.kik.KikBotMillServlet</servlet-class>
-	  <init-param>
-		  <param-name>bot-definition-class</param-name>
-		  <param-value>com.sample.kik.demo.KikBotEntryPoint</param-value>
-	  </init-param>
-	  <load-on-startup>0</load-on-startup>
   </servlet>
   <servlet-mapping>
 	  <servlet-name>myKikBot</servlet-name>
@@ -52,81 +47,55 @@ Once you've imported the API. You need to register the KikBotMillServlet. To do 
   </servlet-mapping>
   
 ```
+Take note of the **url mapping** since this will be used on your webhook configuration in Kik.  
 
-Create a file name **botmill.properties** and put the username and apikey in it.
+**<h4>Creating your Bot Definition.</h4>**
+The Bot Definition is the heart of your Kik ChatBot. This is where we put all other chatbot event handlers and responses.
 
-```
+**1st: Setup the username and apikey.**
+Create botmill.properties file in your classpath and add the your tokens.
+
+```properties
 kik.user.name=<USERNAME>
 kik.api.key=<API_KEY>
 ```
 
-Place this file on the root of the classpath. The Class loader will look into this file to initialize the connection of your KikBot.
+Note that you can encrypt the properties file using our built in jaspyt-based encryption. Go to our Wiki here on how to setup your encrypted **botmill.properties** file.
 
-Your KikBotEntryPoint should extends KikBotMillEntry. You need to override the kikBotEntry and define your domains and behaviours.
-
-```java
-
-public class KikBotEntryPoint extends KikBotMillEntry {
-	/**
-	 * Entry point is the main method that will be called only once.
-	 * This is where we define our configuration and responses.
-	 */
-	@Override
-	protected void kikBotEntry() {
-		
-		//	You can register multiple KikBots at once in this single entry point.
-		KikBotMillContext.getInstance().registerDomain(new SampleKikBot());
-		
-	}
-}
-
-```
-
-Your **domain** holds all the actions of your Bot.  
-
-In the following example, the action will catch either a "hello" or "HELLO" response from the user and respond back a message "Hey <user>! How can I help you today?".
+**2nd: Setup the KikBot Class.**
+Our framework makes it easy and straightforward to define a Kik Bot Behaviour by tagging classes as behaviour objects. 
 
 ```java
-public class SampleKikBot extends AbstractKikBot {
-
-	//	@BotmillInit will only be called once and always first after object initialization. 
-	//	it's intended to be used to create the initial configuration of the Kik ChatBot
-	@BotMillInit
+@Bot
+public class MyKikBot extends KikBot {
+	@KikBotMillInit
 	public void initialize() {
-		ConfigurationBuilder.getInstance().setWebhook("<webhook>/myKikBot")
+		ConfigurationBuilder.getInstance()
+			.setWebhook("<webhook url>")
 			.setManuallySendReadReceipts(false)
 			.setReceiveDeliveryReceipts(false)
 			.setReceiveIsTyping(true)
 			.setReceiveReadReceipts(false)
-			.setStaticKeyboard(
-				KeyboardBuilder.getInstance().setType(KeyboardType.SUGGESTED)
-				.addResponse(MessageFactory.createResponse("Make me a ChatBot!", ResponseType.TEXT))
-				.addResponse(MessageFactory.createResponse("What are ChatBots?", ResponseType.TEXT))
-				.addResponse(MessageFactory.createResponse("Milling Tools!", ResponseType.TEXT))
-			.buildKeyboard())
-		.buildConfiguration();
+			.setStaticKeyboard(KeyboardBuilder.getInstance()
+					.addResponse(MessageFactory.createTextResponse("BODY"))
+					.setType(KeyboardType.SUGGESTED).buildKeyboard())
+			.buildConfiguration();
 	}
 	
-	//	@BotMillController let's you catch events.
-	@BotMillController(event = EventType.TEXT_PATTERN, pattern = "(?i:hello)")
-	public void replyCatchTextPattern() {
-		reply(new TextMessageReply() {
-			@Override
-			public TextMessage processReply(Message message) {
-				return TextMessageBuilder.getInstance()
-						.setBody("Hey " + ((IncomingMessage) message).getFrom() + "! How can I help you today?")
-						.build();
-			}
-		});
+	@KikBotMillController(event=EventType.TEXT_MESSAGE, text="Hi")
+	public void sendMessage() {
+		reply(ReplyFactory.buildTextMessageReply("Hello World!"));	
 	}
 }
 ```
 
-<div>
-<div style="text-align:centered; width:100%;padding:5px; border:1px solid gray;">
-<img src="https://dl.dropboxusercontent.com/u/1737239/botmill/kik_sample.png" height="345" width="210" />&nbsp;
-</div>
-</div>
+**Key components in building your ChatBot**
+- @Bot - annotating a class with @Bot will mark the class as a Kik ChatBot behaviour. 
+- @KikBotMillInit - can be use to annotate a method and invoke it prior to any @KikBotMillController annotated methods. 
+- @KikBotMillController - Use to create a method that catches specific user-driven event (such as user entering a message, selecting a quick reply etc. 
+- KikBot.reply() - allows the developers to create a response based on the @KikBotMillController event. For the list of all events and reply, go to our Wiki page [here](https://github.com/BotMill/fb-botmill/wiki/Code-Snippets)
+- KikBot.botMillSession() - allows you to store and access data. __Note that you need to setup a mongodb connection to make this work, mongodb connection configuration can also be set via botmill.properties__. For more information about this, visit our [BotMillSession guide here]https://github.com/BotMill/fb-botmill/wiki/Developing-with-FB-BotMill). 
+
 
 <h4>The framework offers a set of builders and factories to catch and build the perfect response of your bot.</h4>
 
@@ -345,39 +314,6 @@ public class RestfulSourceController {
 }
 
 ```
-
-**<h3>What's currently supported</h3>**
-
-Kik-BotMill supports this Kik Messenger Platform components:
-
-- Authentication
-- Configuration
-- Sending and Receiving Messages
-	- Text
-	- Link
-	- Picture
-	- Video
-	- Start Chatting
-	- Scan Data
-	- Sticker
-	- Is Typing
-	- Delivery Receipt
-	- Read Receipt
-	- Friend Picker
-- Keyboards
-	- Text
-	- Picture Message
-	- Friend Picker
-- Metadata
-- Attributions
-- Broadcasting
-- User Profiles
-- Kik Codes  
-
-**Coming Soon**
-- Broadcast Dashboard
-- Analytics Dashboard
-- Payments
 
 <h3>Contribution</h3>
 We'd love to get more people involve in the project. Kik Interactive recently made bold investments to improve Kik and we might see a lot of improvements in the upcoming months (possibly Payments). Any contribution to this project will be highly appreciated.
