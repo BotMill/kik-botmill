@@ -26,11 +26,11 @@
 package co.aurasphere.botmill.kik.incoming.model;
 
 /**
- * The Class IsTypingMessage.
+ * The Class ReadReceiptMessage.
  * 
  * @author Alvin P. Reyes
  */
-public class IsTypingMessage extends IncomingMessage {
+public class ReadReceiptMessage extends IncomingMessage {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;

@@ -31,13 +31,16 @@ import co.aurasphere.botmill.kik.incoming.model.FriendPickerMessage;
 import co.aurasphere.botmill.kik.incoming.model.IsTypingMessage;
 import co.aurasphere.botmill.kik.incoming.model.LinkMessage;
 import co.aurasphere.botmill.kik.incoming.model.PictureMessage;
+import co.aurasphere.botmill.kik.incoming.model.ReadReceiptMessage;
 import co.aurasphere.botmill.kik.incoming.model.ScanDataMessage;
+import co.aurasphere.botmill.kik.incoming.model.StartChattingMessage;
 import co.aurasphere.botmill.kik.incoming.model.StickerMessage;
 import co.aurasphere.botmill.kik.incoming.model.TextMessage;
 import co.aurasphere.botmill.kik.incoming.model.VideoMessage;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessageCallback;
 import co.aurasphere.botmill.kik.model.MessageType;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -113,6 +116,13 @@ public class IncomingMessagesDeserializer implements JsonDeserializer<MessageCal
 				break;
 			case IS_TYPING:
 				messageClass = IsTypingMessage.class;
+				break;
+			case READ_RECEIPT:
+				messageClass = ReadReceiptMessage.class;
+				break;
+			case START_CHATTING:
+				messageClass = StartChattingMessage.class;
+				break;
 			}
 
 			Message message = context.deserialize(jsonMessage, messageClass);

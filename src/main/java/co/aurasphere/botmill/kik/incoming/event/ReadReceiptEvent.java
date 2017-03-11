@@ -23,16 +23,30 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.incoming.model;
+package co.aurasphere.botmill.kik.incoming.event;
+
+import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
+import co.aurasphere.botmill.kik.incoming.model.IsTypingMessage;
+import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.MessageType;
 
 /**
- * The Class IsTypingMessage.
+ * The Class ReadReceiptEvent.
  * 
  * @author Alvin P. Reyes
  */
-public class IsTypingMessage extends IncomingMessage {
-
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-
+public class ReadReceiptEvent implements Event {
+	
+	/* (non-Javadoc)
+	 * @see co.aurasphere.botmill.kik.intf.Event#verifyEvent(co.aurasphere.botmill.kik.incoming.model.IncomingMessage)
+	 */
+	@Override
+	public boolean verifyEvent(IncomingMessage incomingMessage) {
+		if (incomingMessage instanceof IsTypingMessage) {
+			if(incomingMessage.getType().equals(MessageType.READ_RECEIPT)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

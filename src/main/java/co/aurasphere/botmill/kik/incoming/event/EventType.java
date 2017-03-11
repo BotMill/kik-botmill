@@ -55,5 +55,7 @@ public enum EventType {
  /** The text pattern. */
  TEXT_PATTERN, 
  /** The video. */
- VIDEO
+ VIDEO,
+ 
+ READ_RECEIPT
 }

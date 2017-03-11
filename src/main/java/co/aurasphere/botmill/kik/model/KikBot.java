@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import co.aurasphere.botmill.core.BotDefinition;
 import co.aurasphere.botmill.core.BotMillSession;
+import co.aurasphere.botmill.core.internal.util.ConfigurationUtils;
 import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.builder.ActionFrameBuilder;
 import co.aurasphere.botmill.kik.exception.BotMillMissingConfigurationException;
@@ -44,6 +45,7 @@ import co.aurasphere.botmill.kik.incoming.event.IsTypingEvent;
 import co.aurasphere.botmill.kik.incoming.event.LinkMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.MentionEvent;
 import co.aurasphere.botmill.kik.incoming.event.PictureMessageEvent;
+import co.aurasphere.botmill.kik.incoming.event.ReadReceiptEvent;
 import co.aurasphere.botmill.kik.incoming.event.ScanDataEvent;
 import co.aurasphere.botmill.kik.incoming.event.StartChattingEvent;
 import co.aurasphere.botmill.kik.incoming.event.StickerEvent;
@@ -139,7 +141,9 @@ public abstract class KikBot implements BotDefinition {
 		}
 
 		// Everything goes well, initialize the setup.
-		KikBotMillContext.getInstance().setup(kikUsername, kikApiKey);
+		KikBotMillContext.getInstance().setup(
+				ConfigurationUtils.getEncryptedConfiguration().getProperty(KIK_BOTMILL_USER_NAME_PROP), 
+				ConfigurationUtils.getEncryptedConfiguration().getProperty(KIK_BOTMILL_API_KEY_PROP));
 		
 		//	Create the botmill session.
 		botMillSession = BotMillSession.getInstance();
@@ -275,6 +279,8 @@ public abstract class KikBot implements BotDefinition {
 			return new TextMessagePatternEvent().setPattern(textOrPattern);
 		case VIDEO:
 			return new VideoMessageEvent();
+		case READ_RECEIPT:
+			return new ReadReceiptEvent(); 
 		}
 		return null; // it's impossible to have a null event, but if it does
 						// happen, it will be ignored on the handler.
