@@ -25,10 +25,15 @@
  */
 package co.aurasphere.botmill.kik.annotation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
+import co.aurasphere.botmill.core.BotDefinition;
 import co.aurasphere.botmill.core.internal.util.ConfigurationUtils;
+import co.aurasphere.botmill.kik.bots.AnnotatedDomain;
 import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
 import co.aurasphere.botmill.kik.builder.KeyboardBuilder;
 import co.aurasphere.botmill.kik.factory.MessageFactory;
@@ -51,7 +56,9 @@ public class TestAnnotatedDomain {
 	public void setup() {
 
 		ConfigurationUtils.loadEncryptedConfigurationProperties();
-		ConfigurationUtils.loadBotDefinitions();
+		List<BotDefinition> botDefinitions = new ArrayList<BotDefinition>();
+		botDefinitions.add(new AnnotatedDomain());
+		ConfigurationUtils.setBotDefinitionInstance(botDefinitions);
 		
 		NetworkUtils.postJsonConfig(ConfigurationBuilder.getInstance()
 				.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot").setManuallySendReadReceipts(false)

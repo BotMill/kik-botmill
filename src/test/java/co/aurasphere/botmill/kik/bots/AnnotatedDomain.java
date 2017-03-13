@@ -23,7 +23,7 @@
  * SOFTWARE.
  * 
  */
-package co.aurasphere.botmill.kik.annotation;
+package co.aurasphere.botmill.kik.bots;
 
 import java.util.HashMap;
 

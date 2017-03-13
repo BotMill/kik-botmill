@@ -165,7 +165,7 @@ public abstract class KikBot implements BotDefinition {
 	private void buildAnnotatedBehaviour() throws KikBotMillException {
 		Method[] methods = this.getClass().getMethods();
 		for (Method method : methods) {
-			if (method.isAnnotationPresent(KikBotMillController.class) && method.getParameterCount() == 0) {
+			if (method.isAnnotationPresent(KikBotMillController.class) &&  method.getParameterTypes().length == 0) {
 				KikBotMillController botMillController = method.getAnnotation(KikBotMillController.class);
 				try {
 					actionFrame = new ActionFrame();
@@ -344,7 +344,6 @@ public abstract class KikBot implements BotDefinition {
 	 * @param replies
 	 *            the replies
 	 */
-	@SafeVarargs
 	protected final void addActionFrame(Event event, Reply<? extends Message>... replies) {
 		ActionFrameBuilder.getInstance().setEvent(event).addReplies(replies).buildToContext();
 	}

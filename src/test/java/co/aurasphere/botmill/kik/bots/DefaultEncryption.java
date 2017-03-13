@@ -1,4 +1,4 @@
-package co.aurasphere.botmill.kik.annotation;
+package co.aurasphere.botmill.kik.bots;
 
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 

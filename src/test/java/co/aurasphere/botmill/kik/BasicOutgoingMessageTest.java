@@ -27,11 +27,16 @@ package co.aurasphere.botmill.kik;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.junit.Before;
 import org.junit.Test;
 
+import co.aurasphere.botmill.core.BotDefinition;
 import co.aurasphere.botmill.core.internal.util.ConfigurationUtils;
-import co.aurasphere.botmill.kik.KikBotMillContext;
+import co.aurasphere.botmill.kik.bots.AnnotatedDomain;
 import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
 import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
@@ -45,8 +50,14 @@ public class BasicOutgoingMessageTest {
 
 	@Before
 	public void setUp() {
-		ConfigurationUtils.loadEncryptedConfigurationProperties();
-		ConfigurationUtils.loadBotDefinitions();
+		
+		StandardPBEStringEncryptor enc = new StandardPBEStringEncryptor();
+		enc.setPassword("password"); // can be sourced out
+		ConfigurationUtils.loadEncryptedConfigurationFile(enc, "botmill.properties");
+		List<BotDefinition> botDefinitions = new ArrayList<BotDefinition>();
+		botDefinitions.add(new AnnotatedDomain());
+		ConfigurationUtils.setBotDefinitionInstance(botDefinitions);
+		
 		ConfigurationBuilder.getInstance()
 				.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot")
 				.setManuallySendReadReceipts(false)
