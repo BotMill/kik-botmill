@@ -54,6 +54,15 @@ import co.aurasphere.botmill.kik.incoming.event.TextMessagePatternEvent;
 import co.aurasphere.botmill.kik.incoming.event.VideoMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillController;
 import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillInit;
+import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
+import co.aurasphere.botmill.kik.outgoing.model.OutgoingMessage;
+import co.aurasphere.botmill.kik.outgoing.reply.IsTypingReply;
+import co.aurasphere.botmill.kik.outgoing.reply.LinkMessageReply;
+import co.aurasphere.botmill.kik.outgoing.reply.PictureMessageReply;
+import co.aurasphere.botmill.kik.outgoing.reply.ReadReceiptReply;
+import co.aurasphere.botmill.kik.outgoing.reply.TextMessageReply;
+import co.aurasphere.botmill.kik.outgoing.reply.VideoMessageReply;
+import co.aurasphere.botmill.kik.util.network.NetworkUtils;
 import co.aurasphere.botmill.kik.util.properties.PropertiesUtil;
 
 /**
@@ -65,18 +74,51 @@ public abstract class KikBot implements BotDefinition {
 
 	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory.getLogger(KikBot.class);
+	
+	/** The Constant KIK_BOTMILL_PROPERTIES_FILENAME. */
 	private static final String KIK_BOTMILL_PROPERTIES_FILENAME = "botmill.properties";
+	
+	/** The Constant KIK_BOTMILL_USER_NAME_PROP. */
 	private static final String KIK_BOTMILL_USER_NAME_PROP = "kik.user.name";
+	
+	/** The Constant KIK_BOTMILL_API_KEY_PROP. */
 	private static final String KIK_BOTMILL_API_KEY_PROP = "kik.api.key";
+	
+	/** The Constant KIK_BOTMILL_USER_NAME_PROPERTY. */
 	private static final String KIK_BOTMILL_USER_NAME_PROPERTY = "USERNAME";
+	
+	/** The Constant KIK_BOTMILL_API_KEY_PROPERTY. */
 	private static final String KIK_BOTMILL_API_KEY_PROPERTY = "API_KEY";
+	
+	/** The Constant KIK_BOTMILL_USER_NAME_PROP_PHOLDER. */
 	private static final String KIK_BOTMILL_USER_NAME_PROP_PHOLDER = "<USERNAME>";
+	
+	/** The Constant KIK_BOTMILL_API_KEY_PROP_PHOLDER. */
 	private static final String KIK_BOTMILL_API_KEY_PROP_PHOLDER = "<API_KEY>";
 
 	/** The action frame. */
 	private ActionFrame actionFrame;
-	
+
+	/**  The Botmill sesssion *. */
 	private BotMillSession botMillSession;
+
+	/** The incoming message. */
+	protected IncomingMessage incomingMessage;
+	
+	protected Event event;
+	
+	/**
+	 * Sets the incoming message.
+	 *
+	 * @param incomingMessage the new incoming message
+	 */
+	public void setIncomingMessage(IncomingMessage incomingMessage) {
+		this.incomingMessage = incomingMessage;
+	}
+	
+	public void setEvent(Event event) {
+		this.event = event;
+	}
 
 	/**
 	 * Instantiates a new abstract domain.
@@ -86,15 +128,18 @@ public abstract class KikBot implements BotDefinition {
 			this.buildKikBotConfig();
 			this.buildAnnotatedInitDomain();
 			this.buildAnnotatedBehaviour();
-			this.defineBehaviour();
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error(e.getMessage());
 		}
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see co.aurasphere.botmill.core.BotDefinition#defineBehaviour()
+	 */
 	@Override
 	public void defineBehaviour() {}
-	
+
 	/**
 	 * Builds the annotated init domain.
 	 */
@@ -110,46 +155,7 @@ public abstract class KikBot implements BotDefinition {
 			}
 		}
 	}
-
-	/**
-	 * Builds the kik bot config.
-	 *
-	 * @throws BotMillMissingConfigurationException
-	 *             the bot mill missing configuration exception
-	 */
-	private void buildKikBotConfig() throws BotMillMissingConfigurationException {
-		Properties prop = PropertiesUtil.load(KIK_BOTMILL_PROPERTIES_FILENAME);
-		String kikUsername;
-		String kikApiKey;
-		
-		try {
-			kikUsername = ((prop.getProperty(KIK_BOTMILL_USER_NAME_PROP).equals("")
-					|| prop.getProperty(KIK_BOTMILL_USER_NAME_PROP).indexOf(KIK_BOTMILL_USER_NAME_PROP_PHOLDER) == 0) ? System.getenv(KIK_BOTMILL_USER_NAME_PROPERTY)
-							: prop.getProperty(KIK_BOTMILL_USER_NAME_PROP));
-
-			kikApiKey = ((prop.getProperty(KIK_BOTMILL_API_KEY_PROP).equals("")
-					|| prop.getProperty(KIK_BOTMILL_API_KEY_PROP).indexOf(KIK_BOTMILL_API_KEY_PROP_PHOLDER) == 0) ? System.getenv(KIK_BOTMILL_API_KEY_PROPERTY)
-							: prop.getProperty(KIK_BOTMILL_API_KEY_PROP));
-		} catch (Exception e) {
-			logger.error("Make sure that kik.user.name and kik.api.key properties exist on the property file");
-			return;
-		}
-
-		if (kikUsername == null || kikApiKey == null) {
-			logger.error("Kik-BotMill Configuration is missing (botmill.properties). "
-					+ "Please check if the appropriate property values are configured correctly.");
-		}
-
-		// Everything goes well, initialize the setup.
-		KikBotMillContext.getInstance().setup(
-				ConfigurationUtils.getEncryptedConfiguration().getProperty(KIK_BOTMILL_USER_NAME_PROP), 
-				ConfigurationUtils.getEncryptedConfiguration().getProperty(KIK_BOTMILL_API_KEY_PROP));
-		
-		//	Create the botmill session.
-		botMillSession = BotMillSession.getInstance();
-
-	}
-
+	
 	/**
 	 * Builds the annotated domain.
 	 *
@@ -159,7 +165,7 @@ public abstract class KikBot implements BotDefinition {
 	private void buildAnnotatedBehaviour() throws KikBotMillException {
 		Method[] methods = this.getClass().getMethods();
 		for (Method method : methods) {
-			if (method.isAnnotationPresent(KikBotMillController.class)) {
+			if (method.isAnnotationPresent(KikBotMillController.class) && method.getParameterCount() == 0) {
 				KikBotMillController botMillController = method.getAnnotation(KikBotMillController.class);
 				try {
 					actionFrame = new ActionFrame();
@@ -182,18 +188,128 @@ public abstract class KikBot implements BotDefinition {
 		}
 	}
 
+	/**
+	 * Builds the kik bot config.
+	 *
+	 * @throws BotMillMissingConfigurationException
+	 *             the bot mill missing configuration exception
+	 */
+	private void buildKikBotConfig() throws BotMillMissingConfigurationException {
+		Properties prop = PropertiesUtil.load(KIK_BOTMILL_PROPERTIES_FILENAME);
+		String kikUsername;
+		String kikApiKey;
+
+		try {
+			kikUsername = ((prop.getProperty(KIK_BOTMILL_USER_NAME_PROP).equals("")
+					|| prop.getProperty(KIK_BOTMILL_USER_NAME_PROP).indexOf(KIK_BOTMILL_USER_NAME_PROP_PHOLDER) == 0)
+							? System.getenv(KIK_BOTMILL_USER_NAME_PROPERTY)
+							: prop.getProperty(KIK_BOTMILL_USER_NAME_PROP));
+
+			kikApiKey = ((prop.getProperty(KIK_BOTMILL_API_KEY_PROP).equals("")
+					|| prop.getProperty(KIK_BOTMILL_API_KEY_PROP).indexOf(KIK_BOTMILL_API_KEY_PROP_PHOLDER) == 0)
+							? System.getenv(KIK_BOTMILL_API_KEY_PROPERTY) : prop.getProperty(KIK_BOTMILL_API_KEY_PROP));
+		} catch (Exception e) {
+			logger.error("Make sure that kik.user.name and kik.api.key properties exist on the property file");
+			return;
+		}
+
+		if (kikUsername == null || kikApiKey == null) {
+			logger.error("Kik-BotMill Configuration is missing (botmill.properties). "
+					+ "Please check if the appropriate property values are configured correctly.");
+		}
+
+		// Everything goes well, initialize the setup.
+		KikBotMillContext.getInstance().setup(
+				ConfigurationUtils.getEncryptedConfiguration().getProperty(KIK_BOTMILL_USER_NAME_PROP),
+				ConfigurationUtils.getEncryptedConfiguration().getProperty(KIK_BOTMILL_API_KEY_PROP));
+
+		// Create the botmill session.
+		botMillSession = BotMillSession.getInstance();
+	}
+
+
+	/**
+	 * Bot mill session.
+	 *
+	 * @return the bot mill session
+	 */
 	protected final BotMillSession botMillSession() {
 		return this.botMillSession;
 	}
-	
+
 	/**
 	 * Reply.
 	 *
-	 * @param reply
-	 *            the reply
+	 * @param reply the reply
 	 */
 	protected final void reply(Reply<? extends Message> reply) {
+		procesReply(reply, this.incomingMessage);
+	}
+	
+	/**
+	 * Adds the reply.
+	 *
+	 * @param reply the reply
+	 */
+	protected final void addReply(Reply<? extends Message> reply) {
+		if(actionFrame == null) {
+			actionFrame = new ActionFrame();
+			actionFrame.setEvent(event);
+		}
+		
 		actionFrame.addReply(reply);
+	}
+	
+	/**
+	 * Execute replies.
+	 */
+	protected final void executeReplies() {
+		if (actionFrame.getEvent().verifyEvent(this.incomingMessage)) {
+			for (Reply<? extends Message> reply : actionFrame.getReplies()) {
+				procesReply(reply,this.incomingMessage);
+			}
+			actionFrame = null;
+		}
+	}
+
+	/**
+	 * Proces reply.
+	 *
+	 * @param reply the reply
+	 * @param message the message
+	 */
+	private final void procesReply(Reply<? extends Message> reply, IncomingMessage message) {
+
+		MessagePostback postback = new MessagePostback();
+		OutgoingMessage outgoingMessage = null;
+
+		if (reply instanceof TextMessageReply) {
+			outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.TextMessage();
+			outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.TextMessage) reply.processReply(message);
+		} else if (reply instanceof PictureMessageReply) {
+			outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.PictureMessage();
+			outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.PictureMessage) reply.processReply(message);
+		} else if (reply instanceof LinkMessageReply) {
+			outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.LinkMessage();
+			outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.LinkMessage) reply.processReply(message);
+		} else if (reply instanceof VideoMessageReply) {
+			outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.VideoMessage();
+			outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.VideoMessage) reply.processReply(message);
+		} else if (reply instanceof IsTypingReply) {
+			outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage();
+			outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.IsTypingMessage) reply.processReply(message);
+		} else if (reply instanceof ReadReceiptReply) {
+			outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage();
+			outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage) reply.processReply(message);
+		}
+
+		// We can't set a null outgoing message.
+		if (outgoingMessage != null) {
+			outgoingMessage.setTo(((IncomingMessage) message).getFrom());
+			outgoingMessage.setChatId(message.getChatId());
+			postback.addMessage(outgoingMessage);
+			NetworkUtils.postJsonMessage(postback);
+		}
 	}
 
 	/**
@@ -280,7 +396,7 @@ public abstract class KikBot implements BotDefinition {
 		case VIDEO:
 			return new VideoMessageEvent();
 		case READ_RECEIPT:
-			return new ReadReceiptEvent(); 
+			return new ReadReceiptEvent();
 		}
 		return null; // it's impossible to have a null event, but if it does
 						// happen, it will be ignored on the handler.

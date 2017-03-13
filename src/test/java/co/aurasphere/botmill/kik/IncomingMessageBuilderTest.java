@@ -30,6 +30,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
+import co.aurasphere.botmill.core.internal.util.ConfigurationUtils;
 import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.builder.ActionFrameBuilder;
 import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
@@ -66,9 +67,10 @@ public class IncomingMessageBuilderTest {
 	@Before
 	public void setup() {
 		
-		KikBotMillContext.getInstance().setup(System.getenv("USERNAME"), System.getenv("APIKEY"));
+		ConfigurationUtils.loadEncryptedConfigurationProperties();
+		ConfigurationUtils.loadBotDefinitions();
 		
-		NetworkUtils.postJsonConfig(ConfigurationBuilder.getInstance()
+		ConfigurationBuilder.getInstance()
 			.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot")
 			.setManuallySendReadReceipts(false)
 			.setReceiveDeliveryReceipts(false)
@@ -78,7 +80,7 @@ public class IncomingMessageBuilderTest {
 						KeyboardBuilder.getInstance()
 						.addResponse(MessageFactory.createTextResponse("BODY"))
 						.setType(KeyboardType.SUGGESTED).buildKeyboard())
-			.buildConfiguration());
+			.buildConfiguration();
 		
 	}
 	

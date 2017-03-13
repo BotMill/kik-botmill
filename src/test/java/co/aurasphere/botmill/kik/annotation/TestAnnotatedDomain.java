@@ -1,6 +1,6 @@
 /*
  * 
- * MIT License
+  * MIT License
  *
  * Copyright (c) 2016 BotMill.io
  * 
@@ -28,7 +28,7 @@ package co.aurasphere.botmill.kik.annotation;
 import org.junit.Before;
 import org.junit.Test;
 
-import co.aurasphere.botmill.kik.KikBotMillContext;
+import co.aurasphere.botmill.core.internal.util.ConfigurationUtils;
 import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
 import co.aurasphere.botmill.kik.builder.KeyboardBuilder;
 import co.aurasphere.botmill.kik.factory.MessageFactory;
@@ -36,7 +36,6 @@ import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandl
 import co.aurasphere.botmill.kik.model.KeyboardType;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessageCallback;
-import co.aurasphere.botmill.kik.model.ResponseType;
 import co.aurasphere.botmill.kik.util.json.JsonUtils;
 import co.aurasphere.botmill.kik.util.network.NetworkUtils;
 
@@ -51,7 +50,9 @@ public class TestAnnotatedDomain {
 	@Before
 	public void setup() {
 
-		KikBotMillContext.getInstance().setup(System.getenv("USERNAME"), System.getenv("APIKEY"));
+		ConfigurationUtils.loadEncryptedConfigurationProperties();
+		ConfigurationUtils.loadBotDefinitions();
+		
 		NetworkUtils.postJsonConfig(ConfigurationBuilder.getInstance()
 				.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot").setManuallySendReadReceipts(false)
 				.setReceiveDeliveryReceipts(false).setReceiveIsTyping(true).setReceiveReadReceipts(false)

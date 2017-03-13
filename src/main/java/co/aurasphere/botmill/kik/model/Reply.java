@@ -25,6 +25,7 @@
  */
 package co.aurasphere.botmill.kik.model;
 
+
 /**
  * The Interface Reply.
  * 

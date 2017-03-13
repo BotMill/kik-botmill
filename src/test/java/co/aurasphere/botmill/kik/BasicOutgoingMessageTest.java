@@ -27,8 +27,12 @@ package co.aurasphere.botmill.kik;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import co.aurasphere.botmill.core.internal.util.ConfigurationUtils;
 import co.aurasphere.botmill.kik.KikBotMillContext;
+import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
 import co.aurasphere.botmill.kik.model.MessageType;
 import co.aurasphere.botmill.kik.outgoing.model.LinkMessage;
 import co.aurasphere.botmill.kik.outgoing.model.TextMessage;
@@ -39,6 +43,19 @@ import co.aurasphere.botmill.kik.util.json.JsonUtils;
  */
 public class BasicOutgoingMessageTest {
 
+	@Before
+	public void setUp() {
+		ConfigurationUtils.loadEncryptedConfigurationProperties();
+		ConfigurationUtils.loadBotDefinitions();
+		ConfigurationBuilder.getInstance()
+				.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot")
+				.setManuallySendReadReceipts(false)
+				.setReceiveDeliveryReceipts(false)
+				.setReceiveIsTyping(true)
+				.setReceiveReadReceipts(false)
+				.buildConfiguration();
+	}
+	
 	/**
 	 * Test text message.
 	 */
@@ -47,7 +64,6 @@ public class BasicOutgoingMessageTest {
 	public void testTextMessage() {
 
 		String txtMessageResp = "{\"body\":\"asdad\",\"to\":\"To\",\"chatId\":\"Chatid\",\"type\":\"read-receipt\"}";
-		KikBotMillContext.getInstance().setup("", "");
 		TextMessage txtM = new TextMessage();
 		txtM.setType(MessageType.READ_RECEIPT);
 		txtM.setBody("asdad");
@@ -65,7 +81,6 @@ public class BasicOutgoingMessageTest {
 	@Test
 	public void testLinkMessage() {
 		String linkMessageStr = "{\"url\":\"http://ichef-1.bbci.co.uk\",\"noForward\":false,\"kikJsData\":{},\"body\":\"asdad\",\"to\":\"To\",\"chatId\":\"Chatid\",\"type\":\"link\"}";
-		KikBotMillContext.getInstance().setup("", "");
 		LinkMessage linkMessage = new LinkMessage();
 		linkMessage.setType(MessageType.LINK);
 		linkMessage.setBody("asdad");

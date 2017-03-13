@@ -29,6 +29,8 @@ import static org.junit.Assert.assertNotNull;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+
+import co.aurasphere.botmill.core.internal.util.ConfigurationUtils;
 import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
 import co.aurasphere.botmill.kik.incoming.handler.JsonToActionFrameHandler;
@@ -49,15 +51,16 @@ public class JsonToActionFrameTest {
 	@Before
 	public void setup() {
 		
-		KikBotMillContext.getInstance().setup(System.getenv("USERNAME"), System.getenv("APIKEY"));
+		ConfigurationUtils.loadEncryptedConfigurationProperties();
+		ConfigurationUtils.loadBotDefinitions();
 		
-		NetworkUtils.postJsonConfig(ConfigurationBuilder.getInstance()
+		ConfigurationBuilder.getInstance()
 			.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot")
 			.setManuallySendReadReceipts(false)
 			.setReceiveDeliveryReceipts(false)
 			.setReceiveIsTyping(true)
 			.setReceiveReadReceipts(false)
-			.buildConfiguration());
+			.buildConfiguration();
 	}
 	
 	/**

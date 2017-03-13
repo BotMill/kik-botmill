@@ -25,10 +25,19 @@
  */
 package co.aurasphere.botmill.kik.incoming.handler;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import org.reflections.Reflections;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import co.aurasphere.botmill.core.BotDefinition;
+import co.aurasphere.botmill.core.annotation.Bot;
+import co.aurasphere.botmill.core.internal.util.ConfigurationUtils;
 import co.aurasphere.botmill.kik.KikBotMillContext;
+import co.aurasphere.botmill.kik.model.Event;
 import co.aurasphere.botmill.kik.model.Frame;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessagePostback;
@@ -41,24 +50,45 @@ import co.aurasphere.botmill.kik.outgoing.reply.ReadReceiptReply;
 import co.aurasphere.botmill.kik.outgoing.reply.TextMessageReply;
 import co.aurasphere.botmill.kik.outgoing.reply.VideoMessageReply;
 import co.aurasphere.botmill.kik.util.network.NetworkUtils;
+import co.aurasphere.botmill.kik.incoming.event.AnyEvent;
+import co.aurasphere.botmill.kik.incoming.event.DeliveryReceiptEvent;
+import co.aurasphere.botmill.kik.incoming.event.EventType;
+import co.aurasphere.botmill.kik.incoming.event.FriendPickerEvent;
+import co.aurasphere.botmill.kik.incoming.event.IsTypingEvent;
+import co.aurasphere.botmill.kik.incoming.event.LinkMessageEvent;
+import co.aurasphere.botmill.kik.incoming.event.MentionEvent;
+import co.aurasphere.botmill.kik.incoming.event.PictureMessageEvent;
+import co.aurasphere.botmill.kik.incoming.event.ReadReceiptEvent;
+import co.aurasphere.botmill.kik.incoming.event.ScanDataEvent;
+import co.aurasphere.botmill.kik.incoming.event.StartChattingEvent;
+import co.aurasphere.botmill.kik.incoming.event.StickerEvent;
+import co.aurasphere.botmill.kik.incoming.event.TextMessageEvent;
+import co.aurasphere.botmill.kik.incoming.event.TextMessagePatternEvent;
+import co.aurasphere.botmill.kik.incoming.event.VideoMessageEvent;
+import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillController;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 
 /**
  * The Class IncomingToOutgoingMessageHandler.
  * 
- * This class handles the in between process of handling the incoming message and outgoing
- * messages. In the code of this class is a method that catches all the POST request from
- * Kik, convert that into Java Objects which is then pass through the handler.
+ * This class handles the in between process of handling the incoming message
+ * and outgoing messages. In the code of this class is a method that catches all
+ * the POST request from Kik, convert that into Java Objects which is then pass
+ * through the handler.
  * 
- * The handler checks for any matching conditions. This is done by iterating through the list of
- * action frames (from the specified domains). Once a match is found, the designated Reply object
- * is executed that constructs the Outgoing message to Kik passing the ChatID and To values 
- * from the incoming messages.
+ * The handler checks for any matching conditions. This is done by iterating
+ * through the list of action frames (from the specified domains). Once a match
+ * is found, the designated Reply object is executed that constructs the
+ * Outgoing message to Kik passing the ChatID and To values from the incoming
+ * messages.
  * 
  * This is the core handler between Kik and the Kik-BotMill.
+ * 
  * @author Alvin P. Reyes
  */
 public class IncomingToOutgoingMessageHandler {
+
+	protected static final Logger logger = LoggerFactory.getLogger(IncomingToOutgoingMessageHandler.class);
 
 	/** The instance. */
 	private static IncomingToOutgoingMessageHandler instance;
@@ -95,11 +125,67 @@ public class IncomingToOutgoingMessageHandler {
 	 * @return the incoming to outgoing message handler
 	 */
 	public IncomingToOutgoingMessageHandler process(Message message) {
-		List<Frame> actionFrames = new ArrayList<Frame>();
-		actionFrames.addAll(KikBotMillContext.getInstance().getActionFrames());
-		actionFrames.addAll(KikBotMillContext.getInstance().getAnyEventActionFrames());
-		handleOutgoingMessage(actionFrames, message, false);
+		if (KikBotMillContext.getInstance().getActionFrames().size() > 0
+				|| KikBotMillContext.getInstance().getAnyEventActionFrames().size() > 0) {
+			List<Frame> actionFrames = new ArrayList<Frame>();
+			actionFrames.addAll(KikBotMillContext.getInstance().getActionFrames());
+			actionFrames.addAll(KikBotMillContext.getInstance().getAnyEventActionFrames());
+			handleOutgoingMessage(actionFrames, message, false);
+		}
+		handleOutgoingMessage(message);
 		return this;
+	}
+
+	/**
+	 * Outgoing handler.
+	 *
+	 * @param actionFrames
+	 *            the action frames
+	 * @param message
+	 *            the message
+	 * @param broadcast
+	 *            the broadcast
+	 */
+	private void handleOutgoingMessage(Message message) {
+		// Tries to load and instantiate the bot definitions.
+		for (BotDefinition defClass : ConfigurationUtils.getBotDefinitionInstance()) {
+			// Check if it's annotated too.
+			if (defClass.getClass().isAnnotationPresent(Bot.class)) {
+				// check each method.
+				for (Method method : defClass.getClass().getMethods()) {
+					if (method.isAnnotationPresent(KikBotMillController.class)) {
+						KikBotMillController botMillController = method.getAnnotation(KikBotMillController.class);
+						try {
+							String textOrPattern = "";
+							if (!botMillController.text().equals("")) {
+								textOrPattern = botMillController.text();
+							} else {
+								textOrPattern = botMillController.pattern();
+							}
+							Event event = toEvent(botMillController.eventType(), textOrPattern);
+
+							if (event.verifyEvent((IncomingMessage) message)) {
+								
+								defClass.getClass().getSuperclass()
+										.getDeclaredMethod("setIncomingMessage", IncomingMessage.class)
+										.invoke(defClass, ((IncomingMessage) message)); 
+								
+								defClass.getClass().getSuperclass()
+										.getDeclaredMethod("setEvent", Event.class)
+										.invoke(defClass, event);
+								
+								method.invoke(defClass, message); // then
+																	// invoke.
+								break;
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}
+
+			}
+		}
 	}
 
 	/**
@@ -145,8 +231,8 @@ public class IncomingToOutgoingMessageHandler {
 							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.ReadReceiptMessage) reply
 									.processReply(message);
 						}
-						
-						//	We can't set a null outgoing message.
+
+						// We can't set a null outgoing message.
 						if (outgoingMessage != null) {
 							outgoingMessage.setTo(((IncomingMessage) message).getFrom());
 							outgoingMessage.setChatId(message.getChatId());
@@ -164,5 +250,40 @@ public class IncomingToOutgoingMessageHandler {
 				}
 			}
 		}
+	}
+
+	private Event toEvent(EventType eventType, String textOrPattern) {
+		switch (eventType) {
+		case ANY:
+			return new AnyEvent();
+		case DELIVERY_RECEIPT:
+			return new DeliveryReceiptEvent();
+		case FRIEND_PICKER:
+			return new FriendPickerEvent();
+		case IS_TYPING:
+			return new IsTypingEvent();
+		case LINK:
+			return new LinkMessageEvent();
+		case MENTION:
+			return new MentionEvent();
+		case PICTURE:
+			return new PictureMessageEvent();
+		case SCAN_DATA:
+			return new ScanDataEvent();
+		case START_CHATTING:
+			return new StartChattingEvent();
+		case STICKER:
+			return new StickerEvent();
+		case TEXT_MESSAGE:
+			return new TextMessageEvent().setText(textOrPattern);
+		case TEXT_PATTERN:
+			return new TextMessagePatternEvent().setPattern(textOrPattern);
+		case VIDEO:
+			return new VideoMessageEvent();
+		case READ_RECEIPT:
+			return new ReadReceiptEvent();
+		}
+		return null; // it's impossible to have a null event, but if it does
+						// happen, it will be ignored on the handler.
 	}
 }

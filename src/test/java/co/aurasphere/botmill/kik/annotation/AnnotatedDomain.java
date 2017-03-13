@@ -25,6 +25,8 @@
  */
 package co.aurasphere.botmill.kik.annotation;
 
+import java.util.HashMap;
+
 import co.aurasphere.botmill.core.annotation.Bot;
 import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.builder.ConfigurationBuilder;
@@ -36,6 +38,7 @@ import co.aurasphere.botmill.kik.incoming.event.EventType;
 import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillController;
 import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillInit;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
+import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.model.KikBot;
 import co.aurasphere.botmill.kik.model.KeyboardType;
 import co.aurasphere.botmill.kik.model.Message;
@@ -57,7 +60,7 @@ public class AnnotatedDomain extends KikBot {
 	@KikBotMillInit(meta="initialization")
 	public void initialize() {
 		ConfigurationBuilder.getInstance()
-			.setWebhook("https://kik-bot-021415.herokuapp.com/kikbot").setManuallySendReadReceipts(false)
+			.setWebhook("https://kik-botmill-021415.herokuapp.com/kikbot").setManuallySendReadReceipts(false)
 			.setReceiveDeliveryReceipts(false).setReceiveIsTyping(true).setReceiveReadReceipts(false)
 			.setStaticKeyboard(KeyboardBuilder.getInstance()
 					.addResponse(MessageFactory.createTextResponse("BODY"))
@@ -68,36 +71,30 @@ public class AnnotatedDomain extends KikBot {
 	/**
 	 * Reply text.
 	 */
-	@KikBotMillController(eventType = EventType.TEXT_MESSAGE, text = "v")
-	public void replyText() {
+	@KikBotMillController(eventType = EventType.TEXT_MESSAGE, text = "Hi")
+	public void replyText(IncomingMessage message) {
+		
+		// execute a single reply
 		reply(new LinkMessageReply() {
-			public LinkMessage processReply(Message message) {
-				return LinkMessageBuilder.getInstance().setTitle("Title").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+			public LinkMessage processReply(Message message) { 
+				return LinkMessageBuilder.getInstance()
+						.setTitle("Single Reply")
+						.setUrl("http://alvinjayreyes.com")
+						.setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
 						.build();
 			}
 		});
+		
+		// batch
+		addReply(ReplyFactory.buildTextMessageReply("Batch Reply1"));
+		addReply(ReplyFactory.buildTextMessageReply("Batch Reply2"));
+		
+		// batch
+		executeReplies();
 	}
-	
-	/**
-	 * Reply text 1.
-	 */
-	@KikBotMillController(eventType = EventType.TEXT_PATTERN, pattern = "(?i:hi11)")
-	public void replyText1() {
-		reply(new LinkMessageReply() {
-			public LinkMessage processReply(Message message) {
-				return LinkMessageBuilder.getInstance().setTitle("Title1").setUrl("http://alvinjayreyes.com").setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
-						.build();
-				
-				
-			}
-		});
-	}
-	
-	/**
-	 * Reply text 2.
-	 */
+
 	@KikBotMillController(eventType = EventType.ANY)
-	public void replyText2() {
+	public void replyText2(IncomingMessage message) {
 		reply(ReplyFactory.buildTextMessageReply("yeaaasss"));	
 	}
 
@@ -108,6 +105,13 @@ public class AnnotatedDomain extends KikBot {
 	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
+		
+		HashMap<String, KikBot> a = new HashMap<String, KikBot>();
+		a.put("a", new AnnotatedDomain());
+		a.put("b", new AnnotatedDomain());
+		System.out.println(a.get("a").hashCode());
+		System.out.println(a.get("b").hashCode());
+		
 		//	setup first.
 		KikBotMillContext.getInstance().setup(System.getenv("USERNAME"), System.getenv("APIKEY"));
 		NetworkUtils.postJsonConfig(ConfigurationBuilder.getInstance()
