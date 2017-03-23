@@ -105,6 +105,7 @@ public abstract class KikBot implements BotDefinition {
 	/** The incoming message. */
 	protected IncomingMessage incomingMessage;
 	
+	/** The event **/
 	protected Event event;
 	
 	/**
@@ -133,6 +134,15 @@ public abstract class KikBot implements BotDefinition {
 			logger.error(e.getMessage());
 		}
 	}
+	
+	protected void startConversation(IncomingMessage message) {
+		KikBotMillContext.getInstance().setUserConversation(message.getFrom(), true);
+	}
+	
+	protected void endConversation(IncomingMessage message) {
+		KikBotMillContext.getInstance().setUserConversation(message.getFrom(), false);
+	}
+	
 
 	/* (non-Javadoc)
 	 * @see co.aurasphere.botmill.core.BotDefinition#defineBehaviour()
@@ -181,6 +191,9 @@ public abstract class KikBot implements BotDefinition {
 
 					// add the action frame to the context.
 					KikBotMillContext.getInstance().addActionFrameToContext(actionFrame);
+					
+					// add to method map.
+					KikBotMillContext.getInstance().addToConvoMap(method.getName(), botMillController.next());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

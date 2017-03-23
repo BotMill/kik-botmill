@@ -26,12 +26,17 @@
 package co.aurasphere.botmill.kik;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import co.aurasphere.botmill.kik.configuration.Authentication;
 import co.aurasphere.botmill.kik.incoming.event.AnyEvent;
 import co.aurasphere.botmill.kik.model.ActionFrame;
 import co.aurasphere.botmill.kik.model.Domain;
 import co.aurasphere.botmill.kik.model.Frame;
+import co.aurasphere.botmill.kik.retriever.KikUserProfileRetriever;
 
 /**
  * KikBotMillContext
@@ -69,6 +74,18 @@ public class KikBotMillContext {
 	
 	/** The broadcast action frames. */
 	private List<Frame> broadcastActionFrames;
+	
+	private Map<String,String> convoMap = new ConcurrentHashMap<String,String>();
+	
+	public Map<String, String> getConvoMap() {
+		return convoMap;
+	}
+
+	public Map<String, Boolean> getConvoUser() {
+		return convoUser;
+	}
+
+	private Map<String,Boolean> convoUser = new ConcurrentHashMap<String, Boolean>();
 
 	/**
 	 * Instantiates a new kik bot mill context.
@@ -242,4 +259,14 @@ public class KikBotMillContext {
 	public void addActionFrameToBroadcast(Frame actionFrame) {
 		this.broadcastActionFrames.add(actionFrame);
 	}
+	
+	public void addToConvoMap(String methodName, String next) {
+		this.convoMap.put(methodName, next);
+	}
+	
+	public void setUserConversation(String username, boolean startOrEnd) {
+		this.convoUser.put(username, startOrEnd);
+	}
+	
+
 }

@@ -71,9 +71,9 @@ public class AnnotatedDomain extends KikBot {
 	/**
 	 * Reply text.
 	 */
-	@KikBotMillController(eventType = EventType.TEXT_MESSAGE, text = "Hi")
+	@KikBotMillController(eventType = EventType.TEXT_MESSAGE, text = "Hi", next="method1")
 	public void replyText(IncomingMessage message) {
-		
+		//startConversation();
 		// execute a single reply
 		reply(new LinkMessageReply() {
 			public LinkMessage processReply(Message message) { 
@@ -89,8 +89,23 @@ public class AnnotatedDomain extends KikBot {
 		addReply(ReplyFactory.buildTextMessageReply("Batch Reply1"));
 		addReply(ReplyFactory.buildTextMessageReply("Batch Reply2"));
 		
-		// batch
+		// batch execute replies
 		executeReplies();
+	}
+	
+	
+	@KikBotMillController(next="method2")
+	public void method1(IncomingMessage message) {
+		
+		
+	}
+	
+	
+	@KikBotMillController()
+	public void method2(IncomingMessage message) {
+		
+		
+		//endConversation();
 	}
 
 	@KikBotMillController(eventType = EventType.ANY)

@@ -155,31 +155,36 @@ public class IncomingToOutgoingMessageHandler {
 				for (Method method : defClass.getClass().getMethods()) {
 					if (method.isAnnotationPresent(KikBotMillController.class)) {
 						KikBotMillController botMillController = method.getAnnotation(KikBotMillController.class);
-						try {
-							String textOrPattern = "";
-							if (!botMillController.text().equals("")) {
-								textOrPattern = botMillController.text();
-							} else {
-								textOrPattern = botMillController.pattern();
+						//	check method and next if not next then default processing.
+						String methodNext = KikBotMillContext.getInstance().getConvoMap().get(method.getName());
+						if(!methodNext.equals("")) {
+							
+						}else {
+							try {
+								String textOrPattern = "";
+								if (!botMillController.text().equals("")) {
+									textOrPattern = botMillController.text();
+								} else {
+									textOrPattern = botMillController.pattern();
+								}
+								Event event = toEvent(botMillController.eventType(), textOrPattern);
+	
+								if (event.verifyEvent((IncomingMessage) message)) {
+									
+									defClass.getClass().getSuperclass()
+											.getDeclaredMethod("setIncomingMessage", IncomingMessage.class)
+											.invoke(defClass, ((IncomingMessage) message)); 
+									
+									defClass.getClass().getSuperclass()
+											.getDeclaredMethod("setEvent", Event.class)
+											.invoke(defClass, event);
+									
+									method.invoke(defClass, message);
+									break;
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
 							}
-							Event event = toEvent(botMillController.eventType(), textOrPattern);
-
-							if (event.verifyEvent((IncomingMessage) message)) {
-								
-								defClass.getClass().getSuperclass()
-										.getDeclaredMethod("setIncomingMessage", IncomingMessage.class)
-										.invoke(defClass, ((IncomingMessage) message)); 
-								
-								defClass.getClass().getSuperclass()
-										.getDeclaredMethod("setEvent", Event.class)
-										.invoke(defClass, event);
-								
-								method.invoke(defClass, message); // then
-																	// invoke.
-								break;
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
 						}
 					}
 				}
