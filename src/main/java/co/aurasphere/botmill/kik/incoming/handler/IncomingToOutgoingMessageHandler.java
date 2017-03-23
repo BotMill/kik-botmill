@@ -157,7 +157,7 @@ public class IncomingToOutgoingMessageHandler {
 						KikBotMillController botMillController = method.getAnnotation(KikBotMillController.class);
 						//	check method and next if not next then default processing.
 						String methodNext = KikBotMillContext.getInstance().getConvoMap().get(method.getName());
-						if(!methodNext.equals("")) {
+						if(methodNext != null && !methodNext.equals("")) {
 							
 						}else {
 							try {
