@@ -33,7 +33,7 @@ import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.exception.KikBotMillException;
 import co.aurasphere.botmill.kik.incoming.event.AnyEvent;
 import co.aurasphere.botmill.kik.incoming.event.DeliveryReceiptEvent;
-import co.aurasphere.botmill.kik.incoming.event.EventType;
+import co.aurasphere.botmill.kik.incoming.event.KikBotMillEventType;
 import co.aurasphere.botmill.kik.incoming.event.FriendPickerEvent;
 import co.aurasphere.botmill.kik.incoming.event.IsTypingEvent;
 import co.aurasphere.botmill.kik.incoming.event.LinkMessageEvent;
@@ -130,7 +130,7 @@ public abstract class AbstractAnnotatedDomain implements Domain {
 	 *            the text or pattern
 	 * @return the event
 	 */
-	private Event toEvent(EventType eventType, String textOrPattern) {
+	private Event toEvent(KikBotMillEventType eventType, String textOrPattern) {
 		switch (eventType) {
 		case ANY:
 			return new AnyEvent();

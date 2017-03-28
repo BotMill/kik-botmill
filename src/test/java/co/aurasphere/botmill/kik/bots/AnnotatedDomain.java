@@ -34,7 +34,7 @@ import co.aurasphere.botmill.kik.builder.KeyboardBuilder;
 import co.aurasphere.botmill.kik.builder.LinkMessageBuilder;
 import co.aurasphere.botmill.kik.factory.MessageFactory;
 import co.aurasphere.botmill.kik.factory.ReplyFactory;
-import co.aurasphere.botmill.kik.incoming.event.EventType;
+import co.aurasphere.botmill.kik.incoming.event.KikBotMillEventType;
 import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillController;
 import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillInit;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
@@ -71,7 +71,7 @@ public class AnnotatedDomain extends KikBot {
 	/**
 	 * Reply text.
 	 */
-	@KikBotMillController(eventType = EventType.TEXT_MESSAGE, text = "Hi", next="method1")
+	@KikBotMillController(eventType = KikBotMillEventType.TEXT_MESSAGE, text = "Hi", next="method1")
 	public void replyText(IncomingMessage message) {
 		//startConversation();
 		// execute a single reply
@@ -108,7 +108,7 @@ public class AnnotatedDomain extends KikBot {
 		//endConversation();
 	}
 
-	@KikBotMillController(eventType = EventType.ANY)
+	@KikBotMillController(eventType = KikBotMillEventType.ANY)
 	public void replyText2(IncomingMessage message) {
 		reply(ReplyFactory.buildTextMessageReply("yeaaasss"));	
 	}

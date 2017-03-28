@@ -52,7 +52,7 @@ import co.aurasphere.botmill.kik.outgoing.reply.VideoMessageReply;
 import co.aurasphere.botmill.kik.util.network.NetworkUtils;
 import co.aurasphere.botmill.kik.incoming.event.AnyEvent;
 import co.aurasphere.botmill.kik.incoming.event.DeliveryReceiptEvent;
-import co.aurasphere.botmill.kik.incoming.event.EventType;
+import co.aurasphere.botmill.kik.incoming.event.KikBotMillEventType;
 import co.aurasphere.botmill.kik.incoming.event.FriendPickerEvent;
 import co.aurasphere.botmill.kik.incoming.event.IsTypingEvent;
 import co.aurasphere.botmill.kik.incoming.event.LinkMessageEvent;
@@ -92,6 +92,9 @@ public class IncomingToOutgoingMessageHandler {
 
 	/** The instance. */
 	private static IncomingToOutgoingMessageHandler instance;
+	
+	private static final String CONST_INCOMING_MSG_SETNAME = "setIncomingMessage";
+	private static final String CONST_EVENT_SETNAME = "setEvent";
 
 	/**
 	 * Creates the handler.
@@ -172,11 +175,11 @@ public class IncomingToOutgoingMessageHandler {
 								if (event.verifyEvent((IncomingMessage) message)) {
 									
 									defClass.getClass().getSuperclass()
-											.getDeclaredMethod("setIncomingMessage", IncomingMessage.class)
+											.getDeclaredMethod(CONST_INCOMING_MSG_SETNAME, IncomingMessage.class)
 											.invoke(defClass, ((IncomingMessage) message)); 
 									
 									defClass.getClass().getSuperclass()
-											.getDeclaredMethod("setEvent", Event.class)
+											.getDeclaredMethod(CONST_EVENT_SETNAME, Event.class)
 											.invoke(defClass, event);
 									
 									method.invoke(defClass, message);
@@ -211,7 +214,7 @@ public class IncomingToOutgoingMessageHandler {
 					postback = new MessagePostback();
 					for (Reply<? extends Message> reply : frame.getReplies()) {
 						OutgoingMessage outgoingMessage = null;
-						if (reply instanceof TextMessageReply) {
+						if (reply instanceof TextMessageReply) { // can be improve, violates liskov :|
 							outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.TextMessage();
 							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.TextMessage) reply
 									.processReply(message);
@@ -256,8 +259,14 @@ public class IncomingToOutgoingMessageHandler {
 			}
 		}
 	}
-
-	private Event toEvent(EventType eventType, String textOrPattern) {
+	
+	/**
+	 * This method is used to convert an EventType to an Actual Event.
+	 * @param eventType
+	 * @param textOrPattern
+	 * @return
+	 */
+	private Event toEvent(KikBotMillEventType eventType, String textOrPattern) {
 		switch (eventType) {
 		case ANY:
 			return new AnyEvent();

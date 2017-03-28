@@ -28,10 +28,10 @@ package co.aurasphere.botmill.kik.incoming.event;
 /**
  * The Enum EventType.
  */
-public enum EventType {
+public enum KikBotMillEventType {
 	
-	/** The any. */
-	ANY, 
+ /** The any. */
+ ANY, 
  /** The delivery receipt. */
  DELIVERY_RECEIPT, 
  /** The friend picker. */
@@ -56,6 +56,6 @@ public enum EventType {
  TEXT_PATTERN, 
  /** The video. */
  VIDEO,
- 
+ /** The Read Receipt Event **/
  READ_RECEIPT
 }

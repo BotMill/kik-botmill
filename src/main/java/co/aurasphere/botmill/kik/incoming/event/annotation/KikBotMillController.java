@@ -31,7 +31,7 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import co.aurasphere.botmill.kik.incoming.event.EventType;
+import co.aurasphere.botmill.kik.incoming.event.KikBotMillEventType;
 /**
  * The Interface Event.
  */
@@ -46,7 +46,7 @@ public @interface KikBotMillController {
 	 *
 	 * @return the event type
 	 */
-	EventType eventType() default EventType.TEXT_MESSAGE;
+	KikBotMillEventType eventType() default KikBotMillEventType.TEXT_MESSAGE;
 	
 	/**
 	 * Text.
