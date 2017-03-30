@@ -71,14 +71,14 @@ public class AnnotatedDomain extends KikBot {
 	/**
 	 * Reply text.
 	 */
-	@KikBotMillController(eventType = KikBotMillEventType.TEXT_MESSAGE, text = "Hi", next="method1")
+	@KikBotMillController(eventType = KikBotMillEventType.TEXT_MESSAGE, text = "Hi")
 	public void replyText(IncomingMessage message) {
 		//startConversation();
 		// execute a single reply
 		reply(new LinkMessageReply() {
 			public LinkMessage processReply(Message message) { 
 				return LinkMessageBuilder.getInstance()
-						.setTitle("Single Reply")
+						.setTitle("Howdy!")
 						.setUrl("http://alvinjayreyes.com")
 						.setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
 						.build();

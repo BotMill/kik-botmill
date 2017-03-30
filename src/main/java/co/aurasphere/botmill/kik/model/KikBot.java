@@ -75,9 +75,6 @@ public abstract class KikBot implements BotDefinition {
 	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory.getLogger(KikBot.class);
 	
-	/** The Constant KIK_BOTMILL_PROPERTIES_FILENAME. */
-	private static final String KIK_BOTMILL_PROPERTIES_FILENAME = "botmill.properties";
-	
 	/** The Constant KIK_BOTMILL_USER_NAME_PROP. */
 	private static final String KIK_BOTMILL_USER_NAME_PROP = "kik.user.name";
 	
@@ -117,6 +114,11 @@ public abstract class KikBot implements BotDefinition {
 		this.incomingMessage = incomingMessage;
 	}
 	
+	/**
+	 * Set the incoming event.
+	 * 
+	 * @param event
+	 */
 	public void setEvent(Event event) {
 		this.event = event;
 	}
@@ -207,29 +209,6 @@ public abstract class KikBot implements BotDefinition {
 	 *             the bot mill missing configuration exception
 	 */
 	private void buildKikBotConfig() throws BotMillMissingConfigurationException {
-		Properties prop = PropertiesUtil.load(KIK_BOTMILL_PROPERTIES_FILENAME);
-		String kikUsername;
-		String kikApiKey;
-
-		try {
-			kikUsername = ((prop.getProperty(KIK_BOTMILL_USER_NAME_PROP).equals("")
-					|| prop.getProperty(KIK_BOTMILL_USER_NAME_PROP).indexOf(KIK_BOTMILL_USER_NAME_PROP_PHOLDER) == 0)
-							? System.getenv(KIK_BOTMILL_USER_NAME_PROPERTY)
-							: prop.getProperty(KIK_BOTMILL_USER_NAME_PROP));
-
-			kikApiKey = ((prop.getProperty(KIK_BOTMILL_API_KEY_PROP).equals("")
-					|| prop.getProperty(KIK_BOTMILL_API_KEY_PROP).indexOf(KIK_BOTMILL_API_KEY_PROP_PHOLDER) == 0)
-							? System.getenv(KIK_BOTMILL_API_KEY_PROPERTY) : prop.getProperty(KIK_BOTMILL_API_KEY_PROP));
-		} catch (Exception e) {
-			logger.error("Make sure that kik.user.name and kik.api.key properties exist on the property file");
-			return;
-		}
-
-		if (kikUsername == null || kikApiKey == null) {
-			logger.error("Kik-BotMill Configuration is missing (botmill.properties). "
-					+ "Please check if the appropriate property values are configured correctly.");
-		}
-
 		// Everything goes well, initialize the setup.
 		KikBotMillContext.getInstance().setup(
 				ConfigurationUtils.getEncryptedConfiguration().getProperty(KIK_BOTMILL_USER_NAME_PROP),
@@ -285,7 +264,7 @@ public abstract class KikBot implements BotDefinition {
 	}
 
 	/**
-	 * Proces reply.
+	 * Process reply.
 	 *
 	 * @param reply the reply
 	 * @param message the message
