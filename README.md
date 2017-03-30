@@ -248,7 +248,6 @@ public void replyCatchTextPattern() {
 
 
 <h3>Contribution</h3>
-We'd love to get more people involve in the project. Kik Interactive recently made bold investments to improve Kik and we might see a lot of improvements in the upcoming months (possibly Payments). Any contribution to this project will be highly appreciated.
-
+We'd love to get more people involve in the project. Kik Interactive recently made bold investments to improve Kik and we might see a lot of improvements in the upcoming months (possibly Payments). Any contribution to this project will be highly appreciated. Feel free to Chat with us via Gitter to get started
 
 <sub>Copyright (c) 2017 BotMill.io</sub>
