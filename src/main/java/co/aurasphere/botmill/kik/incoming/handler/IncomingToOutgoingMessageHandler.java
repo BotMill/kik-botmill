@@ -1,6 +1,6 @@
 /*
  * 
- * MIT License
+  * MIT License
  *
  * Copyright (c) 2016 BotMill.io
  * 
@@ -37,7 +37,7 @@ import co.aurasphere.botmill.core.BotDefinition;
 import co.aurasphere.botmill.core.annotation.Bot;
 import co.aurasphere.botmill.core.internal.util.ConfigurationUtils;
 import co.aurasphere.botmill.kik.KikBotMillContext;
-import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.KikBotMillEvent;
 import co.aurasphere.botmill.kik.model.Frame;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.MessagePostback;
@@ -66,6 +66,7 @@ import co.aurasphere.botmill.kik.incoming.event.TextMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.TextMessagePatternEvent;
 import co.aurasphere.botmill.kik.incoming.event.VideoMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillController;
+import co.aurasphere.botmill.kik.incoming.event.annotation.TextInputFlow;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 
 /**
@@ -92,7 +93,7 @@ public class IncomingToOutgoingMessageHandler {
 
 	/** The instance. */
 	private static IncomingToOutgoingMessageHandler instance;
-	
+
 	private static final String CONST_INCOMING_MSG_SETNAME = "setIncomingMessage";
 	private static final String CONST_EVENT_SETNAME = "setEvent";
 
@@ -115,7 +116,7 @@ public class IncomingToOutgoingMessageHandler {
 	 *            the message
 	 * @return the incoming to outgoing message handler
 	 */
-	public IncomingToOutgoingMessageHandler processBroadcast(Message message) {
+	public synchronized IncomingToOutgoingMessageHandler processBroadcast(Message message) {
 		handleOutgoingMessage(KikBotMillContext.getInstance().getBroadcastMessageActionFrames(), message, true);
 		return this;
 	}
@@ -127,7 +128,7 @@ public class IncomingToOutgoingMessageHandler {
 	 *            the message
 	 * @return the incoming to outgoing message handler
 	 */
-	public IncomingToOutgoingMessageHandler process(Message message) {
+	public synchronized IncomingToOutgoingMessageHandler process(Message message) {
 		if (KikBotMillContext.getInstance().getActionFrames().size() > 0
 				|| KikBotMillContext.getInstance().getAnyEventActionFrames().size() > 0) {
 			List<Frame> actionFrames = new ArrayList<Frame>();
@@ -149,7 +150,7 @@ public class IncomingToOutgoingMessageHandler {
 	 * @param broadcast
 	 *            the broadcast
 	 */
-	private void handleOutgoingMessage(Message message) {
+	private synchronized void handleOutgoingMessage(Message message) {
 		// Tries to load and instantiate the bot definitions.
 		for (BotDefinition defClass : ConfigurationUtils.getBotDefinitionInstance()) {
 			// Check if it's annotated too.
@@ -158,35 +159,39 @@ public class IncomingToOutgoingMessageHandler {
 				for (Method method : defClass.getClass().getMethods()) {
 					if (method.isAnnotationPresent(KikBotMillController.class)) {
 						KikBotMillController botMillController = method.getAnnotation(KikBotMillController.class);
-						//	check method and next if not next then default processing.
-						String methodNext = KikBotMillContext.getInstance().getConvoMap().get(method.getName());
-						if(methodNext != null && !methodNext.equals("")) {
-							
-						}else {
-							try {
-								String textOrPattern = "";
-								if (!botMillController.text().equals("")) {
-									textOrPattern = botMillController.text();
-								} else {
-									textOrPattern = botMillController.pattern();
-								}
-								Event event = toEvent(botMillController.eventType(), textOrPattern);
-	
-								if (event.verifyEvent((IncomingMessage) message)) {
-									
-									defClass.getClass().getSuperclass()
-											.getDeclaredMethod(CONST_INCOMING_MSG_SETNAME, IncomingMessage.class)
-											.invoke(defClass, ((IncomingMessage) message)); 
-									
-									defClass.getClass().getSuperclass()
-											.getDeclaredMethod(CONST_EVENT_SETNAME, Event.class)
-											.invoke(defClass, event);
-									
-									method.invoke(defClass, message);
-									break;
-								}
-							} catch (Exception e) {
-								e.printStackTrace();
+
+						try {
+							String textOrPattern = "";
+							if (!botMillController.text().equals("")) {
+								textOrPattern = botMillController.text();
+							} else {
+								textOrPattern = botMillController.pattern();
+							}
+							KikBotMillEvent event = toEvent(botMillController.eventType(), textOrPattern);
+
+							if (event.verifyEvent((IncomingMessage) message)) {
+
+								defClass.getClass().getSuperclass()
+										.getDeclaredMethod(CONST_INCOMING_MSG_SETNAME, IncomingMessage.class)
+										.invoke(defClass, ((IncomingMessage) message));
+
+								defClass.getClass().getSuperclass()
+										.getDeclaredMethod(CONST_EVENT_SETNAME, KikBotMillEvent.class)
+										.invoke(defClass, event);
+
+								method.invoke(defClass, message);
+								break;
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						
+						//	also check if this is the start of a convo.
+						if(method.isAnnotationPresent(TextInputFlow.class)) {
+							TextInputFlow textInputFlow = method.getAnnotation(TextInputFlow.class);
+							if(textInputFlow.isStart()) {
+								//	look for the method of the next within the group.
+
 							}
 						}
 					}
@@ -205,7 +210,7 @@ public class IncomingToOutgoingMessageHandler {
 	 * @param broadcast
 	 *            the broadcast
 	 */
-	private void handleOutgoingMessage(List<Frame> actionFrames, Message message, boolean broadcast) {
+	private synchronized void handleOutgoingMessage(List<Frame> actionFrames, Message message, boolean broadcast) {
 		MessagePostback postback = null;
 		if (actionFrames.size() > 0) {
 			for (Frame frame : actionFrames) {
@@ -213,7 +218,10 @@ public class IncomingToOutgoingMessageHandler {
 					postback = new MessagePostback();
 					for (Reply<? extends Message> reply : frame.getReplies()) {
 						OutgoingMessage outgoingMessage = null;
-						if (reply instanceof TextMessageReply) { // can be improve, violates liskov :|
+						if (reply instanceof TextMessageReply) { // can be
+																	// improve,
+																	// violates
+																	// liskov :|
 							outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.TextMessage();
 							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.TextMessage) reply
 									.processReply(message);
@@ -258,14 +266,15 @@ public class IncomingToOutgoingMessageHandler {
 			}
 		}
 	}
-	
+
 	/**
 	 * This method is used to convert an EventType to an Actual Event.
+	 * 
 	 * @param eventType
 	 * @param textOrPattern
 	 * @return
 	 */
-	private Event toEvent(KikBotMillEventType eventType, String textOrPattern) {
+	private synchronized KikBotMillEvent toEvent(KikBotMillEventType eventType, String textOrPattern) {
 		switch (eventType) {
 		case ANY:
 			return new AnyEvent();

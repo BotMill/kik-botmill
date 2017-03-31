@@ -28,14 +28,14 @@ package co.aurasphere.botmill.kik.incoming.event;
 import java.util.regex.Pattern;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.incoming.model.TextMessage;
-import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.KikBotMillEvent;
 
 /**
  * The Class TextMessagePatternEvent.
  * 
  * @author Alvin P. Reyes
  */
-public class TextMessagePatternEvent implements Event {
+public class TextMessagePatternEvent implements KikBotMillEvent {
 
 	/** The keyword pattern. */
 	private String keywordPattern;

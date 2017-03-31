@@ -36,7 +36,7 @@ import java.util.List;
 public abstract class AbstractFrame {
 	
 	/** The event. */
-	protected Event event;
+	protected KikBotMillEvent event;
 	
 	/** The replies. */
 	protected List<Reply<? extends Message>> replies = new ArrayList<Reply<? extends Message>>();

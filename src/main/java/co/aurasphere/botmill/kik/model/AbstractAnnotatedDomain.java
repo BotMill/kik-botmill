@@ -130,7 +130,7 @@ public abstract class AbstractAnnotatedDomain implements Domain {
 	 *            the text or pattern
 	 * @return the event
 	 */
-	private Event toEvent(KikBotMillEventType eventType, String textOrPattern) {
+	private KikBotMillEvent toEvent(KikBotMillEventType eventType, String textOrPattern) {
 		switch (eventType) {
 		case ANY:
 			return new AnyEvent();

@@ -28,6 +28,9 @@ package co.aurasphere.botmill.kik.model;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Properties;
+
+import javax.xml.soap.Text;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import co.aurasphere.botmill.core.BotDefinition;
@@ -37,6 +40,7 @@ import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.builder.ActionFrameBuilder;
 import co.aurasphere.botmill.kik.exception.BotMillMissingConfigurationException;
 import co.aurasphere.botmill.kik.exception.KikBotMillException;
+import co.aurasphere.botmill.kik.flow.model.TextFlow;
 import co.aurasphere.botmill.kik.incoming.event.AnyEvent;
 import co.aurasphere.botmill.kik.incoming.event.DeliveryReceiptEvent;
 import co.aurasphere.botmill.kik.incoming.event.KikBotMillEventType;
@@ -53,6 +57,7 @@ import co.aurasphere.botmill.kik.incoming.event.TextMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.TextMessagePatternEvent;
 import co.aurasphere.botmill.kik.incoming.event.VideoMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillController;
+import co.aurasphere.botmill.kik.incoming.event.annotation.TextInputFlow;
 import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillInit;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.outgoing.model.OutgoingMessage;
@@ -81,18 +86,6 @@ public abstract class KikBot implements BotDefinition {
 	/** The Constant KIK_BOTMILL_API_KEY_PROP. */
 	private static final String KIK_BOTMILL_API_KEY_PROP = "kik.api.key";
 	
-	/** The Constant KIK_BOTMILL_USER_NAME_PROPERTY. */
-	private static final String KIK_BOTMILL_USER_NAME_PROPERTY = "USERNAME";
-	
-	/** The Constant KIK_BOTMILL_API_KEY_PROPERTY. */
-	private static final String KIK_BOTMILL_API_KEY_PROPERTY = "API_KEY";
-	
-	/** The Constant KIK_BOTMILL_USER_NAME_PROP_PHOLDER. */
-	private static final String KIK_BOTMILL_USER_NAME_PROP_PHOLDER = "<USERNAME>";
-	
-	/** The Constant KIK_BOTMILL_API_KEY_PROP_PHOLDER. */
-	private static final String KIK_BOTMILL_API_KEY_PROP_PHOLDER = "<API_KEY>";
-
 	/** The action frame. */
 	private ActionFrame actionFrame;
 
@@ -103,14 +96,14 @@ public abstract class KikBot implements BotDefinition {
 	protected IncomingMessage incomingMessage;
 	
 	/** The event **/
-	protected Event event;
+	protected KikBotMillEvent event;
 	
 	/**
 	 * Sets the incoming message.
 	 *
 	 * @param incomingMessage the new incoming message
 	 */
-	public void setIncomingMessage(IncomingMessage incomingMessage) {
+	public synchronized void setIncomingMessage(IncomingMessage incomingMessage) {
 		this.incomingMessage = incomingMessage;
 	}
 	
@@ -119,7 +112,7 @@ public abstract class KikBot implements BotDefinition {
 	 * 
 	 * @param event
 	 */
-	public void setEvent(Event event) {
+	public synchronized void setEvent(KikBotMillEvent event) {
 		this.event = event;
 	}
 
@@ -135,14 +128,6 @@ public abstract class KikBot implements BotDefinition {
 			e.printStackTrace();
 			logger.error(e.getMessage());
 		}
-	}
-	
-	protected void startConversation(IncomingMessage message) {
-		KikBotMillContext.getInstance().setUserConversation(message.getFrom(), true);
-	}
-	
-	protected void endConversation(IncomingMessage message) {
-		KikBotMillContext.getInstance().setUserConversation(message.getFrom(), false);
 	}
 
 	/* (non-Javadoc)
@@ -176,6 +161,7 @@ public abstract class KikBot implements BotDefinition {
 	private void buildAnnotatedBehaviour() throws KikBotMillException {
 		Method[] methods = this.getClass().getMethods();
 		for (Method method : methods) {
+			//	loop thru the KikBotMillController methods.
 			if (method.isAnnotationPresent(KikBotMillController.class) &&  method.getParameterTypes().length == 0) {
 				KikBotMillController botMillController = method.getAnnotation(KikBotMillController.class);
 				try {
@@ -193,10 +179,31 @@ public abstract class KikBot implements BotDefinition {
 					// add the action frame to the context.
 					KikBotMillContext.getInstance().addActionFrameToContext(actionFrame);
 					
-					// add to method map.
-					KikBotMillContext.getInstance().addToConvoMap(method.getName(), botMillController.next());
 				} catch (Exception e) {
 					e.printStackTrace();
+				}
+			}
+			
+			//	loop thru the flow.
+			if (method.isAnnotationPresent(TextInputFlow.class) 
+					&& method.getReturnType().isPrimitive()) {
+				
+				TextInputFlow textInputFlow = method.getAnnotation(TextInputFlow.class);
+				TextFlow textFlowObj = new TextFlow();
+				textFlowObj.setTo(textInputFlow.to());
+				textFlowObj.setFrom(textInputFlow.from());
+				textFlowObj.setGroupId(textInputFlow.groupId());
+				textFlowObj.setFlowId(textInputFlow.flowId());
+				textFlowObj.setResponse(textInputFlow.response());
+				textFlowObj.setMethod(method);
+				textFlowObj.setEnd(textInputFlow.isEnd());
+				textFlowObj.setEnd(textInputFlow.isStart());
+				
+				//	Make sure that no group is identical.
+				if(KikBotMillContext.getInstance().getTextFlowMap().containsKey(textInputFlow.groupId())) {
+					throw new KikBotMillException("Group ID: " + textInputFlow.groupId()+ ", already exist. Please check if you have more than 1 group id declared");
+				}else {
+					KikBotMillContext.getInstance().addToTextFlowMap(textInputFlow.groupId(), textFlowObj);
 				}
 			}
 		}
@@ -311,7 +318,7 @@ public abstract class KikBot implements BotDefinition {
 	 * @param reply
 	 *            the reply
 	 */
-	protected final void addActionFrame(Event event, Reply<? extends Message> reply) {
+	protected final void addActionFrame(KikBotMillEvent event, Reply<? extends Message> reply) {
 		ActionFrameBuilder.getInstance().setEvent(event).addReply(reply).buildToContext();
 	}
 
@@ -323,7 +330,7 @@ public abstract class KikBot implements BotDefinition {
 	 * @param replies
 	 *            the replies
 	 */
-	protected final void addActionFrame(Event event, List<Reply<? extends Message>> replies) {
+	protected final void addActionFrame(KikBotMillEvent event, List<Reply<? extends Message>> replies) {
 		ActionFrameBuilder.getInstance().setEvent(event).addReplies(replies).buildToContext();
 	}
 
@@ -335,7 +342,7 @@ public abstract class KikBot implements BotDefinition {
 	 * @param replies
 	 *            the replies
 	 */
-	protected final void addActionFrame(Event event, Reply<? extends Message>... replies) {
+	protected final void addActionFrame(KikBotMillEvent event, Reply<? extends Message>... replies) {
 		ActionFrameBuilder.getInstance().setEvent(event).addReplies(replies).buildToContext();
 	}
 
@@ -357,7 +364,7 @@ public abstract class KikBot implements BotDefinition {
 	 *            the text or pattern
 	 * @return the event
 	 */
-	private Event toEvent(KikBotMillEventType eventType, String textOrPattern) {
+	private KikBotMillEvent toEvent(KikBotMillEventType eventType, String textOrPattern) {
 		switch (eventType) {
 		case ANY:
 			return new AnyEvent();

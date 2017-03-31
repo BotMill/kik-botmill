@@ -39,14 +39,14 @@ public interface Frame {
 	 *
 	 * @return the event
 	 */
-	Event getEvent();
+	KikBotMillEvent getEvent();
 	
 	/**
 	 * Sets the event.
 	 *
 	 * @param event the new event
 	 */
-	void setEvent(Event event);
+	void setEvent(KikBotMillEvent event);
 	
 	/**
 	 * Adds the reply.

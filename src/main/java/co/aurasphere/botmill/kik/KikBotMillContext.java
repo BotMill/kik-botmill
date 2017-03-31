@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import co.aurasphere.botmill.kik.configuration.Authentication;
+import co.aurasphere.botmill.kik.flow.model.TextFlow;
 import co.aurasphere.botmill.kik.incoming.event.AnyEvent;
 import co.aurasphere.botmill.kik.model.ActionFrame;
 import co.aurasphere.botmill.kik.model.Domain;
@@ -75,17 +76,24 @@ public class KikBotMillContext {
 	/** The broadcast action frames. */
 	private List<Frame> broadcastActionFrames;
 	
-	private Map<String,String> convoMap = new ConcurrentHashMap<String,String>();
+	private Map<String,TextFlow> textFlowMap = new ConcurrentHashMap<String,TextFlow>();
+	private Map<String,String> userConvoState = new ConcurrentHashMap<String,String>();
 	
-	public Map<String, String> getConvoMap() {
-		return convoMap;
+	public Map<String, TextFlow> getUserConvoState() {
+		return textFlowMap;
 	}
 
-	public Map<String, Boolean> getConvoUser() {
-		return convoUser;
+	public void setUserConvoState(String userId, String state) {
+		this.userConvoState.put(userId, state);
+	}
+	
+	public Map<String, TextFlow> getTextFlowMap() {
+		return textFlowMap;
 	}
 
-	private Map<String,Boolean> convoUser = new ConcurrentHashMap<String, Boolean>();
+	public void addToTextFlowMap(String groupId, TextFlow textFlow) {
+		this.textFlowMap.put(groupId, textFlow);
+	}
 
 	/**
 	 * Instantiates a new kik bot mill context.
@@ -258,14 +266,6 @@ public class KikBotMillContext {
 	 */
 	public void addActionFrameToBroadcast(Frame actionFrame) {
 		this.broadcastActionFrames.add(actionFrame);
-	}
-	
-	public void addToConvoMap(String methodName, String next) {
-		this.convoMap.put(methodName, next);
-	}
-	
-	public void setUserConversation(String username, boolean startOrEnd) {
-		this.convoUser.put(username, startOrEnd);
 	}
 	
 

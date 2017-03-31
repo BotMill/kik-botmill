@@ -28,7 +28,7 @@ package co.aurasphere.botmill.kik.incoming.event;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.incoming.model.StartChattingMessage;
 import co.aurasphere.botmill.kik.incoming.model.StickerMessage;
-import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.KikBotMillEvent;
 import co.aurasphere.botmill.kik.model.MessageType;
 
 /**
@@ -36,7 +36,7 @@ import co.aurasphere.botmill.kik.model.MessageType;
  * 
  * @author Alvin P. Reyes
  */
-public class StickerEvent implements Event {
+public class StickerEvent implements KikBotMillEvent {
 	
 	/* (non-Javadoc)
 	 * @see co.aurasphere.botmill.kik.intf.Event#verifyEvent(co.aurasphere.botmill.kik.incoming.model.IncomingMessage)

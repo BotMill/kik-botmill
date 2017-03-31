@@ -27,14 +27,14 @@ package co.aurasphere.botmill.kik.incoming.event;
 
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.incoming.model.TextMessage;
-import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.KikBotMillEvent;
 
 /**
  * The Class TextMessageEvent.
  * 
  * @author Alvin P. Reyes
  */
-public class TextMessageEvent implements Event {
+public class TextMessageEvent implements KikBotMillEvent {
 	
 	/** The keyword text. */
 	private String keywordText;

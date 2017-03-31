@@ -27,7 +27,7 @@ package co.aurasphere.botmill.kik.incoming.event;
 
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.incoming.model.IsTypingMessage;
-import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.KikBotMillEvent;
 import co.aurasphere.botmill.kik.model.MessageType;
 
 /**
@@ -35,7 +35,7 @@ import co.aurasphere.botmill.kik.model.MessageType;
  * 
  * @author Alvin P. Reyes
  */
-public class IsTypingEvent implements Event {
+public class IsTypingEvent implements KikBotMillEvent {
 	
 	/* (non-Javadoc)
 	 * @see co.aurasphere.botmill.kik.intf.Event#verifyEvent(co.aurasphere.botmill.kik.incoming.model.IncomingMessage)

@@ -31,7 +31,7 @@ import co.aurasphere.botmill.kik.KikBotMillContext;
 import co.aurasphere.botmill.kik.model.ActionFrame;
 import co.aurasphere.botmill.kik.model.Buildable;
 import co.aurasphere.botmill.kik.model.Command;
-import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.KikBotMillEvent;
 import co.aurasphere.botmill.kik.model.Message;
 import co.aurasphere.botmill.kik.model.Reply;
 
@@ -75,7 +75,7 @@ public class ActionFrameBuilder implements Buildable<ActionFrame>{
 	 * @param event the event
 	 * @return the action frame builder
 	 */
-	public ActionFrameBuilder setEvent(Event event) {
+	public ActionFrameBuilder setEvent(KikBotMillEvent event) {
 		actionFrame.setEvent(event);
 		return this;
 	}

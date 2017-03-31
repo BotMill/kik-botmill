@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
-import co.aurasphere.botmill.kik.model.Event;
+import co.aurasphere.botmill.kik.model.KikBotMillEvent;
 import co.aurasphere.botmill.kik.util.json.JsonUtils;
 
 /**
@@ -36,7 +36,7 @@ import co.aurasphere.botmill.kik.util.json.JsonUtils;
  * 
  * @author Alvin P. Reyes
  */
-public class MetadataEvent implements Event {
+public class MetadataEvent implements KikBotMillEvent {
 
 	/** The key. */
 	private String key;

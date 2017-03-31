@@ -32,7 +32,7 @@ import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
  * 
  * @author Alvin P. Reyes
  */
-public interface Event {
+public interface KikBotMillEvent {
 	
 	/**
 	 * Verify event.

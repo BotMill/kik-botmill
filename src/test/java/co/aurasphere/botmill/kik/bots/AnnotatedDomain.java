@@ -37,6 +37,7 @@ import co.aurasphere.botmill.kik.factory.ReplyFactory;
 import co.aurasphere.botmill.kik.incoming.event.KikBotMillEventType;
 import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillController;
 import co.aurasphere.botmill.kik.incoming.event.annotation.KikBotMillInit;
+import co.aurasphere.botmill.kik.incoming.event.annotation.TextInputFlow;
 import co.aurasphere.botmill.kik.incoming.handler.IncomingToOutgoingMessageHandler;
 import co.aurasphere.botmill.kik.incoming.model.IncomingMessage;
 import co.aurasphere.botmill.kik.model.KikBot;
@@ -72,15 +73,16 @@ public class AnnotatedDomain extends KikBot {
 	 * Reply text.
 	 */
 	@KikBotMillController(eventType = KikBotMillEventType.TEXT_MESSAGE, text = "Hi")
+	@TextInputFlow(groupId="simpleq",flowId="startFlow",to="flow1", isStart = true)
 	public void replyText(IncomingMessage message) {
-		//startConversation();
 		// execute a single reply
 		reply(new LinkMessageReply() {
 			public LinkMessage processReply(Message message) { 
 				return LinkMessageBuilder.getInstance()
 						.setTitle("Howdy!")
-						.setUrl("http://alvinjayreyes.com")
-						.setPicUrl("http://pad1.whstatic.com/images/9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
+						.setUrl("http://alvinpreyes.com")
+						.setPicUrl("http://pad1.whstatic.com/images/"
+								+ "9/9b/Get-the-URL-for-Pictures-Step-2-Version-4.jpg")
 						.build();
 			}
 		});
@@ -93,19 +95,20 @@ public class AnnotatedDomain extends KikBot {
 		executeReplies();
 	}
 	
-	
-	@KikBotMillController(next="method2")
-	public void method1(IncomingMessage message) {
-		
-		
+	@TextInputFlow(groupId="simpleq",flowId="flow1",from="startFlow",to="flow2",response="What's your name?")
+	public void question1(IncomingMessage message) {
+		//	catch response here.
 	}
 	
+	@TextInputFlow(groupId="simpleq",flowId="flow2",from="flow1",to="finalFlow",response="What's your email?")
+	public void question2(IncomingMessage message) {
+		//	catch response here.
+		reply(ReplyFactory.buildTextMessageReply("What's your email?"));
+	}
 	
-	@KikBotMillController()
-	public void method2(IncomingMessage message) {
-		
-		
-		//endConversation();
+	@TextInputFlow(groupId="simpleq",flowId="finalFlow", isEnd = true)
+	public void question3(IncomingMessage message) {
+		reply(ReplyFactory.buildTextMessageReply("Great!"));
 	}
 
 	@KikBotMillController(eventType = KikBotMillEventType.ANY)

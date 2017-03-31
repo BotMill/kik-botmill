@@ -43,7 +43,7 @@ public class ActionFrame extends AbstractFrame implements Frame, Serializable {
 	/* (non-Javadoc)
 	 * @see co.aurasphere.botmill.kik.intf.Frame#getEvent()
 	 */
-	public Event getEvent() {
+	public KikBotMillEvent getEvent() {
 		return this.event;
 	}
 	
@@ -58,7 +58,7 @@ public class ActionFrame extends AbstractFrame implements Frame, Serializable {
 	 * @see co.aurasphere.botmill.kik.intf.Frame#setEvent(co.aurasphere.botmill.kik.intf.Event)
 	 */
 	@Override
-	public void setEvent(Event event) {
+	public void setEvent(KikBotMillEvent event) {
 		this.event = event;
 	}
 
