@@ -17,7 +17,6 @@ public @interface TextInputFlow {
 	String flowId() default "";
 	String from() default "";
 	String to() default "";
-	String response() default "";
 	
 	boolean isStart() default false;
 	boolean isEnd() default false;

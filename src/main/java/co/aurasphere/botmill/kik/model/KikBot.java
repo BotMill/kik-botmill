@@ -194,17 +194,12 @@ public abstract class KikBot implements BotDefinition {
 				textFlowObj.setFrom(textInputFlow.from());
 				textFlowObj.setGroupId(textInputFlow.groupId());
 				textFlowObj.setFlowId(textInputFlow.flowId());
-				textFlowObj.setResponse(textInputFlow.response());
 				textFlowObj.setMethod(method);
 				textFlowObj.setEnd(textInputFlow.isEnd());
 				textFlowObj.setEnd(textInputFlow.isStart());
 				
 				//	Make sure that no group is identical.
-				if(KikBotMillContext.getInstance().getTextFlowMap().containsKey(textInputFlow.groupId())) {
-					throw new KikBotMillException("Group ID: " + textInputFlow.groupId()+ ", already exist. Please check if you have more than 1 group id declared");
-				}else {
-					KikBotMillContext.getInstance().addToTextFlowMap(textInputFlow.groupId(), textFlowObj);
-				}
+				KikBotMillContext.getInstance().addToTextFlowList(textFlowObj);
 			}
 		}
 	}
@@ -268,6 +263,10 @@ public abstract class KikBot implements BotDefinition {
 			}
 			actionFrame = null;
 		}
+	}
+	
+	protected final void toFlow(String groupdId, String flowId) {
+		
 	}
 
 	/**

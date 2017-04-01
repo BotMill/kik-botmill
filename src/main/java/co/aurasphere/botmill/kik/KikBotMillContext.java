@@ -76,23 +76,23 @@ public class KikBotMillContext {
 	/** The broadcast action frames. */
 	private List<Frame> broadcastActionFrames;
 	
-	private Map<String,TextFlow> textFlowMap = new ConcurrentHashMap<String,TextFlow>();
-	private Map<String,String> userConvoState = new ConcurrentHashMap<String,String>();
+	private List<TextFlow> textFlowList = new ArrayList<TextFlow>();
+	private Map<String,String> userConvoState = new ConcurrentHashMap<String,String>();	// default user state storage.
 	
-	public Map<String, TextFlow> getUserConvoState() {
-		return textFlowMap;
+	public List<TextFlow> getUserConvoState() {
+		return textFlowList;
 	}
 
 	public void setUserConvoState(String userId, String state) {
 		this.userConvoState.put(userId, state);
 	}
 	
-	public Map<String, TextFlow> getTextFlowMap() {
-		return textFlowMap;
+	public List<TextFlow> getTextFlowList() {
+		return textFlowList;
 	}
 
-	public void addToTextFlowMap(String groupId, TextFlow textFlow) {
-		this.textFlowMap.put(groupId, textFlow);
+	public void addToTextFlowList(TextFlow textFlow) {
+		this.textFlowList.add(textFlow);
 	}
 
 	/**

@@ -88,34 +88,45 @@ public class AnnotatedDomain extends KikBot {
 		});
 		
 		// batch
-		addReply(ReplyFactory.buildTextMessageReply("Batch Reply1"));
-		addReply(ReplyFactory.buildTextMessageReply("Batch Reply2"));
+		//addReply(ReplyFactory.buildTextMessageReply("Batch Reply1"));
+		//addReply(ReplyFactory.buildTextMessageReply("Batch Reply2"));
 		
 		// batch execute replies
-		executeReplies();
+		//executeReplies();
 	}
 	
-	@TextInputFlow(groupId="simpleq",flowId="flow1",from="startFlow",to="flow2",response="What's your name?")
+	@TextInputFlow(groupId="simpleq",flowId="flow1",from="startFlow",to="flow2")
 	public void question1(IncomingMessage message) {
-		//	catch response here.
+		reply(ReplyFactory.buildTextMessageReply("What's your name?")); // this will be caught on the next flow.
 	}
 	
-	@TextInputFlow(groupId="simpleq",flowId="flow2",from="flow1",to="finalFlow",response="What's your email?")
+	@TextInputFlow(groupId="simpleq",flowId="flow2",from="flow1")
 	public void question2(IncomingMessage message) {
-		//	catch response here.
-		reply(ReplyFactory.buildTextMessageReply("What's your email?"));
+		//	catch name 
+		reply(ReplyFactory.buildTextMessageReply("What's your email?")); // this will be caught on the next flow.
+		
+		// or override the flow!
+		toFlow("simple1", "overrideflow");
 	}
 	
-	@TextInputFlow(groupId="simpleq",flowId="finalFlow", isEnd = true)
+	@TextInputFlow(groupId="simpleq",flowId="overrideflow",to="finalFlow") // end it here 
+	public void overrideFlow(IncomingMessage message) {
+		//	catch email 
+		reply(ReplyFactory.buildTextMessageReply("Is this an override?"));
+	}
+	
+	@TextInputFlow(groupId="simpleq",flowId="finalFlow", isEnd = true) // end it here 
 	public void question3(IncomingMessage message) {
+		//	catch the "is this an override".
 		reply(ReplyFactory.buildTextMessageReply("Great!"));
 	}
 
 	@KikBotMillController(eventType = KikBotMillEventType.ANY)
-	public void replyText2(IncomingMessage message) {
-		reply(ReplyFactory.buildTextMessageReply("yeaaasss"));	
-	}
+	public void replyText2(IncomingMessage message) {	
+	
 
+		//reply(ReplyFactory.buildTextMessageReply("yeaaasss"));
+	}
 	
 	/**
 	 * The main method.

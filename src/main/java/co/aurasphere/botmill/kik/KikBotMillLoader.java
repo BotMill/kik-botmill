@@ -118,10 +118,11 @@ public class KikBotMillLoader {
 			String json = readerToString(req.getReader());
 			logger.debug("JSON INPUT: " + json);
 			MessageCallback messages = JsonUtils.fromJson(json, MessageCallback.class);
-
+			
 			// Process each message.
 			for (Message message : messages.getMessages()) {
 				// Process the messages.
+				
 				IncomingToOutgoingMessageHandler.createHandler().process(message);
 
 				// and process any broadcast

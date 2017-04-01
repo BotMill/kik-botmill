@@ -28,15 +28,13 @@ package co.aurasphere.botmill.kik.incoming.handler;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
-import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import co.aurasphere.botmill.core.BotDefinition;
 import co.aurasphere.botmill.core.annotation.Bot;
 import co.aurasphere.botmill.core.internal.util.ConfigurationUtils;
 import co.aurasphere.botmill.kik.KikBotMillContext;
+import co.aurasphere.botmill.kik.flow.model.TextFlow;
 import co.aurasphere.botmill.kik.model.KikBotMillEvent;
 import co.aurasphere.botmill.kik.model.Frame;
 import co.aurasphere.botmill.kik.model.Message;
@@ -116,7 +114,7 @@ public class IncomingToOutgoingMessageHandler {
 	 *            the message
 	 * @return the incoming to outgoing message handler
 	 */
-	public synchronized IncomingToOutgoingMessageHandler processBroadcast(Message message) {
+	public IncomingToOutgoingMessageHandler processBroadcast(Message message) {
 		handleOutgoingMessage(KikBotMillContext.getInstance().getBroadcastMessageActionFrames(), message, true);
 		return this;
 	}
@@ -128,7 +126,7 @@ public class IncomingToOutgoingMessageHandler {
 	 *            the message
 	 * @return the incoming to outgoing message handler
 	 */
-	public synchronized IncomingToOutgoingMessageHandler process(Message message) {
+	public IncomingToOutgoingMessageHandler process(Message message) {
 		if (KikBotMillContext.getInstance().getActionFrames().size() > 0
 				|| KikBotMillContext.getInstance().getAnyEventActionFrames().size() > 0) {
 			List<Frame> actionFrames = new ArrayList<Frame>();
@@ -150,13 +148,17 @@ public class IncomingToOutgoingMessageHandler {
 	 * @param broadcast
 	 *            the broadcast
 	 */
-	private synchronized void handleOutgoingMessage(Message message) {
+	private void handleOutgoingMessage(Message message) {
+		
+		//	Check if current user has an existing convo.
+		
 		// Tries to load and instantiate the bot definitions.
 		for (BotDefinition defClass : ConfigurationUtils.getBotDefinitionInstance()) {
 			// Check if it's annotated too.
 			if (defClass.getClass().isAnnotationPresent(Bot.class)) {
 				// check each method.
 				for (Method method : defClass.getClass().getMethods()) {
+					
 					if (method.isAnnotationPresent(KikBotMillController.class)) {
 						KikBotMillController botMillController = method.getAnnotation(KikBotMillController.class);
 
@@ -167,10 +169,11 @@ public class IncomingToOutgoingMessageHandler {
 							} else {
 								textOrPattern = botMillController.pattern();
 							}
+							
 							KikBotMillEvent event = toEvent(botMillController.eventType(), textOrPattern);
 
 							if (event.verifyEvent((IncomingMessage) message)) {
-
+								
 								defClass.getClass().getSuperclass()
 										.getDeclaredMethod(CONST_INCOMING_MSG_SETNAME, IncomingMessage.class)
 										.invoke(defClass, ((IncomingMessage) message));
@@ -180,28 +183,40 @@ public class IncomingToOutgoingMessageHandler {
 										.invoke(defClass, event);
 
 								method.invoke(defClass, message);
+								
+								//	also check if this is the start of a convo.
+								if(method.isAnnotationPresent(TextInputFlow.class)) {
+									TextInputFlow textInputFlow = method.getAnnotation(TextInputFlow.class);
+									if(textInputFlow.isStart()) {
+										//  set the state to convo.
+										//	look for the method of the next within the group.
+										for(TextFlow tFlow: KikBotMillContext.getInstance().getTextFlowList()) {
+											if(tFlow.getGroupId().equals(textInputFlow.groupId()) && tFlow.getFlowId().equals(textInputFlow.to())) {
+												try {
+													tFlow.getMethod().invoke(defClass, message);
+												} catch (Exception e) {
+													e.printStackTrace();
+												}
+											}
+										}
+
+									}
+								}
+								
 								break;
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
-						}
-						
-						//	also check if this is the start of a convo.
-						if(method.isAnnotationPresent(TextInputFlow.class)) {
-							TextInputFlow textInputFlow = method.getAnnotation(TextInputFlow.class);
-							if(textInputFlow.isStart()) {
-								//	look for the method of the next within the group.
-
-							}
 						}
 					}
 				}
 			}
 		}
 	}
+	
 
 	/**
-	 * Outgoing handler.
+	 * This is the outgoing message handler.
 	 *
 	 * @param actionFrames
 	 *            the action frames
@@ -210,7 +225,7 @@ public class IncomingToOutgoingMessageHandler {
 	 * @param broadcast
 	 *            the broadcast
 	 */
-	private synchronized void handleOutgoingMessage(List<Frame> actionFrames, Message message, boolean broadcast) {
+	private void handleOutgoingMessage(List<Frame> actionFrames, Message message, boolean broadcast) {
 		MessagePostback postback = null;
 		if (actionFrames.size() > 0) {
 			for (Frame frame : actionFrames) {
@@ -218,10 +233,7 @@ public class IncomingToOutgoingMessageHandler {
 					postback = new MessagePostback();
 					for (Reply<? extends Message> reply : frame.getReplies()) {
 						OutgoingMessage outgoingMessage = null;
-						if (reply instanceof TextMessageReply) { // can be
-																	// improve,
-																	// violates
-																	// liskov :|
+						if (reply instanceof TextMessageReply) { 
 							outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.TextMessage();
 							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.TextMessage) reply
 									.processReply(message);
@@ -274,7 +286,7 @@ public class IncomingToOutgoingMessageHandler {
 	 * @param textOrPattern
 	 * @return
 	 */
-	private synchronized KikBotMillEvent toEvent(KikBotMillEventType eventType, String textOrPattern) {
+	private KikBotMillEvent toEvent(KikBotMillEventType eventType, String textOrPattern) {
 		switch (eventType) {
 		case ANY:
 			return new AnyEvent();
