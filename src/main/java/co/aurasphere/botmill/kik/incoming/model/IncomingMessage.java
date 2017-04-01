@@ -54,6 +54,10 @@ public abstract class IncomingMessage extends Message {
 	/** The read receipt requested. */
 	private String readReceiptRequested;
 	
+	
+	/** The chat type. */
+	private String chatType;
+	
 	/**
 	 * Gets the from.
 	 *
@@ -143,4 +147,24 @@ public abstract class IncomingMessage extends Message {
 	public void setReadReceiptRequested(String readReceiptRequested) {
 		this.readReceiptRequested = readReceiptRequested;
 	}
+
+	/**
+	 * Gets the chat type.
+	 *
+	 * @return the chat type
+	 */
+	public String getChatType() {
+		return chatType;
+	}
+
+	/**
+	 * Sets the chat type.
+	 *
+	 * @param chatType the new chat type
+	 */
+	public void setChatType(String chatType) {
+		this.chatType = chatType;
+	}
+	
+	
 }

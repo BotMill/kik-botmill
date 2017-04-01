@@ -57,5 +57,7 @@ public enum KikBotMillEventType {
  /** The video. */
  VIDEO,
  /** The Read Receipt Event **/
- READ_RECEIPT
+ READ_RECEIPT,
+ 
+ META_DATA
 }

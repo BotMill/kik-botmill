@@ -25,6 +25,7 @@
  */
 package co.aurasphere.botmill.kik.incoming.handler;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,7 @@ import co.aurasphere.botmill.kik.incoming.event.FriendPickerEvent;
 import co.aurasphere.botmill.kik.incoming.event.IsTypingEvent;
 import co.aurasphere.botmill.kik.incoming.event.LinkMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.MentionEvent;
+import co.aurasphere.botmill.kik.incoming.event.MetadataEvent;
 import co.aurasphere.botmill.kik.incoming.event.PictureMessageEvent;
 import co.aurasphere.botmill.kik.incoming.event.ReadReceiptEvent;
 import co.aurasphere.botmill.kik.incoming.event.ScanDataEvent;
@@ -150,70 +152,84 @@ public class IncomingToOutgoingMessageHandler {
 	 */
 	private void handleOutgoingMessage(Message message) {
 		
-		//	Check if current user has an existing convo.
-		
 		// Tries to load and instantiate the bot definitions.
 		for (BotDefinition defClass : ConfigurationUtils.getBotDefinitionInstance()) {
 			// Check if it's annotated too.
 			if (defClass.getClass().isAnnotationPresent(Bot.class)) {
 				// check each method.
 				for (Method method : defClass.getClass().getMethods()) {
-					
-					if (method.isAnnotationPresent(KikBotMillController.class)) {
-						KikBotMillController botMillController = method.getAnnotation(KikBotMillController.class);
 
-						try {
-							String textOrPattern = "";
-							if (!botMillController.text().equals("")) {
-								textOrPattern = botMillController.text();
-							} else {
-								textOrPattern = botMillController.pattern();
-							}
+					for (Annotation ant : method.getAnnotations()) {
+						if (ant instanceof KikBotMillController) {
 							
-							KikBotMillEvent event = toEvent(botMillController.eventType(), textOrPattern);
+							KikBotMillController botMillController = (KikBotMillController) ant;
+							try {
+								String textOrPattern = "";
+								if (!botMillController.text().equals("")) {
+									textOrPattern = botMillController.text();
+								} else {
+									textOrPattern = botMillController.pattern();
+								}
 
-							if (event.verifyEvent((IncomingMessage) message)) {
-								
-								defClass.getClass().getSuperclass()
-										.getDeclaredMethod(CONST_INCOMING_MSG_SETNAME, IncomingMessage.class)
-										.invoke(defClass, ((IncomingMessage) message));
+								KikBotMillEvent event = toEvent(botMillController.eventType(), textOrPattern);
 
-								defClass.getClass().getSuperclass()
-										.getDeclaredMethod(CONST_EVENT_SETNAME, KikBotMillEvent.class)
-										.invoke(defClass, event);
+								if (event.verifyEvent((IncomingMessage) message)) {
 
-								method.invoke(defClass, message);
-								
-								//	also check if this is the start of a convo.
-								if(method.isAnnotationPresent(TextInputFlow.class)) {
-									TextInputFlow textInputFlow = method.getAnnotation(TextInputFlow.class);
-									if(textInputFlow.isStart()) {
-										//  set the state to convo.
-										//	look for the method of the next within the group.
-										for(TextFlow tFlow: KikBotMillContext.getInstance().getTextFlowList()) {
-											if(tFlow.getGroupId().equals(textInputFlow.groupId()) && tFlow.getFlowId().equals(textInputFlow.to())) {
-												try {
-													tFlow.getMethod().invoke(defClass, message);
-												} catch (Exception e) {
-													e.printStackTrace();
-												}
-											}
+									defClass.getClass().getSuperclass()
+											.getDeclaredMethod(CONST_INCOMING_MSG_SETNAME, IncomingMessage.class)
+											.invoke(defClass, ((IncomingMessage) message));
+
+									defClass.getClass().getSuperclass()
+											.getDeclaredMethod(CONST_EVENT_SETNAME, KikBotMillEvent.class)
+											.invoke(defClass, event);
+
+									method.invoke(defClass, message);
+
+									break;
+								}
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+						
+						if (ant instanceof TextInputFlow) {
+							TextInputFlow textInputFlow = (TextInputFlow) ant;// method.getAnnotation(TextInputFlow.class);
+							if (textInputFlow.isStart()) {
+								// set the state to convo.
+								// look for the method of the next
+								// within the group.
+								for (TextFlow tFlow : KikBotMillContext.getInstance().getTextFlowList()) {
+									if (tFlow.getGroupId().equals(textInputFlow.groupId())
+											&& tFlow.getFlowId().equals(textInputFlow.to())) {
+										try {
+											tFlow.getMethod().invoke(defClass, message);
+										} catch (Exception e) {
+											e.printStackTrace();
 										}
-
 									}
 								}
+							}else if(textInputFlow.isEnd()) {
+								// set the state to free flow
+								for (TextFlow tFlow : KikBotMillContext.getInstance().getTextFlowList()) {
+									if (tFlow.getGroupId().equals(textInputFlow.groupId())
+											&& tFlow.getFlowId().equals(textInputFlow.flowId())) {
+										try {
+											tFlow.getMethod().invoke(defClass, message);
+										} catch (Exception e) {
+											e.printStackTrace();
+										}
+									}
+								}
+							}else {
 								
-								break;
 							}
-						} catch (Exception e) {
-							e.printStackTrace();
 						}
 					}
+
 				}
 			}
 		}
 	}
-	
 
 	/**
 	 * This is the outgoing message handler.
@@ -233,7 +249,7 @@ public class IncomingToOutgoingMessageHandler {
 					postback = new MessagePostback();
 					for (Reply<? extends Message> reply : frame.getReplies()) {
 						OutgoingMessage outgoingMessage = null;
-						if (reply instanceof TextMessageReply) { 
+						if (reply instanceof TextMessageReply) {
 							outgoingMessage = new co.aurasphere.botmill.kik.outgoing.model.TextMessage();
 							outgoingMessage = (co.aurasphere.botmill.kik.outgoing.model.TextMessage) reply
 									.processReply(message);
@@ -288,8 +304,8 @@ public class IncomingToOutgoingMessageHandler {
 	 */
 	private KikBotMillEvent toEvent(KikBotMillEventType eventType, String textOrPattern) {
 		switch (eventType) {
-		case ANY:
-			return new AnyEvent();
+		case META_DATA:
+			return new MetadataEvent(textOrPattern);
 		case DELIVERY_RECEIPT:
 			return new DeliveryReceiptEvent();
 		case FRIEND_PICKER:
@@ -316,6 +332,10 @@ public class IncomingToOutgoingMessageHandler {
 			return new VideoMessageEvent();
 		case READ_RECEIPT:
 			return new ReadReceiptEvent();
+		case ANY:
+			return new AnyEvent();
+		default:
+			break;
 		}
 		return null; // it's impossible to have a null event, but if it does
 						// happen, it will be ignored on the handler.

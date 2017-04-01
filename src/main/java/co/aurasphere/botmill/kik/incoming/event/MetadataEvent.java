@@ -57,6 +57,8 @@ public class MetadataEvent implements KikBotMillEvent {
 		this.key = key;
 		this.value = value;
 	}
+	
+	public MetadataEvent(String key) {}
 
 	
 	/* (non-Javadoc)
@@ -66,7 +68,7 @@ public class MetadataEvent implements KikBotMillEvent {
 	public boolean verifyEvent(IncomingMessage message) {
 		if(message.getMetadata() != null) {
 			metadataMap = (Map<String,String>)JsonUtils.fromJson(message.getMetadata(), metadataMap.getClass());
-			if(metadataMap.get(key).equals(value)) {
+			if(metadataMap.get(key) != null) {
 				return true;
 			}
 		}
